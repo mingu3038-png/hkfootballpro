@@ -81,6 +81,8 @@ export interface TodayFreeFocus {
   statusLabel: string;
   analysisUrl: string;
   ctaLabel: string;
+  /** 手机端 TG 主按钮文案 */
+  mobileTgCtaLabel?: string;
 }
 
 /** 首页手机端 · 今日赛前分析卡片 */

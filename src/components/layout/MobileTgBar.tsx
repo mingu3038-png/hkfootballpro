@@ -13,7 +13,7 @@ export function MobileTgBar({ label = TELEGRAM_CTA_LABEL }: MobileTgBarProps) {
       className="mobile-tg-bar"
     >
       <span className="mobile-tg-bar__icon" aria-hidden>
-        ✈
+        🔥
       </span>
       <span className="mobile-tg-bar__text">{label}</span>
     </a>

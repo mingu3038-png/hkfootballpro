@@ -68,8 +68,14 @@ export function TodayFreeFocus({ data }: TodayFreeFocusProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="today-free-focus__btn"
+                  aria-label={data.mobileTgCtaLabel ?? '立即入 TG 睇臨場'}
                 >
-                  {TELEGRAM_CTA_LABEL}
+                  <span className="home-cta-label home-cta-label--desktop">
+                    {TELEGRAM_CTA_LABEL}
+                  </span>
+                  <span className="home-cta-label home-cta-label--mobile">
+                    {data.mobileTgCtaLabel ?? '立即入 TG 睇臨場'}
+                  </span>
                 </a>
 
                 <span className="today-free-focus__status">

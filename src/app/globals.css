@@ -2449,6 +2449,11 @@ a.today-free-focus__btn:hover {
   gap: 0.4rem;
 }
 
+/* 首页 TG 按钮 · 桌面/手机双文案（手机切换见 home-mobile.css） */
+.home-cta-label--mobile {
+  display: none;
+}
+
 /* 首页手机端赛前分析 · 桌面隐藏，样式见 home-mobile.css */
 .home-today-analysis {
   display: none;

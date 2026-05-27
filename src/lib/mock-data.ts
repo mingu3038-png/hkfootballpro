@@ -141,6 +141,7 @@ function mapDailyHomeUpdate(
       statusLabel: daily.freeFocus.statusLabel ?? '免费公开',
       analysisUrl,
       ctaLabel: daily.freeFocus.ctaLabel ?? '查看完整分析',
+      mobileTgCtaLabel: daily.freeFocus.mobileTgCtaLabel,
     },
     // ① 关联：手机端赛前分析（同场 matchTitle = freeFocus.match）
     todayPreMatchAnalysis: {
@@ -211,6 +212,7 @@ export const dailyHomeUpdate: DailyHomeUpdate = {
     statusLabel: '免费公开', // 角标，如「免费公开」
     analysisUrl: '/analysis/man-united-vs-liverpool-2026-05-25', // 「查看完整分析」链接
     ctaLabel: '查看完整分析',
+    mobileTgCtaLabel: '立即入 TG 睇臨場', // 手机端 TG 按钮（桌面不变）
   },
 
   // ===========================================================================
@@ -268,6 +270,8 @@ export const dailyHomeUpdate: DailyHomeUpdate = {
     // — Hero 三个按钮文案 —
     ctaButtons: {
       primary: '立即加入 TG',
+      /** 手机 Hero 主按钮（桌面仍用 primary） */
+      mobilePrimary: '🔥 免費領今晚重心',
       secondary: '免费领取今晚重心',
       tertiary: '获取临场方向',
     },
@@ -294,7 +298,7 @@ export const dailyHomeUpdate: DailyHomeUpdate = {
       followerNote: '已有 2,847 位波友领取今晚重心',
     },
 
-    mobileBarLabel: '立即加入 TG', // 手机底部固定条
+    mobileBarLabel: '🔥 入 TG 睇今晚重心', // 手机底部固定条
     winRatePercent: 70, // Hero 胜率数字（可与 lastNight.winRatePercent 一致）
 
     // — Hero 下方横向滚动条（非顶部跑马灯）—

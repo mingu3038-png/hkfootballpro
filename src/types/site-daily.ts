@@ -44,6 +44,8 @@ export interface TgPromoContent {
     /** TG 按钮文案组 */
     ctaButtons?: {
       primary: string;
+      /** 手机 Hero 主按钮文案 */
+      mobilePrimary?: string;
       secondary: string;
       tertiary: string;
     };
@@ -105,6 +107,8 @@ export interface DailyHomeFreeFocus {
   statusLabel?: string;
   analysisUrl?: string;
   ctaLabel?: string;
+  /** 手机端 TG 按钮（桌面仍用全站 TELEGRAM_CTA_LABEL） */
+  mobileTgCtaLabel?: string;
 }
 
 export interface DailyLiveDirectionUpdate {

@@ -8,7 +8,15 @@
   body:has(.home-page) {
     overflow-x: hidden;
     max-width: 100%;
-    padding-bottom: calc(62px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  }
+
+  body:has(.home-page) .home-cta-label--desktop {
+    display: none !important;
+  }
+
+  body:has(.home-page) .home-cta-label--mobile {
+    display: inline !important;
   }
 
   body:has(.home-page) main {
@@ -130,8 +138,9 @@
     position: fixed;
     left: 12px;
     right: 12px;
-    bottom: calc(8px + env(safe-area-inset-bottom, 0px));
-    z-index: 100;
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    z-index: 90;
+    pointer-events: auto;
     align-items: center;
     justify-content: center;
     gap: 0.45rem;
@@ -565,7 +574,13 @@
 
   body:has(.home-page) .home-hero__tg-btn strong,
   body:has(.home-page) .home-hero__tg-btn--closed strong {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
+    line-height: 1.2;
+  }
+
+  body:has(.home-page) .today-free-focus__btn .home-cta-label--mobile {
+    font-size: 0.84rem;
+    letter-spacing: 0.02em;
   }
 
   .mobile-tg-bar__icon {

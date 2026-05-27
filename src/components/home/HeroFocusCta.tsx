@@ -40,9 +40,11 @@ export function HeroFocusCta({ home }: HeroFocusCtaProps) {
   const closed = secondsLeft <= 0;
   const cta = home.ctaButtons ?? {
     primary: TELEGRAM_CTA_LABEL,
+    mobilePrimary: '🔥 免費領今晚重心',
     secondary: '免费领取今晚重心',
     tertiary: '获取临场方向',
   };
+  const mobilePrimary = cta.mobilePrimary ?? '🔥 免費領今晚重心';
 
   return (
     <div className="home-hero__focus-cta">
@@ -66,10 +68,14 @@ export function HeroFocusCta({ home }: HeroFocusCtaProps) {
           target="_blank"
           rel="noopener noreferrer"
           className="home-hero__tg-btn"
+          aria-label={mobilePrimary}
         >
           <TelegramIcon className="home-hero__tg-icon" />
           <span>
-            <strong>{cta.primary}</strong>
+            <strong>
+              <span className="home-cta-label home-cta-label--desktop">{cta.primary}</span>
+              <span className="home-cta-label home-cta-label--mobile">{mobilePrimary}</span>
+            </strong>
           </span>
         </a>
       )}
