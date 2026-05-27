@@ -128,24 +128,24 @@ h3 {
 }
 
 .home-pred-dir__chip {
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-pill);
   font-weight: 600;
-  background: rgba(16, 6, 10, 0.45);
-  backdrop-filter: blur(14px) saturate(1.2);
-  -webkit-backdrop-filter: blur(14px) saturate(1.2);
-  box-shadow: var(--shadow-card);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px) saturate(1.15);
+  -webkit-backdrop-filter: blur(10px) saturate(1.15);
+  box-shadow: none;
   transition:
     box-shadow 0.25s ease,
-    transform 0.2s ease,
+    background 0.2s ease,
     color 0.2s ease;
 }
 
 .home-pred-dir__chip:hover {
-  color: #f5f5f4;
-  border: none;
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-1px);
+  color: #fff;
+  border-color: rgba(212, 184, 106, 0.28);
+  box-shadow: 0 0 16px rgba(127, 29, 29, 0.22);
+  transform: none;
 }
 
 .home-pred-dir__title {

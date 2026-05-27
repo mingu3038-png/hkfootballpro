@@ -15,6 +15,13 @@ interface HomeTodayFocusMatchesProps {
   matches: MatchListItem[];
 }
 
+type FocusCardTier = 'hero' | 'sub' | 'std';
+
+interface FocusMatchCardProps {
+  match: MatchListItem;
+  tier: FocusCardTier;
+}
+
 function focusCta(match: MatchListItem): { href: string; label: string } {
   if (match.analysisPublished) {
     return { href: getAnalysisUrl(match.slug), label: '查看赛前分析 →' };
@@ -22,7 +29,7 @@ function focusCta(match: MatchListItem): { href: string; label: string } {
   return { href: getAnalysisUrl(match.slug), label: '查看赛事 →' };
 }
 
-function FocusMatchCard({ match }: { match: MatchListItem }) {
+function FocusMatchCard({ match, tier }: FocusMatchCardProps) {
   const { homeSlug, awaySlug } = parseTeamsFromMatchSlug(match.slug);
   const homeBg = getTeamLogoPath(match.homeTeam.slug ?? homeSlug, match.homeTeam.nameZh);
   const awayBg = getTeamLogoPath(match.awayTeam.slug ?? awaySlug, match.awayTeam.nameZh);
@@ -30,7 +37,10 @@ function FocusMatchCard({ match }: { match: MatchListItem }) {
   const matchup = `${match.homeTeam.nameZh} vs ${match.awayTeam.nameZh}`;
 
   return (
-    <article className="home-focus-matches__card" role="listitem">
+    <article
+      className={`home-focus-matches__card home-focus-matches__card--${tier}`}
+      role="listitem"
+    >
       <div className="home-focus-matches__poster">
         <div className="home-focus-matches__bg" aria-hidden>
           <div
@@ -98,10 +108,15 @@ function FocusMatchCard({ match }: { match: MatchListItem }) {
   );
 }
 
-/** 首页 · 今日重点赛事精华（PC 6 场 / 手机 4 场，非完整列表） */
+/** 首页 · 今日重点赛事（主卡 + 副卡 + 普通卡，共 6 场） */
 export function HomeTodayFocusMatches({ matches }: HomeTodayFocusMatchesProps) {
   const items = matches.slice(0, HOME_FOCUS_MATCHES_MAX);
   if (items.length === 0) return null;
+
+  const hero = items[0];
+  const secondary = items.slice(1, 3);
+  const tertiary = items.slice(3, 6);
+  const mobileRest = items.slice(1);
 
   return (
     <section className="home-focus-matches" aria-labelledby="home-focus-matches-title">
@@ -118,10 +133,36 @@ export function HomeTodayFocusMatches({ matches }: HomeTodayFocusMatchesProps) {
           </Link>
         </div>
 
-        <div className="home-focus-matches__grid" role="list">
-          {items.map((match) => (
-            <FocusMatchCard key={match.id} match={match} />
+        <div className="home-focus-matches__layout">
+          {hero && <FocusMatchCard match={hero} tier="hero" />}
+
+          {secondary.map((match) => (
+            <FocusMatchCard key={`pc-sub-${match.id}`} match={match} tier="sub" />
           ))}
+
+          {tertiary.length > 0 && (
+            <div className="home-focus-matches__std-row" role="list">
+              {tertiary.map((match) => (
+                <FocusMatchCard key={`pc-std-${match.id}`} match={match} tier="std" />
+              ))}
+            </div>
+          )}
+
+          {mobileRest.length > 0 && (
+            <div
+              className="home-focus-matches__rail"
+              role="list"
+              aria-label="更多重点赛事"
+            >
+              {mobileRest.map((match, index) => (
+                <FocusMatchCard
+                  key={`mob-${match.id}`}
+                  match={match}
+                  tier={index < secondary.length ? 'sub' : 'std'}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="home-focus-matches__foot">

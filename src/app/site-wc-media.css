@@ -276,21 +276,37 @@ a.mobile-tg-bar:hover {
     radial-gradient(ellipse 85% 75% at 82% 78%, rgba(16, 52, 32, 0.18) 0%, transparent 52%) !important;
 }
 
-/* 分析入口 = 金色媒体 pill，非红按钮 */
+/* 主推 CTA · 红金世界杯渐变 */
 .home-focus-matches__cta {
-  color: #1a1816 !important;
-  background: linear-gradient(135deg, #d4b86a 0%, var(--highlight-gold) 100%) !important;
-  box-shadow: var(--shadow-card) !important;
+  color: #fff !important;
+  background: linear-gradient(118deg, #7f1d1d 0%, #b91c1c 42%, #a16207 100%) !important;
+  border: 1px solid rgba(252, 211, 77, 0.35) !important;
+  box-shadow:
+    0 4px 14px rgba(127, 29, 29, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
 }
 
 .home-focus-matches__cta:hover {
-  box-shadow: var(--shadow-hover) !important;
+  box-shadow:
+    0 0 22px rgba(185, 28, 28, 0.55),
+    0 0 36px rgba(212, 184, 106, 0.28),
+    0 6px 18px rgba(0, 0, 0, 0.4) !important;
+}
+
+.home-pred-dir {
+  background: linear-gradient(180deg, rgba(14, 10, 12, 0.5) 0%, rgba(10, 8, 10, 0.28) 100%) !important;
 }
 
 .home-pred-dir__chip {
-  background: var(--glass-surface) !important;
-  backdrop-filter: var(--glass-blur) !important;
-  -webkit-backdrop-filter: var(--glass-blur) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+.home-pred-dir__chip:hover {
+  background: rgba(127, 29, 29, 0.35) !important;
+  border-color: rgba(212, 184, 106, 0.28) !important;
 }
 
 .last-night-results {
