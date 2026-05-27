@@ -296,8 +296,10 @@ a.mobile-tg-bar:hover {
 .home-hero__match-hub-cta:hover,
 .home-hero__cta-secondary-btn:hover {
   box-shadow:
-    0 0 20px rgba(212, 184, 106, 0.4),
-    0 4px 14px rgba(127, 29, 29, 0.25) !important;
+    0 0 40px rgba(212, 184, 106, 0.55),
+    0 0 48px rgba(239, 68, 68, 0.45),
+    0 0 28px rgba(185, 28, 28, 0.4),
+    0 8px 22px rgba(0, 0, 0, 0.42) !important;
 }
 
 .home-pred-dir {

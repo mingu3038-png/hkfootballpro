@@ -58,6 +58,11 @@ export function HeroTonightSpotlight({
             className="home-hero__match-hub-bg-team home-hero__match-hub-bg-team--away"
             style={{ backgroundImage: `url(${awayBg})` }}
           />
+          <div className="home-hero__match-hub-bg-lights" aria-hidden>
+            <span className="home-hero__match-hub-bg-light home-hero__match-hub-bg-light--left" />
+            <span className="home-hero__match-hub-bg-light home-hero__match-hub-bg-light--right" />
+            <span className="home-hero__match-hub-bg-light home-hero__match-hub-bg-light--beam" />
+          </div>
           <div className="home-hero__match-hub-bg-tint" style={{ background: tint }} />
           <div className="home-hero__match-hub-bg-veil" />
         </div>
