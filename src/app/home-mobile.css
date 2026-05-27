@@ -780,14 +780,6 @@
 
   body:has(.home-page) .home-hero__title {
     order: 0;
-    font-size: 0.614rem;
-    line-height: 1.06;
-    margin: 0 0 0.06rem;
-  }
-
-  .home-hero__title-gold,
-  .home-hero__title-red {
-    font-size: inherit;
   }
 
   .home-hero__subtitle {
@@ -1322,9 +1314,11 @@
   body:has(.home-page) .home-today-analysis__title,
   body:has(.home-page) .home-live-updates__title,
   body:has(.home-page) .last-night-results__title-accent,
-  body:has(.home-page) .home-hero__title-gold {
-    color: var(--m-gold) !important;
-    text-shadow: 0 0 12px var(--m-gold-glow);
+  body:has(.home-page) .home-hero__title-gold,
+  body:has(.home-page) .home-hero__title-red {
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
   }
 
   body:has(.home-page) .home-today-analysis__match,

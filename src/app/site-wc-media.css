@@ -214,14 +214,7 @@ a.mobile-tg-bar:hover {
   box-shadow: var(--shadow-hover) !important;
 }
 
-.home-hero__title-red {
-  color: var(--cta-red) !important;
-  text-shadow: 0 0 20px var(--cta-red-glow) !important;
-}
-
-.home-hero__title-gold,
-.home-hero__stat-rate,
-.home-hero__title-gold {
+.home-hero__stat-rate {
   color: var(--highlight-gold) !important;
   text-shadow: 0 0 16px rgba(184, 148, 70, 0.25) !important;
 }
@@ -364,9 +357,13 @@ a.mobile-tg-bar:hover {
 }
 
 .site-header {
-  background: rgba(5, 5, 5, 0.82) !important;
-  backdrop-filter: var(--glass-blur) !important;
-  -webkit-backdrop-filter: var(--glass-blur) !important;
+  background: rgba(6, 3, 5, 0.55) !important;
+  backdrop-filter: blur(24px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.5) !important;
+  border-bottom: 1px solid rgba(212, 184, 106, 0.12) !important;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
 }
 
 body:has(.home-page) .site-header::after {

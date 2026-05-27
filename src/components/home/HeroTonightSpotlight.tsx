@@ -1,5 +1,6 @@
 'use client';
 
+import type { CSSProperties } from 'react';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { TeamLogo } from '@/components/ui/TeamLogo';
@@ -65,6 +66,16 @@ export function HeroTonightSpotlight({
           </div>
           <div className="home-hero__match-hub-bg-tint" style={{ background: tint }} />
           <div className="home-hero__match-hub-bg-veil" />
+        </div>
+
+        <div className="home-hero__match-hub-particles" aria-hidden>
+          {Array.from({ length: 12 }).map((_, i) => (
+            <span
+              key={i}
+              className="home-hero__match-hub-particle"
+              style={{ '--p': i } as CSSProperties}
+            />
+          ))}
         </div>
 
         <span className="home-hero__match-hub-glow" aria-hidden />

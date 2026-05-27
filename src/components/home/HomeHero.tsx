@@ -67,7 +67,14 @@ export function HomeHero({ tgPromo, streak, heroTonightFeature }: HomeHeroProps)
         <div className="home-hero__smoke" />
         <div className="home-hero__smoke--a" />
         <div className="home-hero__smoke--b" />
+        <div className="home-hero__stadium-lights" aria-hidden>
+          <span className="home-hero__stadium-light home-hero__stadium-light--left" />
+          <span className="home-hero__stadium-light home-hero__stadium-light--right" />
+          <span className="home-hero__stadium-light home-hero__stadium-light--center" />
+        </div>
+        <div className="home-hero__pitch-mist" aria-hidden />
         <div className="home-hero__fog-overlay" />
+        <div className="home-hero__top-vignette" aria-hidden />
         <div className="home-hero__particles">
           {Array.from({ length: 18 }).map((_, i) => (
             <span key={i} className="home-hero__particle" style={{ '--i': i } as CSSProperties} />

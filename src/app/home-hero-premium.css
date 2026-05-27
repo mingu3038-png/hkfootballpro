@@ -1,0 +1,509 @@
+/* ========== Hero · Apple Sports / 世界杯专题升级 ========== */
+
+/* —— 左侧超大标题 · 红金渐变 + glow —— */
+.home-hero__title {
+  font-size: clamp(2.65rem, 7.2vw, 4.85rem);
+  line-height: 0.92;
+  margin: 0 0 1.65rem;
+  letter-spacing: -0.04em;
+  filter: drop-shadow(0 0 28px rgba(185, 28, 28, 0.28))
+    drop-shadow(0 0 40px rgba(212, 184, 106, 0.18));
+}
+
+.home-hero__title-gold,
+.home-hero__title-red {
+  display: block;
+  background: linear-gradient(
+    135deg,
+    #fffbeb 0%,
+    #fde68a 14%,
+    #fbbf24 26%,
+    #ef4444 42%,
+    #b91c1c 56%,
+    #f59e0b 72%,
+    #e8c547 86%,
+    #ca8a04 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+  text-shadow: none !important;
+}
+
+.home-hero__title-gold {
+  background-size: 200% 200%;
+  animation: hero-title-shimmer 8s ease-in-out infinite;
+}
+
+.home-hero__title-red {
+  background-size: 200% 200%;
+  background-position: 100% 50%;
+  animation: hero-title-shimmer 8s ease-in-out infinite reverse;
+}
+
+@keyframes hero-title-shimmer {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.home-hero__left .home-hero__title-gold,
+.home-hero__left .home-hero__title-red {
+  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.85))
+    drop-shadow(0 0 24px rgba(239, 68, 68, 0.35))
+    drop-shadow(0 0 36px rgba(232, 197, 71, 0.22));
+}
+
+/* —— 左侧 bullet · 发光圆点 + 高级间距 —— */
+.home-hero__highlights {
+  margin: 0 0 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.72rem;
+}
+
+.home-hero__highlight-item {
+  gap: 0.72rem;
+  margin-bottom: 0;
+  padding: 0.12rem 0;
+  font-size: 0.86rem;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+}
+
+.home-hero__highlight-dot {
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, #ef4444 0%, #fde68a 100%);
+  box-shadow:
+    0 0 10px rgba(239, 68, 68, 0.85),
+    0 0 18px rgba(232, 197, 71, 0.45),
+    0 0 0 3px rgba(239, 68, 68, 0.15);
+  animation: hero-bullet-pulse 2.4s ease-in-out infinite;
+}
+
+.home-hero__highlight-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(253, 224, 71, 0.35);
+  opacity: 0.6;
+}
+
+.home-hero__highlight-dot {
+  position: relative;
+}
+
+.home-hero__status-list {
+  gap: 0.88rem;
+  margin: 0 0 1.65rem;
+}
+
+.home-hero__status-item {
+  gap: 0.78rem;
+  font-size: 0.98rem;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
+.home-hero__status-dot {
+  width: 9px;
+  height: 9px;
+  background: linear-gradient(135deg, #ef4444, #fca5a5);
+  box-shadow:
+    0 0 12px rgba(239, 68, 68, 0.9),
+    0 0 22px rgba(185, 28, 28, 0.45),
+    0 0 0 3px rgba(239, 68, 68, 0.12);
+  animation: hero-bullet-pulse 2.2s ease-in-out infinite;
+}
+
+.home-hero__status-dot--gold {
+  background: linear-gradient(135deg, #fde68a, #ca8a04);
+  box-shadow:
+    0 0 12px rgba(232, 197, 71, 0.85),
+    0 0 22px rgba(212, 184, 106, 0.4),
+    0 0 0 3px rgba(232, 197, 71, 0.12);
+  animation-delay: -1.1s;
+}
+
+@keyframes hero-bullet-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.82;
+  }
+}
+
+/* —— Hero 背景 · 模糊灯光 / 雾气 / 顶部暗角 —— */
+.home-hero__stadium-lights {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.home-hero__stadium-light {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(48px);
+  mix-blend-mode: screen;
+}
+
+.home-hero__stadium-light--left {
+  top: -8%;
+  left: -6%;
+  width: 42%;
+  height: 55%;
+  background: radial-gradient(circle, rgba(255, 251, 235, 0.35) 0%, rgba(212, 184, 106, 0.15) 40%, transparent 72%);
+  animation: stadium-light-drift 9s ease-in-out infinite;
+}
+
+.home-hero__stadium-light--right {
+  top: -5%;
+  right: -8%;
+  width: 38%;
+  height: 52%;
+  background: radial-gradient(circle, rgba(254, 202, 202, 0.32) 0%, rgba(185, 28, 28, 0.18) 42%, transparent 70%);
+  animation: stadium-light-drift 11s ease-in-out infinite reverse;
+}
+
+.home-hero__stadium-light--center {
+  top: -22%;
+  left: 50%;
+  width: 70%;
+  height: 48%;
+  margin-left: -35%;
+  background: radial-gradient(ellipse 50% 100% at 50% 100%, rgba(255, 255, 255, 0.2) 0%, transparent 68%);
+  filter: blur(56px);
+  opacity: 0.75;
+}
+
+.home-hero__pitch-mist {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(12, 36, 22, 0.08) 42%, rgba(8, 28, 18, 0.28) 100%),
+    radial-gradient(ellipse 120% 45% at 50% 88%, rgba(180, 200, 190, 0.12) 0%, transparent 58%),
+    radial-gradient(ellipse 80% 35% at 20% 72%, rgba(80, 20, 20, 0.14) 0%, transparent 65%),
+    radial-gradient(ellipse 80% 35% at 80% 68%, rgba(60, 15, 15, 0.12) 0%, transparent 65%);
+  filter: blur(2px);
+  opacity: 0.88;
+  animation: pitch-mist-drift 16s ease-in-out infinite;
+}
+
+.home-hero__top-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.62) 0%,
+    rgba(0, 0, 0, 0.28) 14%,
+    transparent 32%
+  );
+}
+
+@keyframes stadium-light-drift {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: translate(0, 0);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translate(12px, 6px);
+  }
+}
+
+@keyframes pitch-mist-drift {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translateX(18px);
+  }
+}
+
+.home-hero__fog-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background:
+    linear-gradient(0deg, rgba(6, 2, 4, 0.7) 0%, rgba(40, 10, 16, 0.22) 38%, transparent 62%),
+    radial-gradient(ellipse 100% 55% at 50% 75%, rgba(50, 12, 18, 0.28) 0%, transparent 68%);
+  opacity: 0.55;
+}
+
+.home-hero__vignette {
+  background:
+    radial-gradient(ellipse 85% 90% at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.22) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.48) 0%, transparent 36%, transparent 70%, rgba(0, 0, 0, 0.12) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.38) 0%, transparent 26%, transparent 70%, rgba(0, 0, 0, 0.28) 100%);
+}
+
+/* —— 整体留白 —— */
+.home-hero__inner {
+  padding-top: 2.35rem;
+  padding-bottom: 2rem;
+}
+
+.home-hero__grid {
+  gap: 2.15rem;
+}
+
+.home-hero__left {
+  padding-top: 0.5rem;
+}
+
+/* —— 中区主推 · 粒子 + hover 微动画 —— */
+.home-hero__match-hub-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.home-hero__match-hub-particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  left: calc(8% + (var(--p) * 7.2%));
+  top: calc(12% + (var(--p) * 5.8%));
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 6px rgba(212, 184, 106, 0.35);
+  animation: hub-particle-float calc(6s + (var(--p) * 0.35s)) ease-in-out infinite;
+  animation-delay: calc(var(--p) * -0.45s);
+  opacity: 0;
+}
+
+.home-hero__match-hub-particle:nth-child(3n) {
+  width: 3px;
+  height: 3px;
+  background: rgba(253, 224, 71, 0.4);
+}
+
+.home-hero__match-hub-particle:nth-child(3n + 1) {
+  background: rgba(252, 165, 165, 0.35);
+}
+
+@keyframes hub-particle-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate(6px, -14px) scale(1);
+    opacity: 0.35;
+  }
+  80% {
+    opacity: 0.15;
+  }
+}
+
+.home-hero__match-hub-panel {
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease;
+}
+
+.home-hero__match-hub-panel:hover .home-hero__match-hub-crest-img {
+  transform: scale(1.04);
+}
+
+.home-hero__match-hub-panel:hover .home-hero__match-hub-time {
+  text-shadow:
+    0 0 40px rgba(232, 197, 71, 0.55),
+    0 0 56px rgba(212, 184, 106, 0.28),
+    0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.home-hero__match-hub-crest-img {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.home-hero__match-hub-pick {
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+.home-hero__match-hub-panel:hover .home-hero__match-hub-pick--dir {
+  transform: translateY(-1px);
+}
+
+.home-hero__match-hub-panel:hover .home-hero__match-hub-pick--rate {
+  transform: translateY(-1px);
+}
+
+/* —— 顶栏 · 玻璃拟态 + 按钮 hover —— */
+.site-header {
+  background: rgba(8, 4, 6, 0.52) !important;
+  backdrop-filter: blur(22px) saturate(1.45) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(1.45) !important;
+  border-bottom: 1px solid rgba(212, 184, 106, 0.14) !important;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+
+.site-header__nav-link {
+  position: relative;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.22s ease;
+}
+
+.site-header__nav-link:hover {
+  color: #fafafa !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  box-shadow:
+    0 0 20px rgba(212, 184, 106, 0.12),
+    inset 0 0 0 1px rgba(212, 184, 106, 0.18);
+  transform: translateY(-1px);
+}
+
+.site-header__btn {
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.28s ease,
+    filter 0.22s ease;
+}
+
+.site-header__btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 28px rgba(239, 68, 68, 0.5),
+    0 0 36px rgba(212, 184, 106, 0.22),
+    0 8px 22px rgba(0, 0, 0, 0.4) !important;
+}
+
+.site-header__btn--outline:hover {
+  transform: translateY(-1px);
+  color: #fde68a !important;
+  border-color: rgba(212, 184, 106, 0.45) !important;
+  box-shadow:
+    0 0 22px rgba(212, 184, 106, 0.2),
+    inset 0 0 0 1px rgba(212, 184, 106, 0.15) !important;
+}
+
+.site-header__tg {
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.28s ease !important;
+}
+
+.site-header__tg:hover {
+  transform: translateY(-2px);
+}
+
+@media (min-width: 769px) {
+  .home-hero__inner {
+    padding-top: 2.65rem;
+    padding-bottom: 2.35rem;
+  }
+
+  .home-hero__grid {
+    gap: 2.35rem 1.65rem;
+  }
+
+  .home-hero__title {
+    font-size: clamp(3rem, 5.8vw, 5.1rem);
+    margin-bottom: 1.85rem;
+  }
+
+  .home-hero__stadium-light--center {
+    opacity: 0.9;
+  }
+
+  .home-hero__fog-overlay {
+    opacity: 0.72;
+  }
+
+  .home-hero__top-vignette {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.72) 0%,
+      rgba(0, 0, 0, 0.38) 16%,
+      transparent 34%
+    );
+  }
+
+  .home-hero__match-hub-particle {
+    opacity: 0.25;
+  }
+
+  .home-hero__match-hub-panel:hover {
+    transform: translateY(-8px);
+  }
+}
+
+@media (max-width: 768px) {
+  body:has(.home-page) .home-hero__title {
+    font-size: clamp(1.35rem, 6.5vw, 1.75rem) !important;
+    line-height: 1.02 !important;
+    margin: 0 0 0.35rem !important;
+    filter: drop-shadow(0 0 14px rgba(185, 28, 28, 0.22));
+  }
+
+  .home-hero__highlights {
+    gap: 0.5rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .home-hero__highlight-item {
+    font-size: 0.74rem;
+    gap: 0.55rem;
+  }
+
+  .home-hero__highlight-dot,
+  .home-hero__status-dot {
+    animation: none;
+  }
+
+  .home-hero__stadium-light--center {
+    display: none;
+  }
+
+  .home-hero__pitch-mist {
+    opacity: 0.5;
+  }
+
+  .home-hero__top-vignette {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, transparent 22%);
+  }
+
+  .home-hero__match-hub-particles {
+    opacity: 0.45;
+  }
+
+  .home-hero__match-hub-panel:hover {
+    transform: none;
+  }
+}

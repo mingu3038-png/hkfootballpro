@@ -33,7 +33,7 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-lg px-3 py-2 text-sm text-[var(--text-muted)] transition hover:bg-[var(--bg-elevated)] hover:text-[var(--text)]"
+              className="site-header__nav-link rounded-lg px-3 py-2 text-sm text-[var(--text-muted)] transition hover:bg-[var(--bg-elevated)] hover:text-[var(--text)]"
             >
               {item.label}
             </Link>
@@ -50,10 +50,13 @@ export function SiteHeader() {
             {TELEGRAM_CTA_LABEL}
           </a>
           <div className="site-header__desktop-actions flex items-center gap-2">
-            <Link href="/predict" className="btn btn-primary btn-glow text-sm hidden sm:inline-flex">
+            <Link
+              href="/predict"
+              className="site-header__btn site-header__btn--primary btn btn-primary btn-glow text-sm hidden sm:inline-flex"
+            >
               立即竞猜
             </Link>
-            <Link href="/login" className="btn btn-outline text-sm">
+            <Link href="/login" className="site-header__btn site-header__btn--outline btn btn-outline text-sm">
               登入
             </Link>
           </div>

@@ -150,10 +150,17 @@
     inset: 0;
     z-index: 5;
     background:
-      linear-gradient(0deg, rgba(8, 3, 5, 0.75) 0%, rgba(40, 12, 18, 0.2) 35%, transparent 60%),
-      radial-gradient(ellipse 90% 50% at 50% 70%, rgba(60, 15, 25, 0.25) 0%, transparent 70%);
+      linear-gradient(0deg, rgba(8, 3, 5, 0.82) 0%, rgba(40, 12, 18, 0.28) 35%, transparent 58%),
+      radial-gradient(ellipse 95% 55% at 50% 72%, rgba(60, 15, 25, 0.32) 0%, transparent 68%),
+      radial-gradient(ellipse 70% 40% at 50% 100%, rgba(16, 52, 32, 0.18) 0%, transparent 62%);
     pointer-events: none;
     animation: fifa-smoke-rise 20s ease-in-out infinite;
+    opacity: 0.88;
+  }
+
+  .home-hero__pitch-mist {
+    opacity: 1;
+    filter: blur(3px);
   }
 
   .home-hero__cinematic-vignette {
@@ -163,8 +170,12 @@
     background:
       radial-gradient(ellipse 50% 55% at 50% 42%, transparent 0%, rgba(0, 0, 0, 0.55) 78%),
       linear-gradient(90deg, rgba(0, 0, 0, 0.7) 0%, transparent 20%, transparent 80%, rgba(0, 0, 0, 0.7) 100%),
-      linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, transparent 25%, transparent 70%, rgba(0, 0, 0, 0.65) 100%);
+      linear-gradient(180deg, rgba(0, 0, 0, 0.68) 0%, rgba(0, 0, 0, 0.32) 14%, transparent 28%, transparent 70%, rgba(0, 0, 0, 0.65) 100%);
     pointer-events: none;
+  }
+
+  .home-hero__top-vignette {
+    opacity: 0.85;
   }
 
   .home-hero__bloom {

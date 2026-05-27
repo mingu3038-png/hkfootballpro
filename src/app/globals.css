@@ -6,6 +6,7 @@
 @import './home-motion.css';
 @import './site-premium.css';
 @import './site-wc-media.css';
+@import './home-hero-premium.css';
 @source '../**/*.{js,ts,jsx,tsx}';
 
 :root {
@@ -660,19 +661,9 @@ a {
     0 0 40px rgba(0, 0, 0, 0.5);
 }
 
-.home-hero__title-gold {
-  text-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.9),
-    0 0 50px rgba(232, 197, 71, 0.35),
-    0 0 80px rgba(212, 175, 55, 0.15) !important;
-  filter: none;
-}
-
+.home-hero__title-gold,
 .home-hero__title-red {
-  text-shadow:
-    0 3px 12px rgba(0, 0, 0, 0.95),
-    0 0 50px rgba(239, 68, 68, 0.4),
-    0 0 100px rgba(185, 28, 28, 0.2) !important;
+  filter: none;
 }
 
 .home-hero__badge--wc {
@@ -1579,27 +1570,13 @@ a {
 }
 
 .home-hero__title {
-  /* 较原 clamp 缩小 35%，让今晚主推赛事成为视觉中心 */
-  font-size: clamp(1.788rem, 5.2vw, 2.925rem);
   font-weight: 900;
-  line-height: 0.95;
-  margin: 0 0 1.5rem;
-  letter-spacing: -0.03em;
   text-transform: uppercase;
 }
 
-.home-hero__title-gold {
-  display: block;
-  background: linear-gradient(180deg, #fffbeb 0%, #fde68a 35%, #e8c547 70%, #ca8a04 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
+.home-hero__title-gold,
 .home-hero__title-red {
   display: block;
-  color: #ffffff;
-  letter-spacing: 0.04em;
 }
 
 .home-hero__status-list {
