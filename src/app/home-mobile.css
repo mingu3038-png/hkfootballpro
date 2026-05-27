@@ -67,6 +67,7 @@
   .home-hero,
   .last-night-results,
   .home-hot-leagues,
+  .home-pred-dir,
   .today-free-focus,
   .home-today-analysis,
   .home-live-updates,
@@ -165,10 +166,52 @@
     transform: scale(0.98);
   }
 
-  /* Hero 与下方模块紧贴，两模块间距合计 16px */
+  /* 预测目录：横向滑动 */
+  .home-page > .home-pred-dir {
+    margin: 0 !important;
+    padding: 10px 0 8px !important;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .home-page .home-pred-dir__title {
+    font-size: 0.9rem;
+    margin-bottom: 0.1rem;
+  }
+
+  .home-page .home-pred-dir__inner {
+    gap: 0.55rem;
+  }
+
+  .home-page .home-pred-dir__track {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 0.4rem;
+    margin: 0 -16px;
+    padding: 0 16px 0.2rem;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .home-page .home-pred-dir__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .home-page .home-pred-dir__chip {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    min-height: 2.25rem;
+    padding: 0.48rem 0.9rem;
+    font-size: 0.82rem;
+    border-radius: 999px;
+  }
+
+  /* Hero 与下方模块紧贴 */
   .home-page > .last-night-results {
     margin: 0 !important;
-    padding: 16px 0 8px !important;
+    padding: 12px 0 8px !important;
     box-shadow: none;
   }
 

@@ -2041,6 +2041,82 @@ a {
   box-shadow: 0 0 6px rgba(239, 68, 68, 0.7);
 }
 
+/* ========== 热门足球预测目录（Hero 下 · SEO 内链）========== */
+.home-pred-dir {
+  position: relative;
+  z-index: 23;
+  padding: 0.75rem 0 0.85rem;
+  background: rgba(8, 2, 4, 0.92);
+  border-bottom: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+.home-pred-dir__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.home-pred-dir__title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: #e8c547;
+  text-shadow: 0 0 12px rgba(232, 197, 71, 0.25);
+}
+
+.home-pred-dir__row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.home-pred-dir__row-label {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a8a29e;
+}
+
+.home-pred-dir__track {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.home-pred-dir__chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.125rem;
+  padding: 0.42rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #fafafa;
+  text-decoration: none;
+  white-space: nowrap;
+  background: linear-gradient(155deg, rgba(32, 10, 14, 0.95) 0%, rgba(12, 4, 6, 0.98) 100%);
+  border: 1px solid rgba(239, 68, 68, 0.32);
+  border-radius: 10px;
+  box-shadow:
+    inset 0 1px 0 rgba(232, 197, 71, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.28);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.home-pred-dir__chip:hover {
+  color: #fde68a;
+  border-color: rgba(232, 197, 71, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(232, 197, 71, 0.12),
+    0 0 14px rgba(239, 68, 68, 0.22);
+}
+
 /* ========== Hero 下方运营条 ========== */
 .hero-ops-strip {
   position: relative;

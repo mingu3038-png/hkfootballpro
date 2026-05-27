@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { FloatingAnnouncementBar } from '@/components/home/FloatingAnnouncementBar';
 import { HomeAmbientParticles } from '@/components/home/HomeAmbientParticles';
 import { HomeHero } from '@/components/home/HomeHero';
+import { HomePredictionDirectory } from '@/components/home/HomePredictionDirectory';
 import { HomeHotLeagues } from '@/components/home/HomeHotLeagues';
 import { TickerMarquee } from '@/components/home/TickerMarquee';
 import { LastNightResults } from '@/components/home/LastNightResults';
@@ -30,6 +31,7 @@ export default async function HomePage() {
       <FloatingAnnouncementBar items={data.floatingAnnouncements} />
       <TickerMarquee items={data.tickerMarquee} />
       <HomeHero tgPromo={data.tgPromo} streak={data.streak} />
+      <HomePredictionDirectory />
       <LastNightResults data={data.lastNightResults} winStreak={data.winStreak} />
       <HomeHotLeagues leagues={data.hotLeagues} />
       <TodayFreeFocus data={data.todayFreeFocus} />
