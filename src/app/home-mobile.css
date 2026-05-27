@@ -1,5 +1,20 @@
-/* ========== 首页手机端 · 足球 APP 风（≤768px，不影响桌面）========== */
+/* ========== 首页手机端 · 高级感世界杯风（≤768px，不影响桌面）========== */
 @media (max-width: 768px) {
+  body:has(.home-page) {
+    --m-gold: #b89446;
+    --m-gold-soft: #9a7b3a;
+    --m-gold-dim: #7a6330;
+    --m-gold-glow: rgba(184, 148, 70, 0.32);
+    --m-red-mist: rgba(72, 14, 20, 0.5);
+    --m-red-glow: rgba(127, 29, 29, 0.38);
+    --m-radius-lg: 18px;
+    --m-radius-md: 16px;
+    --m-radius-sm: 14px;
+    --m-section-gap: 1.125rem;
+    --m-glow-soft: 0 0 18px rgba(160, 36, 36, 0.32), 0 0 36px rgba(88, 18, 24, 0.22);
+    --m-glow-gold: 0 0 14px var(--m-gold-glow), 0 0 28px rgba(127, 29, 29, 0.18);
+  }
+
   /* —— 防横向溢出（iPhone）—— */
   html {
     overflow-x: hidden;
@@ -8,7 +23,7 @@
   body:has(.home-page) {
     overflow-x: hidden;
     max-width: 100%;
-    padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
   }
 
   body:has(.home-page) .home-cta-label--desktop {
@@ -30,11 +45,31 @@
   }
 
   .home-page {
+    position: relative;
     overflow-x: hidden;
     max-width: 100%;
     padding-bottom: 0;
     min-height: 0;
     display: block;
+    background: linear-gradient(180deg, #070203 0%, #0a0305 42%, #080204 100%);
+  }
+
+  .home-page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 110% 55% at 50% -8%, rgba(127, 29, 29, 0.42) 0%, transparent 58%),
+      radial-gradient(ellipse 70% 45% at 100% 35%, rgba(88, 18, 24, 0.22) 0%, transparent 52%),
+      radial-gradient(ellipse 65% 40% at 0% 62%, rgba(72, 14, 20, 0.2) 0%, transparent 50%),
+      radial-gradient(ellipse 90% 35% at 50% 100%, rgba(40, 8, 12, 0.35) 0%, transparent 55%);
+  }
+
+  .home-page > * {
+    position: relative;
+    z-index: 1;
   }
 
   .home-page > .home-page__ambient {
@@ -67,6 +102,7 @@
   .home-hero,
   .last-night-results,
   .home-hot-leagues,
+  .home-hot-analyses,
   .home-pred-dir,
   .today-free-focus,
   .home-today-analysis,
@@ -213,6 +249,35 @@
     margin: 0 !important;
     padding: 12px 0 8px !important;
     box-shadow: none;
+  }
+
+  .home-page > .home-hot-analyses {
+    margin: 0 !important;
+    padding: 10px 0 10px !important;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .home-page .home-hot-analyses__title {
+    font-size: 1.05rem;
+  }
+
+  .home-page .home-hot-analyses__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .home-page .home-hot-analyses__card {
+    min-height: 4.25rem;
+    padding: 0.58rem 0.65rem;
+  }
+
+  .home-page .home-hot-analyses__matchup {
+    font-size: 0.82rem;
+  }
+
+  .home-page .home-hot-analyses__card:active {
+    transform: scale(0.98);
   }
 
   .home-page > .today-free-focus {
@@ -431,10 +496,43 @@
   .home-hero__poster-accent,
   .home-hero__trophy-glow,
   .home-hero__edge-gold,
-  .home-hero__text-shield,
   .home-hero__bg::before,
   .home-hero__bg::after {
     display: none !important;
+  }
+
+  body:has(.home-page) .home-hero__text-shield {
+    display: block !important;
+    inset: -0.5rem -1rem 0 -0.75rem;
+    opacity: 0.5;
+    filter: blur(22px);
+    background: radial-gradient(
+      ellipse 85% 95% at 12% 48%,
+      rgba(184, 148, 70, 0.18) 0%,
+      rgba(88, 18, 24, 0.35) 38%,
+      transparent 72%
+    );
+  }
+
+  body:has(.home-page) .home-hero::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 6%;
+    width: 68%;
+    height: 36%;
+    transform: translateX(-50%);
+    clip-path: polygon(50% 0%, 94% 14%, 94% 56%, 50% 92%, 6% 56%, 6% 14%);
+    background: linear-gradient(
+      165deg,
+      rgba(154, 123, 42, 0.25) 0%,
+      rgba(127, 29, 29, 0.35) 45%,
+      rgba(40, 8, 12, 0.2) 100%
+    );
+    filter: blur(36px);
+    opacity: 0.72;
+    pointer-events: none;
+    z-index: 1;
   }
 
   .home-hero__overlay-gradient,
@@ -898,5 +996,233 @@
     width: 5px;
     height: 5px;
     box-shadow: 0 0 6px #4ade80;
+  }
+
+  /* ========== 高级感覆写（留白 · 暗金 · 柔光 · 胶囊目录 · 内容卡）========== */
+  body:has(.home-page) .floating-announcement {
+    margin-bottom: var(--m-section-gap);
+    box-shadow: 0 8px 28px rgba(88, 18, 24, 0.2);
+  }
+
+  body:has(.home-page) .home-hero {
+    padding: 1rem 0 1.125rem !important;
+    margin-bottom: var(--m-section-gap) !important;
+    background: linear-gradient(
+      180deg,
+      rgba(12, 4, 6, 0.98) 0%,
+      rgba(8, 2, 4, 0.94) 100%
+    );
+    box-shadow: inset 0 -1px 0 rgba(154, 123, 42, 0.12);
+  }
+
+  body:has(.home-page) .home-page > .home-pred-dir {
+    padding: 1.125rem 0 1.25rem !important;
+    margin-bottom: var(--m-section-gap) !important;
+    background: linear-gradient(180deg, rgba(10, 3, 5, 0.96) 0%, rgba(8, 2, 4, 0.92) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(154, 123, 42, 0.08),
+      0 12px 32px rgba(72, 14, 20, 0.25);
+  }
+
+  body:has(.home-page) .home-page > .last-night-results {
+    padding: 1.125rem 0 1.25rem !important;
+    margin-bottom: var(--m-section-gap) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(154, 123, 42, 0.1),
+      0 14px 36px rgba(72, 14, 20, 0.28);
+  }
+
+  body:has(.home-page) .home-page > .home-hot-analyses {
+    padding: 1.125rem 0 1.375rem !important;
+    margin-bottom: var(--m-section-gap) !important;
+    background: linear-gradient(180deg, rgba(9, 2, 4, 0.94) 0%, rgba(7, 2, 3, 0.98) 100%);
+    box-shadow: 0 10px 30px rgba(72, 14, 20, 0.22);
+  }
+
+  body:has(.home-page) .home-page > .home-hot-leagues {
+    padding: 1rem 0 1.125rem !important;
+    margin-bottom: var(--m-section-gap) !important;
+  }
+
+  body:has(.home-page) .home-page > .today-free-focus {
+    padding: 1rem 0 1.375rem !important;
+    margin-bottom: var(--m-section-gap) !important;
+  }
+
+  body:has(.home-page) .home-page > .home-today-analysis {
+    padding: 0.875rem 0 1.375rem !important;
+    margin-bottom: var(--m-section-gap) !important;
+  }
+
+  body:has(.home-page) .home-page > .home-live-updates {
+    padding: 0.875rem 0 1.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  body:has(.home-page) .home-pred-dir__title {
+    color: var(--m-gold-soft);
+    text-shadow: var(--m-glow-gold);
+  }
+
+  body:has(.home-page) .home-pred-dir__row-label {
+    color: rgba(168, 162, 158, 0.85);
+  }
+
+  body:has(.home-page) .home-pred-dir__chip {
+    padding: 0.52rem 1.05rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: #f5f5f4;
+    background: linear-gradient(
+      145deg,
+      rgba(32, 12, 16, 0.88) 0%,
+      rgba(14, 4, 6, 0.94) 100%
+    );
+    border: 1px solid rgba(154, 123, 42, 0.28);
+    border-radius: var(--m-radius-pill);
+    box-shadow:
+      inset 0 1px 0 rgba(184, 148, 70, 0.12),
+      0 4px 14px rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  body:has(.home-page) .home-pred-dir__chip:active {
+    border-color: rgba(184, 148, 70, 0.42);
+    box-shadow: var(--m-glow-soft);
+  }
+
+  body:has(.home-page) .home-hot-analyses__title,
+  body:has(.home-page) .home-today-analysis__title,
+  body:has(.home-page) .home-live-updates__title,
+  body:has(.home-page) .last-night-results__title-accent,
+  body:has(.home-page) .home-hero__title-gold {
+    color: var(--m-gold) !important;
+    text-shadow: 0 0 12px var(--m-gold-glow);
+  }
+
+  body:has(.home-page) .home-hot-analyses__league,
+  body:has(.home-page) .home-today-analysis__match,
+  body:has(.home-page) .today-free-focus__pick-value,
+  body:has(.home-page) .today-free-focus__vs {
+    color: var(--m-gold) !important;
+    text-shadow: 0 0 10px var(--m-gold-glow);
+  }
+
+  body:has(.home-page) .home-hot-analyses__card {
+    border-radius: var(--m-radius-md);
+    padding: 0.72rem 0.8rem 0.78rem;
+    min-height: 4.75rem;
+    border: 1px solid rgba(154, 123, 42, 0.22);
+    background: linear-gradient(
+      155deg,
+      rgba(24, 8, 12, 0.94) 0%,
+      rgba(10, 3, 5, 0.98) 55%,
+      rgba(8, 2, 4, 1) 100%
+    );
+    box-shadow:
+      inset 3px 0 0 rgba(184, 148, 70, 0.45),
+      inset 0 1px 0 rgba(184, 148, 70, 0.1),
+      0 6px 20px rgba(0, 0, 0, 0.35);
+  }
+
+  body:has(.home-page) .home-hot-analyses__card:active {
+    box-shadow:
+      inset 3px 0 0 rgba(201, 168, 92, 0.55),
+      var(--m-glow-soft);
+    transform: scale(0.99);
+  }
+
+  body:has(.home-page) .home-hot-analyses__time {
+    color: rgba(252, 165, 165, 0.9);
+  }
+
+  body:has(.home-page) .home-hot-analyses__grid {
+    gap: 0.62rem;
+  }
+
+  body:has(.home-page) .last-night-results__stats,
+  body:has(.home-page) .home-page .last-night-results__item,
+  body:has(.home-page) .home-today-analysis__card,
+  body:has(.home-page) .home-live-updates__card,
+  body:has(.home-page) .home-page .today-free-focus__banner,
+  body:has(.home-page) .home-page .today-free-focus__matchup,
+  body:has(.home-page) .home-hero__stats,
+  body:has(.home-page) .home-hero__countdown,
+  body:has(.home-page) .home-hero__live-ticker {
+    border-radius: var(--m-radius-md) !important;
+  }
+
+  body:has(.home-page) .home-page .last-night-results__item,
+  body:has(.home-page) .home-today-analysis__card,
+  body:has(.home-page) .home-live-updates__card {
+    border-color: rgba(154, 123, 42, 0.2) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(184, 148, 70, 0.08),
+      0 6px 18px rgba(72, 14, 20, 0.2) !important;
+  }
+
+  body:has(.home-page) .home-live-updates__time {
+    background: linear-gradient(135deg, #a68b3d 0%, var(--m-gold-soft) 55%, var(--m-gold-dim) 100%) !important;
+    box-shadow: 0 0 10px var(--m-gold-glow) !important;
+    border-radius: 8px !important;
+  }
+
+  body:has(.home-page) .home-hero__tg-btn,
+  body:has(.home-page) .home-hero__tg-btn--closed,
+  body:has(.home-page) .home-hero__cta-secondary-btn,
+  body:has(.home-page) .today-free-focus__btn,
+  body:has(.home-page) .home-today-analysis__btn,
+  body:has(.home-page) .home-page > .mobile-tg-bar {
+    animation: none !important;
+    border-radius: var(--m-radius-sm) !important;
+    border-color: rgba(154, 123, 42, 0.35) !important;
+    box-shadow: var(--m-glow-soft) !important;
+  }
+
+  body:has(.home-page) .home-hero__cta-secondary-btn {
+    background: linear-gradient(155deg, rgba(36, 12, 16, 0.95) 0%, rgba(14, 4, 6, 0.98) 100%) !important;
+    border: 1px solid rgba(154, 123, 42, 0.28) !important;
+  }
+
+  body:has(.home-page) .home-hero__live-ticker {
+    border-color: rgba(154, 123, 42, 0.25) !important;
+    box-shadow: var(--m-glow-gold) !important;
+  }
+
+  body:has(.home-page) .home-hero__live-ticker-item {
+    color: var(--m-gold-soft) !important;
+  }
+
+  body:has(.home-page) .home-hero__live-ticker-item::after {
+    color: rgba(184, 148, 70, 0.45) !important;
+  }
+
+  body:has(.home-page) .home-page > .mobile-tg-bar {
+    border-radius: var(--m-radius-md) !important;
+    border-color: rgba(154, 123, 42, 0.4) !important;
+    box-shadow: var(--m-glow-soft), 0 10px 28px rgba(0, 0, 0, 0.45) !important;
+  }
+
+  body:has(.home-page) .home-hot-leagues__tag {
+    border-radius: var(--m-radius-pill);
+    border-color: rgba(154, 123, 42, 0.24);
+    color: #e7e5e4;
+  }
+
+  body:has(.home-page) .home-hot-leagues__tag--hot {
+    color: #fecaca;
+    border-color: rgba(185, 60, 60, 0.45);
+    box-shadow: 0 0 12px rgba(127, 29, 29, 0.25);
+  }
+
+  body:has(.home-page) .home-hero__stat-rate {
+    color: var(--m-gold) !important;
+  }
+
+  body:has(.home-page) .home-hero__highlight-dot {
+    background: var(--m-gold-dim);
+    box-shadow: 0 0 6px var(--m-gold-glow);
   }
 }

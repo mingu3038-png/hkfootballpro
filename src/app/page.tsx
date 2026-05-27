@@ -6,6 +6,7 @@ import { HomePredictionDirectory } from '@/components/home/HomePredictionDirecto
 import { HomeHotLeagues } from '@/components/home/HomeHotLeagues';
 import { TickerMarquee } from '@/components/home/TickerMarquee';
 import { LastNightResults } from '@/components/home/LastNightResults';
+import { HomeHotAnalysesToday } from '@/components/home/HomeHotAnalysesToday';
 import { TodayFreeFocus } from '@/components/home/TodayFreeFocus';
 import { TodayPreMatchAnalysis } from '@/components/home/TodayPreMatchAnalysis';
 import { TodayLiveDirectionUpdates } from '@/components/home/TodayLiveDirectionUpdates';
@@ -33,6 +34,7 @@ export default async function HomePage() {
       <HomeHero tgPromo={data.tgPromo} streak={data.streak} />
       <HomePredictionDirectory />
       <LastNightResults data={data.lastNightResults} winStreak={data.winStreak} />
+      <HomeHotAnalysesToday />
       <HomeHotLeagues leagues={data.hotLeagues} />
       <TodayFreeFocus data={data.todayFreeFocus} />
       <TodayPreMatchAnalysis data={data.todayPreMatchAnalysis} />
