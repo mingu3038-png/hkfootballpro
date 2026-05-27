@@ -1992,6 +1992,14 @@ a {
   gap: 0.55rem;
 }
 
+.home-hot-leagues__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 0.75rem;
+}
+
 .home-hot-leagues__title {
   margin: 0;
   font-size: 0.78rem;
@@ -1999,6 +2007,22 @@ a {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #a8a29e;
+}
+
+.home-hot-leagues__today-count {
+  display: none;
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: rgba(168, 162, 158, 0.9);
+}
+
+.home-hot-leagues__today-count-num {
+  margin: 0 0.15em;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: #e8c547;
 }
 
 .home-hot-leagues__tags {

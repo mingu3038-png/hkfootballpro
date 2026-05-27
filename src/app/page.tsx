@@ -35,7 +35,10 @@ export default async function HomePage() {
       <HomePredictionDirectory />
       <LastNightResults data={data.lastNightResults} winStreak={data.winStreak} />
       <HomeHotAnalysesToday />
-      <HomeHotLeagues leagues={data.hotLeagues} />
+      <HomeHotLeagues
+        leagues={data.hotLeagues}
+        todayUpdateCount={data.hotLeaguesTodayUpdateCount}
+      />
       <TodayFreeFocus data={data.todayFreeFocus} />
       <TodayPreMatchAnalysis data={data.todayPreMatchAnalysis} />
       <TodayLiveDirectionUpdates data={data.todayLiveDirectionUpdates} />

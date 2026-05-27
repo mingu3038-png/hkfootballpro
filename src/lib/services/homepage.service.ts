@@ -1,5 +1,6 @@
 import type { HomePageData } from '@/types/match';
 import { getAnalysisUrl } from '@/config/site';
+import { SEO_DAILY_TODAY } from '@/lib/analysis-matches';
 import {
   buildHomeTickerMarquee,
   mockLeaderboard,
@@ -51,6 +52,7 @@ export async function getHomePageData(): Promise<HomePageData> {
       pushes: lastNightResults.pushes,
     },
     hotLeagues: siteDailyContent.homepageHotLeagues,
+    hotLeaguesTodayUpdateCount: SEO_DAILY_TODAY.length,
     liveMatches,
     todayMatches: todayHighlightMatches,
     latestAnalyses,

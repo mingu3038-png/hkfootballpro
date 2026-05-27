@@ -123,6 +123,8 @@ export interface HomePageData {
   winStreak: HomeWinStreak;
   streak: { wins: number; losses: number; pushes: number };
   hotLeagues: Array<{ label: string; href: string; hot?: boolean }>;
+  /** 今日 SEO 分析场次（热门联赛区展示） */
+  hotLeaguesTodayUpdateCount: number;
   liveMatches: MatchListItem[];
   todayMatches: MatchListItem[];
   latestAnalyses: Array<{
