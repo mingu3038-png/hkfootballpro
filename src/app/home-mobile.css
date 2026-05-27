@@ -1,0 +1,786 @@
+/* ========== 首页手机端 · 足球 APP 风（≤768px，不影响桌面）========== */
+@media (max-width: 768px) {
+  /* —— 防横向溢出（iPhone）—— */
+  html {
+    overflow-x: hidden;
+  }
+
+  body:has(.home-page) {
+    overflow-x: hidden;
+    max-width: 100%;
+    padding-bottom: calc(54px + env(safe-area-inset-bottom, 0px));
+  }
+
+  body:has(.home-page) main {
+    overflow-x: hidden;
+    max-width: 100%;
+    min-height: 0 !important;
+  }
+
+  body:has(.home-page) .site-footer {
+    display: none;
+  }
+
+  .home-page {
+    overflow-x: hidden;
+    max-width: 100%;
+    padding-bottom: 0;
+    min-height: 0;
+    display: block;
+  }
+
+  .home-page > .home-page__ambient {
+    display: none !important;
+  }
+
+  body:has(.home-page) .home-hero .container {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .container,
+  .home-hero .container,
+  .last-night-results__inner,
+  .today-free-focus .container,
+  .home-today-analysis__inner,
+  .home-live-updates__inner,
+  .hero-ops-strip__inner,
+  .site-header .container {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+  }
+
+  .site-header,
+  .ticker-marquee,
+  .home-hero,
+  .last-night-results,
+  .today-free-focus,
+  .home-today-analysis,
+  .home-live-updates,
+  .hero-ops-strip {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* —— 首页顶栏：仅 Logo —— */
+  body:has(.home-page) .site-header__desktop-nav,
+  body:has(.home-page) .site-header__mobile-nav,
+  body:has(.home-page) .site-header__desktop-actions,
+  body:has(.home-page) .site-header__brand-text,
+  body:has(.home-page) .site-header__tg {
+    display: none !important;
+  }
+
+  body:has(.home-page) .site-header__bar {
+    height: 1.5rem !important;
+    min-height: 1.5rem !important;
+    max-height: 1.5rem !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  body:has(.home-page) .site-header__logo-img {
+    width: 1.45rem !important;
+    height: 1.45rem !important;
+    border-radius: 0.35rem;
+  }
+
+  body:has(.home-page) .site-header {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  /* —— 手机首页：仅保留 Hero + 昨晚战绩 + 今日免费重心 —— */
+  .home-page > .ticker-marquee,
+  .home-page > .hero-ops-strip,
+  .home-page > .home-page__content,
+  .home-page > .home-page-bottom {
+    display: none !important;
+  }
+
+  /* —— 底部固定 TG CTA —— */
+  .home-page > .mobile-tg-bar {
+    display: flex !important;
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0.7rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    background: linear-gradient(180deg, #ef4444 0%, #b91c1c 50%, #991b1b 100%);
+    border: 1px solid rgba(254, 202, 202, 0.4);
+    border-radius: 12px;
+    box-shadow:
+      0 0 28px rgba(239, 68, 68, 0.5),
+      0 6px 20px rgba(0, 0, 0, 0.45);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .home-page > .mobile-tg-bar:active {
+    transform: scale(0.98);
+  }
+
+  /* Hero 与下方模块紧贴，两模块间距合计 16px */
+  .home-page > .last-night-results {
+    margin: 0 !important;
+    padding: 16px 0 8px !important;
+    box-shadow: none;
+  }
+
+  .home-page > .today-free-focus {
+    margin: 0 !important;
+    padding: 8px 0 12px !important;
+  }
+
+  .home-page > .home-today-analysis {
+    display: block;
+    margin: 0 !important;
+    padding: 4px 0 12px !important;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .home-today-analysis__title {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #fafafa;
+    letter-spacing: 0.02em;
+  }
+
+  .home-today-analysis__card {
+    box-sizing: border-box;
+    max-width: 100%;
+    padding: 0.7rem 0.8rem 0.75rem;
+    border: 1px solid rgba(220, 38, 38, 0.38);
+    border-radius: 11px;
+    background: linear-gradient(155deg, rgba(28, 10, 14, 0.92) 0%, rgba(10, 4, 6, 0.98) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(232, 197, 71, 0.08),
+      0 4px 14px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+  }
+
+  .home-today-analysis__match {
+    margin: 0 0 0.4rem;
+    font-size: 0.92rem;
+    font-weight: 800;
+    line-height: 1.3;
+    color: #e8c547;
+  }
+
+  .home-today-analysis__list {
+    margin: 0 0 0.55rem;
+    padding-left: 1.05rem;
+    font-size: 0.76rem;
+    line-height: 1.38;
+    color: #d6d3d1;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  .home-today-analysis__list li {
+    margin-bottom: 0.22rem;
+  }
+
+  .home-today-analysis__list li:last-child {
+    margin-bottom: 0;
+    color: #a8a29e;
+  }
+
+  .home-today-analysis__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 40px;
+    padding: 0.45rem 0.65rem;
+    font-size: 0.84rem;
+    font-weight: 800;
+    color: #fff;
+    text-decoration: none;
+    background: linear-gradient(135deg, #ef4444 0%, #991b1b 100%);
+    border: 1px solid rgba(254, 202, 202, 0.35);
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(239, 68, 68, 0.32);
+  }
+
+  .home-today-analysis__btn:active {
+    transform: scale(0.98);
+  }
+
+  .home-page > .home-live-updates {
+    display: block;
+    margin: 0 !important;
+    padding: 4px 0 14px !important;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .home-live-updates__title {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #fafafa;
+    letter-spacing: 0.02em;
+  }
+
+  .home-live-updates__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: 100%;
+  }
+
+  .home-live-updates__card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    box-sizing: border-box;
+    max-width: 100%;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid rgba(220, 38, 38, 0.32);
+    border-radius: 10px;
+    background: linear-gradient(145deg, rgba(24, 8, 10, 0.9) 0%, rgba(8, 3, 5, 0.96) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(232, 197, 71, 0.1),
+      0 0 14px rgba(239, 68, 68, 0.12),
+      0 3px 10px rgba(0, 0, 0, 0.28);
+    overflow: hidden;
+  }
+
+  .home-live-updates__time {
+    flex-shrink: 0;
+    min-width: 2.65rem;
+    padding: 0.12rem 0.35rem;
+    font-size: 0.68rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+    color: #1c1917;
+    text-align: center;
+    background: linear-gradient(135deg, #fde68a 0%, #e8c547 55%, #ca8a04 100%);
+    border-radius: 6px;
+    box-shadow:
+      0 0 10px rgba(232, 197, 71, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+
+  .home-live-updates__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .home-live-updates__line {
+    margin: 0;
+    font-size: 0.76rem;
+    font-weight: 700;
+    line-height: 1.32;
+    color: #fafafa;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  .home-live-updates__line--sub {
+    margin-top: 0.12rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: #a8a29e;
+  }
+
+  /* —— Hero：首屏转化（仅手机，贴内容高度）—— */
+  body:has(.home-page) .home-hero {
+    display: block;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(220, 38, 68, 0.3);
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0;
+    overflow: visible;
+    box-shadow: none !important;
+  }
+
+  body:has(.home-page) .home-hero::before {
+    opacity: 0.35;
+  }
+
+  body:has(.home-page) .home-hero__vignette,
+  body:has(.home-page) .home-hero__cinematic-vignette {
+    display: none !important;
+  }
+
+  .home-hero__depth-back,
+  .home-hero__depth-mid,
+  .home-hero__depth-front,
+  .home-hero__volumetric,
+  .home-hero__fog-overlay,
+  .home-hero__cinematic-vignette,
+  .home-hero__bloom,
+  .home-hero__dust,
+  .home-hero__smoke--a,
+  .home-hero__smoke--b,
+  .home-hero__bg {
+    animation: none !important;
+  }
+
+  .home-hero__photo,
+  .home-hero__beam,
+  .home-hero__gold-orb,
+  .home-hero__smoke,
+  .home-hero__particles,
+  .home-hero__scanline,
+  .home-hero__grass,
+  .home-hero__pitch,
+  .home-hero__poster-accent,
+  .home-hero__trophy-glow,
+  .home-hero__edge-gold,
+  .home-hero__text-shield,
+  .home-hero__bg::before,
+  .home-hero__bg::after {
+    display: none !important;
+  }
+
+  .home-hero__overlay-gradient,
+  .home-hero__overlay-left,
+  .home-hero__left-glow,
+  .home-hero__red-ambient,
+  .home-hero__spotlight,
+  .home-hero__top-glow,
+  .home-hero__vignette {
+    opacity: 0.28;
+  }
+
+  body:has(.home-page) .home-hero__inner {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none;
+    padding-top: 0.08rem;
+    padding-bottom: 0;
+    align-items: flex-start;
+    display: block;
+  }
+
+  body:has(.home-page) .home-hero__grid {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.1rem;
+    width: 100%;
+  }
+
+  .home-hero__left {
+    display: contents;
+  }
+
+  .home-hero__focus-cta {
+    display: contents;
+  }
+
+  .home-hero__center {
+    display: none !important;
+  }
+
+  .home-hero__badge {
+    display: none;
+  }
+
+  body:has(.home-page) .home-hero__title {
+    order: 1;
+    font-size: 0.945rem;
+    line-height: 1.06;
+    margin: 0 0 0.06rem;
+  }
+
+  .home-hero__title-gold,
+  .home-hero__title-red {
+    font-size: inherit;
+  }
+
+  .home-hero__subtitle {
+    display: none !important;
+  }
+
+  body:has(.home-page) .home-hero__stats {
+    order: 2;
+    width: 70%;
+    max-width: 70%;
+    margin: 0 0 0.06rem;
+    padding: 0.24rem 0.4rem;
+    min-height: 0;
+    gap: 0.35rem;
+  }
+
+  .home-hero__stat-block {
+    gap: 0.05rem;
+  }
+
+  .home-hero__stat-label {
+    font-size: 0.65rem;
+    margin-bottom: 0;
+  }
+
+  .home-hero__stat-value {
+    font-size: 0.8rem;
+    line-height: 1.15;
+  }
+
+  .home-hero__stat-divider {
+    height: 1.75rem;
+  }
+
+  .home-hero__stat-rate {
+    font-size: 1rem;
+    line-height: 1.1;
+  }
+
+  body:has(.home-page) .home-hero__countdown {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 0.05rem;
+    padding: 0.28rem 0.5rem;
+    gap: 0.3rem;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow: visible;
+    box-sizing: border-box;
+  }
+
+  .home-hero__countdown-label {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 0.56rem;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: nowrap;
+  }
+
+  .home-hero__countdown-digits {
+    flex: 0 0 auto;
+    font-size: 0.92rem;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  /* 首屏放不下时隐藏 TG 卡，保证主按钮可见 */
+  .home-hero__right {
+    display: none !important;
+  }
+
+  body:has(.home-page) .home-hero__tg-btn,
+  body:has(.home-page) .home-hero__tg-btn--closed {
+    order: 4;
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 0.65rem;
+    min-height: 38px;
+    padding: 0.48rem 0.65rem;
+    margin: 0;
+    border-radius: 11px;
+    box-sizing: border-box;
+    box-shadow: 0 3px 12px rgba(239, 68, 68, 0.38);
+    flex-shrink: 0;
+  }
+
+  body:has(.home-page) .home-hero__tg-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  body:has(.home-page) .home-hero__tg-btn strong,
+  body:has(.home-page) .home-hero__tg-btn--closed strong {
+    font-size: 0.86rem;
+  }
+
+  .home-hero__tg-btn small {
+    font-size: 0.65rem;
+  }
+
+  /* —— Hero CTA 下 · 临场更新动态条 —— */
+  @keyframes home-live-ticker-scroll {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  body:has(.home-page) .home-hero__live-ticker {
+    order: 5;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    max-height: 44px;
+    margin: 0.06rem 0 0;
+    overflow: hidden;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    border-radius: 8px;
+    background: linear-gradient(90deg, #0a0406 0%, #1f0a0e 45%, #120608 100%);
+    box-shadow:
+      inset 0 0 10px rgba(232, 197, 71, 0.08),
+      0 0 12px rgba(239, 68, 68, 0.15);
+  }
+
+  body:has(.home-page) .home-hero__live-ticker-track {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    max-height: 44px;
+    padding: 0.42rem 0;
+    animation: home-live-ticker-scroll 26s linear infinite;
+    will-change: transform;
+  }
+
+  body:has(.home-page) .home-hero__live-ticker-item {
+    flex-shrink: 0;
+    padding: 0 0.85rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #fde68a;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+
+  body:has(.home-page) .home-hero__live-ticker-item::after {
+    content: '◆';
+    margin-left: 0.85rem;
+    font-size: 0.45rem;
+    color: rgba(232, 197, 71, 0.55);
+    vertical-align: middle;
+  }
+
+  .home-hero__tags {
+    display: none !important;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  /* —— 昨晚战绩（紧凑）—— */
+  .home-page > .last-night-results::before {
+    opacity: 0.25;
+  }
+
+  .home-page .last-night-results__header {
+    margin-bottom: 0.65rem;
+  }
+
+  .home-page .last-night-results__title {
+    font-size: 1.05rem;
+  }
+
+  .home-page .last-night-results__badge {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.45rem;
+  }
+
+  .home-page .last-night-results__stats {
+    margin: 0 0 0.65rem;
+    padding: 0.65rem 0.75rem;
+  }
+
+  .home-page .last-night-results__stat strong {
+    font-size: 1.15rem;
+  }
+
+  .home-page .last-night-results__rate strong {
+    font-size: 1.2rem;
+  }
+
+  .home-page .last-night-results__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 0.35rem;
+    column-gap: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .home-page .last-night-results__item {
+    flex: 0 0 48%;
+    width: 48%;
+    max-width: 48%;
+    box-sizing: border-box;
+    min-height: 36px;
+    padding: 0.4rem 0.5rem;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+  }
+
+  .home-page .last-night-results__item-label {
+    font-size: 0.72rem;
+    line-height: 1.2;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .home-page .last-night-results__item-icon {
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+
+  /* —— 今日免费重心（紧凑比赛卡）—— */
+  .home-page .today-free-focus__tag {
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .home-page .today-free-focus__banner,
+  .home-page .today-free-focus__banner--fifa-poster {
+    animation: none !important;
+    overflow: hidden;
+    max-width: 100%;
+  }
+
+  .home-page .today-free-focus__poster,
+  .home-page .today-free-focus__banner-shadow,
+  .home-page .today-free-focus__banner-rim,
+  .home-page .today-free-focus__center-stadium-rim,
+  .home-page .today-free-focus__center-gold-beam,
+  .home-page .today-free-focus__center-arena-glow,
+  .home-page .today-free-focus__center-beam,
+  .home-page .today-free-focus__center-particles,
+  .home-page .today-free-focus__center-contrast,
+  .home-page .today-free-focus__center-fog--gold,
+  .home-page .today-free-focus__vs-gold-beam,
+  .home-page .today-free-focus__vs-volumetric-light,
+  .home-page .today-free-focus__vs-trophy-glow,
+  .home-page .today-free-focus__vs-bloom-outer,
+  .home-page .today-free-focus__vs-foreground-dust,
+  .home-page .today-free-focus__vs-dust-particle,
+  .home-page .today-free-focus__vs-bloom,
+  .home-page .today-free-focus__vs-volumetric,
+  .home-page .today-free-focus__vs-radial,
+  .home-page .today-free-focus__center-pitch,
+  .home-page .today-free-focus__center-fog-overlay,
+  .home-page .today-free-focus__center-cinematic-vignette {
+    display: none !important;
+  }
+
+  .home-page .today-free-focus__matchup {
+    padding: 0.5rem !important;
+    gap: 0.32rem 0.22rem !important;
+    overflow: hidden;
+    max-width: 100%;
+  }
+
+  .home-page .today-free-focus__kickoff {
+    padding-bottom: 0.22rem !important;
+  }
+
+  .home-page .today-free-focus__kickoff-time {
+    font-size: 0.9rem;
+  }
+
+  .home-page .today-free-focus__kickoff-league {
+    font-size: 0.7rem;
+    padding: 0.12rem 0.38rem;
+  }
+
+  .home-page .focus-team-card {
+    padding: 0.32rem 0.12rem !important;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .home-page .focus-team-card__crest {
+    width: 2.34rem !important;
+    height: 2.76rem !important;
+    margin: 0 auto 0.12rem !important;
+  }
+
+  .home-page .focus-team-card__crest-svg,
+  .home-page .focus-team-card__crest-img {
+    width: 2rem !important;
+    height: 2.38rem !important;
+    max-width: 2rem !important;
+    max-height: 2.38rem !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.35)) !important;
+  }
+
+  .home-page .focus-team-card__name {
+    font-size: 0.74rem !important;
+    line-height: 1.15;
+  }
+
+  .home-page .today-free-focus__vs-stage {
+    min-height: 0 !important;
+    padding: 0;
+    margin: 0;
+  }
+
+  .home-page .today-free-focus__vs {
+    font-size: 1.215rem !important;
+    line-height: 1;
+    text-shadow: 0 0 8px rgba(232, 197, 71, 0.35);
+  }
+
+  .home-page .today-free-focus__pick {
+    padding: 0.32rem 0.5rem !important;
+    margin: 0 !important;
+    gap: 0.35rem !important;
+  }
+
+  .home-page .today-free-focus__pick-label {
+    font-size: 0.72rem;
+  }
+
+  .home-page .today-free-focus__pick-value {
+    font-size: 1rem;
+  }
+
+  .home-page .today-free-focus__btn {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    min-height: 38px !important;
+    padding: 0.5rem 0.65rem !important;
+    font-size: 0.86rem !important;
+    border-radius: 10px;
+    margin: 0 !important;
+  }
+
+  .home-page .today-free-focus__status {
+    font-size: 0.72rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .home-page .today-free-focus__status-dot {
+    width: 5px;
+    height: 5px;
+    box-shadow: 0 0 6px #4ade80;
+  }
+}

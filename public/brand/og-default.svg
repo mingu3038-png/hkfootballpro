@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="/�K � �/�[M�">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#120608"/>
+      <stop offset="45%" stop-color="#450a0a"/>
+      <stop offset="100%" stop-color="#060304"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="50%" stop-color="#e8c547"/>
+      <stop offset="100%" stop-color="#ca8a04"/>
+    </linearGradient>
+    <radialGradient id="spot" cx="50%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ef4444" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#sky)"/>
+  <rect width="1200" height="630" fill="url(#spot)"/>
+  <rect x="0" y="580" width="1200" height="50" fill="#0c0608" opacity="0.6"/>
+  <path fill="none" stroke="url(#gold)" stroke-width="3" opacity="0.35" d="M0 520 Q300 480 600 500 T1200 510"/>
+  <ellipse cx="600" cy="200" rx="280" ry="120" fill="none" stroke="#ef4444" stroke-width="2" opacity="0.25"/>
+  <text x="600" y="260" text-anchor="middle" fill="url(#gold)" font-size="88" font-weight="900" font-family="Segoe UI,Microsoft JhengHei,sans-serif">/�K</text>
+  <text x="600" y="330" text-anchor="middle" fill="#fecaca" font-size="36" font-weight="700" font-family="Segoe UI,Microsoft JhengHei,sans-serif">�/� � � [M� � Lo 2026</text>
+  <text x="600" y="400" text-anchor="middle" fill="#d6d3d1" font-size="28" font-family="Segoe UI,Microsoft JhengHei,sans-serif">s�� � ��� � M9�>:</text>
+  <rect x="420" y="450" width="360" height="56" rx="8" fill="none" stroke="url(#gold)" stroke-width="2"/>
+  <text x="600" y="488" text-anchor="middle" fill="#fde68a" font-size="26" font-weight="800" font-family="Segoe UI,sans-serif">HK FOOTBALL � LIVE INTELLIGENCE</text>
+</svg>

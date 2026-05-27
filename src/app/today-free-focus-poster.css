@@ -1,0 +1,1033 @@
+/* ========== 世界杯比赛宣传海报 · 升级层 ========== */
+
+@keyframes focus-smoke-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.22;
+  }
+  33% {
+    transform: translate(4%, -3%) scale(1.06);
+    opacity: 0.34;
+  }
+  66% {
+    transform: translate(-3%, 2%) scale(1.03);
+    opacity: 0.26;
+  }
+}
+
+@keyframes poster-gold-sway {
+  0%,
+  100% {
+    transform: translateX(-50%) rotate(-2deg) scaleX(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateX(-50%) rotate(2deg) scaleX(1.04);
+    opacity: 0.72;
+  }
+}
+
+@keyframes poster-fog-roll {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateX(3%);
+    opacity: 0.5;
+  }
+}
+
+.today-free-focus__banner--fifa-poster {
+  isolation: isolate;
+}
+
+.today-free-focus__banner {
+  background: linear-gradient(
+    168deg,
+    #4a1018 0%,
+    #280a10 22%,
+    #140508 52%,
+    #060203 100%
+  );
+  min-height: 360px;
+  filter: contrast(1.08) saturate(1.12);
+}
+
+.today-free-focus__banner-shadow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow:
+    inset 0 28px 48px rgba(0, 0, 0, 0.65),
+    inset 0 -36px 56px rgba(0, 0, 0, 0.75),
+    inset 48px 0 64px rgba(0, 0, 0, 0.45),
+    inset -48px 0 64px rgba(0, 0, 0, 0.45);
+}
+
+.today-free-focus__banner--fifa-poster .today-free-focus__banner-rim {
+  z-index: 7;
+  box-shadow:
+    inset 0 0 0 1px rgba(253, 230, 138, 0.35),
+    inset 0 2px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -24px 48px rgba(0, 0, 0, 0.35);
+}
+
+@media (min-width: 769px) {
+  .today-free-focus__banner--fifa-poster {
+    box-shadow:
+      0 0 0 1px rgba(232, 197, 71, 0.15) inset,
+      0 0 55px rgba(239, 68, 68, 0.3),
+      0 28px 64px rgba(0, 0, 0, 0.65),
+      0 48px 90px rgba(0, 0, 0, 0.4);
+  }
+
+  .today-free-focus__banner--fifa-poster:hover {
+    box-shadow:
+      0 0 0 1px rgba(253, 230, 138, 0.28) inset,
+      0 0 70px rgba(239, 68, 68, 0.45),
+      0 32px 72px rgba(0, 0, 0, 0.7);
+  }
+
+  .today-free-focus__center-content .today-free-focus__kickoff,
+  .today-free-focus__center-content .today-free-focus__pick {
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.75));
+  }
+
+  .today-free-focus__btn {
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.6));
+  }
+}
+
+.today-free-focus__banner-glass {
+  display: none;
+}
+
+/* —— 全幅海报背景 —— */
+.today-free-focus__poster {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.today-free-focus__poster-inner {
+  position: absolute;
+  inset: -12%;
+  transition: transform 0.7s ease, filter 0.7s ease;
+}
+
+.today-free-focus__banner:hover .today-free-focus__poster-inner {
+  transform: scale(1.04);
+  filter: brightness(1.1) saturate(1.12);
+}
+
+.today-free-focus__poster-base {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 75% 55% at 50% 8%, rgba(253, 230, 138, 0.18) 0%, transparent 52%),
+    radial-gradient(ellipse 110% 85% at 50% 100%, rgba(127, 29, 29, 0.45) 0%, transparent 58%),
+    radial-gradient(ellipse 40% 50% at 12% 50%, rgba(185, 28, 28, 0.2) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 50% at 88% 50%, rgba(202, 138, 4, 0.12) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(45, 10, 16, 0.55) 0%, rgba(8, 3, 5, 0.85) 100%);
+}
+
+/* 看台弧线 · 球场氛围 */
+.today-free-focus__poster-stands {
+  position: absolute;
+  top: -8%;
+  left: -15%;
+  right: -15%;
+  height: 52%;
+  background:
+    radial-gradient(ellipse 95% 100% at 50% 0%, rgba(20, 8, 12, 0.95) 0%, transparent 72%),
+    repeating-radial-gradient(
+      circle at 50% -20%,
+      transparent 0,
+      transparent 8px,
+      rgba(255, 255, 255, 0.02) 8px,
+      rgba(255, 255, 255, 0.02) 9px
+    );
+  opacity: 0.85;
+  filter: blur(1px);
+}
+
+.today-free-focus__poster-stands-lights {
+  position: absolute;
+  top: 0;
+  left: 5%;
+  right: 5%;
+  height: 28%;
+  background: radial-gradient(
+    ellipse 120% 80% at 50% 0%,
+    rgba(255, 251, 235, 0.14) 0%,
+    rgba(253, 230, 138, 0.06) 35%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+.today-free-focus__poster-atmosphere {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 50% 40% at 50% 42%, rgba(255, 255, 255, 0.04) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, transparent 28%, transparent 62%, rgba(0, 0, 0, 0.35) 100%);
+  mix-blend-mode: overlay;
+  opacity: 0.75;
+}
+
+.today-free-focus__poster-stadium {
+  position: absolute;
+  inset: -18% -22%;
+  background:
+    radial-gradient(ellipse 75% 50% at 50% 92%, rgba(22, 110, 52, 0.65) 0%, transparent 62%),
+    radial-gradient(ellipse 30% 25% at 50% 88%, rgba(74, 222, 128, 0.12) 0%, transparent 70%),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 38px,
+      rgba(255, 255, 255, 0.045) 38px,
+      rgba(255, 255, 255, 0.045) 39px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 38px,
+      rgba(255, 255, 255, 0.03) 38px,
+      rgba(255, 255, 255, 0.03) 39px
+    ),
+    linear-gradient(180deg, rgba(6, 28, 16, 0.4) 0%, rgba(12, 72, 36, 0.5) 48%, rgba(4, 22, 12, 0.65) 100%);
+  filter: blur(3px) brightness(0.5) saturate(1.05) contrast(1.15);
+  opacity: 0.52;
+}
+
+/* 主金色光束 · FIFA 顶光 */
+.today-free-focus__poster-gold-beam {
+  position: absolute;
+  top: -65%;
+  pointer-events: none;
+  transform-origin: top center;
+  filter: blur(6px);
+}
+
+.today-free-focus__poster-gold-beam--hero {
+  left: 50%;
+  width: 22%;
+  height: 175%;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.75) 0%,
+    rgba(253, 230, 138, 0.55) 12%,
+    rgba(232, 197, 71, 0.28) 35%,
+    rgba(239, 68, 68, 0.08) 55%,
+    transparent 78%
+  );
+  opacity: 0.62;
+  filter: blur(4px);
+  animation: poster-gold-sway 8s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+
+.today-free-focus__poster-gold-beam--left {
+  left: 22%;
+  width: 10%;
+  height: 150%;
+  transform: rotate(-14deg);
+  background: linear-gradient(180deg, rgba(253, 230, 138, 0.4) 0%, transparent 75%);
+  opacity: 0.35;
+}
+
+.today-free-focus__poster-gold-beam--right {
+  left: 68%;
+  width: 10%;
+  height: 150%;
+  transform: rotate(14deg);
+  background: linear-gradient(180deg, rgba(253, 230, 138, 0.35) 0%, transparent 75%);
+  opacity: 0.32;
+}
+
+.today-free-focus__poster-gold-mist {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 50% 45% at 15% 60%, rgba(232, 197, 71, 0.1) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 45% at 85% 60%, rgba(253, 224, 71, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 50% 30%, rgba(185, 28, 28, 0.15) 0%, transparent 60%);
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+.today-free-focus__poster-beam {
+  position: absolute;
+  top: -55%;
+  filter: blur(12px);
+  opacity: 0.32;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(253, 230, 138, 0.15) 35%, transparent 78%);
+  transform-origin: top center;
+  mix-blend-mode: screen;
+}
+
+.today-free-focus__poster-beam--1 {
+  left: 8%;
+  width: 12%;
+  height: 150%;
+  transform: rotate(-18deg);
+}
+
+.today-free-focus__poster-beam--2 {
+  left: 28%;
+  width: 10%;
+  height: 145%;
+  transform: rotate(-6deg);
+}
+
+.today-free-focus__poster-beam--3 {
+  left: 48%;
+  width: 9%;
+  height: 145%;
+  background: linear-gradient(180deg, rgba(255, 251, 235, 0.65) 0%, rgba(253, 230, 138, 0.35) 25%, transparent 75%);
+  opacity: 0.45;
+  filter: blur(8px);
+}
+
+.today-free-focus__poster-beam--4 {
+  left: 66%;
+  width: 10%;
+  height: 145%;
+  transform: rotate(8deg);
+  background: linear-gradient(180deg, rgba(248, 113, 113, 0.4) 0%, transparent 75%);
+}
+
+.today-free-focus__poster-beam--5 {
+  left: 82%;
+  width: 12%;
+  height: 150%;
+  transform: rotate(18deg);
+}
+
+.today-free-focus__banner:hover .today-free-focus__poster-beam {
+  opacity: 0.42;
+}
+
+.today-free-focus__banner:hover .today-free-focus__poster-gold-beam--hero {
+  opacity: 0.78;
+}
+
+.today-free-focus__poster-smoke {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(55px);
+  opacity: 0.3;
+  animation: focus-smoke-drift 18s ease-in-out infinite;
+}
+
+.today-free-focus__poster-smoke--a {
+  bottom: -20%;
+  left: 20%;
+  width: 60%;
+  height: 55%;
+  background: radial-gradient(ellipse, rgba(80, 18, 28, 0.7) 0%, transparent 70%);
+}
+
+.today-free-focus__poster-smoke--b {
+  bottom: -15%;
+  right: 15%;
+  width: 55%;
+  height: 50%;
+  background: radial-gradient(ellipse, rgba(120, 30, 40, 0.55) 0%, transparent 68%);
+  animation-delay: -6s;
+}
+
+.today-free-focus__poster-smoke--c {
+  top: 30%;
+  left: 35%;
+  width: 35%;
+  height: 40%;
+  background: radial-gradient(ellipse, rgba(232, 197, 71, 0.15) 0%, transparent 70%);
+  animation-delay: -10s;
+}
+
+.today-free-focus__poster-smoke--d {
+  bottom: 5%;
+  left: 40%;
+  width: 22%;
+  height: 35%;
+  background: radial-gradient(ellipse, rgba(253, 230, 138, 0.12) 0%, transparent 72%);
+  animation-delay: -14s;
+  filter: blur(40px);
+}
+
+/* 分层雾气 */
+.today-free-focus__poster-fog {
+  position: absolute;
+  pointer-events: none;
+  filter: blur(35px);
+}
+
+.today-free-focus__poster-fog--low {
+  bottom: -10%;
+  left: -5%;
+  right: -5%;
+  height: 55%;
+  background: linear-gradient(0deg, rgba(12, 4, 6, 0.85) 0%, rgba(60, 15, 25, 0.35) 45%, transparent 100%);
+  opacity: 0.9;
+}
+
+.today-free-focus__poster-fog--mid {
+  inset: 20% 0 25%;
+  background: radial-gradient(ellipse 80% 60% at 50% 55%, rgba(80, 20, 30, 0.25) 0%, transparent 70%);
+  animation: poster-fog-roll 22s ease-in-out infinite;
+  opacity: 0.55;
+}
+
+.today-free-focus__poster-fog--high {
+  top: 15%;
+  left: 10%;
+  right: 10%;
+  height: 45%;
+  background: radial-gradient(ellipse 70% 50% at 50% 30%, rgba(253, 230, 138, 0.08) 0%, transparent 65%);
+  mix-blend-mode: screen;
+  opacity: 0.65;
+}
+
+.today-free-focus__poster-player {
+  position: absolute;
+  bottom: -6%;
+  width: min(38%, 340px);
+  height: 105%;
+  object-fit: contain;
+  object-position: bottom center;
+  pointer-events: none;
+}
+
+.today-free-focus__poster-player--left {
+  left: -2%;
+  z-index: 2;
+  object-position: bottom left;
+  opacity: 0.32;
+  filter: blur(0.5px) brightness(0.45) saturate(2.2) sepia(0.55) hue-rotate(-18deg)
+    drop-shadow(0 12px 40px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 50px rgba(239, 68, 68, 0.7))
+    drop-shadow(0 0 100px rgba(127, 29, 29, 0.45));
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 42%, transparent 88%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 42%, transparent 88%);
+}
+
+.today-free-focus__poster-player--right {
+  right: -2%;
+  z-index: 2;
+  transform: scaleX(-1);
+  object-position: bottom right;
+  opacity: 0.32;
+  filter: blur(0.5px) brightness(0.7) saturate(2) sepia(0.6) hue-rotate(14deg)
+    drop-shadow(0 12px 40px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 55px rgba(253, 230, 138, 0.6))
+    drop-shadow(0 0 90px rgba(202, 138, 4, 0.35));
+  -webkit-mask-image: linear-gradient(270deg, #000 0%, #000 42%, transparent 88%);
+  mask-image: linear-gradient(270deg, #000 0%, #000 42%, transparent 88%);
+}
+
+.today-free-focus__banner:hover .today-free-focus__poster-player--left {
+  opacity: 0.34;
+}
+
+.today-free-focus__banner:hover .today-free-focus__poster-player--right {
+  opacity: 0.34;
+}
+
+.today-free-focus__poster-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.4;
+}
+
+.today-free-focus__poster-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  left: calc((var(--i) * 3.6%) + 2%);
+  top: calc((var(--i) * 3.2%) + 5%);
+  background: rgba(253, 230, 138, 0.85);
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.45);
+  animation: focus-particle-float calc(3s + (var(--i) * 0.15s)) ease-in-out infinite;
+  animation-delay: calc(var(--i) * -0.25s);
+}
+
+.today-free-focus__poster-particle:nth-child(3n) {
+  background: rgba(254, 202, 202, 0.8);
+}
+
+.today-free-focus__poster-particle:nth-child(5n) {
+  left: calc(50% + (var(--i) * 2%));
+}
+
+.today-free-focus__poster-flare {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  width: 45%;
+  height: 35%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse, rgba(255, 251, 235, 0.2) 0%, transparent 68%);
+  mix-blend-mode: screen;
+  filter: blur(25px);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.today-free-focus__poster-contrast {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, transparent 22%, transparent 58%, rgba(0, 0, 0, 0.65) 100%),
+    radial-gradient(ellipse 45% 55% at 50% 48%, transparent 0%, rgba(0, 0, 0, 0.25) 100%);
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.today-free-focus__poster-depth-shadow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 35% 55% at 18% 55%, rgba(0, 0, 0, 0.55) 0%, transparent 70%),
+    radial-gradient(ellipse 35% 55% at 82% 55%, rgba(0, 0, 0, 0.55) 0%, transparent 70%),
+    radial-gradient(ellipse 30% 40% at 50% 75%, rgba(0, 0, 0, 0.4) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.today-free-focus__poster-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background:
+    radial-gradient(ellipse 48% 58% at 50% 44%, transparent 0%, rgba(0, 0, 0, 0.5) 78%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.65) 0%, transparent 14%, transparent 86%, rgba(0, 0, 0, 0.65) 100%);
+}
+
+/* FIFA 海报构图框 */
+.today-free-focus__poster-compose {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.today-free-focus__poster-compose-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(232, 197, 71, 0.15) 15%,
+    rgba(253, 230, 138, 0.85) 50%,
+    rgba(232, 197, 71, 0.15) 85%,
+    transparent 100%
+  );
+  box-shadow: 0 0 20px rgba(253, 230, 138, 0.45);
+}
+
+.today-free-focus__poster-compose-bar--top {
+  top: 10px;
+}
+
+.today-free-focus__poster-compose-bar--bottom {
+  bottom: 10px;
+}
+
+.today-free-focus__poster-compose-line {
+  position: absolute;
+  width: 38%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.6), transparent);
+  opacity: 0.45;
+}
+
+.today-free-focus__poster-compose-line--tl {
+  top: 18%;
+  left: 4%;
+  transform: rotate(12deg);
+  transform-origin: left center;
+}
+
+.today-free-focus__poster-compose-line--br {
+  bottom: 22%;
+  right: 4%;
+  transform: rotate(-12deg);
+  transform-origin: right center;
+  background: linear-gradient(270deg, rgba(253, 230, 138, 0.5), transparent);
+}
+
+/* —— 对决布局加宽中央舞台 —— */
+@media (min-width: 769px) {
+  .today-free-focus__matchup {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 380px) minmax(0, 1fr);
+    gap: 0.65rem 1.25rem;
+    padding: 2rem 1.75rem 2.25rem;
+    align-items: center;
+    filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.55));
+  }
+
+  .today-free-focus__banner--fifa-poster:hover .today-free-focus__matchup {
+    filter: drop-shadow(0 28px 56px rgba(0, 0, 0, 0.6));
+  }
+}
+
+.today-free-focus__matchup {
+  z-index: 6;
+  position: relative;
+}
+
+/* —— 中央 VS 体育场 —— */
+.today-free-focus__center {
+  min-height: 340px;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  box-shadow:
+    0 0 0 1px rgba(232, 197, 71, 0.12) inset,
+    0 0 60px rgba(239, 68, 68, 0.25),
+    0 16px 40px rgba(0, 0, 0, 0.55),
+    inset 0 0 100px rgba(0, 0, 0, 0.5);
+}
+
+.today-free-focus__center-stadium-rim {
+  position: absolute;
+  top: -5%;
+  left: -10%;
+  right: -10%;
+  height: 35%;
+  background: radial-gradient(ellipse 90% 100% at 50% 0%, rgba(253, 230, 138, 0.12) 0%, transparent 65%);
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.today-free-focus__center-gold-beam {
+  position: absolute;
+  top: -70%;
+  left: 50%;
+  width: 35%;
+  height: 200%;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(253, 230, 138, 0.45) 15%,
+    rgba(232, 197, 71, 0.2) 40%,
+    transparent 72%
+  );
+  filter: blur(5px);
+  opacity: 0.5;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: poster-gold-sway 7s ease-in-out infinite;
+}
+
+.today-free-focus__center-fog--gold {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(0deg, rgba(253, 230, 138, 0.06) 0%, transparent 55%);
+  mix-blend-mode: screen;
+  opacity: 0.8;
+}
+
+.today-free-focus__center-contrast {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse 70% 65% at 50% 45%, transparent 0%, rgba(0, 0, 0, 0.45) 100%);
+  mix-blend-mode: multiply;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.today-free-focus__center-arena-glow {
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    ellipse 65% 60% at 50% 48%,
+    rgba(253, 230, 138, 0.25) 0%,
+    rgba(239, 68, 68, 0.2) 35%,
+    transparent 68%
+  );
+  filter: blur(25px);
+  opacity: 0.7;
+  animation: vs-arena-pulse 4s ease-in-out infinite;
+}
+
+@keyframes vs-arena-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.05);
+  }
+}
+
+.today-free-focus__center-pitch-field {
+  opacity: 0.48;
+  filter: blur(2px) brightness(0.62) saturate(1.1) contrast(1.2);
+  inset: -38%;
+}
+
+.today-free-focus__center-beam {
+  position: absolute;
+  top: -60%;
+  width: 16%;
+  height: 170%;
+  filter: blur(6px);
+  opacity: 0.35;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, transparent 80%);
+  transform-origin: top center;
+  mix-blend-mode: screen;
+}
+
+.today-free-focus__center-beam--1 {
+  left: 32%;
+  transform: rotate(-8deg);
+}
+
+.today-free-focus__center-beam--2 {
+  left: 52%;
+  transform: rotate(8deg);
+  background: linear-gradient(180deg, rgba(253, 230, 138, 0.45) 0%, transparent 80%);
+}
+
+.today-free-focus__center-light--4 {
+  top: -55%;
+  left: 38%;
+  width: 26%;
+  height: 130%;
+  background: radial-gradient(circle, rgba(255, 251, 235, 0.65) 0%, rgba(253, 230, 138, 0.25) 40%, transparent 72%);
+  opacity: 0.42;
+  filter: blur(10px);
+  mix-blend-mode: screen;
+}
+
+.today-free-focus__center-vignette {
+  background: radial-gradient(ellipse 80% 72% at 50% 48%, transparent 18%, rgba(0, 0, 0, 0.62) 100%);
+}
+
+.today-free-focus__center-content {
+  z-index: 5;
+}
+
+/* —— 炸裂 VS —— */
+.today-free-focus__vs-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: clamp(5rem, 18vw, 7.5rem);
+  margin: 0.15rem 0;
+}
+
+.today-free-focus__vs-radial {
+  position: absolute;
+  width: min(100%, 280px);
+  height: min(100%, 200px);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(253, 230, 138, 0.55) 0%,
+    rgba(232, 197, 71, 0.35) 22%,
+    rgba(239, 68, 68, 0.2) 45%,
+    transparent 72%
+  );
+  filter: blur(8px);
+  animation: vs-radial-breathe 3s ease-in-out infinite;
+}
+
+.today-free-focus__vs-volumetric {
+  position: absolute;
+  width: 120%;
+  height: 140%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -52%);
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    rgba(253, 230, 138, 0.08) 40deg,
+    transparent 80deg,
+    rgba(239, 68, 68, 0.1) 140deg,
+    transparent 200deg,
+    rgba(253, 230, 138, 0.06) 280deg,
+    transparent 360deg
+  );
+  filter: blur(20px);
+  opacity: 0.85;
+  animation: vs-volumetric-spin 20s linear infinite;
+}
+
+@keyframes vs-volumetric-spin {
+  to {
+    transform: translate(-50%, -52%) rotate(360deg);
+  }
+}
+
+.today-free-focus__vs-bloom {
+  position: absolute;
+  width: 90%;
+  height: 80%;
+  background: radial-gradient(ellipse at 50% 50%, rgba(255, 251, 235, 0.35) 0%, transparent 55%);
+  filter: blur(18px);
+  animation: vs-bloom-breathe 3s ease-in-out infinite;
+}
+
+@keyframes vs-radial-breathe {
+  0%,
+  100% {
+    transform: scale(0.92);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+@keyframes vs-bloom-breathe {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.1);
+  }
+}
+
+.today-free-focus__vs {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(3.5rem, 14vw, 5.5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: 0.08em;
+  color: transparent;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #fffbeb 15%,
+    #fde68a 35%,
+    #e8c547 60%,
+    #ca8a04 85%,
+    #92400e 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.95)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.8))
+    drop-shadow(0 0 35px rgba(253, 230, 138, 0.95)) drop-shadow(0 0 70px rgba(232, 197, 71, 0.75))
+    drop-shadow(0 0 100px rgba(239, 68, 68, 0.5));
+  animation: vs-text-breathe 3s ease-in-out infinite;
+}
+
+.today-free-focus__vs::after {
+  content: 'VS';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  color: transparent;
+  background: linear-gradient(180deg, #92400e 0%, #451a03 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  transform: translate(3px, 5px);
+  filter: blur(2px);
+  opacity: 0.85;
+}
+
+@keyframes vs-text-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 28px rgba(253, 230, 138, 0.85)) drop-shadow(0 0 55px rgba(232, 197, 71, 0.6))
+      drop-shadow(0 0 80px rgba(239, 68, 68, 0.35));
+  }
+  50% {
+    transform: scale(1.06);
+    filter: drop-shadow(0 0 45px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 75px rgba(253, 230, 138, 1))
+      drop-shadow(0 0 110px rgba(239, 68, 68, 0.55));
+  }
+}
+
+.today-free-focus__center-content .today-free-focus__vs-stage {
+  filter: none;
+}
+
+/* —— 球队卡立体玻璃 · 海报景深 —— */
+.focus-team-card {
+  background: linear-gradient(
+    168deg,
+    rgba(42, 12, 18, 0.82) 0%,
+    rgba(18, 5, 9, 0.72) 48%,
+    rgba(6, 2, 4, 0.88) 100%
+  );
+  backdrop-filter: blur(20px) saturate(1.45) contrast(1.05);
+  -webkit-backdrop-filter: blur(20px) saturate(1.45) contrast(1.05);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  box-shadow:
+    0 0 0 1px rgba(232, 197, 71, 0.14) inset,
+    0 2px 0 rgba(255, 255, 255, 0.1) inset,
+    0 -8px 24px rgba(0, 0, 0, 0.55) inset,
+    0 0 40px rgba(239, 68, 68, 0.2),
+    0 18px 40px rgba(0, 0, 0, 0.55),
+    0 28px 60px rgba(0, 0, 0, 0.35);
+}
+
+@media (min-width: 769px) {
+  .focus-team-card--home {
+    transform: perspective(1200px) rotateY(6deg) translateZ(12px);
+  }
+
+  .focus-team-card--away {
+    transform: perspective(1200px) rotateY(-6deg) translateZ(12px);
+  }
+
+  .focus-team-card--home:hover {
+    transform: perspective(1200px) rotateY(4deg) translateY(-6px) translateZ(20px) scale(1.02);
+  }
+
+  .focus-team-card--away:hover {
+    transform: perspective(1200px) rotateY(-4deg) translateY(-6px) translateZ(20px) scale(1.02);
+  }
+}
+
+.focus-team-card--home {
+  box-shadow:
+    0 0 0 1px rgba(232, 197, 71, 0.12) inset,
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 0 40px rgba(232, 197, 71, 0.15),
+    0 0 30px rgba(239, 68, 68, 0.15),
+    0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+.focus-team-card--away {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 0 40px rgba(239, 68, 68, 0.2),
+    0 0 28px rgba(253, 230, 138, 0.08),
+    0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+.focus-team-card--home:hover {
+  box-shadow:
+    0 0 0 1px rgba(232, 197, 71, 0.35) inset,
+    0 0 55px rgba(232, 197, 71, 0.3),
+    0 0 50px rgba(239, 68, 68, 0.35),
+    0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.focus-team-card--away:hover {
+  box-shadow:
+    0 0 0 1px rgba(253, 230, 138, 0.15) inset,
+    0 0 55px rgba(239, 68, 68, 0.45),
+    0 0 40px rgba(253, 230, 138, 0.15),
+    0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.focus-team-card__crest--home .focus-team-card__crest-glow {
+  background: radial-gradient(
+    ellipse 80% 90% at 50% 45%,
+    rgba(253, 230, 138, 0.55) 0%,
+    rgba(239, 68, 68, 0.35) 45%,
+    transparent 72%
+  );
+}
+
+/* —— 手机端：隐藏海报层复杂光效 —— */
+@media (max-width: 768px) {
+  .today-free-focus__banner--fifa-poster {
+    filter: none;
+  }
+
+  .today-free-focus__banner-shadow,
+  .today-free-focus__poster,
+  .today-free-focus__poster-inner,
+  .today-free-focus__poster-depth-back,
+  .today-free-focus__poster-depth-mid,
+  .today-free-focus__poster-depth-front,
+  .today-free-focus__poster-volumetric,
+  .today-free-focus__poster-fog-overlay,
+  .today-free-focus__poster-cinematic-vignette,
+  .today-free-focus__poster-bloom,
+  .today-free-focus__poster-dust,
+  .today-free-focus__poster-beam,
+  .today-free-focus__poster-gold-beam,
+  .today-free-focus__poster-stands,
+  .today-free-focus__poster-stands-lights,
+  .today-free-focus__poster-atmosphere,
+  .today-free-focus__poster-fog,
+  .today-free-focus__poster-smoke,
+  .today-free-focus__poster-particles,
+  .today-free-focus__poster-player,
+  .today-free-focus__poster-stadium,
+  .today-free-focus__poster-flare,
+  .today-free-focus__poster-contrast,
+  .today-free-focus__poster-depth-shadow,
+  .today-free-focus__poster-compose {
+    display: none !important;
+  }
+
+  .today-free-focus__poster-base,
+  .today-free-focus__poster-gold-mist {
+    opacity: 0.35;
+  }
+
+  .today-free-focus__banner {
+    min-height: 0;
+    background: linear-gradient(165deg, #2a0c12 0%, #140508 100%);
+  }
+
+  .today-free-focus__banner:hover .today-free-focus__poster-inner {
+    transform: none;
+    filter: none;
+  }
+
+  .today-free-focus__center-stadium-rim,
+  .today-free-focus__center-gold-beam,
+  .today-free-focus__center-arena-glow,
+  .today-free-focus__center-beam,
+  .today-free-focus__center-smoke,
+  .today-free-focus__center-fog,
+  .today-free-focus__center-contrast,
+  .today-free-focus__center-particles,
+  .today-free-focus__center-light {
+    display: none !important;
+  }
+
+  .today-free-focus__vs::after {
+    display: none;
+  }
+
+  .focus-team-card--home,
+  .focus-team-card--away {
+    transform: none;
+  }
+
+  .focus-team-card--home:hover,
+  .focus-team-card--away:hover {
+    transform: none;
+  }
+}

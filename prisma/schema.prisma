@@ -1,0 +1,302 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum LeagueCategory {
+  local
+  international
+  tournament
+}
+
+enum MatchStatus {
+  scheduled
+  live
+  finished
+  postponed
+  cancelled
+}
+
+enum MatchPeriod {
+  NS
+  HT
+  H1 @map("1H")
+  H2 @map("2H")
+  FT
+  ET
+  PEN
+}
+
+enum EditorConfidence {
+  low
+  medium
+  high
+}
+
+enum UserRole {
+  user
+  editor
+  admin
+}
+
+enum LeaderboardScope {
+  overall
+  weekly
+  monthly
+  league
+  world_cup
+}
+
+enum ChallengeType {
+  weekly
+  world_cup
+  custom
+}
+
+enum EditorSpecialty {
+  hong_kong
+  epl
+  world_cup
+}
+
+enum ArticleCategory {
+  method
+  tips
+  hkjc
+  data
+  news
+}
+
+enum MatchEventType {
+  goal
+  yellow
+  red
+  sub
+  penalty
+}
+
+model League {
+  id         String         @id @default(uuid())
+  slug       String         @unique
+  nameZh     String         @map("name_zh")
+  nameEn     String         @map("name_en")
+  country    String
+  category   LeagueCategory
+  season     String
+  isActive   Boolean        @default(true) @map("is_active")
+  sortOrder  Int            @default(0) @map("sort_order")
+  createdAt  DateTime       @default(now()) @map("created_at")
+  teams      Team[]
+  matches    Match[]
+
+  @@index([category, isActive])
+  @@map("leagues")
+}
+
+model Team {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  nameZh      String   @map("name_zh")
+  nameEn      String   @map("name_en")
+  shortNameZh String   @map("short_name_zh")
+  logoUrl     String?  @map("logo_url")
+  leagueId    String   @map("league_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  league      League   @relation(fields: [leagueId], references: [id])
+  homeMatches Match[]  @relation("HomeTeam")
+  awayMatches Match[]  @relation("AwayTeam")
+
+  @@index([leagueId])
+  @@map("teams")
+}
+
+model Match {
+  id                 String          @id @default(uuid())
+  slug               String          @unique
+  leagueId           String          @map("league_id")
+  homeTeamId         String          @map("home_team_id")
+  awayTeamId         String          @map("away_team_id")
+  kickoffAt          DateTime        @map("kickoff_at")
+  venueZh            String?         @map("venue_zh")
+  venueEn            String?         @map("venue_en")
+  round              String?
+  status             MatchStatus     @default(scheduled)
+  homeScore          Int?            @map("home_score")
+  awayScore          Int?            @map("away_score")
+  predictEnabled     Boolean         @default(true) @map("predict_enabled")
+  predictLockAt      DateTime?       @map("predict_lock_at")
+  analysisPublished  Boolean         @default(false) @map("analysis_published")
+  seoTitle           String?         @map("seo_title")
+  seoDescription     String?         @map("seo_description")
+  createdAt          DateTime        @default(now()) @map("created_at")
+  updatedAt          DateTime        @updatedAt @map("updated_at")
+  league             League          @relation(fields: [leagueId], references: [id])
+  homeTeam           Team            @relation("HomeTeam", fields: [homeTeamId], references: [id])
+  awayTeam           Team            @relation("AwayTeam", fields: [awayTeamId], references: [id])
+  analysis           MatchAnalysis?
+  liveScore          LiveScore?
+  predictions        Prediction[]
+  events             MatchEvent[]
+  challengeMatches   ChallengeMatch[]
+
+  @@index([leagueId, kickoffAt])
+  @@index([status, kickoffAt])
+  @@index([predictEnabled, kickoffAt])
+  @@map("matches")
+}
+
+model MatchAnalysis {
+  id                String           @id @default(uuid())
+  matchId           String           @unique @map("match_id")
+  editorId          String           @map("editor_id")
+  titleZh           String           @map("title_zh")
+  summaryZh         String           @map("summary_zh")
+  contentZh         String           @map("content_zh")
+  editorScoreHome   Int              @map("editor_score_home")
+  editorScoreAway   Int              @map("editor_score_away")
+  editorConfidence  EditorConfidence @default(medium) @map("editor_confidence")
+  keyPlayers        Json             @map("key_players")
+  statsSnapshot     Json             @map("stats_snapshot")
+  publishedAt       DateTime?        @map("published_at")
+  updatedAt         DateTime         @updatedAt @map("updated_at")
+  viewCount         Int              @default(0) @map("view_count")
+  match             Match            @relation(fields: [matchId], references: [id])
+  editor            Editor           @relation(fields: [editorId], references: [id])
+
+  @@map("match_analyses")
+}
+
+model LiveScore {
+  id         String      @id @default(uuid())
+  matchId    String      @unique @map("match_id")
+  minute     Int?
+  period     MatchPeriod @default(NS)
+  homeScore  Int         @default(0) @map("home_score")
+  awayScore  Int         @default(0) @map("away_score")
+  stats      Json?
+  lastSyncAt DateTime?   @map("last_sync_at")
+  match      Match       @relation(fields: [matchId], references: [id])
+
+  @@map("live_scores")
+}
+
+model MatchEvent {
+  id         String         @id @default(uuid())
+  matchId    String         @map("match_id")
+  minute     Int
+  type       MatchEventType
+  teamId     String?        @map("team_id")
+  playerName String         @map("player_name")
+  detail     String?
+  match      Match          @relation(fields: [matchId], references: [id])
+
+  @@index([matchId])
+  @@map("match_events")
+}
+
+model User {
+  id           String              @id @default(uuid())
+  username     String              @unique
+  email        String              @unique
+  passwordHash String              @map("password_hash")
+  displayName  String              @map("display_name")
+  avatarUrl    String?             @map("avatar_url")
+  totalPoints  Int                 @default(0) @map("total_points")
+  role         UserRole            @default(user)
+  createdAt    DateTime            @default(now()) @map("created_at")
+  predictions  Prediction[]
+  leaderboard  LeaderboardEntry[]
+
+  @@map("users")
+}
+
+model Prediction {
+  id           String   @id @default(uuid())
+  userId       String   @map("user_id")
+  matchId      String   @map("match_id")
+  scoreHome    Int      @map("score_home")
+  scoreAway    Int      @map("score_away")
+  pointsEarned Int?     @map("points_earned")
+  submittedAt  DateTime @default(now()) @map("submitted_at")
+  user         User     @relation(fields: [userId], references: [id])
+  match        Match    @relation(fields: [matchId], references: [id])
+
+  @@unique([userId, matchId])
+  @@index([matchId])
+  @@index([userId, submittedAt])
+  @@map("predictions")
+}
+
+model LeaderboardEntry {
+  id            String           @id @default(uuid())
+  userId        String           @map("user_id")
+  scope         LeaderboardScope
+  scopeRef      String?          @map("scope_ref")
+  points        Int
+  exactHits     Int              @default(0) @map("exact_hits")
+  rank          Int
+  periodStart   DateTime         @map("period_start") @db.Date
+  periodEnd     DateTime         @map("period_end") @db.Date
+  calculatedAt  DateTime         @map("calculated_at")
+  user          User             @relation(fields: [userId], references: [id])
+
+  @@index([scope, scopeRef, rank])
+  @@map("leaderboard_entries")
+}
+
+model Challenge {
+  id        String           @id @default(uuid())
+  slug      String           @unique
+  titleZh   String           @map("title_zh")
+  type      ChallengeType
+  startsAt  DateTime         @map("starts_at")
+  endsAt    DateTime         @map("ends_at")
+  isActive  Boolean          @default(true) @map("is_active")
+  matches   ChallengeMatch[]
+
+  @@map("challenges")
+}
+
+model ChallengeMatch {
+  challengeId String    @map("challenge_id")
+  matchId     String    @map("match_id")
+  sortOrder   Int       @default(0) @map("sort_order")
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+  match       Match     @relation(fields: [matchId], references: [id])
+
+  @@id([challengeId, matchId])
+  @@map("challenge_matches")
+}
+
+model Editor {
+  id        String          @id @default(uuid())
+  slug      String          @unique
+  nameZh    String          @map("name_zh")
+  bioZh     String?         @map("bio_zh")
+  avatarUrl String?         @map("avatar_url")
+  specialty EditorSpecialty
+  analyses  MatchAnalysis[]
+  articles  Article[]
+
+  @@map("editors")
+}
+
+model Article {
+  id              String          @id @default(uuid())
+  slug            String          @unique
+  category        ArticleCategory
+  titleZh         String          @map("title_zh")
+  contentZh       String          @map("content_zh")
+  editorId        String          @map("editor_id")
+  publishedAt     DateTime?       @map("published_at")
+  seoTitle        String?         @map("seo_title")
+  seoDescription  String?         @map("seo_description")
+  editor          Editor          @relation(fields: [editorId], references: [id])
+
+  @@index([category, publishedAt])
+  @@map("articles")
+}
