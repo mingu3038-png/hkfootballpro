@@ -20,11 +20,15 @@ html {
 /* —— Hero：避开顶栏、禁止裁切标题 —— */
 .home-hero {
   height: auto;
-  min-height: 460px;
+  min-height: 368px;
   max-height: none;
   overflow-x: hidden;
   overflow-y: visible;
   scroll-margin-top: var(--layout-header-h);
+}
+
+body:has(.home-page) .home-hero {
+  min-height: 368px;
 }
 
 .home-hero__bg {
@@ -56,12 +60,16 @@ html {
 
 @media (min-width: 769px) {
   .home-hero {
-    min-height: 32rem;
+    min-height: 25.6rem;
+  }
+
+  body:has(.home-page) .home-hero {
+    min-height: 25.6rem;
   }
 
   .home-hero__inner {
-    padding-top: calc(var(--layout-header-safe) + 1rem);
-    padding-bottom: 2rem;
+    padding-top: calc(var(--layout-header-safe) + 0.8rem);
+    padding-bottom: 1.6rem;
   }
 
   .home-hero__grid {
@@ -91,7 +99,7 @@ html {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 1.5rem;
+  gap: 1.2rem;
   width: 100%;
   max-width: var(--layout-content-max);
   margin-inline: auto;
@@ -129,7 +137,7 @@ html {
     display: flex;
     width: 100%;
     align-self: start;
-    --focus-card-h: calc((17.5rem - 1rem) / 2);
+    --focus-card-h: calc((14rem - 0.8rem) / 2);
   }
 
   .home-focus-matches__layout > .home-focus-matches__card--sub:nth-of-type(2) {
@@ -147,7 +155,7 @@ html {
     grid-row: 1 / 3;
     align-self: start;
     width: 100%;
-    --focus-card-h: 17.5rem;
+    --focus-card-h: 14rem;
   }
 
   .home-focus-matches__std-row {
@@ -171,5 +179,165 @@ html {
   .home-focus-matches__rail {
     margin-inline: -1rem;
     padding-inline: 1rem;
+  }
+}
+
+/* ========== 首页首屏紧凑（Hero -20% + 模块间距收紧）========== */
+body:has(.home-page) .home-hero__inner {
+  padding-bottom: 1.2rem;
+}
+
+body:has(.home-page) .home-hero__grid {
+  gap: 1.6rem;
+}
+
+body:has(.home-page) .home-hero__title {
+  margin-bottom: 1.32rem;
+}
+
+body:has(.home-page) .home-hero__highlights {
+  margin-bottom: 0.88rem;
+  gap: 0.58rem;
+}
+
+body:has(.home-page) .home-hero__highlight-item {
+  gap: 0.58rem;
+  padding: 0.08rem 0;
+}
+
+body:has(.home-page) .home-hero__status-list {
+  gap: 0.52rem;
+  margin-bottom: 1.2rem;
+}
+
+body:has(.home-page) .home-hero__status-item {
+  gap: 0.52rem;
+}
+
+body:has(.home-page) .home-hero__stats {
+  gap: 1.2rem;
+  padding: 0.92rem 1.08rem;
+  margin-bottom: 1.4rem;
+}
+
+body:has(.home-page) .home-hero__stat-divider {
+  height: 35px;
+}
+
+body:has(.home-page) .home-hero__stat-rate {
+  font-size: 2rem;
+}
+
+body:has(.home-page) .home-hero__countdown {
+  margin-bottom: 0.6rem;
+  padding: 0.4rem 0.64rem;
+  gap: 0.36rem;
+}
+
+body:has(.home-page) .home-hero__focus-cta {
+  gap: 0.4rem;
+}
+
+body:has(.home-page) .home-hero__tg-btn,
+body:has(.home-page) .home-hero__tg-btn--closed {
+  padding: 0.58rem 1rem;
+}
+
+body:has(.home-page) .home-hero__cta-secondary {
+  margin-top: 0.44rem;
+  gap: 0.4rem;
+}
+
+body:has(.home-page) .home-hero__cta-secondary-btn {
+  padding: 0.5rem 0.9rem;
+}
+
+body:has(.home-page) .home-hero__tags-inner {
+  padding: 0.8rem;
+  gap: 0.48rem 0.88rem;
+}
+
+body:has(.home-page) .home-hero__tag {
+  padding: 0.32rem 0.88rem;
+}
+
+body:has(.home-page) .home-hero__match-hub-panel {
+  padding: 1.35rem 1.12rem 1.25rem;
+  gap: 0.75rem;
+}
+
+body:has(.home-page) > .home-pred-dir {
+  padding-top: 0.35rem !important;
+  padding-bottom: 0.4rem !important;
+}
+
+body:has(.home-page) > .home-focus-matches {
+  padding-top: 1.4rem !important;
+  padding-bottom: 1.6rem !important;
+}
+
+body:has(.home-page) .home-pred-dir__bar {
+  gap: 0.36rem;
+}
+
+@media (min-width: 769px) {
+  body:has(.home-page) .home-hero__inner {
+    padding-top: calc(var(--layout-header-safe) + 0.8rem);
+    padding-bottom: 1.6rem;
+  }
+
+  body:has(.home-page) .home-hero__grid {
+    gap: 0.92rem 0.88rem;
+  }
+
+  body:has(.home-page) .home-hero__title {
+    margin-bottom: 1.48rem;
+  }
+
+  body:has(.home-page) .home-hero__center {
+    min-height: 21rem;
+  }
+
+  body:has(.home-page) .home-hero__match-hub-panel {
+    min-height: 21.5rem;
+    padding: 1.65rem 1.4rem 1.45rem;
+    gap: 0.9rem;
+  }
+
+  body:has(.home-page) .home-focus-matches__layout {
+    gap: 0.8rem 0.92rem;
+    padding: 0.12rem 0 0.28rem;
+  }
+
+  body:has(.home-page) .home-focus-matches__std-row {
+    gap: 0.92rem;
+  }
+
+  body:has(.home-page) .home-focus-matches__std-row .home-focus-matches__card--std {
+    --focus-card-h: 9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  body:has(.home-page) .home-hero__grid {
+    gap: 0.08rem;
+  }
+
+  body:has(.home-page) > .home-pred-dir {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+  }
+
+  body:has(.home-page) > .home-focus-matches {
+    padding-top: 10px !important;
+    padding-bottom: 11px !important;
+  }
+
+  body:has(.home-page) .home-focus-matches__container {
+    gap: 0.76rem;
+  }
+
+  body:has(.home-page) .home-focus-matches__card--hero {
+    --focus-card-h: 10.4rem;
   }
 }
