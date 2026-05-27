@@ -42,6 +42,9 @@ export async function getHomePageData(): Promise<HomePageData> {
     todayLiveDirectionUpdates,
     tgPromo: siteDailyContent.tgPromo,
     tickerMarquee: buildHomeTickerMarquee(),
+    floatingAnnouncements: siteDailyContent.floatingAnnouncements,
+    heroHighlights: siteDailyContent.heroHighlights,
+    winStreak: siteDailyContent.winStreak,
     streak: {
       wins: lastNightResults.wins,
       losses: lastNightResults.losses,

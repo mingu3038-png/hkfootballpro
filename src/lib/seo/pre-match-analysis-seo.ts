@@ -28,16 +28,16 @@ export function getPreMatchAnalysisOgImageUrl(): string {
   return path.startsWith('http') ? path : `${siteConfig.url}${path}`;
 }
 
-/** 页面 H1 / 标题核心段：曼联 vs 利物浦｜英超赛前分析 */
+/** 页面 H1：曼联 vs 利物浦 英超前瞻分析 */
 export function buildPreMatchAnalysisTitle(data: PreMatchAnalysisDetail): string {
   if (data.seoTitle?.trim()) return data.seoTitle.trim();
-  return `${data.homeTeam.nameZh} vs ${data.awayTeam.nameZh}｜${data.league.nameZh}赛前分析`;
+  return `${data.homeTeam.nameZh} vs ${data.awayTeam.nameZh} ${data.league.nameZh}前瞻分析`;
 }
 
-/** 完整 document title：…｜香港足球预测站 */
+/** 完整 document title：…｜香港足球预测 */
 export function buildPreMatchAnalysisDocumentTitle(data: PreMatchAnalysisDetail): string {
   const core = buildPreMatchAnalysisTitle(data);
-  const brand = siteConfig.seoSiteName;
+  const brand = siteConfig.seoBrandShort;
   if (core.includes(brand)) return core;
   return `${core}｜${brand}`;
 }

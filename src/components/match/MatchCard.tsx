@@ -58,9 +58,15 @@ export function MatchCard({ match, leagueSlug, showAnalysisLink = true }: MatchC
 
   return (
     <article className={cardClass}>
-      {(match.isHot || match.isFocus) && (
+      {(match.isHot || match.isFocus || match.isFreePublic || match.isLiveUpdating) && (
         <div className="match-card__top-tags">
           {match.isHot && <span className="match-card__tag match-card__tag--hot">热门</span>}
+          {match.isFreePublic && (
+            <span className="match-card__tag match-card__tag--free">免费公开</span>
+          )}
+          {match.isLiveUpdating && (
+            <span className="match-card__tag match-card__tag--live">临场更新中</span>
+          )}
           {match.isFocus && <span className="match-card__tag match-card__tag--focus">重心</span>}
         </div>
       )}

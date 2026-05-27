@@ -38,6 +38,11 @@ export function HeroFocusCta({ home }: HeroFocusCtaProps) {
   }, [secondsLeft]);
 
   const closed = secondsLeft <= 0;
+  const cta = home.ctaButtons ?? {
+    primary: TELEGRAM_CTA_LABEL,
+    secondary: '免费领取今晚重心',
+    tertiary: '获取临场方向',
+  };
 
   return (
     <div className="home-hero__focus-cta">
@@ -64,9 +69,30 @@ export function HeroFocusCta({ home }: HeroFocusCtaProps) {
         >
           <TelegramIcon className="home-hero__tg-icon" />
           <span>
-            <strong>{TELEGRAM_CTA_LABEL}</strong>
+            <strong>{cta.primary}</strong>
           </span>
         </a>
+      )}
+
+      {!closed && (
+        <div className="home-hero__cta-secondary">
+          <a
+            href={tgUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="home-hero__cta-secondary-btn"
+          >
+            {cta.secondary}
+          </a>
+          <a
+            href={tgUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="home-hero__cta-secondary-btn home-hero__cta-secondary-btn--outline"
+          >
+            {cta.tertiary}
+          </a>
+        </div>
       )}
 
       <LiveUpdateTicker items={home.liveUpdateTicker} />

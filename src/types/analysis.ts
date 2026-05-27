@@ -84,6 +84,24 @@ export interface Recommendation {
   scorePick: string;
   edge: string;
   summary: string;
+  /** 例：👉 方向：大2.5；缺省自动生成一条 */
+  picks?: string[];
+}
+
+/** 港式赛前分析正文 */
+export interface PreMatchBrief {
+  homeForm: string;
+  awayForm: string;
+  attack: string;
+  defense: string;
+  motivation: string;
+  pace: string;
+}
+
+export interface AnalysisTgMidCta {
+  headline: string;
+  subline?: string;
+  buttonLabel: string;
 }
 
 /** AI 推荐理由（节奏 / 攻防 / EV / 风险） */
@@ -131,6 +149,10 @@ export interface PreMatchAnalysisDetail {
   /** Hero 模型胜率（%） */
   modelWinRate?: number;
   aiInsight: AiInsight;
+  /** 赛前分析正文；缺省由 lib/analysis-content 自动生成 */
+  preMatchBrief?: PreMatchBrief;
+  /** 页内 TG 中段 CTA（1–2 条）；缺省用全站 analysis.midCtaBlocks */
+  tgMidCta?: AnalysisTgMidCta[];
   riskWarning: RiskWarning;
   relatedArticles: Array<{
     slug: string;

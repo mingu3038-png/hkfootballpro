@@ -329,6 +329,29 @@
   color: #fafafa;
 }
 
+.adx-hero__team-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  width: 100%;
+  max-width: 9.5rem;
+}
+
+.adx-hero__team-status {
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #a8a29e;
+  text-align: center;
+}
+
+.adx-hero__form-pills .adx-form-pill {
+  width: 1.35rem;
+  height: 1.35rem;
+  font-size: 0.58rem;
+}
+
 .adx-hero__center {
   display: flex;
   align-items: center;
@@ -426,6 +449,118 @@
   background: linear-gradient(180deg, #ef4444, var(--gold, #e8c547));
   border-radius: 2px;
   flex-shrink: 0;
+}
+
+.adx-brief-list {
+  margin: 0 0 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.adx-brief-item {
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid rgba(239, 68, 68, 0.12);
+}
+
+.adx-brief-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.adx-brief-item__label {
+  margin: 0 0 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fde68a;
+}
+
+.adx-brief-item__text {
+  margin: 0 0 0.35rem;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: #d6d3d1;
+}
+
+.adx-brief-item__text:last-child {
+  margin-bottom: 0;
+}
+
+.adx-status-grid--nested {
+  margin-top: 0.5rem;
+}
+
+.adx-pick-list {
+  margin: 0 0 0.65rem;
+  padding: 0;
+  list-style: none;
+}
+
+.adx-pick-list__item {
+  margin-bottom: 0.45rem;
+  padding: 0.55rem 0.65rem;
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #fafafa;
+  background: rgba(127, 29, 29, 0.35);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 8px;
+  letter-spacing: 0.02em;
+}
+
+.adx-pick-list__item:last-child {
+  margin-bottom: 0;
+}
+
+.adx-pick-meta {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #a8a29e;
+}
+
+.adx-mid-cta {
+  margin: 0.85rem 0;
+  padding: 0.85rem 0.9rem;
+  text-align: center;
+  background: linear-gradient(165deg, rgba(28, 10, 12, 0.95) 0%, rgba(8, 2, 4, 0.98) 100%);
+  border: 1px solid rgba(232, 197, 71, 0.4);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.adx-mid-cta__headline {
+  margin: 0 0 0.35rem;
+  font-size: 0.88rem;
+  font-weight: 900;
+  color: #fde68a;
+  letter-spacing: 0.03em;
+}
+
+.adx-mid-cta__subline {
+  margin: 0 0 0.65rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #d6d3d1;
+}
+
+.adx-mid-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.55rem 1.25rem;
+  font-size: 0.88rem;
+  font-weight: 900;
+  color: #0a0a0a;
+  text-decoration: none;
+  background: linear-gradient(135deg, #fbbf24 0%, #e8c547 45%, #d4af37 100%);
+  border: 1px solid rgba(232, 197, 71, 0.65);
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(232, 197, 71, 0.25);
 }
 
 .adx-panel__summary {
@@ -1331,6 +1466,34 @@
 
   .adx-hero__datetime-sub {
     font-size: 0.78rem;
+  }
+
+  .adx-hero__team-status {
+    font-size: 0.68rem;
+  }
+
+  .adx-hero__form-pills .adx-form-pill {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.65rem;
+  }
+
+  .adx-brief-item__text {
+    font-size: 0.84rem;
+  }
+
+  .adx-pick-list__item {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.7rem;
+  }
+
+  .adx-mid-cta__headline {
+    font-size: 0.9rem;
+  }
+
+  .adx-mid-cta__btn {
+    width: 100%;
+    min-height: 48px;
   }
 
   .adx-team-card {

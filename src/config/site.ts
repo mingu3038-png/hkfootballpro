@@ -11,6 +11,8 @@ export const siteConfig = {
   nameZh: '港波预测',
   /** 分析页等 SEO 用品牌名（title 后缀） */
   seoSiteName: '香港足球预测站',
+  /** 分析页 title / H1 后缀，例：…｜香港足球预测 */
+  seoBrandShort: '香港足球预测',
   /** Telegram 频道/群组（可被 NEXT_PUBLIC_TELEGRAM_URL 覆盖） */
   telegramUrl: process.env.NEXT_PUBLIC_TELEGRAM_URL ?? 'https://t.me/mingzaiwc',
   /** Hero 背景图（放在 public/images/） */

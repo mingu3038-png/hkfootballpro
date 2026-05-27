@@ -16,6 +16,10 @@ export interface MatchListItem {
   isHot?: boolean;
   /** 今日重心 */
   isFocus?: boolean;
+  /** 免费公开分析 */
+  isFreePublic?: boolean;
+  /** 临场方向更新中 */
+  isLiveUpdating?: boolean;
   /** 联赛徽章简称 */
   leagueAbbr?: string;
 }
@@ -53,6 +57,8 @@ export interface LastNightResults {
   wins: number;
   losses: number;
   pushes: number;
+  /** 不填则按 红/(红+黑+走) 自动计算 */
+  winRatePercent?: number;
   picks: LastNightPick[];
 }
 
@@ -96,6 +102,11 @@ export interface TodayLiveDirectionUpdates {
   items: LiveDirectionUpdateItem[];
 }
 
+export interface HomeWinStreak {
+  count: number;
+  label: string;
+}
+
 export interface HomePageData {
   lastNightResults: LastNightResults;
   todayFreeFocus: TodayFreeFocus;
@@ -103,6 +114,11 @@ export interface HomePageData {
   todayLiveDirectionUpdates: TodayLiveDirectionUpdates;
   tgPromo: TgPromoContent;
   tickerMarquee: string[];
+  /** 顶部浮动公告轮播 */
+  floatingAnnouncements: string[];
+  /** Hero 卖点三条 */
+  heroHighlights: string[];
+  winStreak: HomeWinStreak;
   streak: { wins: number; losses: number; pushes: number };
   hotLeagues: Array<{ label: string; href: string; hot?: boolean }>;
   liveMatches: MatchListItem[];

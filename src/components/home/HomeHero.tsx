@@ -95,6 +95,17 @@ export function HomeHero({ tgPromo, streak }: HomeHeroProps) {
               <span className="home-hero__title-red">{home.titleRed}</span>
             </h1>
 
+            {home.heroHighlights && home.heroHighlights.length > 0 && (
+              <ul className="home-hero__highlights">
+                {home.heroHighlights.map((line) => (
+                  <li key={line} className="home-hero__highlight-item">
+                    <span className="home-hero__highlight-dot" aria-hidden />
+                    {line}
+                  </li>
+                ))}
+              </ul>
+            )}
+
             <div className="home-hero__subtitle">
               <ul className="home-hero__status-list">
                 <li className="home-hero__status-item home-hero__status-item--active">
@@ -160,7 +171,7 @@ export function HomeHero({ tgPromo, streak }: HomeHeroProps) {
                 rel="noopener noreferrer"
                 className="home-hero__tg-card-btn"
               >
-                {TELEGRAM_CTA_LABEL}
+                {home.ctaButtons?.primary ?? TELEGRAM_CTA_LABEL}
               </a>
 
               <p className="home-hero__tg-note">{home.card.followerNote}</p>

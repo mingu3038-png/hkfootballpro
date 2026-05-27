@@ -1,7 +1,8 @@
-import type { LastNightPick, LastNightResults } from '@/types/match';
+import type { HomeWinStreak, LastNightPick, LastNightResults } from '@/types/match';
 
 interface LastNightResultsProps {
   data: LastNightResults;
+  winStreak?: HomeWinStreak;
 }
 
 const resultIcon: Record<LastNightPick['result'], string> = {
@@ -17,9 +18,10 @@ function formatPickLabel(pick: LastNightPick) {
   return pick.teamLabel;
 }
 
-export function LastNightResults({ data }: LastNightResultsProps) {
+export function LastNightResults({ data, winStreak }: LastNightResultsProps) {
   const total = data.wins + data.losses + data.pushes;
-  const winRate = Math.round((data.wins / total) * 100);
+  const winRate =
+    data.winRatePercent ?? (total > 0 ? Math.round((data.wins / total) * 100) : 0);
 
   return (
     <section className="last-night-results" aria-labelledby="last-night-results-title">
@@ -31,6 +33,12 @@ export function LastNightResults({ data }: LastNightResultsProps) {
           </h2>
           <span className="last-night-results__badge">已结算</span>
         </header>
+
+        {winStreak && (
+          <p className="last-night-results__win-streak" role="status">
+            🔥 {winStreak.label}
+          </p>
+        )}
 
         <div className="last-night-results__stats">
           <div className="last-night-results__stats-main">

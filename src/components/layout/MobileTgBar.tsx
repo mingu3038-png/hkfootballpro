@@ -1,6 +1,10 @@
 import { resolveTelegramUrl, TELEGRAM_CTA_LABEL } from '@/lib/telegram';
 
-export function MobileTgBar() {
+interface MobileTgBarProps {
+  label?: string;
+}
+
+export function MobileTgBar({ label = TELEGRAM_CTA_LABEL }: MobileTgBarProps) {
   return (
     <a
       href={resolveTelegramUrl()}
@@ -8,7 +12,10 @@ export function MobileTgBar() {
       rel="noopener noreferrer"
       className="mobile-tg-bar"
     >
-      {TELEGRAM_CTA_LABEL}
+      <span className="mobile-tg-bar__icon" aria-hidden>
+        ✈
+      </span>
+      <span className="mobile-tg-bar__text">{label}</span>
     </a>
   );
 }

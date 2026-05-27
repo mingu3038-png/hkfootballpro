@@ -1,11 +1,17 @@
 import Link from 'next/link';
 import { AnalysisInlineTgCta } from '@/components/analysis/AnalysisInlineTgCta';
+import { AnalysisMidTgCta } from '@/components/analysis/AnalysisMidTgCta';
 import { AnalysisSportsEventJsonLd } from '@/components/analysis/AnalysisSportsEventJsonLd';
 import { AnalysisStickyTgBar } from '@/components/analysis/AnalysisStickyTgBar';
 import { AnalysisTgCard } from '@/components/analysis/AnalysisTgCard';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
 import { TeamLogo } from '@/components/ui/TeamLogo';
 import { getAnalysisUrl } from '@/config/site';
+import {
+  resolvePreMatchBrief,
+  resolveRecommendationPicks,
+  resolveTgMidCtaBlocks,
+} from '@/lib/analysis-content';
 import { buildPreMatchAnalysisH1 } from '@/lib/seo/pre-match-analysis-seo';
 import type {
   FormResult,
@@ -138,8 +144,39 @@ function TeamStatusCard({
   );
 }
 
+function HeroTeamBlock({
+  team,
+  status,
+  side,
+}: {
+  team: { slug: string; nameZh: string };
+  status: TeamRecentStatus;
+  side: 'home' | 'away';
+}) {
+  return (
+    <div className={`adx-hero__team adx-hero__team--${side}`} itemProp={side === 'home' ? 'homeTeam' : 'awayTeam'}>
+      <TeamLogo
+        slug={team.slug}
+        nameZh={team.nameZh}
+        className={`adx-hero__logo${side === 'away' ? ' adx-hero__logo--away' : ''}`}
+        alt={team.nameZh}
+      />
+      <span className="adx-hero__name">{team.nameZh}</span>
+      <div className="adx-hero__team-meta">
+        <span className="adx-hero__team-status">{status.trendLabel}</span>
+        <div className="adx-hero__form-pills">
+          <FormPills sequence={status.formSequence} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps) {
   const pageTitle = buildPreMatchAnalysisH1(data);
+  const brief = resolvePreMatchBrief(data);
+  const picks = resolveRecommendationPicks(data);
+  const midCtas = resolveTgMidCtaBlocks(data, tgCopy.midCtaBlocks);
   const h2hTotal = data.headToHead.homeWins + data.headToHead.draws + data.headToHead.awayWins;
   const ou = data.overUnderAnalysis;
   const modelWinRate = data.modelWinRate ?? ou.over25Probability;
@@ -190,27 +227,11 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
           </time>
 
           <div className="adx-hero__matchup">
-            <div className="adx-hero__team adx-hero__team--home" itemProp="homeTeam">
-              <TeamLogo
-                slug={data.homeTeam.slug}
-                nameZh={data.homeTeam.nameZh}
-                className="adx-hero__logo"
-                alt={data.homeTeam.nameZh}
-              />
-              <span className="adx-hero__name">{data.homeTeam.nameZh}</span>
-            </div>
+            <HeroTeamBlock team={data.homeTeam} status={data.homeStatus} side="home" />
             <div className="adx-hero__center">
               <span className="adx-hero__vs">VS</span>
             </div>
-            <div className="adx-hero__team adx-hero__team--away" itemProp="awayTeam">
-              <TeamLogo
-                slug={data.awayTeam.slug}
-                nameZh={data.awayTeam.nameZh}
-                className="adx-hero__logo adx-hero__logo--away"
-                alt={data.awayTeam.nameZh}
-              />
-              <span className="adx-hero__name">{data.awayTeam.nameZh}</span>
-            </div>
+            <HeroTeamBlock team={data.awayTeam} status={data.awayStatus} side="away" />
           </div>
 
           <div className="adx-hero__pick-strip">
@@ -238,16 +259,134 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
         </header>
 
         <div className="analysis-detail__stack">
-          <section className="adx-panel" aria-labelledby="adx-form-title">
-            <h2 id="adx-form-title" className="adx-panel__title">
+          <section className="adx-panel adx-panel--brief" aria-labelledby="adx-brief-title">
+            <h2 id="adx-brief-title" className="adx-panel__title">
               <span className="adx-panel__icon" aria-hidden />
-              双方近况与数据
+              赛前分析
             </h2>
-            <div className="adx-status-grid">
+            <ul className="adx-brief-list">
+              <li className="adx-brief-item">
+                <h3 className="adx-brief-item__label">双方近况</h3>
+                <p className="adx-brief-item__text">{brief.homeForm}</p>
+                <p className="adx-brief-item__text">{brief.awayForm}</p>
+              </li>
+              <li className="adx-brief-item">
+                <h3 className="adx-brief-item__label">进攻表现</h3>
+                <p className="adx-brief-item__text">{brief.attack}</p>
+              </li>
+              <li className="adx-brief-item">
+                <h3 className="adx-brief-item__label">防守问题</h3>
+                <p className="adx-brief-item__text">{brief.defense}</p>
+              </li>
+              <li className="adx-brief-item">
+                <h3 className="adx-brief-item__label">战意</h3>
+                <p className="adx-brief-item__text">{brief.motivation}</p>
+              </li>
+              <li className="adx-brief-item">
+                <h3 className="adx-brief-item__label">节奏判断</h3>
+                <p className="adx-brief-item__text">{brief.pace}</p>
+              </li>
+            </ul>
+            <div className="adx-status-grid adx-status-grid--nested">
               <TeamStatusCard team={data.homeTeam} status={data.homeStatus} />
               <TeamStatusCard team={data.awayTeam} status={data.awayStatus} />
             </div>
           </section>
+
+          <section className="adx-panel adx-panel--ou-standalone" aria-labelledby="adx-ou-title">
+            <h2 id="adx-ou-title" className="adx-panel__title">
+              <span className="adx-panel__icon" aria-hidden />
+              大小球分析
+            </h2>
+            <p className="adx-panel__summary">{ou.summary}</p>
+            <div className="adx-ou-highlight">
+              <div className="adx-ou-highlight__item">
+                <span className="adx-ou-highlight__label">初盘</span>
+                <span className="adx-ou-highlight__value">{ou.lineOpen}</span>
+              </div>
+              <div className="adx-ou-highlight__arrow" aria-hidden>
+                {trendIcon(ou.trend)}
+              </div>
+              <div className="adx-ou-highlight__item adx-ou-highlight__item--current">
+                <span className="adx-ou-highlight__label">即时</span>
+                <span className="adx-ou-highlight__value">{ou.lineCurrent}</span>
+              </div>
+            </div>
+            <dl className="adx-ou-waters">
+              <div>
+                <dt>大球水</dt>
+                <dd>
+                  {ou.overWaterOpen} → <strong>{ou.overWaterCurrent}</strong>
+                </dd>
+              </div>
+              <div>
+                <dt>小球水</dt>
+                <dd>
+                  <strong>{ou.underWaterCurrent}</strong>
+                </dd>
+              </div>
+              <div>
+                <dt>大2.5概率</dt>
+                <dd>
+                  <strong>{ou.over25Probability}%</strong>
+                </dd>
+              </div>
+            </dl>
+            <div className="adx-water-scroll">
+              <table className="adx-water-table">
+                <caption className="adx-sr-only">大小球水位时间线</caption>
+                <thead>
+                  <tr>
+                    <th>时间</th>
+                    <th>盘口</th>
+                    <th>大</th>
+                    <th>小</th>
+                    <th>标注</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {ou.waterTimeline.map((p) => (
+                    <tr key={`${p.time}-${p.totalLine}`}>
+                      <td>{p.time}</td>
+                      <td>{p.totalLine}</td>
+                      <td className={parseFloat(p.overWater) < 0.92 ? 'adx-water--hot' : ''}>
+                        {p.overWater}
+                      </td>
+                      <td>{p.underWater}</td>
+                      <td>{p.tag ?? '—'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section className="adx-panel adx-panel--pick" aria-labelledby="adx-pick-title">
+            <h2 id="adx-pick-title" className="adx-panel__title">
+              <span className="adx-panel__icon" aria-hidden />
+              推荐方向
+            </h2>
+            <ul className="adx-pick-list">
+              {picks.map((pick) => (
+                <li key={pick} className="adx-pick-list__item">
+                  {pick}
+                </li>
+              ))}
+            </ul>
+            <p className="adx-pick-meta">
+              信心 {confidenceLabel(data.recommendation.confidence)} · 模型 {modelWinRate}% · 比分参考{' '}
+              {data.recommendation.scorePick}
+            </p>
+            <p className="adx-panel__summary">{data.recommendation.summary}</p>
+          </section>
+
+          {midCtas[0] && (
+            <AnalysisMidTgCta
+              headline={midCtas[0].headline}
+              subline={midCtas[0].subline}
+              buttonLabel={midCtas[0].buttonLabel}
+            />
+          )}
 
           <section className="adx-panel" aria-labelledby="adx-h2h-title">
             <h2 id="adx-h2h-title" className="adx-panel__title">
@@ -306,93 +445,28 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
           <section className="adx-panel adx-panel--odds" aria-labelledby="adx-odds-title">
             <h2 id="adx-odds-title" className="adx-panel__title">
               <span className="adx-panel__icon" aria-hidden />
-              盘口分析
+              亚盘分析
             </h2>
-
-            <div className="adx-odds-block">
-              <h3 className="adx-odds-block__head">亚盘</h3>
-              <p className="adx-panel__summary">{data.oddsAnalysis.summary}</p>
-              <div className="adx-data-table">
-                <div className="adx-data-table__head">
-                  <span>盘口</span>
-                  <span>初盘</span>
-                  <span>即时</span>
-                  <span>变动</span>
-                  <span>势</span>
-                </div>
-                {data.oddsAnalysis.rows.map((row) => (
-                  <div key={row.market} className="adx-data-table__row">
-                    <span className="adx-data-table__market">{row.market}</span>
-                    <span>{row.open}</span>
-                    <span className="adx-data-table__current">{row.current}</span>
-                    <span className="adx-data-table__move">{row.move}</span>
-                    <span className={`adx-trend adx-trend--${row.trend}`}>{trendIcon(row.trend)}</span>
-                  </div>
-                ))}
+            <p className="adx-panel__summary">{data.oddsAnalysis.summary}</p>
+            <div className="adx-data-table">
+              <div className="adx-data-table__head">
+                <span>盘口</span>
+                <span>初盘</span>
+                <span>即时</span>
+                <span>变动</span>
+                <span>势</span>
               </div>
-            </div>
-
-            <div className="adx-odds-block adx-odds-block--ou">
-              <h3 className="adx-odds-block__head">大小球 · 水位变化</h3>
-              <p className="adx-panel__summary">{ou.summary}</p>
-              <div className="adx-ou-highlight">
-                <div className="adx-ou-highlight__item">
-                  <span className="adx-ou-highlight__label">初盘</span>
-                  <span className="adx-ou-highlight__value">{ou.lineOpen}</span>
+              {data.oddsAnalysis.rows.map((row) => (
+                <div key={row.market} className="adx-data-table__row">
+                  <span className="adx-data-table__market">{row.market}</span>
+                  <span>{row.open}</span>
+                  <span className="adx-data-table__current">{row.current}</span>
+                  <span className="adx-data-table__move">{row.move}</span>
+                  <span className={`adx-trend adx-trend--${row.trend}`}>{trendIcon(row.trend)}</span>
                 </div>
-                <div className="adx-ou-highlight__arrow" aria-hidden>
-                  {trendIcon(ou.trend)}
-                </div>
-                <div className="adx-ou-highlight__item adx-ou-highlight__item--current">
-                  <span className="adx-ou-highlight__label">即时</span>
-                  <span className="adx-ou-highlight__value">{ou.lineCurrent}</span>
-                </div>
-              </div>
-              <dl className="adx-ou-waters">
-                <div>
-                  <dt>大球水</dt>
-                  <dd>
-                    {ou.overWaterOpen} → <strong>{ou.overWaterCurrent}</strong>
-                  </dd>
-                </div>
-                <div>
-                  <dt>小球水</dt>
-                  <dd>
-                    <strong>{ou.underWaterCurrent}</strong>
-                  </dd>
-                </div>
-              </dl>
-              <div className="adx-water-scroll">
-                <table className="adx-water-table">
-                  <caption className="adx-sr-only">水位变化时间线</caption>
-                  <thead>
-                    <tr>
-                      <th>时间</th>
-                      <th>盘口</th>
-                      <th>大</th>
-                      <th>小</th>
-                      <th>标注</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {ou.waterTimeline.map((p) => (
-                      <tr key={`${p.time}-${p.totalLine}`}>
-                        <td>{p.time}</td>
-                        <td>{p.totalLine}</td>
-                        <td className={parseFloat(p.overWater) < 0.92 ? 'adx-water--hot' : ''}>
-                          {p.overWater}
-                        </td>
-                        <td>{p.underWater}</td>
-                        <td>{p.tag ?? '—'}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              ))}
             </div>
           </section>
-
-          <AnalysisInlineTgCta label={tgCopy.inlineCtaLabel} />
 
           <section className="adx-panel adx-panel--ai" aria-labelledby="adx-ai-title">
             <h2 id="adx-ai-title" className="adx-panel__title adx-panel__title--ai">
@@ -417,15 +491,16 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
                 <p className="adx-ai-card__text">{data.aiInsight.risk}</p>
               </div>
             </div>
-            <p className="adx-ai-summary">{data.recommendation.summary}</p>
+            <p className="adx-ai-summary">{data.aiInsight.ev}</p>
           </section>
 
-          <AnalysisInlineTgCta label={tgCopy.inlineCtaLabel} />
-
-          <div className="adx-convert-below" role="note">
-            <p className="adx-convert-below__line">{tgCopy.tgUpdateNote}</p>
-            <p className="adx-convert-below__followers">{tgCopy.followerNote}</p>
-          </div>
+          {midCtas[1] && (
+            <AnalysisMidTgCta
+              headline={midCtas[1].headline}
+              subline={midCtas[1].subline}
+              buttonLabel={midCtas[1].buttonLabel}
+            />
+          )}
 
           {data.riskWarning.items.length > 0 && (
             <section
@@ -443,6 +518,13 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
               </ul>
             </section>
           )}
+
+          <AnalysisInlineTgCta label={tgCopy.inlineCtaLabel} />
+
+          <div className="adx-convert-below" role="note">
+            <p className="adx-convert-below__line">{tgCopy.tgUpdateNote}</p>
+            <p className="adx-convert-below__followers">{tgCopy.followerNote}</p>
+          </div>
 
           {data.relatedArticles.length > 0 && (
             <section className="adx-panel" aria-labelledby="adx-related-title">

@@ -1,5 +1,6 @@
 import type { PreMatchAnalysisDetail } from '@/types/analysis';
 import type {
+  LastNightPick,
   LastNightResults,
   MatchListItem,
   TodayFreeFocus,
@@ -38,6 +39,14 @@ export interface TgPromoContent {
     winRatePercent: number;
     /** Hero CTA 下临场更新滚动条（手机端） */
     liveUpdateTicker: string[];
+    /** Hero 卖点（例：今晚免费公开一场） */
+    heroHighlights?: string[];
+    /** TG 按钮文案组 */
+    ctaButtons?: {
+      primary: string;
+      secondary: string;
+      tertiary: string;
+    };
   };
   analysis: {
     badge: string;
@@ -63,11 +72,91 @@ export interface TgPromoContent {
       subtitle: string;
       buttonLabel: string;
     };
+    /** 分析页正文中段 TG 模块（通常 2 条） */
+    midCtaBlocks: Array<{
+      headline: string;
+      subline?: string;
+      buttonLabel: string;
+    }>;
   };
 }
 
+/** 每日首页更新区 — 只改 mock-data.ts 里的 dailyHomeUpdate */
+export interface DailyHomeTeamSide {
+  slug?: string;
+  name: string;
+  logoAbbr: string;
+  recentForm?: string;
+  goalsScored?: number;
+  goalsConceded?: number;
+}
+
+export interface DailyHomeFreeFocus {
+  /** 对阵标题，例：曼联 vs 利物浦 */
+  match: string;
+  /** 开球时间（香港习惯显示），例：03:00 */
+  time: string;
+  /** 联赛，例：英超 */
+  league: string;
+  /** 推荐方向，例：大2.5 */
+  direction: string;
+  home: DailyHomeTeamSide;
+  away: DailyHomeTeamSide;
+  statusLabel?: string;
+  analysisUrl?: string;
+  ctaLabel?: string;
+}
+
+export interface DailyLiveDirectionUpdate {
+  time: string;
+  /** 短文案；含「｜」则拆成主副两行 */
+  text: string;
+}
+
+export interface DailyHomeLastNight {
+  /** 红 */
+  wins: number;
+  /** 黑 */
+  losses: number;
+  /** 走水 */
+  pushes: number;
+  /** 胜率 %；不填则按战绩自动算 */
+  winRatePercent?: number;
+  picks?: LastNightPick[];
+}
+
+export type DailyHomeTgCta = TgPromoContent['home'];
+
+/** 每日首页 — 只改 mock-data.ts 中的 dailyHomeUpdate */
+export interface DailyHomeUpdate {
+  /** ① 今日免费重心 */
+  freeFocus: DailyHomeFreeFocus;
+  /** ② 昨晚战绩 */
+  lastNight: DailyHomeLastNight;
+  /** ③ 首页跑马灯（6 条；首条「昨晚 X红X黑」自动生成） */
+  tickerMarquee: [string, string, string, string, string, string];
+  /** ④ 临场方向文案（3 条） */
+  liveDirectionUpdates: [
+    DailyLiveDirectionUpdate,
+    DailyLiveDirectionUpdate,
+    DailyLiveDirectionUpdate,
+  ];
+  /** ⑤ TG CTA 文案 */
+  tgCta: DailyHomeTgCta;
+  /** 手机端「今日赛前分析」要点（可选） */
+  preMatchPoints?: string[];
+  /** 顶部浮动公告（4 条轮播） */
+  floatingAnnouncements: [string, string, string, string];
+  /** Hero 卖点三条 */
+  heroHighlights: [string, string, string];
+  /** 近期连胜展示 */
+  winStreak: { count: number; label: string };
+  /** 首页热门赛事 */
+  hotLeagues: HomeHotLeagueLink[];
+}
+
 /**
- * 每日运营内容 — 只改 mock-data.ts 里的 siteDailyContent
+ * 全站 mock — 每日首页字段由 dailyHomeUpdate 映射生成
  */
 export interface HomeHotLeagueLink {
   label: string;
@@ -76,6 +165,7 @@ export interface HomeHotLeagueLink {
 }
 
 export interface SiteDailyContent {
+  /** @internal 由 dailyHomeUpdate 映射，勿手改 */
   todayFreeFocus: TodayFreeFocus;
   /** 首页手机端 · 今日赛前分析（桌面不展示） */
   todayPreMatchAnalysis: TodayPreMatchAnalysis;
@@ -88,7 +178,10 @@ export interface SiteDailyContent {
   homepageLatestAnalysisSlugs?: string[];
   /** 首页跑马灯（首条由昨晚战绩自动生成） */
   tickerMarquee: string[];
-  /** 首页 Hero 下方热门联赛 */
+  /** 首页热门赛事（由 dailyHomeUpdate.hotLeagues 同步） */
   homepageHotLeagues: HomeHotLeagueLink[];
+  floatingAnnouncements: string[];
+  heroHighlights: string[];
+  winStreak: { count: number; label: string };
   weeklyChallenge?: { slug: string; titleZh: string; matchCount: number };
 }

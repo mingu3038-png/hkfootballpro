@@ -23,7 +23,7 @@ export function HeroOpsStrip({ streak, hotLeagues, liveMatches }: HeroOpsStripPr
         </div>
 
         <div className="hero-ops-strip__leagues">
-          <span className="hero-ops-strip__section-label">今日热门联赛</span>
+          <span className="hero-ops-strip__section-label">热门赛事</span>
           <div className="hero-ops-strip__league-tags">
             {hotLeagues.map((league) => (
               <Link

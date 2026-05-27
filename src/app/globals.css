@@ -1278,6 +1278,66 @@ a {
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
 }
 
+.home-hero__highlights {
+  margin: 0 0 0.85rem;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.home-hero__highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #fde68a;
+  letter-spacing: 0.02em;
+}
+
+.home-hero__highlight-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.65);
+  flex-shrink: 0;
+}
+
+.home-hero__cta-secondary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.55rem;
+}
+
+.home-hero__cta-secondary-btn {
+  flex: 1;
+  min-width: 8.5rem;
+  padding: 0.65rem 0.85rem;
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #0a0a0a;
+  text-decoration: none;
+  background: linear-gradient(135deg, #fde68a 0%, #e8c547 100%);
+  border: 1px solid rgba(232, 197, 71, 0.5);
+  border-radius: 10px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.home-hero__cta-secondary-btn--outline {
+  color: #fde68a;
+  background: rgba(12, 4, 7, 0.75);
+  border-color: rgba(239, 68, 68, 0.45);
+}
+
+.home-hero__cta-secondary-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(232, 197, 71, 0.25);
+}
+
 /* VIP TG 卡 */
 .home-hero__right {
   position: relative;
@@ -1495,6 +1555,68 @@ a {
   display: none;
 }
 
+/* ========== 顶部浮动公告 ========== */
+.floating-announcement {
+  position: sticky;
+  top: 0;
+  z-index: 70;
+  background: linear-gradient(90deg, #1c0508 0%, #3d0c12 45%, #1c0508 100%);
+  border-bottom: 1px solid rgba(232, 197, 71, 0.35);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+}
+
+.floating-announcement__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.25rem;
+  padding: 0.4rem 0;
+}
+
+.floating-announcement__pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
+  animation: floating-pulse 1.4s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes floating-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.85);
+  }
+}
+
+.floating-announcement__text {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #fde68a;
+  letter-spacing: 0.04em;
+  text-align: center;
+  animation: floating-fade 0.35s ease;
+}
+
+@keyframes floating-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ========== 顶部跑马灯 ========== */
 .ticker-marquee {
   position: relative;
@@ -1605,6 +1727,20 @@ a {
   border-radius: 2px;
   background: linear-gradient(180deg, #fde68a, #ca8a04, #ef4444);
   box-shadow: 0 0 12px rgba(232, 197, 71, 0.5);
+}
+
+.last-night-results__win-streak {
+  margin: 0 0 0.75rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.88rem;
+  font-weight: 900;
+  color: #fde68a;
+  text-align: center;
+  letter-spacing: 0.03em;
+  background: linear-gradient(90deg, rgba(127, 29, 29, 0.5) 0%, rgba(28, 10, 12, 0.85) 50%, rgba(127, 29, 29, 0.5) 100%);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 8px;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.2);
 }
 
 .last-night-results__badge {
@@ -1841,6 +1977,70 @@ a {
   }
 }
 
+/* ========== 热门赛事条 ========== */
+.home-hot-leagues {
+  position: relative;
+  z-index: 24;
+  padding: 0.85rem 0 1rem;
+  background: rgba(10, 3, 5, 0.9);
+  border-bottom: 1px solid rgba(220, 38, 38, 0.22);
+}
+
+.home-hot-leagues__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.home-hot-leagues__title {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #a8a29e;
+}
+
+.home-hot-leagues__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.home-hot-leagues__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #e7e5e4;
+  text-decoration: none;
+  background: rgba(28, 10, 12, 0.85);
+  border: 1px solid rgba(239, 68, 68, 0.28);
+  border-radius: 999px;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.home-hot-leagues__tag:hover {
+  color: #fde68a;
+  border-color: rgba(232, 197, 71, 0.45);
+}
+
+.home-hot-leagues__tag--hot {
+  color: #fecaca;
+  border-color: rgba(239, 68, 68, 0.5);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.2);
+}
+
+.home-hot-leagues__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.7);
+}
+
 /* ========== Hero 下方运营条 ========== */
 .hero-ops-strip {
   position: relative;
@@ -2056,6 +2256,29 @@ a {
   box-shadow: 0 0 12px rgba(232, 197, 71, 0.45);
 }
 
+.match-card__tag--free {
+  background: rgba(22, 78, 46, 0.85);
+  color: #86efac;
+  border: 1px solid rgba(34, 197, 94, 0.45);
+}
+
+.match-card__tag--live {
+  background: rgba(127, 29, 29, 0.9);
+  color: #fecaca;
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  animation: match-tag-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes match-tag-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 14px rgba(239, 68, 68, 0.65);
+  }
+}
+
 .match-card__league-badge {
   flex-shrink: 0;
   display: inline-flex;
@@ -2221,6 +2444,9 @@ a.today-free-focus__btn:hover {
 /* 移动端浮动条 · 见 home-mobile.css */
 .mobile-tg-bar {
   display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
 }
 
 /* 首页手机端赛前分析 · 桌面隐藏，样式见 home-mobile.css */
