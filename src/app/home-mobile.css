@@ -95,11 +95,14 @@
     display: none !important;
   }
 
+  body:has(.home-page) .home-hero .home-page__container,
   body:has(.home-page) .home-hero .container {
     padding-bottom: 0;
   }
 
   .container,
+  .home-page__container,
+  .home-hero .home-page__container,
   .home-hero .container,
   .last-night-results__inner,
   .today-free-focus .container,

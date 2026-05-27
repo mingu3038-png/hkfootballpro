@@ -91,7 +91,7 @@ export function HomeHero({ tgPromo, streak, heroTonightFeature }: HomeHeroProps)
         <div className="home-hero__scanline" />
       </div>
 
-      <div className="container home-hero__inner">
+      <div className="home-page__container home-hero__inner">
         <div className="home-hero__grid">
           {/* 左侧主文案 */}
           <div className="home-hero__left">
@@ -198,7 +198,7 @@ export function HomeHero({ tgPromo, streak, heroTonightFeature }: HomeHeroProps)
 
       {/* 四标签条 */}
       <div className="home-hero__tags">
-        <div className="container home-hero__tags-inner">
+        <div className="home-page__container home-hero__tags-inner">
           {home.tags.map((tag) => (
             <span key={tag} className="home-hero__tag">
               {tag}

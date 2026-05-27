@@ -17,10 +17,23 @@ html {
   }
 }
 
+/* —— 首页统一容器 —— */
+.home-page__container {
+  width: 100%;
+  max-width: var(--layout-content-max);
+  margin-inline: auto;
+  padding-inline: 1rem;
+  box-sizing: border-box;
+}
+
+body:has(.home-page) .container {
+  max-width: var(--layout-content-max);
+}
+
 /* —— Hero：避开顶栏、禁止裁切标题 —— */
 .home-hero {
   height: auto;
-  min-height: 368px;
+  min-height: 313px;
   max-height: none;
   overflow-x: hidden;
   overflow-y: visible;
@@ -28,7 +41,7 @@ html {
 }
 
 body:has(.home-page) .home-hero {
-  min-height: 368px;
+  min-height: 313px;
 }
 
 .home-hero__bg {
@@ -40,8 +53,8 @@ body:has(.home-page) .home-hero {
   height: auto;
   min-height: 0;
   max-height: none;
-  padding-top: calc(var(--layout-header-safe) + 0.5rem);
-  padding-bottom: 1.5rem;
+  padding-top: calc(var(--layout-header-safe) + 0.35rem);
+  padding-bottom: 1rem;
   overflow: visible;
   box-sizing: border-box;
 }
@@ -60,20 +73,26 @@ body:has(.home-page) .home-hero {
 
 @media (min-width: 769px) {
   .home-hero {
-    min-height: 25.6rem;
+    min-height: 21.76rem;
   }
 
   body:has(.home-page) .home-hero {
-    min-height: 25.6rem;
+    min-height: 21.76rem;
   }
 
-  .home-hero__inner {
-    padding-top: calc(var(--layout-header-safe) + 0.8rem);
-    padding-bottom: 1.6rem;
+  body:has(.home-page) .home-hero__inner {
+    padding-top: calc(var(--layout-header-safe) + 0.65rem);
+    padding-bottom: 1rem;
   }
 
-  .home-hero__grid {
-    align-items: start;
+  body:has(.home-page) .home-hero__grid {
+    align-items: center;
+  }
+
+  body:has(.home-page) .home-hero__grid > .home-hero__left,
+  body:has(.home-page) .home-hero__grid > .home-hero__center,
+  body:has(.home-page) .home-hero__grid > .home-hero__right {
+    align-self: center;
   }
 }
 
@@ -83,11 +102,11 @@ body:has(.home-page) .home-hero {
   }
 
   body:has(.home-page) .home-hero__inner {
-    padding-top: calc(var(--layout-header-safe) + 0.35rem);
+    padding-top: calc(var(--layout-header-safe) + 0.28rem);
+    padding-bottom: 0.65rem;
   }
 
-  body:has(.home-page) .home-hero .container {
-    padding-top: calc(var(--layout-header-safe) + 0.35rem);
+  body:has(.home-page) .home-hero .home-page__container {
     overflow: visible;
   }
 }
@@ -99,12 +118,8 @@ body:has(.home-page) .home-hero {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 1.2rem;
+  gap: 0.85rem;
   width: 100%;
-  max-width: var(--layout-content-max);
-  margin-inline: auto;
-  padding-inline: 1rem;
-  box-sizing: border-box;
 }
 
 .home-focus-matches__head,
@@ -119,6 +134,7 @@ body:has(.home-page) .home-hero {
 
 .home-focus-matches__head {
   padding: 0;
+  margin: 0;
 }
 
 @media (min-width: 769px) {
@@ -128,16 +144,16 @@ body:has(.home-page) .home-hero {
     grid-template-rows: auto auto auto;
     align-items: start;
     justify-items: stretch;
-    gap: 1rem 1.15rem;
+    gap: 0.8rem 0.92rem;
     width: 100%;
-    padding: 0.15rem 0 0.35rem;
+    padding: 0.08rem 0 0.2rem;
   }
 
   .home-focus-matches__layout > .home-focus-matches__card--sub {
     display: flex;
     width: 100%;
     align-self: start;
-    --focus-card-h: calc((14rem - 0.8rem) / 2);
+    --focus-card-h: calc((12.6rem - 0.72rem) / 2);
   }
 
   .home-focus-matches__layout > .home-focus-matches__card--sub:nth-of-type(2) {
@@ -155,7 +171,7 @@ body:has(.home-page) .home-hero {
     grid-row: 1 / 3;
     align-self: start;
     width: 100%;
-    --focus-card-h: 14rem;
+    --focus-card-h: 12.6rem;
   }
 
   .home-focus-matches__std-row {
@@ -163,7 +179,7 @@ body:has(.home-page) .home-hero {
     grid-column: 1 / -1;
     grid-row: 3;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.15rem;
+    gap: 0.92rem;
     width: 100%;
   }
 
@@ -171,7 +187,7 @@ body:has(.home-page) .home-hero {
     display: flex;
     width: 100%;
     min-width: 0;
-    --focus-card-h: 11.25rem;
+    --focus-card-h: 8.1rem;
   }
 }
 
@@ -182,162 +198,209 @@ body:has(.home-page) .home-hero {
   }
 }
 
-/* ========== 首页首屏紧凑（Hero -20% + 模块间距收紧）========== */
-body:has(.home-page) .home-hero__inner {
-  padding-bottom: 1.2rem;
-}
-
-body:has(.home-page) .home-hero__grid {
-  gap: 1.6rem;
-}
-
+/* ========== 首页首屏紧凑 · 高级体育媒体节奏 ========== */
 body:has(.home-page) .home-hero__title {
-  margin-bottom: 1.32rem;
+  font-size: clamp(2.07rem, 5.63vw, 3.79rem);
+  margin-bottom: 1.12rem;
+  line-height: 1.04;
 }
 
 body:has(.home-page) .home-hero__highlights {
-  margin-bottom: 0.88rem;
-  gap: 0.58rem;
+  margin-bottom: 0.72rem;
+  gap: 0.44rem;
 }
 
 body:has(.home-page) .home-hero__highlight-item {
-  gap: 0.58rem;
-  padding: 0.08rem 0;
+  gap: 0.44rem;
+  padding: 0.04rem 0;
+  line-height: 1.28;
 }
 
 body:has(.home-page) .home-hero__status-list {
-  gap: 0.52rem;
-  margin-bottom: 1.2rem;
+  gap: 0.4rem;
+  margin-bottom: 0.95rem;
 }
 
 body:has(.home-page) .home-hero__status-item {
-  gap: 0.52rem;
+  gap: 0.4rem;
+  line-height: 1.32;
 }
 
 body:has(.home-page) .home-hero__stats {
-  gap: 1.2rem;
-  padding: 0.92rem 1.08rem;
-  margin-bottom: 1.4rem;
+  gap: 0.95rem;
+  padding: 0.72rem 0.9rem;
+  margin-bottom: 1rem;
 }
 
 body:has(.home-page) .home-hero__stat-divider {
-  height: 35px;
+  height: 30px;
 }
 
 body:has(.home-page) .home-hero__stat-rate {
-  font-size: 2rem;
+  font-size: 1.72rem;
+}
+
+body:has(.home-page) .home-hero__stat-value {
+  font-size: 1rem;
 }
 
 body:has(.home-page) .home-hero__countdown {
-  margin-bottom: 0.6rem;
-  padding: 0.4rem 0.64rem;
-  gap: 0.36rem;
+  margin-bottom: 0.45rem;
+  padding: 0.32rem 0.52rem;
+  gap: 0.28rem;
+}
+
+body:has(.home-page) .home-hero__countdown-digits {
+  font-size: clamp(1.05rem, 4.2vw, 1.28rem);
 }
 
 body:has(.home-page) .home-hero__focus-cta {
-  gap: 0.4rem;
+  gap: 0.28rem;
+  margin-top: -0.12rem;
 }
 
 body:has(.home-page) .home-hero__tg-btn,
 body:has(.home-page) .home-hero__tg-btn--closed {
-  padding: 0.58rem 1rem;
+  padding: 0.48rem 0.85rem;
+}
+
+body:has(.home-page) .home-hero__tg-btn strong {
+  font-size: 0.84rem;
 }
 
 body:has(.home-page) .home-hero__cta-secondary {
-  margin-top: 0.44rem;
-  gap: 0.4rem;
+  margin-top: 0.28rem;
+  gap: 0.28rem;
 }
 
 body:has(.home-page) .home-hero__cta-secondary-btn {
-  padding: 0.5rem 0.9rem;
+  padding: 0.42rem 0.75rem;
+  font-size: 0.78rem;
 }
 
 body:has(.home-page) .home-hero__tags-inner {
-  padding: 0.8rem;
-  gap: 0.48rem 0.88rem;
+  padding: 0.62rem 1rem;
+  gap: 0.38rem 0.72rem;
 }
 
 body:has(.home-page) .home-hero__tag {
-  padding: 0.32rem 0.88rem;
+  padding: 0.26rem 0.72rem;
+  font-size: 0.74rem;
 }
 
 body:has(.home-page) .home-hero__match-hub-panel {
-  padding: 1.35rem 1.12rem 1.25rem;
-  gap: 0.75rem;
+  padding: 1.15rem 1rem 1.05rem;
+  gap: 0.62rem;
 }
 
 body:has(.home-page) > .home-pred-dir {
-  padding-top: 0.35rem !important;
-  padding-bottom: 0.4rem !important;
+  padding-top: 0.22rem !important;
+  padding-bottom: 0.28rem !important;
 }
 
-body:has(.home-page) > .home-focus-matches {
-  padding-top: 1.4rem !important;
-  padding-bottom: 1.6rem !important;
+body:has(.home-page) .home-pred-dir__inner {
+  padding-inline: 1rem;
 }
 
 body:has(.home-page) .home-pred-dir__bar {
-  gap: 0.36rem;
+  gap: 0.28rem;
+}
+
+body:has(.home-page) .home-pred-dir__title {
+  font-size: 0.72rem;
+}
+
+body:has(.home-page) .home-pred-dir__nav {
+  gap: 0.28rem 0.38rem;
+  padding-bottom: 0.08rem;
+}
+
+body:has(.home-page) .home-pred-dir__chip {
+  min-height: 1.42rem;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.7rem;
+}
+
+body:has(.home-page) .home-pred-dir__divider {
+  height: 0.95rem;
+}
+
+body:has(.home-page) .home-pred-dir__group-label {
+  font-size: 0.6rem;
+}
+
+body:has(.home-page) > .home-focus-matches {
+  padding-top: 0.95rem !important;
+  padding-bottom: 1.35rem !important;
+}
+
+body:has(.home-page) .home-focus-matches__container {
+  gap: 0.72rem;
+}
+
+body:has(.home-page) .home-focus-matches__head {
+  margin-bottom: 0.1rem;
 }
 
 @media (min-width: 769px) {
-  body:has(.home-page) .home-hero__inner {
-    padding-top: calc(var(--layout-header-safe) + 0.8rem);
-    padding-bottom: 1.6rem;
+  body:has(.home-page) .home-hero__title {
+    font-size: clamp(2.35rem, 4.54vw, 3.99rem);
+    margin-bottom: 1.22rem;
   }
 
   body:has(.home-page) .home-hero__grid {
-    gap: 0.92rem 0.88rem;
-  }
-
-  body:has(.home-page) .home-hero__title {
-    margin-bottom: 1.48rem;
+    gap: 0.72rem 0.75rem;
   }
 
   body:has(.home-page) .home-hero__center {
-    min-height: 21rem;
+    min-height: 17.85rem;
   }
 
   body:has(.home-page) .home-hero__match-hub-panel {
-    min-height: 21.5rem;
-    padding: 1.65rem 1.4rem 1.45rem;
-    gap: 0.9rem;
+    min-height: 18.25rem;
+    padding: 1.4rem 1.2rem 1.22rem;
+    gap: 0.72rem;
+  }
+
+  body:has(.home-page) .home-pred-dir__bar {
+    gap: 0.55rem;
   }
 
   body:has(.home-page) .home-focus-matches__layout {
-    gap: 0.8rem 0.92rem;
-    padding: 0.12rem 0 0.28rem;
+    gap: 0.72rem 0.8rem;
+    padding: 0.06rem 0 0.16rem;
   }
 
   body:has(.home-page) .home-focus-matches__std-row {
-    gap: 0.92rem;
-  }
-
-  body:has(.home-page) .home-focus-matches__std-row .home-focus-matches__card--std {
-    --focus-card-h: 9rem;
+    gap: 0.8rem;
   }
 }
 
 @media (max-width: 768px) {
+  body:has(.home-page) .home-hero__title {
+    font-size: clamp(1.06rem, 5.08vw, 1.37rem) !important;
+    margin-bottom: 0.28rem !important;
+  }
+
   body:has(.home-page) .home-hero__grid {
-    gap: 0.08rem;
+    gap: 0.06rem;
   }
 
   body:has(.home-page) > .home-pred-dir {
-    padding-top: 4px !important;
-    padding-bottom: 4px !important;
+    padding-top: 3px !important;
+    padding-bottom: 3px !important;
   }
 
   body:has(.home-page) > .home-focus-matches {
-    padding-top: 10px !important;
-    padding-bottom: 11px !important;
+    padding-top: 8px !important;
+    padding-bottom: 9px !important;
   }
 
   body:has(.home-page) .home-focus-matches__container {
-    gap: 0.76rem;
+    gap: 0.62rem;
   }
 
   body:has(.home-page) .home-focus-matches__card--hero {
-    --focus-card-h: 10.4rem;
+    --focus-card-h: 9.35rem;
   }
 }

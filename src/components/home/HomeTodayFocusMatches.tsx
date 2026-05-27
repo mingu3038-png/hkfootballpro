@@ -132,7 +132,7 @@ export function HomeTodayFocusMatches({ matches }: HomeTodayFocusMatchesProps) {
 
   return (
     <section className="home-focus-matches" aria-labelledby="home-focus-matches-title">
-      <div className="home-focus-matches__container">
+      <div className="home-page__container home-focus-matches__container">
         <div className="home-focus-matches__head">
           <h2 id="home-focus-matches-title" className="home-focus-matches__title">
             今日重点赛事

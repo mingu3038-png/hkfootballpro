@@ -7,7 +7,7 @@ export function HomePredictionDirectory() {
 
   return (
     <section className="home-pred-dir" aria-labelledby="home-pred-dir-title">
-      <div className="container home-pred-dir__inner">
+      <div className="home-page__container home-pred-dir__inner">
         <div className="home-pred-dir__bar">
           <h2 id="home-pred-dir-title" className="home-pred-dir__title">
             {title}

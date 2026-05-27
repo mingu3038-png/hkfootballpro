@@ -25,7 +25,7 @@ export function LastNightResults({ data, winStreak }: LastNightResultsProps) {
 
   return (
     <section className="last-night-results" aria-labelledby="last-night-results-title">
-      <div className="container last-night-results__inner">
+      <div className="home-page__container last-night-results__inner">
         <header className="last-night-results__header">
           <h2 id="last-night-results-title" className="last-night-results__title">
             <span className="last-night-results__title-accent" aria-hidden />
