@@ -1,0 +1,326 @@
+/* ========== 全站高级感 · Apple / Netflix 媒体风 ========== */
+
+:root {
+  --radius: 20px;
+  --radius-pill: 9999px;
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --shadow-card: 0 12px 40px rgba(0, 0, 0, 0.38);
+  --shadow-hover:
+    0 0 36px rgba(184, 148, 70, 0.12),
+    0 22px 52px rgba(0, 0, 0, 0.58);
+  --gold: #b89446;
+  --gold-soft: #9a7b3a;
+  --gold-glow: rgba(184, 148, 70, 0.32);
+  --border: rgba(255, 255, 255, 0.06);
+  --type-display: clamp(1.28rem, 4vw, 1.5rem);
+  --type-title: 1.125rem;
+  --type-body: 0.9375rem;
+  --type-caption: 0.8125rem;
+  --type-label: 0.72rem;
+}
+
+body {
+  font-size: var(--type-body);
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* —— 字体层级 —— */
+.section-title {
+  font-size: var(--type-title);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #f5f5f4;
+  text-shadow: none;
+}
+
+.section-title::before {
+  width: 3px;
+  height: 1.1rem;
+  background: var(--gold);
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+h1 {
+  font-size: var(--type-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+h2 {
+  font-size: var(--type-title);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-size: var(--type-body);
+  font-weight: 700;
+}
+
+/* —— 顶栏 · 无红描边 —— */
+.site-header {
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.site-header__logo-img {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.site-header__logo-img:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+/* —— 首页 Hero · 情绪氛围 —— */
+.home-hero {
+  border-bottom: none;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+}
+
+.home-hero__stats,
+.home-hero__countdown,
+.home-hero__live-ticker {
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.home-hero__stats:hover,
+.home-hero__countdown:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.home-hero__tg-btn,
+.home-hero__tg-btn--closed,
+.home-hero__cta-secondary-btn {
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: var(--shadow-card);
+}
+
+.home-hero__cta-secondary-btn {
+  background: linear-gradient(155deg, rgba(28, 10, 14, 0.92) 0%, rgba(10, 3, 5, 0.98) 100%);
+}
+
+.home-hero__tg-btn:hover,
+.home-hero__tg-btn--closed:hover,
+.home-hero__cta-secondary-btn:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
+}
+
+.home-hero__live-ticker {
+  border: none;
+}
+
+/* —— 首页模块 · 渐变层次、无分割线 —— */
+.home-pred-dir,
+.home-focus-matches,
+.last-night-results,
+.home-hot-leagues,
+.home-hot-analyses {
+  border-bottom: none;
+}
+
+.home-pred-dir__chip {
+  border: none;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  background: rgba(16, 6, 10, 0.45);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow: var(--shadow-card);
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.home-pred-dir__chip:hover {
+  color: #f5f5f4;
+  border: none;
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
+}
+
+.home-pred-dir__title {
+  color: var(--gold-soft);
+  text-shadow: none;
+}
+
+.home-focus-matches__cover {
+  border-radius: var(--radius);
+}
+
+.home-focus-matches__more-link {
+  font-weight: 600;
+}
+
+.last-night-results__title {
+  font-size: var(--type-display);
+  text-shadow: none;
+}
+
+.last-night-results__stats,
+.last-night-results__win-streak,
+.last-night-results__item {
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.last-night-results__item:hover {
+  box-shadow: var(--shadow-hover);
+  border: none;
+}
+
+.last-night-results__win-streak {
+  background: linear-gradient(
+    90deg,
+    rgba(40, 10, 14, 0.55) 0%,
+    rgba(16, 4, 6, 0.75) 50%,
+    rgba(40, 10, 14, 0.55) 100%
+  );
+}
+
+/* —— 分析页 / 二级 —— */
+.analysis-detail .card,
+.analysis-detail__stack > * {
+  border-radius: var(--radius);
+}
+
+.analysis-detail [class*='__card'],
+.analysis-detail [class*='__panel'],
+.analysis-detail [class*='__block'] {
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.analysis-detail [class*='__card']:hover,
+.analysis-detail [class*='__panel']:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.adx-sticky-tg__inner {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.home-link-accent {
+  color: var(--gold-soft);
+  font-weight: 600;
+}
+
+.home-link-accent:hover {
+  color: var(--gold);
+  text-shadow: none;
+}
+
+/* —— 取消默认红描边（hover 才发光）—— */
+.card,
+.match-card.card,
+.home-hot-leagues__tag {
+  border: none;
+  border-radius: var(--radius);
+}
+
+.card::before,
+.card::after {
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+
+.card:hover::before {
+  opacity: 0.35;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    transparent 45%,
+    rgba(184, 148, 70, 0.1) 100%
+  );
+}
+
+.card:hover::after {
+  opacity: 1;
+  box-shadow: var(--shadow-hover);
+}
+
+.match-card--hot,
+.match-card--focus {
+  border: none;
+  box-shadow: var(--shadow-card);
+}
+
+.match-card--hot:hover,
+.match-card--focus:hover {
+  border: none;
+  box-shadow: var(--shadow-hover);
+}
+
+/* —— 按钮 · 内容感，非功能块 —— */
+.btn {
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: var(--type-caption);
+  letter-spacing: 0.03em;
+}
+
+.btn-glow {
+  animation: none;
+}
+
+.btn-primary {
+  border: none;
+  background: linear-gradient(145deg, #e05a5a 0%, #c94a4a 48%, #8f2a2a 100%);
+  box-shadow: var(--shadow-card);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
+  border: none;
+}
+
+.btn-outline {
+  border: none;
+  background: rgba(12, 6, 8, 0.55);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-card);
+}
+
+.btn-outline:hover {
+  border: none;
+  color: #f5f5f4;
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
+}
+
+/* 覆盖 home-motion 常驻脉冲 → 仅 hover */
+@media (max-width: 768px) {
+  .btn-primary,
+  .today-free-focus__btn,
+  .home-hero__tg-btn,
+  .mobile-tg-bar {
+    animation: none !important;
+  }
+
+  .btn-primary:hover,
+  .mobile-tg-bar:hover {
+    box-shadow: var(--shadow-hover);
+  }
+}
+
+@media (hover: none) {
+  .card:hover,
+  .btn-primary:hover,
+  .home-pred-dir__chip:hover,
+  .last-night-results__item:hover,
+  .match-card--hot:hover {
+    transform: none;
+  }
+}

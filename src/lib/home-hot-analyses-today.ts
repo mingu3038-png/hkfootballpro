@@ -1,47 +1,32 @@
-/** 首页「今日热门分析」6 场入口（昨晚战绩下方） */
+/** 二级页「世界杯焦点」列表（首页已改用今日重点赛事数据） */
 
 export interface HomeHotAnalysisCard {
   slug: string;
   league: string;
   kickoff: string;
   matchup: string;
+  locked?: boolean;
 }
 
-export const HOME_HOT_ANALYSES_TODAY: HomeHotAnalysisCard[] = [
+export const HOME_HOT_ANALYSES_WC_FOCUS: HomeHotAnalysisCard[] = [
   {
-    slug: 'man-united-vs-liverpool-2026-05-25',
-    league: '英超',
-    kickoff: '03:00',
-    matchup: '曼联 vs 利物浦',
+    slug: 'brazil-vs-argentina-2026-06-24',
+    league: '世界杯',
+    kickoff: '09:00',
+    matchup: '巴西 vs 阿根廷',
   },
   {
-    slug: 'real-madrid-vs-barcelona-2026-05-27',
-    league: '西甲',
-    kickoff: '04:00',
-    matchup: '皇马 vs 巴萨',
+    slug: 'france-vs-germany-2026-06-25',
+    league: '世界杯',
+    kickoff: '09:00',
+    matchup: '法国 vs 德国',
+    locked: true,
   },
   {
-    slug: 'arsenal-vs-man-city-2026-05-26',
-    league: '英超',
-    kickoff: '03:00',
-    matchup: '阿森纳 vs 曼城',
-  },
-  {
-    slug: 'inter-vs-ac-milan-2026-05-26',
-    league: '意甲',
-    kickoff: '02:45',
-    matchup: '国际米兰 vs AC米兰',
-  },
-  {
-    slug: 'bayern-vs-dortmund-2026-05-27',
-    league: '德甲',
-    kickoff: '02:30',
-    matchup: '拜仁 vs 多特',
-  },
-  {
-    slug: 'psg-vs-marseille-2026-05-26',
-    league: '法甲',
-    kickoff: '03:45',
-    matchup: 'PSG vs 马赛',
+    slug: 'england-vs-spain-2026-06-26',
+    league: '世界杯',
+    kickoff: '09:00',
+    matchup: '英格兰 vs 西班牙',
+    locked: true,
   },
 ];

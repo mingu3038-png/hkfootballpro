@@ -5,18 +5,18 @@
     --m-gold-soft: #9a7b3a;
     --m-gold-dim: #7a6330;
     --m-gold-glow: rgba(184, 148, 70, 0.32);
-    --m-red-mist: rgba(72, 14, 20, 0.5);
-    --m-red-glow: rgba(127, 29, 29, 0.38);
+    --m-red-mist: rgba(16, 52, 32, 0.25);
+    --m-red-glow: rgba(201, 74, 74, 0.38);
     --m-radius-lg: 20px;
-    --m-radius-md: 17px;
-    --m-radius-sm: 15px;
+    --m-radius-md: 20px;
+    --m-radius-sm: 20px;
     --m-radius-pill: 9999px;
-    --m-section-gap: 1.5rem;
+    --m-section-gap: 1.05rem;
     --m-glass-bg: rgba(16, 6, 10, 0.38);
-    --m-glass-border: rgba(184, 148, 70, 0.12);
-    --m-glow-soft: 0 0 18px rgba(160, 36, 36, 0.28), 0 0 36px rgba(88, 18, 24, 0.18);
-    --m-glow-gold: 0 0 14px var(--m-gold-glow), 0 0 28px rgba(127, 29, 29, 0.16);
-    --m-chip-glow: 0 0 16px rgba(184, 148, 70, 0.22), 0 0 28px rgba(127, 29, 29, 0.14);
+    --m-glass-border: transparent;
+    --m-glow-soft: 0 0 24px rgba(184, 148, 70, 0.1), 0 18px 40px rgba(0, 0, 0, 0.5);
+    --m-glow-gold: 0 0 14px var(--m-gold-glow), 0 0 28px rgba(0, 0, 0, 0.35);
+    --m-chip-glow: 0 0 20px rgba(184, 148, 70, 0.14), 0 16px 36px rgba(0, 0, 0, 0.45);
   }
 
   @keyframes m-tg-breathe {
@@ -70,7 +70,7 @@
     padding-bottom: 0;
     min-height: 0;
     display: block;
-    background: linear-gradient(180deg, #070203 0%, #0a0305 42%, #080204 100%);
+    background: linear-gradient(180deg, #060606 0%, #050505 100%);
   }
 
   .home-page::before {
@@ -121,7 +121,7 @@
   .home-hero,
   .last-night-results,
   .home-hot-leagues,
-  .home-hot-analyses,
+  .home-focus-matches,
   .home-pred-dir,
   .today-free-focus,
   .home-today-analysis,
@@ -203,11 +203,17 @@
     pointer-events: none;
   }
 
-  /* —— 手机首页：仅保留核心转化区 —— */
+  /* —— 精简首页：仅 Hero / 目录 / 今晚最热 / 战绩 —— */
   .home-page > .ticker-marquee,
   .home-page > .hero-ops-strip,
   .home-page > .home-page__content,
-  .home-page > .home-page-bottom {
+  .home-page > .home-page-bottom,
+  .home-page > .floating-announcement,
+  .home-page > .home-hot-leagues,
+  .home-page > .today-free-focus,
+  .home-page > .home-today-analysis,
+  .home-page > .home-live-updates,
+  .home-page > .home-page__ambient {
     display: none !important;
   }
 
@@ -253,12 +259,10 @@
     color: #fff;
     text-align: center;
     text-decoration: none;
-    background: linear-gradient(180deg, #f87171 0%, #dc2626 45%, #991b1b 100%);
-    border: 2px solid rgba(253, 224, 71, 0.5);
-    border-radius: 14px;
-    box-shadow:
-      0 0 32px rgba(239, 68, 68, 0.55),
-      0 8px 24px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(145deg, #e05a5a 0%, #c94a4a 45%, #8f2a2a 100%);
+    border: none;
+    border-radius: var(--m-radius-md);
+    box-shadow: var(--shadow-card);
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -269,7 +273,7 @@
   /* 预测目录：横向滑动 */
   .home-page > .home-pred-dir {
     margin: 0 !important;
-    padding: 10px 0 8px !important;
+    padding: 8px 0 6px !important;
     max-width: 100%;
     overflow: hidden;
   }
@@ -309,39 +313,54 @@
   }
 
   /* Hero 与下方模块紧贴 */
-  .home-page > .last-night-results {
+  .home-page > .home-focus-matches {
     margin: 0 !important;
-    padding: 12px 0 8px !important;
-    box-shadow: none;
-  }
-
-  .home-page > .home-hot-analyses {
-    margin: 0 !important;
-    padding: 10px 0 10px !important;
+    padding: 12px 0 14px !important;
     max-width: 100%;
     overflow: hidden;
   }
 
-  .home-page .home-hot-analyses__title {
-    font-size: 1.05rem;
+  .home-page .home-focus-matches__inner {
+    gap: 0.95rem;
   }
 
-  .home-page .home-hot-analyses__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.5rem;
+  .home-page .home-focus-matches__title {
+    font-size: 1rem;
   }
 
-  .home-page .home-hot-analyses__card {
-    min-height: 4.25rem;
-    padding: 0.58rem 0.65rem;
+  .home-page .home-focus-matches__grid {
+    gap: 1.15rem;
+    margin: 0 -16px;
+    padding: 0.4rem 16px 0.85rem;
+    scroll-snap-type: x mandatory;
   }
 
-  .home-page .home-hot-analyses__matchup {
-    font-size: 0.82rem;
+  .home-page .home-focus-matches__card {
+    width: 78vw;
+    max-width: 288px;
+    gap: 0.95rem;
+    scroll-snap-align: start;
   }
 
-  .home-page .home-hot-analyses__card:active {
-    transform: scale(0.98);
+  .home-page .home-focus-matches__cover {
+    min-height: 7.5rem;
+    padding: 1.15rem 0.95rem;
+    border-radius: var(--m-radius-md);
+  }
+
+  .home-page .home-focus-matches__more-link--head {
+    display: none !important;
+  }
+
+  .home-page .home-focus-matches__foot {
+    display: flex;
+    padding-top: 0.15rem;
+  }
+
+  .home-page > .last-night-results {
+    margin: 0 !important;
+    padding: 10px 0 8px !important;
+    box-shadow: none;
   }
 
   .home-page > .today-free-focus {
@@ -517,8 +536,7 @@
     height: auto !important;
     min-height: 0 !important;
     max-height: none !important;
-    border-bottom-width: 1px;
-    border-bottom-color: rgba(220, 38, 68, 0.3);
+    border-bottom: none;
     padding-top: 0;
     padding-bottom: 0;
     margin: 0;
@@ -534,10 +552,8 @@
   body:has(.home-page) .home-hero::before {
     opacity: 1;
     background:
-      radial-gradient(ellipse 95% 70% at 50% -12%, rgba(22, 101, 52, 0.22) 0%, transparent 52%),
-      radial-gradient(ellipse 80% 55% at 12% 8%, rgba(184, 148, 70, 0.2) 0%, transparent 48%),
-      radial-gradient(ellipse 75% 50% at 88% 18%, rgba(127, 29, 29, 0.38) 0%, transparent 50%),
-      radial-gradient(ellipse 100% 45% at 50% 100%, rgba(40, 8, 12, 0.45) 0%, transparent 58%);
+      radial-gradient(ellipse 100% 75% at 50% 0%, rgba(184, 148, 70, 0.14) 0%, transparent 58%),
+      radial-gradient(ellipse 120% 55% at 50% 88%, rgba(16, 52, 32, 0.32) 0%, transparent 62%);
   }
 
   body:has(.home-page) .home-hero__vignette,
@@ -583,31 +599,27 @@
     background:
       radial-gradient(
         ellipse 70% 88% at 8% 42%,
-        rgba(184, 148, 70, 0.22) 0%,
-        rgba(88, 18, 24, 0.38) 42%,
+        rgba(184, 148, 70, 0.16) 0%,
+        rgba(8, 8, 10, 0.55) 42%,
         transparent 72%
       ),
-      radial-gradient(ellipse 45% 55% at 92% 12%, rgba(22, 101, 52, 0.12) 0%, transparent 68%);
+      radial-gradient(ellipse 45% 55% at 92% 12%, rgba(16, 52, 32, 0.14) 0%, transparent 68%);
   }
 
   body:has(.home-page) .home-hero::after {
     content: '';
     position: absolute;
     left: 50%;
-    top: 2%;
-    width: 78%;
-    height: 42%;
+    top: 0;
+    width: 100%;
+    height: 55%;
     transform: translateX(-50%);
-    clip-path: polygon(50% 0%, 94% 14%, 94% 56%, 50% 92%, 6% 56%, 6% 14%);
-    background: linear-gradient(
-      165deg,
-      rgba(154, 123, 42, 0.28) 0%,
-      rgba(127, 29, 29, 0.4) 42%,
-      rgba(22, 101, 52, 0.12) 68%,
-      rgba(40, 8, 12, 0.18) 100%
-    );
-    filter: blur(40px);
-    opacity: 0.78;
+    clip-path: none;
+    background:
+      radial-gradient(ellipse 70% 90% at 50% 20%, rgba(184, 148, 70, 0.12) 0%, transparent 62%),
+      linear-gradient(180deg, rgba(8, 8, 10, 0.2) 0%, transparent 100%);
+    filter: blur(24px);
+    opacity: 0.85;
     pointer-events: none;
     z-index: 1;
   }
@@ -1113,20 +1125,14 @@
   }
 
   body:has(.home-page) .home-hero {
-    padding: 1.25rem 0 1.375rem !important;
+    padding: 0.9rem 0 1rem !important;
     margin-bottom: var(--m-section-gap) !important;
-    background: linear-gradient(
-      180deg,
-      rgba(12, 4, 6, 0.98) 0%,
-      rgba(8, 2, 4, 0.94) 100%
-    );
-    box-shadow:
-      inset 0 -1px 0 rgba(154, 123, 42, 0.1),
-      0 16px 40px rgba(72, 14, 20, 0.22);
+    background: linear-gradient(180deg, #0a0a0a 0%, #050505 100%) !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45) !important;
   }
 
   body:has(.home-page) .home-page > .home-pred-dir {
-    padding: 1.25rem 0 1.375rem !important;
+    padding: 0.9rem 0 1rem !important;
     margin-bottom: var(--m-section-gap) !important;
     background: linear-gradient(180deg, rgba(10, 3, 5, 0.72) 0%, rgba(8, 2, 4, 0.78) 100%);
     backdrop-filter: blur(14px) saturate(1.15);
@@ -1137,38 +1143,59 @@
   }
 
   body:has(.home-page) .home-page > .last-night-results {
-    padding: 1.25rem 0 1.375rem !important;
-    margin-bottom: var(--m-section-gap) !important;
+    padding: 0.9rem 0 1rem !important;
+    margin-bottom: 0.65rem !important;
     box-shadow:
       inset 0 1px 0 rgba(154, 123, 42, 0.1),
       0 14px 36px rgba(72, 14, 20, 0.28);
   }
 
-  body:has(.home-page) .home-page > .home-hot-analyses {
-    padding: 1.25rem 0 1.5rem !important;
+  body:has(.home-page) .home-page > .home-focus-matches {
+    padding: 1rem 0 1.15rem !important;
     margin-bottom: var(--m-section-gap) !important;
-    background: linear-gradient(180deg, rgba(9, 2, 4, 0.94) 0%, rgba(7, 2, 3, 0.98) 100%);
-    box-shadow: 0 10px 30px rgba(72, 14, 20, 0.22);
+    background: linear-gradient(180deg, rgba(8, 8, 10, 0.92) 0%, rgba(5, 5, 5, 0.98) 100%);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   }
 
-  body:has(.home-page) .home-page > .home-hot-leagues {
-    padding: 1rem 0 1.125rem !important;
-    margin-bottom: var(--m-section-gap) !important;
+  body:has(.home-page) .home-page > .home-focus-matches::before {
+    opacity: 0.85;
   }
 
-  body:has(.home-page) .home-page > .today-free-focus {
-    padding: 1rem 0 1.375rem !important;
-    margin-bottom: var(--m-section-gap) !important;
+  body:has(.home-page) .home-focus-matches__grid {
+    gap: 1.2rem;
+    padding-bottom: 0.85rem;
   }
 
-  body:has(.home-page) .home-page > .home-today-analysis {
-    padding: 0.875rem 0 1.375rem !important;
-    margin-bottom: var(--m-section-gap) !important;
+  body:has(.home-page) .home-focus-matches__card {
+    gap: 1rem;
   }
 
-  body:has(.home-page) .home-page > .home-live-updates {
-    padding: 0.875rem 0 1.5rem !important;
-    margin-bottom: 0.5rem !important;
+  body:has(.home-page) .home-focus-matches__cover {
+    box-shadow:
+      0 12px 32px rgba(0, 0, 0, 0.38),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  body:has(.home-page) .home-focus-matches__glow {
+    background:
+      radial-gradient(ellipse 100% 90% at 12% 18%, rgba(255, 255, 255, 0.07) 0%, transparent 52%),
+      radial-gradient(ellipse 90% 80% at 88% 82%, rgba(16, 52, 32, 0.16) 0%, transparent 48%);
+  }
+
+  body:has(.home-page) .home-focus-matches__title {
+    color: #fafafa;
+  }
+
+  body:has(.home-page) .home-focus-matches__more-link {
+    color: var(--m-gold-soft);
+  }
+
+  body:has(.home-page) .home-focus-matches__league {
+    color: var(--m-gold) !important;
+  }
+
+  body:has(.home-page) .home-focus-matches__cta {
+    border: none;
   }
 
   body:has(.home-page) .home-pred-dir__title {
@@ -1183,48 +1210,40 @@
   body:has(.home-page) .home-pred-dir__chip {
     padding: 0.54rem 1.1rem;
     font-size: 0.8rem;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 0.03em;
     color: #f5f5f4;
     background: var(--m-glass-bg);
-    border: 1px solid var(--m-glass-border);
+    border: none;
     border-radius: var(--m-radius-pill);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.06),
-      0 4px 16px rgba(0, 0, 0, 0.22);
+    box-shadow: var(--shadow-card);
     backdrop-filter: blur(16px) saturate(1.25);
     -webkit-backdrop-filter: blur(16px) saturate(1.25);
     transition:
-      border-color 0.22s ease,
       box-shadow 0.22s ease,
       transform 0.18s ease;
   }
 
   @media (hover: hover) {
     body:has(.home-page) .home-pred-dir__chip:hover {
-      border-color: rgba(184, 148, 70, 0.26);
-      color: #fde68a;
-      box-shadow: var(--m-chip-glow);
+      color: #f5f5f4;
+      border: none;
+      box-shadow: var(--shadow-hover);
     }
 
     body:has(.home-page) .home-hero__cta-secondary-btn:hover,
-    body:has(.home-page) .home-hot-analyses__card:hover {
-      box-shadow: var(--m-chip-glow);
-    }
-
-    body:has(.home-page) .home-hot-leagues__tag:hover {
-      border-color: rgba(184, 148, 70, 0.22);
-      box-shadow: var(--m-chip-glow);
+    body:has(.home-page) .home-focus-matches__card:hover .home-focus-matches__cover {
+      box-shadow: var(--shadow-hover);
     }
   }
 
   body:has(.home-page) .home-pred-dir__chip:active {
-    border-color: rgba(184, 148, 70, 0.3);
-    box-shadow: var(--m-chip-glow);
+    border: none;
+    box-shadow: var(--shadow-hover);
     transform: scale(0.98);
   }
 
-  body:has(.home-page) .home-hot-analyses__title,
+  body:has(.home-page) .home-focus-matches__title,
   body:has(.home-page) .home-today-analysis__title,
   body:has(.home-page) .home-live-updates__title,
   body:has(.home-page) .last-night-results__title-accent,
@@ -1233,44 +1252,11 @@
     text-shadow: 0 0 12px var(--m-gold-glow);
   }
 
-  body:has(.home-page) .home-hot-analyses__league,
   body:has(.home-page) .home-today-analysis__match,
   body:has(.home-page) .today-free-focus__pick-value,
   body:has(.home-page) .today-free-focus__vs {
     color: var(--m-gold) !important;
     text-shadow: 0 0 10px var(--m-gold-glow);
-  }
-
-  body:has(.home-page) .home-hot-analyses__card {
-    border-radius: var(--m-radius-md);
-    padding: 0.72rem 0.8rem 0.78rem;
-    min-height: 4.75rem;
-    border: 1px solid rgba(154, 123, 42, 0.14);
-    background: linear-gradient(
-      155deg,
-      rgba(24, 8, 12, 0.94) 0%,
-      rgba(10, 3, 5, 0.98) 55%,
-      rgba(8, 2, 4, 1) 100%
-    );
-    box-shadow:
-      inset 3px 0 0 rgba(184, 148, 70, 0.45),
-      inset 0 1px 0 rgba(184, 148, 70, 0.1),
-      0 6px 20px rgba(0, 0, 0, 0.35);
-  }
-
-  body:has(.home-page) .home-hot-analyses__card:active {
-    box-shadow:
-      inset 3px 0 0 rgba(201, 168, 92, 0.55),
-      var(--m-glow-soft);
-    transform: scale(0.99);
-  }
-
-  body:has(.home-page) .home-hot-analyses__time {
-    color: rgba(252, 165, 165, 0.9);
-  }
-
-  body:has(.home-page) .home-hot-analyses__grid {
-    gap: 0.62rem;
   }
 
   body:has(.home-page) .last-night-results__stats,
@@ -1288,10 +1274,14 @@
   body:has(.home-page) .home-page .last-night-results__item,
   body:has(.home-page) .home-today-analysis__card,
   body:has(.home-page) .home-live-updates__card {
-    border-color: rgba(154, 123, 42, 0.12) !important;
-    box-shadow:
-      inset 0 1px 0 rgba(184, 148, 70, 0.08),
-      0 6px 18px rgba(72, 14, 20, 0.2) !important;
+    border: none !important;
+    box-shadow: var(--shadow-card) !important;
+  }
+
+  @media (hover: hover) {
+    body:has(.home-page) .home-page .last-night-results__item:hover {
+      box-shadow: var(--shadow-hover) !important;
+    }
   }
 
   body:has(.home-page) .home-live-updates__time {
@@ -1304,23 +1294,32 @@
   body:has(.home-page) .today-free-focus__btn,
   body:has(.home-page) .home-today-analysis__btn {
     animation: none !important;
-    border-radius: var(--m-radius-sm) !important;
-    border-color: rgba(154, 123, 42, 0.2) !important;
-    box-shadow: var(--m-glow-soft) !important;
+    border-radius: var(--m-radius-md) !important;
+    border: none !important;
+    box-shadow: var(--shadow-card) !important;
   }
 
   body:has(.home-page) .home-hero__tg-btn,
   body:has(.home-page) .home-hero__tg-btn--closed,
   body:has(.home-page) .today-free-focus__btn,
   body:has(.home-page) .home-page > .mobile-tg-bar {
-    animation: m-tg-breathe 3.4s ease-in-out infinite !important;
-    border-radius: var(--m-radius-sm) !important;
-    border-color: rgba(154, 123, 42, 0.22) !important;
+    animation: none !important;
+    border: none !important;
+    border-radius: var(--m-radius-md) !important;
+    box-shadow: var(--shadow-card) !important;
+  }
+
+  @media (hover: hover) {
+    body:has(.home-page) .home-hero__tg-btn:hover,
+    body:has(.home-page) .home-hero__tg-btn--closed:hover,
+    body:has(.home-page) .home-page > .mobile-tg-bar:hover {
+      box-shadow: var(--shadow-hover) !important;
+    }
   }
 
   body:has(.home-page) .home-hero__cta-secondary-btn {
     background: linear-gradient(155deg, rgba(36, 12, 16, 0.95) 0%, rgba(14, 4, 6, 0.98) 100%) !important;
-    border: 1px solid rgba(154, 123, 42, 0.16) !important;
+    border: none !important;
   }
 
   body:has(.home-page) .home-hero__live-ticker {
@@ -1336,19 +1335,6 @@
     color: rgba(184, 148, 70, 0.45) !important;
   }
 
-  body:has(.home-page) .home-page > .mobile-tg-bar {
-    border-radius: var(--m-radius-md) !important;
-    border-color: rgba(154, 123, 42, 0.22) !important;
-  }
-
-  @media (hover: hover) {
-    body:has(.home-page) .home-hero__tg-btn:hover,
-    body:has(.home-page) .home-hero__tg-btn--closed:hover,
-    body:has(.home-page) .today-free-focus__btn:hover,
-    body:has(.home-page) .home-page > .mobile-tg-bar:hover {
-      filter: brightness(1.06);
-    }
-  }
 
   body:has(.home-page) .home-hot-leagues__today-count {
     display: inline-flex;

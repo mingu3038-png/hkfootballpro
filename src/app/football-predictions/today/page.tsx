@@ -1,5 +1,8 @@
+import Link from 'next/link';
 import { MatchCard } from '@/components/match/MatchCard';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
+import { getAnalysisUrl } from '@/config/site';
+import { HOME_HOT_ANALYSES_WC_FOCUS } from '@/lib/home-hot-analyses-today';
 import { mockMatches } from '@/lib/mock-data';
 import { buildCategoryMetadata } from '@/lib/seo/build-metadata';
 import type { LeagueSlug } from '@/config/leagues';
@@ -29,6 +32,26 @@ export default function TodayPredictionsPage() {
       />
 
       <h1 className="text-3xl font-bold mb-8">今日足球预测</h1>
+
+      <section className="mb-10" aria-labelledby="today-wc-focus-title">
+        <h2 id="today-wc-focus-title" className="section-title mb-4">
+          世界杯焦点
+        </h2>
+        <ul className="grid gap-3 sm:grid-cols-3">
+          {HOME_HOT_ANALYSES_WC_FOCUS.map((item) => (
+            <li key={item.slug}>
+              <Link
+                href={getAnalysisUrl(item.slug)}
+                className="card block py-4 px-4 hover:border-[rgba(184,148,70,0.35)]"
+              >
+                <p className="text-xs font-bold text-[#b89446] mb-1">{item.league}</p>
+                <p className="font-semibold">{item.matchup}</p>
+                <p className="text-sm text-[var(--text-muted)] mt-1">{item.kickoff}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <div className="grid gap-4 sm:grid-cols-2">
         {matches.map((match) => (
