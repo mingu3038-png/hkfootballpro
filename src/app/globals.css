@@ -632,7 +632,9 @@ a {
   z-index: 3;
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   padding-top: 20px;
+  overflow: visible;
 }
 
 .home-hero__text-shield {
@@ -977,6 +979,7 @@ a {
   padding-bottom: 1.5rem;
   display: flex;
   align-items: center;
+  overflow: visible;
 }
 
 .home-hero__grid {
@@ -1408,9 +1411,14 @@ a {
 
 @media (min-width: 769px) {
   .home-hero__grid {
-    grid-template-columns: minmax(0, 0.82fr) minmax(300px, 1.5fr) minmax(0, 0.76fr);
-    gap: 1rem 1.35rem;
+    grid-template-columns: minmax(0, 28fr) minmax(260px, 42fr) minmax(0, 30fr);
+    gap: 1rem 1.15rem;
     align-items: center;
+  }
+
+  .home-hero__grid > .home-hero__left {
+    overflow: visible;
+    align-self: center;
   }
 
   .home-hero__center {
@@ -1572,11 +1580,17 @@ a {
 .home-hero__title {
   font-weight: 900;
   text-transform: uppercase;
+  overflow: visible;
+  line-height: 1.06;
+  word-break: keep-all;
+  overflow-wrap: normal;
 }
 
 .home-hero__title-gold,
 .home-hero__title-red {
   display: block;
+  overflow: visible;
+  padding-bottom: 0.06em;
 }
 
 .home-hero__status-list {
@@ -2744,7 +2758,11 @@ a {
   z-index: 1;
   display: flex;
   flex-direction: column;
+  align-items: stretch;
   gap: 1.5rem;
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
 }
 
 .home-focus-matches__head {
@@ -3197,12 +3215,24 @@ a {
 }
 
 @media (min-width: 769px) {
+  .home-focus-matches__head {
+    width: 100%;
+    max-width: 1180px;
+    margin-inline: auto;
+  }
+
   .home-focus-matches__layout {
     display: grid;
-    grid-template-columns: 1.22fr 1fr;
-    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1.28fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    align-items: start;
+    justify-items: stretch;
     gap: 1rem 1.15rem;
+    width: 100%;
+    max-width: 1180px;
+    margin-inline: auto;
     padding: 0.15rem 0 0.35rem;
+    box-sizing: border-box;
   }
 
   .home-focus-matches__rail {
@@ -3212,6 +3242,7 @@ a {
   .home-focus-matches__layout > .home-focus-matches__card--sub {
     display: flex;
     width: 100%;
+    align-self: start;
     --focus-card-h: calc((17.5rem - 1rem) / 2);
   }
 
@@ -3228,6 +3259,7 @@ a {
   .home-focus-matches__card--hero {
     grid-column: 1;
     grid-row: 1 / 3;
+    align-self: start;
     width: 100%;
     --focus-card-h: 17.5rem;
   }
@@ -3238,11 +3270,14 @@ a {
     grid-row: 3;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.15rem;
+    width: 100%;
+    align-self: stretch;
   }
 
   .home-focus-matches__std-row .home-focus-matches__card--std {
     display: flex;
     width: 100%;
+    min-width: 0;
     --focus-card-h: 11.25rem;
   }
 

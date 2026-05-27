@@ -2,10 +2,11 @@
 
 /* —— 左侧超大标题 · 红金渐变 + glow —— */
 .home-hero__title {
-  font-size: clamp(2.65rem, 7.2vw, 4.85rem);
-  line-height: 0.92;
+  font-size: clamp(2.25rem, 6.12vw, 4.12rem);
+  line-height: 1.06;
   margin: 0 0 1.65rem;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
+  overflow: visible;
   filter: drop-shadow(0 0 28px rgba(185, 28, 28, 0.28))
     drop-shadow(0 0 40px rgba(212, 184, 106, 0.18));
 }
@@ -270,6 +271,8 @@
 
 .home-hero__left {
   padding-top: 0.5rem;
+  overflow: visible;
+  min-width: 0;
 }
 
 /* —— 中区主推 · 粒子 + hover 微动画 —— */
@@ -427,14 +430,16 @@
   .home-hero__inner {
     padding-top: 2.65rem;
     padding-bottom: 2.35rem;
+    overflow: visible;
   }
 
   .home-hero__grid {
-    gap: 2.35rem 1.65rem;
+    grid-template-columns: minmax(0, 28fr) minmax(260px, 42fr) minmax(0, 30fr);
+    gap: 1.15rem 1.1rem;
   }
 
   .home-hero__title {
-    font-size: clamp(3rem, 5.8vw, 5.1rem);
+    font-size: clamp(2.55rem, 4.93vw, 4.34rem);
     margin-bottom: 1.85rem;
   }
 
@@ -466,9 +471,10 @@
 
 @media (max-width: 768px) {
   body:has(.home-page) .home-hero__title {
-    font-size: clamp(1.35rem, 6.5vw, 1.75rem) !important;
-    line-height: 1.02 !important;
+    font-size: clamp(1.15rem, 5.53vw, 1.49rem) !important;
+    line-height: 1.06 !important;
     margin: 0 0 0.35rem !important;
+    overflow: visible !important;
     filter: drop-shadow(0 0 14px rgba(185, 28, 28, 0.22));
   }
 
