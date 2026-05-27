@@ -1,0 +1,175 @@
+/* ========== 首页布局修复（仅结构，不改视觉风格）========== */
+
+:root {
+  --layout-header-h: 4rem;
+  --layout-header-safe: 0.875rem;
+  --layout-content-max: 1180px;
+}
+
+html {
+  scroll-padding-top: var(--layout-header-h);
+}
+
+@media (max-width: 768px) {
+  body:has(.home-page) {
+    --layout-header-h: 1.5rem;
+    --layout-header-safe: 0.5rem;
+  }
+}
+
+/* —— Hero：避开顶栏、禁止裁切标题 —— */
+.home-hero {
+  height: auto;
+  min-height: 460px;
+  max-height: none;
+  overflow-x: hidden;
+  overflow-y: visible;
+  scroll-margin-top: var(--layout-header-h);
+}
+
+.home-hero__bg {
+  overflow: hidden;
+}
+
+.home-hero__inner {
+  align-items: flex-start;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  padding-top: calc(var(--layout-header-safe) + 0.5rem);
+  padding-bottom: 1.5rem;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+.home-hero__grid {
+  align-items: start;
+}
+
+.home-hero__left,
+.home-hero__title,
+.home-hero__title-gold,
+.home-hero__title-red {
+  overflow: visible;
+  max-width: 100%;
+}
+
+@media (min-width: 769px) {
+  .home-hero {
+    min-height: 32rem;
+  }
+
+  .home-hero__inner {
+    padding-top: calc(var(--layout-header-safe) + 1rem);
+    padding-bottom: 2rem;
+  }
+
+  .home-hero__grid {
+    align-items: start;
+  }
+}
+
+@media (max-width: 768px) {
+  body:has(.home-page) .home-hero {
+    overflow: visible;
+  }
+
+  body:has(.home-page) .home-hero__inner {
+    padding-top: calc(var(--layout-header-safe) + 0.35rem);
+  }
+
+  body:has(.home-page) .home-hero .container {
+    padding-top: calc(var(--layout-header-safe) + 0.35rem);
+    overflow: visible;
+  }
+}
+
+/* —— 今日重点赛事：单一居中容器 —— */
+.home-focus-matches__container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: var(--layout-content-max);
+  margin-inline: auto;
+  padding-inline: 1rem;
+  box-sizing: border-box;
+}
+
+.home-focus-matches__head,
+.home-focus-matches__layout,
+.home-focus-matches__foot {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
+  box-sizing: border-box;
+}
+
+.home-focus-matches__head {
+  padding: 0;
+}
+
+@media (min-width: 769px) {
+  .home-focus-matches__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.28fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    align-items: start;
+    justify-items: stretch;
+    gap: 1rem 1.15rem;
+    width: 100%;
+    padding: 0.15rem 0 0.35rem;
+  }
+
+  .home-focus-matches__layout > .home-focus-matches__card--sub {
+    display: flex;
+    width: 100%;
+    align-self: start;
+    --focus-card-h: calc((17.5rem - 1rem) / 2);
+  }
+
+  .home-focus-matches__layout > .home-focus-matches__card--sub:nth-of-type(2) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .home-focus-matches__layout > .home-focus-matches__card--sub:nth-of-type(3) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .home-focus-matches__card--hero {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    align-self: start;
+    width: 100%;
+    --focus-card-h: 17.5rem;
+  }
+
+  .home-focus-matches__std-row {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-row: 3;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.15rem;
+    width: 100%;
+  }
+
+  .home-focus-matches__std-row .home-focus-matches__card--std {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    --focus-card-h: 11.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-focus-matches__rail {
+    margin-inline: -1rem;
+    padding-inline: 1rem;
+  }
+}

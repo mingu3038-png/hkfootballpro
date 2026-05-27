@@ -96,7 +96,6 @@
   }
 
   body:has(.home-page) .home-hero .container {
-    padding-top: 0;
     padding-bottom: 0;
   }
 
@@ -308,8 +307,13 @@
     overflow: hidden;
   }
 
+  .home-page .home-focus-matches__container,
   .home-page .home-focus-matches__inner {
     gap: 0.95rem;
+    max-width: 100%;
+    margin-inline: auto;
+    padding-inline: 16px;
+    box-sizing: border-box;
   }
 
   .home-page .home-focus-matches__title {
@@ -554,7 +558,7 @@
 
   body:has(.home-page) .home-hero {
     position: relative;
-    overflow: hidden;
+    overflow: visible;
   }
 
   body:has(.home-page) .home-hero::before {
@@ -678,10 +682,10 @@
     height: auto !important;
     min-height: 0 !important;
     max-height: none;
-    padding-top: 0.08rem;
     padding-bottom: 0;
     align-items: flex-start;
     display: block;
+    overflow: visible !important;
   }
 
   body:has(.home-page) .home-hero__grid {
