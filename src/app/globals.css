@@ -1435,7 +1435,8 @@ a {
 }
 
 .home-hero__title {
-  font-size: clamp(2.75rem, 8vw, 4.5rem);
+  /* 较原 clamp 缩小 35%，让今晚主推赛事成为视觉中心 */
+  font-size: clamp(1.788rem, 5.2vw, 2.925rem);
   font-weight: 900;
   line-height: 0.95;
   margin: 0 0 1.5rem;
