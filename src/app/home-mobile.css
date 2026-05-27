@@ -336,16 +336,29 @@
   }
 
   .home-page .home-focus-matches__card {
-    width: 78vw;
-    max-width: 288px;
-    gap: 0.95rem;
+    width: 80vw;
+    max-width: 300px;
     scroll-snap-align: start;
   }
 
-  .home-page .home-focus-matches__cover {
-    min-height: 7.5rem;
-    padding: 1.15rem 0.95rem;
+  .home-page .home-focus-matches__poster {
+    --focus-poster-min-h: 9.4rem;
+    padding: 0.7rem 0.8rem 0.78rem;
     border-radius: var(--m-radius-md);
+  }
+
+  .home-page .home-focus-matches__crest {
+    width: 3.35rem;
+    height: 3.35rem;
+  }
+
+  .home-page .home-focus-matches__crest-img {
+    width: 2.15rem;
+    height: 2.15rem;
+  }
+
+  .home-page .home-focus-matches__bg-team {
+    filter: blur(22px) saturate(1.3) brightness(0.9);
   }
 
   .home-page .home-focus-matches__more-link--head {
@@ -1170,9 +1183,9 @@
     gap: 1rem;
   }
 
-  body:has(.home-page) .home-focus-matches__cover {
+  body:has(.home-page) .home-focus-matches__poster {
     box-shadow:
-      0 12px 32px rgba(0, 0, 0, 0.38),
+      0 12px 32px rgba(0, 0, 0, 0.42),
       inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
 
@@ -1232,8 +1245,11 @@
     }
 
     body:has(.home-page) .home-hero__cta-secondary-btn:hover,
-    body:has(.home-page) .home-focus-matches__card:hover .home-focus-matches__cover {
-      box-shadow: var(--shadow-hover);
+    body:has(.home-page) .home-focus-matches__card:hover .home-focus-matches__poster {
+      box-shadow:
+        0 0 32px rgba(184, 148, 70, 0.28),
+        0 0 40px rgba(127, 29, 29, 0.2),
+        var(--shadow-hover);
     }
   }
 

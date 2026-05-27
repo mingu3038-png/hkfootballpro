@@ -258,13 +258,16 @@ a.mobile-tg-bar:hover {
     radial-gradient(ellipse 70% 50% at 90% 40%, rgba(184, 148, 70, 0.08) 0%, transparent 52%) !important;
 }
 
-.home-focus-matches__cover {
-  backdrop-filter: blur(8px);
+.home-focus-matches__poster {
+  backdrop-filter: blur(6px);
   box-shadow: var(--shadow-card) !important;
 }
 
-.home-focus-matches__card:hover .home-focus-matches__cover {
-  box-shadow: var(--shadow-hover) !important;
+.home-focus-matches__card:hover .home-focus-matches__poster {
+  box-shadow:
+    0 0 40px rgba(184, 148, 70, 0.24),
+    0 0 52px rgba(72, 14, 20, 0.22),
+    var(--shadow-hover) !important;
 }
 
 .home-focus-matches__glow {

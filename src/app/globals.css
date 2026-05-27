@@ -2220,95 +2220,215 @@ a {
 
 .home-focus-matches__card {
   flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
-  width: min(78vw, 280px);
+  width: min(78vw, 292px);
   margin: 0;
   scroll-snap-align: start;
   min-width: 0;
+  transition:
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.32s ease;
 }
 
-.home-focus-matches__cover {
+.home-focus-matches__card:hover {
+  transform: translateY(-3px);
+  filter: drop-shadow(0 14px 28px rgba(72, 14, 20, 0.45));
+}
+
+.home-focus-matches__poster {
+  --focus-poster-min-h: 10.95rem;
   position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 8.75rem;
-  padding: 1.25rem 1rem;
-  border-radius: var(--radius);
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: var(--focus-poster-min-h);
+  padding: 0.75rem 0.85rem 0.85rem;
+  border-radius: calc(var(--radius) + 2px);
   overflow: hidden;
-  background: linear-gradient(145deg, rgba(40, 12, 18, 0.95) 0%, rgba(10, 3, 5, 0.98) 100%);
-  box-shadow: var(--shadow-card);
-  transition: box-shadow 0.28s ease;
+  background: #0a0608;
+  border: 1px solid rgba(184, 148, 70, 0.14);
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.42),
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    inset 0 -18px 36px rgba(0, 0, 0, 0.35);
+  transition:
+    box-shadow 0.32s ease,
+    border-color 0.28s ease;
 }
 
-.home-focus-matches__card:hover .home-focus-matches__cover {
-  box-shadow: var(--shadow-hover);
+.home-focus-matches__card:hover .home-focus-matches__poster {
+  border-color: rgba(212, 184, 106, 0.38);
+  box-shadow:
+    0 0 0 1px rgba(212, 184, 106, 0.12),
+    0 0 36px rgba(184, 148, 70, 0.22),
+    0 0 48px rgba(127, 29, 29, 0.18),
+    0 16px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.home-focus-matches__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.home-focus-matches__bg-team {
+  position: absolute;
+  top: -18%;
+  width: 58%;
+  height: 135%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 72%;
+  filter: blur(26px) saturate(1.35) brightness(0.92);
+  opacity: 0.62;
+  transform: scale(1.08);
+}
+
+.home-focus-matches__bg-team--home {
+  left: -12%;
+}
+
+.home-focus-matches__bg-team--away {
+  right: -12%;
+}
+
+.home-focus-matches__bg-tint {
+  position: absolute;
+  inset: 0;
+}
+
+.home-focus-matches__bg-veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(6, 4, 8, 0.25) 0%,
+      rgba(4, 2, 6, 0.72) 42%,
+      rgba(2, 2, 4, 0.96) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.55) 0%,
+      transparent 38%,
+      transparent 62%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
 }
 
 .home-focus-matches__glow {
   position: absolute;
   inset: 0;
+  z-index: 1;
   background:
-    radial-gradient(ellipse 95% 85% at 16% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 56%),
-    radial-gradient(ellipse 85% 75% at 84% 80%, rgba(16, 52, 32, 0.18) 0%, transparent 52%);
+    radial-gradient(ellipse 90% 70% at 14% 18%, rgba(255, 255, 255, 0.11) 0%, transparent 52%),
+    radial-gradient(ellipse 80% 65% at 86% 22%, rgba(212, 184, 106, 0.12) 0%, transparent 48%),
+    radial-gradient(ellipse 100% 80% at 50% 100%, rgba(127, 29, 29, 0.2) 0%, transparent 55%);
+  pointer-events: none;
+  transition: opacity 0.32s ease;
+}
+
+.home-focus-matches__card:hover .home-focus-matches__glow {
+  background:
+    radial-gradient(ellipse 90% 70% at 14% 18%, rgba(255, 255, 255, 0.14) 0%, transparent 52%),
+    radial-gradient(ellipse 80% 65% at 86% 22%, rgba(212, 184, 106, 0.2) 0%, transparent 48%),
+    radial-gradient(ellipse 100% 80% at 50% 100%, rgba(127, 29, 29, 0.28) 0%, transparent 55%);
+}
+
+.home-focus-matches__rim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
   pointer-events: none;
 }
 
 .home-focus-matches__badge {
   position: absolute;
-  top: 0.65rem;
-  left: 0.65rem;
-  z-index: 2;
+  top: 0.6rem;
+  left: 0.6rem;
+  z-index: 4;
   padding: 0.22rem 0.55rem;
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   color: #fde68a;
-  background: rgba(0, 0, 0, 0.42);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(212, 184, 106, 0.25);
   border-radius: var(--radius-pill);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
 }
 
-.home-focus-matches__teams {
+.home-focus-matches__crest-row {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0.35rem 0 0.15rem;
+}
+
+.home-focus-matches__crest {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.55rem;
+  height: 3.55rem;
+  border-radius: 50%;
+  background: rgba(12, 8, 14, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(12px);
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+.home-focus-matches__card:hover .home-focus-matches__crest {
+  transform: scale(1.04);
+  box-shadow:
+    0 0 20px rgba(212, 184, 106, 0.25),
+    0 12px 28px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.home-focus-matches__crest-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 184, 106, 0.2);
+  opacity: 0.7;
+}
+
+.home-focus-matches__crest-img {
   position: relative;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  width: 100%;
-}
-
-.home-focus-matches__team {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 3.15rem;
-  height: 3.15rem;
-  font-size: 0.88rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.95);
-  background: rgba(0, 0, 0, 0.32);
-  border-radius: calc(var(--radius) - 6px);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(8px);
+  width: 2.35rem;
+  height: 2.35rem;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
 }
 
 .home-focus-matches__vs {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: rgba(250, 250, 249, 0.5);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: rgba(250, 250, 249, 0.45);
 }
 
-.home-focus-matches__body {
+.home-focus-matches__content {
+  position: relative;
+  z-index: 3;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: 0 0.25rem;
+  gap: 0.5rem;
+  padding-top: 0.35rem;
 }
 
 .home-focus-matches__meta {
@@ -2334,20 +2454,24 @@ a {
 
 .home-focus-matches__matchup {
   margin: 0;
-  font-size: 0.98rem;
+  font-size: 0.92rem;
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.3;
   color: #f5f5f4;
   letter-spacing: -0.01em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .home-focus-matches__cta {
-  align-self: flex-start;
+  align-self: stretch;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.125rem;
-  padding: 0.42rem 1rem;
+  min-height: 2.25rem;
+  padding: 0.48rem 0.85rem;
   font-size: var(--type-caption);
   font-weight: 600;
   letter-spacing: 0.03em;
@@ -2397,19 +2521,23 @@ a {
     scroll-snap-align: unset;
   }
 
-  .home-focus-matches__cover {
-    min-height: 9.5rem;
-    padding: 1.35rem 1.1rem;
+  .home-focus-matches__poster {
+    --focus-poster-min-h: 11.9rem;
+    padding: 0.8rem 0.95rem 0.9rem;
   }
 
-  .home-focus-matches__team {
-    width: 3.35rem;
-    height: 3.35rem;
-    font-size: 0.92rem;
+  .home-focus-matches__crest {
+    width: 3.85rem;
+    height: 3.85rem;
+  }
+
+  .home-focus-matches__crest-img {
+    width: 2.55rem;
+    height: 2.55rem;
   }
 
   .home-focus-matches__matchup {
-    font-size: 1.02rem;
+    font-size: 0.98rem;
   }
 
   .home-focus-matches__more-link--head {

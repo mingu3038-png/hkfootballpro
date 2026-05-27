@@ -60,6 +60,13 @@ export function teamCoverHue(slug: string): number {
   return Math.abs(hash) % 360;
 }
 
+/** 海报底色 · 双队色相渐变 */
+export function focusPosterTint(homeSlug: string, awaySlug: string): string {
+  const h = teamCoverHue(homeSlug);
+  const a = teamCoverHue(awaySlug);
+  return `linear-gradient(128deg, hsl(${h} 52% 22% / 0.55) 0%, rgba(8, 4, 10, 0.88) 48%, hsl(${a} 46% 20% / 0.5) 100%)`;
+}
+
 export function formatFocusKickoff(iso: string): string {
   return new Intl.DateTimeFormat('zh-HK', {
     hour: '2-digit',

@@ -1,13 +1,14 @@
-import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import { getAnalysisUrl } from '@/config/site';
+import { TeamLogo } from '@/components/ui/TeamLogo';
 import {
   formatFocusKickoff,
+  focusPosterTint,
   HOME_FOCUS_MATCHES_MAX,
   HOME_FOCUS_MATCHES_MORE_HREF,
   parseTeamsFromMatchSlug,
-  teamCoverHue,
 } from '@/lib/home-match-poster';
+import { getTeamLogoPath } from '@/lib/team-logo';
 import type { MatchListItem } from '@/types/match';
 
 interface HomeTodayFocusMatchesProps {
@@ -16,45 +17,82 @@ interface HomeTodayFocusMatchesProps {
 
 function focusCta(match: MatchListItem): { href: string; label: string } {
   if (match.analysisPublished) {
-    return { href: getAnalysisUrl(match.slug), label: '查看分析' };
+    return { href: getAnalysisUrl(match.slug), label: '查看赛前分析 →' };
   }
-  return { href: getAnalysisUrl(match.slug), label: '查看赛事' };
+  return { href: getAnalysisUrl(match.slug), label: '查看赛事 →' };
 }
 
 function FocusMatchCard({ match }: { match: MatchListItem }) {
-  const { homeSlug, awaySlug, homeAbbr, awayAbbr } = parseTeamsFromMatchSlug(match.slug);
-  const coverStyle: CSSProperties = {
-    background: `linear-gradient(128deg, hsl(${teamCoverHue(homeSlug)} 48% 28%) 0%, rgba(12, 4, 6, 0.94) 46%, hsl(${teamCoverHue(awaySlug)} 42% 24%) 100%)`,
-  };
+  const { homeSlug, awaySlug } = parseTeamsFromMatchSlug(match.slug);
+  const homeBg = getTeamLogoPath(match.homeTeam.slug ?? homeSlug, match.homeTeam.nameZh);
+  const awayBg = getTeamLogoPath(match.awayTeam.slug ?? awaySlug, match.awayTeam.nameZh);
   const { href, label } = focusCta(match);
   const matchup = `${match.homeTeam.nameZh} vs ${match.awayTeam.nameZh}`;
 
   return (
     <article className="home-focus-matches__card" role="listitem">
-      <div className="home-focus-matches__cover" style={coverStyle}>
+      <div className="home-focus-matches__poster">
+        <div className="home-focus-matches__bg" aria-hidden>
+          <div
+            className="home-focus-matches__bg-team home-focus-matches__bg-team--home"
+            style={{ backgroundImage: `url(${homeBg})` }}
+          />
+          <div
+            className="home-focus-matches__bg-team home-focus-matches__bg-team--away"
+            style={{ backgroundImage: `url(${awayBg})` }}
+          />
+          <div
+            className="home-focus-matches__bg-tint"
+            style={{ background: focusPosterTint(homeSlug, awaySlug) }}
+          />
+          <div className="home-focus-matches__bg-veil" />
+        </div>
+
         <span className="home-focus-matches__glow" aria-hidden />
+        <span className="home-focus-matches__rim" aria-hidden />
+
         {(match.isFocus || match.isHot) && (
-          <span className="home-focus-matches__badge" aria-hidden>
+          <span className="home-focus-matches__badge">
             {match.isFocus ? '重心' : '热门'}
           </span>
         )}
-        <div className="home-focus-matches__teams" aria-hidden>
-          <span className="home-focus-matches__team home-focus-matches__team--home">{homeAbbr}</span>
-          <span className="home-focus-matches__vs">VS</span>
-          <span className="home-focus-matches__team home-focus-matches__team--away">{awayAbbr}</span>
+
+        <div className="home-focus-matches__crest-row">
+          <div className="home-focus-matches__crest home-focus-matches__crest--home">
+            <span className="home-focus-matches__crest-ring" aria-hidden />
+            <TeamLogo
+              slug={match.homeTeam.slug ?? homeSlug}
+              nameZh={match.homeTeam.nameZh}
+              className="home-focus-matches__crest-img"
+              alt={match.homeTeam.nameZh}
+            />
+          </div>
+          <span className="home-focus-matches__vs" aria-hidden>
+            VS
+          </span>
+          <div className="home-focus-matches__crest home-focus-matches__crest--away">
+            <span className="home-focus-matches__crest-ring" aria-hidden />
+            <TeamLogo
+              slug={match.awayTeam.slug ?? awaySlug}
+              nameZh={match.awayTeam.nameZh}
+              className="home-focus-matches__crest-img"
+              alt={match.awayTeam.nameZh}
+            />
+          </div>
         </div>
-      </div>
-      <div className="home-focus-matches__body">
-        <div className="home-focus-matches__meta">
-          <span className="home-focus-matches__league">{match.league.nameZh}</span>
-          <time className="home-focus-matches__time" dateTime={match.kickoffAt}>
-            {formatFocusKickoff(match.kickoffAt)}
-          </time>
+
+        <div className="home-focus-matches__content">
+          <div className="home-focus-matches__meta">
+            <span className="home-focus-matches__league">{match.league.nameZh}</span>
+            <time className="home-focus-matches__time" dateTime={match.kickoffAt}>
+              {formatFocusKickoff(match.kickoffAt)}
+            </time>
+          </div>
+          <h3 className="home-focus-matches__matchup">{matchup}</h3>
+          <Link href={href} className="home-focus-matches__cta">
+            {label}
+          </Link>
         </div>
-        <h3 className="home-focus-matches__matchup">{matchup}</h3>
-        <Link href={href} className="home-focus-matches__cta">
-          {label}
-        </Link>
       </div>
     </article>
   );
