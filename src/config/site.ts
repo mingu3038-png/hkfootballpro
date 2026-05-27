@@ -1,3 +1,11 @@
+/** 正式站域名（无尾斜杠） */
+export const PRODUCTION_SITE_URL = 'https://hkfootballpro.com';
+
+function normalizeSiteUrl(raw?: string): string {
+  const value = (raw?.trim() || PRODUCTION_SITE_URL).replace(/\/+$/, '');
+  return value || PRODUCTION_SITE_URL;
+}
+
 export const siteConfig = {
   name: 'HK Score Predict',
   nameZh: '港波预测',
@@ -11,7 +19,7 @@ export const siteConfig = {
   focusPlayerImage: '/images/focus-player-silhouette.svg',
   /** 今日免费重心 · 左侧对决海报 */
   focusFaceoffPoster: '/images/focus-faceoff-poster.png',
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
+  url: normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
   brandLogo: '/brand/logo.svg',
   brandFavicon: '/brand/favicon.svg',
   /** 全站 / 分析页默认 Open Graph 图 */
