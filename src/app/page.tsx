@@ -11,7 +11,11 @@ export default async function HomePage() {
 
   return (
     <div className="home-page home-page--lean">
-      <HomeHero tgPromo={data.tgPromo} streak={data.streak} />
+      <HomeHero
+        tgPromo={data.tgPromo}
+        streak={data.streak}
+        heroTonightFeature={data.heroTonightFeature}
+      />
       <HomePredictionDirectory />
       <HomeTodayFocusMatches matches={data.todayMatches} />
       <LastNightResults data={data.lastNightResults} winStreak={data.winStreak} />

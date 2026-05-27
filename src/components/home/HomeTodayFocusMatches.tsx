@@ -4,6 +4,7 @@ import { TeamLogo } from '@/components/ui/TeamLogo';
 import {
   formatFocusKickoff,
   focusPosterTint,
+  getFocusPickDisplay,
   HOME_FOCUS_MATCHES_MAX,
   HOME_FOCUS_MATCHES_MORE_HREF,
   parseTeamsFromMatchSlug,
@@ -34,6 +35,7 @@ function FocusMatchCard({ match, tier }: FocusMatchCardProps) {
   const homeBg = getTeamLogoPath(match.homeTeam.slug ?? homeSlug, match.homeTeam.nameZh);
   const awayBg = getTeamLogoPath(match.awayTeam.slug ?? awaySlug, match.awayTeam.nameZh);
   const { href, label } = focusCta(match);
+  const { direction, rateLabel } = getFocusPickDisplay(match);
   const matchup = `${match.homeTeam.nameZh} vs ${match.awayTeam.nameZh}`;
 
   return (
@@ -99,6 +101,16 @@ function FocusMatchCard({ match, tier }: FocusMatchCardProps) {
             </time>
           </div>
           <h3 className="home-focus-matches__matchup">{matchup}</h3>
+          {(direction || rateLabel) && (
+            <div className="home-focus-matches__pick-row">
+              {direction && (
+                <span className="home-focus-matches__pick-dir">{direction}</span>
+              )}
+              {rateLabel && (
+                <span className="home-focus-matches__pick-rate">{rateLabel}</span>
+              )}
+            </div>
+          )}
           <Link href={href} className="home-focus-matches__cta">
             {label}
           </Link>

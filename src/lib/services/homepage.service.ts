@@ -1,6 +1,7 @@
 import type { HomePageData } from '@/types/match';
 import { getAnalysisUrl } from '@/config/site';
 import { SEO_DAILY_TODAY } from '@/lib/analysis-matches';
+import { buildHeroTonightFeature } from '@/lib/hero-spotlight';
 import {
   buildHomeTickerMarquee,
   mockLeaderboard,
@@ -55,6 +56,7 @@ export async function getHomePageData(): Promise<HomePageData> {
     hotLeaguesTodayUpdateCount: SEO_DAILY_TODAY.length,
     liveMatches,
     todayMatches: todayHighlightMatches,
+    heroTonightFeature: buildHeroTonightFeature(todayFreeFocus, preMatchAnalyses),
     latestAnalyses,
     leaderboardTop: mockLeaderboard.slice(0, 5),
     weeklyChallenge: siteDailyContent.weeklyChallenge,

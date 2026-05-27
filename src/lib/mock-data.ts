@@ -373,6 +373,8 @@ const EXTRA_HOME_HIGHLIGHT_MATCHES: MatchListItem[] = [
     analysisPublished: true,
     predictEnabled: true,
     isFocus: true,
+    pickDirection: '大2.5',
+    winRatePercent: 68,
   },
   {
     id: 'match-epl-002',

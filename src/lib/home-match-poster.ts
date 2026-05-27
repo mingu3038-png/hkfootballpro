@@ -1,3 +1,5 @@
+import type { MatchListItem } from '@/types/match';
+
 /** 首页赛事海报 · 队徽缩写与封面色 */
 
 /** 首页精华展示上限 */
@@ -65,6 +67,24 @@ export function focusPosterTint(homeSlug: string, awaySlug: string): string {
   const h = teamCoverHue(homeSlug);
   const a = teamCoverHue(awaySlug);
   return `linear-gradient(128deg, hsl(${h} 52% 22% / 0.55) 0%, rgba(8, 4, 10, 0.88) 48%, hsl(${a} 46% 20% / 0.5) 100%)`;
+}
+
+/** 卡片 / Hero 推荐信息展示 */
+export function getFocusPickDisplay(match: MatchListItem): {
+  direction?: string;
+  rateLabel?: string;
+} {
+  const direction = match.pickDirection?.trim();
+  if (!direction) return {};
+
+  let rateLabel: string | undefined;
+  if (match.winRatePercent != null) {
+    rateLabel = `胜率 ${match.winRatePercent}%`;
+  } else if (match.over25Prob != null) {
+    rateLabel = `大2.5 ${match.over25Prob}%`;
+  }
+
+  return { direction, rateLabel };
 }
 
 export function formatFocusKickoff(iso: string): string {

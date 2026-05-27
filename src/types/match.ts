@@ -1,3 +1,4 @@
+import type { HeroTonightFeature } from '@/lib/hero-spotlight';
 import type { TgPromoContent } from '@/types/site-daily';
 
 export interface MatchListItem {
@@ -22,6 +23,12 @@ export interface MatchListItem {
   isLiveUpdating?: boolean;
   /** 联赛徽章简称 */
   leagueAbbr?: string;
+  /** 推荐方向，如 大 2.5 */
+  pickDirection?: string;
+  /** 模型胜率 % */
+  winRatePercent?: number;
+  /** 大 2.5 概率 %（无胜率时作补充） */
+  over25Prob?: number;
 }
 
 export interface MatchAnalysisDetail extends MatchListItem {
@@ -127,6 +134,8 @@ export interface HomePageData {
   hotLeaguesTodayUpdateCount: number;
   liveMatches: MatchListItem[];
   todayMatches: MatchListItem[];
+  /** Hero 中区 · 今晚主推赛事（固定展示） */
+  heroTonightFeature: HeroTonightFeature;
   latestAnalyses: Array<{
     match: MatchListItem;
     summaryZh: string;

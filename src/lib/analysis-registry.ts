@@ -54,6 +54,9 @@ export function buildHomeHighlightFromInput(input: DailyAnalysisInput): MatchLis
     isFocus: o.isFocus,
     isFreePublic: o.isFreePublic,
     isLiveUpdating: o.isLiveUpdating,
+    pickDirection: input.direction,
+    winRatePercent: o.modelWinRate,
+    over25Prob: o.over25Prob,
   };
 }
 

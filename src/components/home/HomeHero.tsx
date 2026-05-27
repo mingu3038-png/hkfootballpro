@@ -2,6 +2,8 @@ import type { CSSProperties } from 'react';
 import { HeroFocusCta } from '@/components/home/HeroFocusCta';
 import { siteConfig } from '@/config/site';
 import { resolveTelegramUrl, TELEGRAM_CTA_LABEL } from '@/lib/telegram';
+import { HeroTonightSpotlight } from '@/components/home/HeroTonightSpotlight';
+import type { HeroTonightFeature } from '@/lib/hero-spotlight';
 import type { TgPromoContent } from '@/types/site-daily';
 
 const HERO_DUST_COUNT = 24;
@@ -17,9 +19,11 @@ function TelegramIcon({ className }: { className?: string }) {
 interface HomeHeroProps {
   tgPromo: TgPromoContent;
   streak: { wins: number; losses: number; pushes: number };
+  /** Hero 中区 · 今晚主推（必显） */
+  heroTonightFeature: HeroTonightFeature;
 }
 
-export function HomeHero({ tgPromo, streak }: HomeHeroProps) {
+export function HomeHero({ tgPromo, streak, heroTonightFeature }: HomeHeroProps) {
   const tgUrl = resolveTelegramUrl();
   const { home } = tgPromo;
 
@@ -136,11 +140,16 @@ export function HomeHero({ tgPromo, streak }: HomeHeroProps) {
               </div>
             </div>
 
-            <HeroFocusCta home={home} />
+            <HeroFocusCta home={home} hideCountdown />
           </div>
 
-          {/* 中间留白：让背景奖杯居中露出 */}
-          <div className="home-hero__center" aria-hidden />
+          <div className="home-hero__center">
+            <HeroTonightSpotlight
+              feature={heroTonightFeature}
+              countdown={home.heroCountdown}
+              freeCtaLabel={home.ctaButtons?.secondary ?? '免费领取分析'}
+            />
+          </div>
 
           {/* TG 卡（略靠中，不贴右） */}
           <div className="home-hero__right">

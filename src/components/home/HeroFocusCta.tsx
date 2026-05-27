@@ -23,9 +23,11 @@ function formatHms(totalSeconds: number): string {
 
 interface HeroFocusCtaProps {
   home: TgPromoContent['home'];
+  /** 主推中心已含倒计时时隐藏左侧重复倒计时 */
+  hideCountdown?: boolean;
 }
 
-export function HeroFocusCta({ home }: HeroFocusCtaProps) {
+export function HeroFocusCta({ home, hideCountdown }: HeroFocusCtaProps) {
   const tgUrl = resolveTelegramUrl();
   const [secondsLeft, setSecondsLeft] = useState(home.heroCountdown.initialSeconds);
 
@@ -48,7 +50,7 @@ export function HeroFocusCta({ home }: HeroFocusCtaProps) {
 
   return (
     <div className="home-hero__focus-cta">
-      {!closed && (
+      {!hideCountdown && !closed && (
         <div className="home-hero__countdown" aria-live="polite">
           <span className="home-hero__countdown-label">{home.heroCountdown.label}</span>
           <span className="home-hero__countdown-digits">{formatHms(secondsLeft)}</span>
