@@ -87,6 +87,23 @@ export function getFocusPickDisplay(match: MatchListItem): {
   return { direction, rateLabel };
 }
 
+/** 首页今日重点 · 去重后取前 N 场（按列表顺序 / homepageOrder） */
+export function pickHomeFocusMatches(
+  matches: MatchListItem[],
+  limit = HOME_FOCUS_MATCHES_MAX
+): MatchListItem[] {
+  const seen = new Set<string>();
+  const picked: MatchListItem[] = [];
+  for (const match of matches) {
+    const key = match.slug || match.id;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    picked.push(match);
+    if (picked.length >= limit) break;
+  }
+  return picked;
+}
+
 export function formatFocusKickoff(iso: string): string {
   return new Intl.DateTimeFormat('zh-HK', {
     hour: '2-digit',

@@ -365,7 +365,7 @@ a {
 .home-hero {
   position: relative;
   height: auto;
-  min-height: 313px;
+  min-height: 0;
   max-height: none;
   background: linear-gradient(180deg, #14080a 0%, #0a0405 50%, #060203 100%);
   border-bottom: none;

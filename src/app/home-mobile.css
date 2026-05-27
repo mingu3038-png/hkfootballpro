@@ -1227,8 +1227,8 @@
   }
 
   body:has(.home-page) .home-page > .home-focus-matches {
-    padding: 1rem 0 1.15rem !important;
-    margin-bottom: var(--m-section-gap) !important;
+    padding: 6px 0 8px !important;
+    margin-bottom: 0.5rem !important;
     background: linear-gradient(180deg, rgba(8, 8, 10, 0.92) 0%, rgba(5, 5, 5, 0.98) 100%);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   }

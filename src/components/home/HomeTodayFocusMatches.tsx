@@ -8,6 +8,7 @@ import {
   HOME_FOCUS_MATCHES_MAX,
   HOME_FOCUS_MATCHES_MORE_HREF,
   parseTeamsFromMatchSlug,
+  pickHomeFocusMatches,
 } from '@/lib/home-match-poster';
 import { getTeamLogoPath } from '@/lib/team-logo';
 import type { MatchListItem } from '@/types/match';
@@ -122,7 +123,7 @@ function FocusMatchCard({ match, tier }: FocusMatchCardProps) {
 
 /** 首页 · 今日重点赛事（主卡 + 副卡 + 普通卡，共 6 场） */
 export function HomeTodayFocusMatches({ matches }: HomeTodayFocusMatchesProps) {
-  const items = matches.slice(0, HOME_FOCUS_MATCHES_MAX);
+  const items = pickHomeFocusMatches(matches, HOME_FOCUS_MATCHES_MAX);
   if (items.length === 0) return null;
 
   const hero = items[0];
@@ -146,14 +147,22 @@ export function HomeTodayFocusMatches({ matches }: HomeTodayFocusMatchesProps) {
         </div>
 
         <div className="home-focus-matches__layout">
-          {hero && <FocusMatchCard match={hero} tier="hero" />}
+          {hero && (
+            <div className="home-focus-matches__slot home-focus-matches__slot--hero">
+              <FocusMatchCard match={hero} tier="hero" />
+            </div>
+          )}
 
-          {secondary.map((match) => (
-            <FocusMatchCard key={`pc-sub-${match.id}`} match={match} tier="sub" />
-          ))}
+          {secondary.length > 0 && (
+            <div className="home-focus-matches__slot home-focus-matches__slot--subs">
+              {secondary.map((match) => (
+                <FocusMatchCard key={`pc-sub-${match.id}`} match={match} tier="sub" />
+              ))}
+            </div>
+          )}
 
           {tertiary.length > 0 && (
-            <div className="home-focus-matches__std-row" role="list">
+            <div className="home-focus-matches__slot home-focus-matches__slot--std">
               {tertiary.map((match) => (
                 <FocusMatchCard key={`pc-std-${match.id}`} match={match} tier="std" />
               ))}
