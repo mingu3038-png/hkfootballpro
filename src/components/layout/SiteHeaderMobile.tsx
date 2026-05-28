@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { mobileMenuNav } from '@/config/navigation';
+import { mobileMenuNav, mobileQuickNav } from '@/config/navigation';
 import { siteConfig } from '@/config/site';
 import { resolveTelegramUrl } from '@/lib/telegram';
 
@@ -72,6 +72,37 @@ export function SiteHeaderMobile() {
           </button>
         </div>
       </div>
+
+      <nav className="site-header-mob__quick" aria-label="快捷导航">
+        <div className="site-header-mob__quick-rail">
+          {mobileQuickNav.map((item) => {
+            const href = item.external ? tgUrl : item.href;
+            const className = `site-header-mob__quick-pill${
+              item.external ? ' site-header-mob__quick-pill--tg' : ''
+            }`;
+
+            if (item.external) {
+              return (
+                <a
+                  key={item.label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={className}
+                >
+                  {item.label}
+                </a>
+              );
+            }
+
+            return (
+              <Link key={item.label} href={href} className={className}>
+                {item.label}
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
 
       {open && (
         <>

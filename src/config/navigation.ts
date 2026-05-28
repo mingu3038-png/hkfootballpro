@@ -8,6 +8,16 @@ export const mainNav = [
   { label: '排行榜', href: '/leaderboard' },
 ] as const;
 
+/** 手机端顶栏下方横向快捷入口（pill） */
+export const mobileQuickNav = [
+  { label: '首页', href: '/', external: false },
+  { label: '赛前预测', href: '/football-predictions', external: false },
+  { label: '即时比分', href: '/live-scores', external: false },
+  { label: '世界杯', href: '/world-cup-2026', external: false },
+  { label: '排行榜', href: '/leaderboard', external: false },
+  { label: 'TG频道', href: '__telegram__', external: true },
+] as const;
+
 /** 手机端顶栏汉堡菜单 */
 export const mobileMenuNav = [
   { label: '首页', href: '/', external: false },

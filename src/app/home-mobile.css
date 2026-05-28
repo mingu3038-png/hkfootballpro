@@ -132,7 +132,7 @@
     overflow-x: hidden;
   }
 
-  /* 顶栏见 site-header-mobile.css（56px sticky navbar） */
+  /* 顶栏见 site-header-mobile.css（56px bar + 快捷 pill 条） */
 
   /* —— 精简首页：仅 Hero / 目录 / 今晚最热 / 战绩 —— */
   .home-page > .ticker-marquee,
