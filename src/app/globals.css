@@ -2872,9 +2872,6 @@ a {
     0 0 30px rgba(255,140,0,0.12);
 }
 
-}  
-
-
 .home-focus-matches__card--hero {
   width: 100%;
   --focus-card-h: 13.25rem;
@@ -2910,10 +2907,8 @@ a {
   --focus-card-h: 10.75rem;
 }
 
-.home-focus-matches__card:hover {
-  transform: translateY(-3px);
-  filter: drop-shadow(0 14px 28px rgba(72, 14, 20, 0.45));
-}
+
+
 
 .home-focus-matches__poster {
   position: relative;
