@@ -271,7 +271,7 @@ export const dailyHomeUpdate: DailyHomeUpdate = {
     ctaButtons: {
       primary: '立即加入 TG',
       /** 手机 Hero 主按钮（桌面仍用 primary） */
-      mobilePrimary: '🔥 免費領今晚重心',
+      mobilePrimary: '🔥 免费领取今晚重心',
       secondary: '免费领取今晚重心',
       tertiary: '获取临场方向',
     },
