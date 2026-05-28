@@ -3210,6 +3210,49 @@ a {
   }
 }
 
+/* 今日重点赛事 · 手机端横滑 carousel（PC 见 home-layout-fixes.css ≥769px） */
+@media (max-width: 768px) {
+  body:has(.home-page) .home-focus-matches {
+    overflow: visible;
+    overflow-x: clip;
+  }
+
+  body:has(.home-page) .home-focus-matches__container,
+  body:has(.home-page) .home-focus-matches__layout {
+    overflow: visible;
+  }
+
+  body:has(.home-page) .home-focus-matches__rail {
+    display: flex !important;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1rem;
+    scrollbar-width: none;
+  }
+
+  body:has(.home-page) .home-focus-matches__rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  body:has(.home-page) .home-focus-matches__rail .home-focus-matches__card {
+    flex: 0 0 82vw;
+    width: 82vw;
+    min-width: 82vw;
+    max-width: 82vw;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
+
 /* @deprecated 旧热门分析网格 — 保留选择器避免残留引用报错 */
 .home-hot-analyses {
   position: relative;

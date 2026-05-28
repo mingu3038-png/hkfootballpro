@@ -123,7 +123,6 @@
   .home-hero,
   .last-night-results,
   .home-hot-leagues,
-  .home-focus-matches,
   .home-pred-dir,
   .today-free-focus,
   .home-today-analysis,
@@ -324,12 +323,13 @@
     font-size: 0.74rem;
   }
 
-  /* Hero 与下方模块紧贴 */
+  /* 今日重点赛事 · 主卡 + 横滑 carousel（勿 overflow:hidden，否则无法滑动） */
   .home-page > .home-focus-matches {
     margin: 0 !important;
-    padding: 12px 0 14px !important;
+    padding: 12px 0 calc(18px + env(safe-area-inset-bottom, 0px)) !important;
     max-width: 100%;
-    overflow: hidden;
+    overflow: visible;
+    overflow-x: clip;
   }
 
   .home-page .home-focus-matches__container,
@@ -339,6 +339,7 @@
     margin-inline: auto;
     padding-inline: 16px;
     box-sizing: border-box;
+    overflow: visible;
   }
 
   .home-page .home-focus-matches__title {
@@ -347,6 +348,7 @@
 
   .home-page .home-focus-matches__layout {
     gap: 0.75rem;
+    overflow: visible;
   }
 
   .home-page .home-focus-matches__card--hero {
@@ -354,16 +356,42 @@
   }
 
   .home-page .home-focus-matches__rail {
+    display: flex !important;
+    flex-flow: row nowrap;
+    align-items: stretch;
     gap: 0.75rem;
+    width: 100%;
+    max-width: 100%;
     margin: 0 -16px;
-    padding: 0.15rem 16px 0.65rem;
+    padding: 0.15rem 16px 0.75rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
     scroll-snap-type: x mandatory;
+    scroll-padding-inline: 16px;
+    scrollbar-width: none;
+  }
+
+  .home-page .home-focus-matches__rail::-webkit-scrollbar {
+    display: none;
   }
 
   .home-page .home-focus-matches__rail .home-focus-matches__card {
-    flex: 0 0 min(72vw, 248px);
-    width: min(72vw, 248px);
+    flex: 0 0 82vw;
+    width: 82vw;
+    min-width: 82vw;
+    max-width: 82vw;
     scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .home-page .home-focus-matches__rail::after {
+    content: '';
+    flex: 0 0 16px;
+    width: 16px;
+    min-width: 16px;
   }
 
   .home-page .home-focus-matches__poster {
@@ -1260,8 +1288,24 @@
   }
 
   body:has(.home-page) .home-focus-matches__rail {
+    display: flex !important;
+    flex-flow: row nowrap;
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    scroll-snap-type: x mandatory;
     gap: 0.8rem;
-    padding-bottom: 0.65rem;
+    padding-bottom: 0.75rem;
+  }
+
+  body:has(.home-page) .home-focus-matches__rail .home-focus-matches__card {
+    flex: 0 0 82vw !important;
+    width: 82vw !important;
+    min-width: 82vw !important;
+    max-width: 82vw !important;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   body:has(.home-page) .home-focus-matches__poster {
