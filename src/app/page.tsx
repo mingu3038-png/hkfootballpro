@@ -1,4 +1,5 @@
 import { HomeHero } from '@/components/home/HomeHero';
+import { HomeLiveDynamics } from '@/components/home/HomeLiveDynamics';
 import { HomePredictionDirectory } from '@/components/home/HomePredictionDirectory';
 import { LastNightResults } from '@/components/home/LastNightResults';
 import { HomeTodayFocusMatches } from '@/components/home/HomeTodayFocusMatches';
@@ -16,6 +17,7 @@ export default async function HomePage() {
         streak={data.streak}
         heroTonightFeature={data.heroTonightFeature}
       />
+      <HomeLiveDynamics />
       <HomePredictionDirectory />
       <HomeTodayFocusMatches matches={data.todayMatches} />
       <LastNightResults data={data.lastNightResults} winStreak={data.winStreak} />

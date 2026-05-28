@@ -3907,6 +3907,11 @@ a.today-free-focus__btn:hover {
   display: none;
 }
 
+/* 首页手机端临场动态横滑 · 桌面隐藏，样式见 home-mobile.css */
+.home-live-dynamics {
+  display: none;
+}
+
 /* 首页 · 最新分析卡片球队 Logo */
 .home-analysis-card__teams {
   display: flex;
