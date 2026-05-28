@@ -19,7 +19,7 @@ export default async function HomePage() {
       <HomePredictionDirectory />
       <HomeTodayFocusMatches matches={data.todayMatches} />
       <LastNightResults data={data.lastNightResults} winStreak={data.winStreak} />
-      <MobileTgBar label={data.tgPromo.home.mobileBarLabel} />
+      <MobileTgBar />
     </div>
   );
 }

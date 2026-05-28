@@ -298,7 +298,7 @@ export const dailyHomeUpdate: DailyHomeUpdate = {
       followerNote: '已有 2,847 位波友领取今晚重心',
     },
 
-    mobileBarLabel: '🔥 入 TG 睇今晚重心', // 手机底部固定条
+    mobileBarLabel: '🔥 免费领取今晚重心', // 手机底部固定条
     winRatePercent: 70, // Hero 胜率数字（可与 lastNight.winRatePercent 一致）
 
     // — Hero 下方横向滚动条（非顶部跑马灯）—

@@ -1,20 +1,21 @@
-import { resolveTelegramUrl, TELEGRAM_CTA_LABEL } from '@/lib/telegram';
+import { resolveTelegramUrl } from '@/lib/telegram';
+
+/** 手机端底部固定 TG 条文案 */
+export const MOBILE_TG_BAR_LABEL = '🔥 免费领取今晚重心';
 
 interface MobileTgBarProps {
   label?: string;
 }
 
-export function MobileTgBar({ label = TELEGRAM_CTA_LABEL }: MobileTgBarProps) {
+export function MobileTgBar({ label = MOBILE_TG_BAR_LABEL }: MobileTgBarProps) {
   return (
     <a
       href={resolveTelegramUrl()}
       target="_blank"
       rel="noopener noreferrer"
       className="mobile-tg-bar"
+      aria-label="免费领取今晚重心，前往 Telegram"
     >
-      <span className="mobile-tg-bar__icon" aria-hidden>
-        🔥
-      </span>
       <span className="mobile-tg-bar__text">{label}</span>
     </a>
   );
