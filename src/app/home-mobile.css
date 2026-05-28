@@ -132,77 +132,7 @@
     overflow-x: hidden;
   }
 
-  /* —— 首页顶栏：仅 Logo —— */
-  body:has(.home-page) .site-header__desktop-nav,
-  body:has(.home-page) .site-header__mobile-nav,
-  body:has(.home-page) .site-header__desktop-actions,
-  body:has(.home-page) .site-header__brand-text,
-  body:has(.home-page) .site-header__tg {
-    display: none !important;
-  }
-
-  body:has(.home-page) .site-header__bar {
-    height: 1.5rem !important;
-    min-height: 1.5rem !important;
-    max-height: 1.5rem !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-  }
-
-  body:has(.home-page) .site-header__logo-img {
-    width: 1.45rem !important;
-    height: 1.45rem !important;
-    border-radius: 0.35rem;
-  }
-
-  body:has(.home-page) .site-header {
-    position: relative;
-    overflow: visible;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
-  }
-
-  body:has(.home-page) .site-header::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    width: 72%;
-    max-width: 280px;
-    height: 3.5rem;
-    transform: translateX(-50%);
-    clip-path: polygon(50% 0%, 92% 18%, 92% 58%, 50% 100%, 8% 58%, 8% 18%);
-    background: linear-gradient(
-      180deg,
-      rgba(184, 148, 70, 0.22) 0%,
-      rgba(127, 29, 29, 0.28) 55%,
-      transparent 100%
-    );
-    filter: blur(28px);
-    opacity: 0.65;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  body:has(.home-page) .site-header::before {
-    content: '';
-    position: absolute;
-    top: -0.25rem;
-    right: 12%;
-    width: 3.25rem;
-    height: 3.25rem;
-    border-radius: 50%;
-    background:
-      radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.14) 0%, transparent 38%),
-      repeating-conic-gradient(
-        from 18deg,
-        rgba(184, 148, 70, 0.07) 0deg 14deg,
-        transparent 14deg 28deg
-      ),
-      radial-gradient(circle, rgba(72, 14, 20, 0.35) 0%, transparent 70%);
-    filter: blur(10px);
-    opacity: 0.55;
-    pointer-events: none;
-  }
+  /* 顶栏见 site-header-mobile.css（56px sticky navbar） */
 
   /* —— 精简首页：仅 Hero / 目录 / 今晚最热 / 战绩 —— */
   .home-page > .ticker-marquee,

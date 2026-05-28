@@ -12,7 +12,7 @@ html {
 
 @media (max-width: 768px) {
   body:has(.home-page) {
-    --layout-header-h: 1.5rem;
+    --layout-header-h: 3.5rem;
     --layout-header-safe: 0.5rem;
   }
 }
