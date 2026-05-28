@@ -42,7 +42,11 @@ body:has(.home-page) .container {
 
 body:has(.home-page) .home-hero {
   min-height: 0;
-  max-height: calc(100dvh - var(--layout-header-h));
+  max-height: none;
+  height: auto;
+  overflow: visible;
+  overflow-x: clip;
+  overflow-y: visible;
   display: flex;
   flex-direction: column;
   margin: 0;
@@ -343,6 +347,10 @@ body:has(.home-page) .home-pred-dir__group-label {
 body:has(.home-page) .home-hero__inner {
   flex: 0 1 auto;
   min-height: 0;
+  max-height: none;
+  height: auto;
+  overflow: visible;
+  overflow-y: visible;
   margin: 0;
 }
 
@@ -380,9 +388,19 @@ body:has(.home-page) .home-focus-matches__head {
     padding-top: calc(var(--layout-header-safe) + 0.38rem);
     padding-bottom: 0.35rem;
     padding-inline: clamp(0.85rem, 1.8vw, 1.2rem);
-    max-height: calc(100dvh - var(--layout-header-h) - 2.75rem);
+    max-height: none;
+    height: auto;
+    overflow: visible;
+    overflow-y: visible;
     align-items: center;
     justify-content: center;
+  }
+
+  body:has(.home-page) .home-hero__grid,
+  body:has(.home-page) .home-hero__left,
+  body:has(.home-page) .home-hero__center,
+  body:has(.home-page) .home-hero__right {
+    overflow: visible;
   }
 
   body:has(.home-page) .home-hero__grid {
