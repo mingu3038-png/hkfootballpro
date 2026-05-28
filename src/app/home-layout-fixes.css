@@ -77,6 +77,8 @@ body:has(.home-page) .home-hero {
 
 @media (min-width: 769px) {
   body:has(.home-page) .home-hero__grid {
+    grid-template-columns: minmax(0, 27fr) minmax(260px, 41fr) minmax(0, 22fr);
+    justify-content: center;
     align-items: center;
   }
 
@@ -84,6 +86,8 @@ body:has(.home-page) .home-hero {
   body:has(.home-page) .home-hero__grid > .home-hero__center,
   body:has(.home-page) .home-hero__grid > .home-hero__right {
     align-self: center;
+    justify-self: stretch;
+    min-width: 0;
   }
 }
 
@@ -385,7 +389,11 @@ body:has(.home-page) .home-focus-matches__head {
   body:has(.home-page) .home-hero__inner {
     padding-top: calc(var(--layout-header-safe) + 0.45rem);
     padding-bottom: 0.45rem;
+    padding-inline: clamp(1rem, 2.2vw, 1.35rem);
+    max-width: min(1100px, 100%);
     max-height: calc(100dvh - var(--layout-header-h) - 2.75rem);
+    align-items: center;
+    justify-content: center;
   }
 
   body:has(.home-page) .home-hero__title {
@@ -394,11 +402,24 @@ body:has(.home-page) .home-focus-matches__head {
   }
 
   body:has(.home-page) .home-hero__grid {
-    gap: 0.65rem 0.7rem;
+    gap: 0.72rem 0.82rem;
+  }
+
+  body:has(.home-page) .home-hero__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   body:has(.home-page) .home-hero__center {
     min-height: 0 !important;
+    justify-content: center;
+    align-items: center;
+  }
+
+  body:has(.home-page) .home-hero__right {
+    justify-content: center;
+    align-items: center;
   }
 
   body:has(.home-page) .home-hero__match-hub-panel {
