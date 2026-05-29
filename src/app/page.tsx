@@ -1,5 +1,4 @@
 import { HomeHero } from '@/components/home/HomeHero';
-import { HomeHotArticles } from '@/components/home/HomeHotArticles';
 import { HomeLatestArticles } from '@/components/home/HomeLatestArticles';
 import { HomeLiveTicker } from '@/components/home/HomeLiveTicker';
 import { HomePredictionDirectory } from '@/components/home/HomePredictionDirectory';
@@ -20,7 +19,6 @@ export default async function HomePage() {
       />
       <HomeLiveTicker items={data.liveTicker} />
       <HomeLatestArticles />
-      <HomeHotArticles />
       <HomePredictionDirectory />
       <HomeTodayFocusMatches matches={data.todayMatches} />
       <LastNightResults data={data.lastNightResults} winStreak={data.winStreak} />
