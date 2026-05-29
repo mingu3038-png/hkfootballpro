@@ -764,7 +764,7 @@ const SEO_BATCH_2: SeoAnalysisMatchSeed[] = [
 // =============================================================================
 //  每日 SEO 热门（改 SEO_DAILY_DATE + SEO_DAILY_TODAY 即可每日更新）
 // =============================================================================
-export const SEO_DAILY_DATE = '2026-06-03';
+export const SEO_DAILY_DATE = '2026-05-29';
 
 const SEO_DAILY_2026_05_25: SeoAnalysisMatchSeed[] = [
   {
@@ -1959,44 +1959,88 @@ const SEO_DAILY_2026_05_29: SeoAnalysisMatchSeed[] = [
   },
 ];
 
-/** 每日 SEO 热门 ×30（2026-06-03） */
+/** 每日 SEO 热门 ×5（2026-05-29 · 与 seo-articles.ts 同步） */
 const SEO_DAILY_TODAY: SeoAnalysisMatchSeed[] = [
-  // —— 英超 ×6 ——
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'newcastle', nameZh: '纽卡斯尔', abbr: 'NEW' }, { slug: 'man-united', nameZh: '曼联', abbr: 'MUN' }, { slug: 'epl', nameZh: '英超' }, '大 2.5', { homeForm: '纽卡斯尔：主场 3 胜 2 负；近 5 场 10 入 9 失，圣詹姆斯公园战意足。', awayForm: '曼联：客场 2 胜 2 负 1 和；近 5 场 11 入 10 失，防线松动。', attack: '纽卡高压 + 定位球；曼联转换与远射有威胁。', defense: '双方近 5 场合计失球偏高，大球逻辑成立。', motivation: '英超抢分战，主队需巩固中游排名。', pace: '临场建议：大小 2.75 大球低水可跟；曼联中卫缺阵则加重主队方向。' }, { confidence: 'high', pickType: 'over', homepageOrder: 50, lineOpen: '2.5', lineCurrent: '2.75', ouTrend: 'up', over25Prob: 70, modelWinRate: 68 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'tottenham', nameZh: '热刺', abbr: 'TOT' }, { slug: 'aston-villa', nameZh: '阿斯顿维拉', abbr: 'AVL' }, { slug: 'epl', nameZh: '英超' }, '热刺 -0.5', { homeForm: '热刺：主场 3 胜 2 负；近 5 场 12 入 8 失，主场进攻稳定。', awayForm: '维拉：客场 3 胜 2 负；近 5 场 11 入 9 失，反击威胁大。', attack: '热刺两翼提速 + 肋部渗透；维拉转换效率不俗。', defense: '热刺主场失球中等；维拉客场非铁壁，浅盘跟主队。', motivation: '英超抢四直接对话，热刺主场战意更足。', pace: '临场建议：-0.5 热刺低水可跟；退平手升水则观望。大小 3 球可配大2.5副线。' }, { confidence: 'medium', pickType: 'home', homepageOrder: 51, modelWinRate: 65 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'chelsea', nameZh: '切尔西', abbr: 'CHE' }, { slug: 'west-ham', nameZh: '西汉姆', abbr: 'WHU' }, { slug: 'epl', nameZh: '英超' }, '切尔西 -0.75', { homeForm: '切尔西：主场 3 胜 2 负；近 5 场 10 入 8 失，斯坦福桥抢分稳。', awayForm: '西汉姆：客场 2 胜 3 负；近 5 场 8 入 12 失，客场防守波动。', attack: '切尔西边路传中 + 中路插上；西汉姆依赖定位球与反击。', defense: '切尔西主场协防尚可；西汉姆客场肋部隐患大。', motivation: '伦敦德比，切尔西主场必须拿分。', pace: '临场建议：-0.75 低水可跟；退 -0.5 升水减仓。西汉姆变阵强攻时走地再评估。' }, { confidence: 'high', pickType: 'home', homepageOrder: 52, modelWinRate: 70 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'liverpool', nameZh: '利物浦', abbr: 'LIV' }, { slug: 'brighton', nameZh: '布莱顿', abbr: 'BHA' }, { slug: 'epl', nameZh: '英超' }, '利物浦 -1', { homeForm: '利物浦：主场 4 胜 1 负；近 5 场 15 入 6 失，安菲尔德压制力强。', awayForm: '布莱顿：客场 2 胜 3 负；近 5 场 9 入 11 失，客场失球偏多。', attack: '利物浦压迫 + 转换顶格；布莱顿控球但终结效率一般。', defense: '布莱顿客场难挡利物浦持续施压；深盘下客队难稳守。', motivation: '争冠/抢二关键战，利物浦主场不容失分。', pace: '临场建议：-1 低水 ≤0.90 可跟；布莱顿早段高压需注意走地。' }, { confidence: 'high', pickType: 'home', homepageOrder: 53, modelWinRate: 73 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'arsenal', nameZh: '阿森纳', abbr: 'ARS' }, { slug: 'wolves', nameZh: '狼队', abbr: 'WOL' }, { slug: 'epl', nameZh: '英超' }, '阿森纳 -1', { homeForm: '阿森纳：主场 4 胜 1 负；近 5 场 12 入 6 失，酋长球场战意足。', awayForm: '狼队：客场 1 胜 4 负；近 5 场 6 入 10 失，客场进攻乏力。', attack: '阿森纳两翼内切 + 控球压制；狼队依赖反击，创造机会有限。', defense: '狼队客场失球多；阿森纳主场协防稳定，支持深盘主队。', motivation: '英超争冠，阿森纳主场必须全取三分。', pace: '临场建议：-1 阿森纳低水可跟；狼队确认主力前锋缺阵可加重仓位。' }, { confidence: 'high', pickType: 'home', homepageOrder: 54, modelWinRate: 72 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'man-city', nameZh: '曼城', abbr: 'MCI' }, { slug: 'everton', nameZh: '埃弗顿', abbr: 'EVE' }, { slug: 'epl', nameZh: '英超' }, '曼城 -1.5', { homeForm: '曼城：主场 5 胜；近 5 场 16 入 4 失，伊蒂哈德统治力顶级。', awayForm: '埃弗顿：客场 1 胜 4 负；近 5 场 5 入 12 失，客场进攻低迷。', attack: '曼城禁区压制 + 肋部渗透；埃弗顿长传反击威胁有限。', defense: '埃弗顿客场难零封曼城；深盘逻辑清晰。', motivation: '争冠关键战，曼城主场需净胜球优势。', pace: '临场建议：-1.5 低水可跟；退 -1.25 且升水则减仓。大小 3.25 大球可小注。' }, { confidence: 'high', pickType: 'home', homepageOrder: 55, modelWinRate: 76 }),
-  // —— 西甲 ×5 ——
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'valencia', nameZh: '瓦伦西亚', abbr: 'VAL' }, { slug: 'real-madrid', nameZh: '皇马', abbr: 'RMA' }, { slug: 'la-liga', nameZh: '西甲' }, '皇马 -0.5', { homeForm: '瓦伦西亚：主场 2 胜 3 负；近 5 场 7 入 9 失，梅斯塔利亚抗压一般。', awayForm: '皇马：客场 4 胜 1 负；近 5 场 13 入 6 失，客场火力稳定。', attack: '瓦伦西亚定位球有威胁；皇马边路提速 + 转换犀利。', defense: '瓦伦西亚主场难挡皇马持续压制；客队浅盘值得跟进。', motivation: '西甲争冠，皇马客场抢分动机强。', pace: '临场建议：皇马 -0.5 低水可跟；瓦伦西亚早段死守可走地再评估大小。' }, { confidence: 'high', pickType: 'away', homepageOrder: 56, modelWinRate: 71 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'barcelona', nameZh: '巴萨', abbr: 'BAR' }, { slug: 'villarreal', nameZh: '比利亚雷亚尔', abbr: 'VIL' }, { slug: 'la-liga', nameZh: '西甲' }, '巴萨 -1', { homeForm: '巴萨：主场 4 胜 1 负；近 5 场 13 入 6 失，诺坎普控球压制稳定。', awayForm: '比利亚雷亚尔：客场 2 胜 3 负；近 5 场 9 入 10 失。', attack: '巴萨肋部渗透 + 两翼提速；黄潜转换有爆点但创造波动。', defense: '黄潜客场失球不少；巴萨主场深盘支持。', motivation: '西甲争冠，诺坎普必须拿满三分。', pace: '临场建议：-1 巴萨低水可跟；退 -0.75 升水减仓。大小 3 球观望勿硬跟。' }, { confidence: 'high', pickType: 'home', homepageOrder: 57, modelWinRate: 73 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'atletico', nameZh: '马竞', abbr: 'ATM' }, { slug: 'real-betis', nameZh: '皇家贝蒂斯', abbr: 'BET' }, { slug: 'la-liga', nameZh: '西甲' }, '马竞 -0.5', { homeForm: '马竞：主场 3 胜 2 负；近 5 场 8 入 5 失，低位防守成熟。', awayForm: '贝蒂斯：客场 2 胜 3 负；近 5 场 10 入 11 失，客场防线波动。', attack: '马竞反击与定位球效率高；贝蒂斯控球但终结一般。', defense: '贝蒂斯客场肋部隐患；马竞主场零封率偏高。', motivation: '西甲抢四，大都会主场盘口支持。', pace: '临场建议：-0.5 马竞低水可跟；大小 2.25 小球热则勿硬跟大球。' }, { confidence: 'medium', pickType: 'home', homepageOrder: 58, modelWinRate: 64 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'sevilla', nameZh: '塞维利亚', abbr: 'SEV' }, { slug: 'getafe', nameZh: '赫塔费', abbr: 'GET' }, { slug: 'la-liga', nameZh: '西甲' }, '塞维利亚 -0.5', { homeForm: '塞维利亚：主场 3 胜 2 负；近 5 场 9 入 7 失，皮斯胡安战意回升。', awayForm: '赫塔费：客场 1 胜 4 负；近 5 场 4 入 9 失，进攻乏力。', attack: '塞维利亚边路传中；赫塔费长传反击威胁有限。', defense: '赫塔费客场难稳守；塞维利亚浅盘合理。', motivation: '西甲中游抢分，主队主场必须取胜。', pace: '临场建议：-0.5 低水可跟；0-0 半场慎追大球。' }, { confidence: 'medium', pickType: 'home', homepageOrder: 59, modelWinRate: 62 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'real-sociedad', nameZh: '皇家社会', abbr: 'RSO' }, { slug: 'real-madrid', nameZh: '皇马', abbr: 'RMA' }, { slug: 'la-liga', nameZh: '西甲' }, '大 2.5', { homeForm: '皇家社会：主场 3 胜 2 负；近 5 场 10 入 8 失，不保守。', awayForm: '皇马：客场 4 胜 1 负；近 5 场 13 入 6 失，火力稳定。', attack: '社会肋部渗透；皇马转换犀利，双方 xG 路径清晰。', defense: '社会主场失球不少；皇马客场非零封型，支撑大球。', motivation: '西甲强强对话，平局对双方均不理想。', pace: '临场建议：2.75 大球低水可跟；皇马让球退盘则改以大小为主。' }, { confidence: 'medium', pickType: 'over', homepageOrder: 60, over25Prob: 69, modelWinRate: 66 }),
-  // —— 德甲 ×5 ——
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'bayern', nameZh: '拜仁', abbr: 'BAY' }, { slug: 'stuttgart', nameZh: '斯图加特', abbr: 'STU' }, { slug: 'bundesliga', nameZh: '德甲' }, '拜仁 -1', { homeForm: '拜仁：主场 4 胜 1 负；近 5 场 17 入 6 失，安联压制力顶级。', awayForm: '斯图加特：客场 2 胜 3 负；近 5 场 9 入 11 失。', attack: '拜仁高位逼抢 + 边路内切；斯图加特反击有威胁但创造波动。', defense: '斯图加特客场难挡拜仁持续施压；深盘逻辑成立。', motivation: '德甲争冠，拜仁主场必须取胜。', pace: '临场建议：-1 低水可跟；斯图加特早段进球可走地再评估。' }, { confidence: 'high', pickType: 'home', homepageOrder: 61, modelWinRate: 74 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'dortmund', nameZh: '多特蒙德', abbr: 'BVB' }, { slug: 'frankfurt', nameZh: '法兰克福', abbr: 'SGE' }, { slug: 'bundesliga', nameZh: '德甲' }, '大 2.5', { homeForm: '多特：主场 3 胜 2 负；近 5 场 13 入 10 失，威斯特法伦火力足。', awayForm: '法兰克福：客场 3 胜 2 负；近 5 场 11 入 9 失，进攻流畅。', attack: '多特高压 + 转换；法兰克福肋部渗透，双方 xG 高。', defense: '双方防线均有漏洞，德甲节奏支撑大球。', motivation: '德甲抢四，多特主场不宜闷战。', pace: '临场建议：3 球大球低水可跟；降 2.75 升水则观望。' }, { confidence: 'high', pickType: 'over', homepageOrder: 62, over25Prob: 72, modelWinRate: 70 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'leverkusen', nameZh: '勒沃库森', abbr: 'B04' }, { slug: 'rb-leipzig', nameZh: 'RB莱比锡', abbr: 'RBL' }, { slug: 'bundesliga', nameZh: '德甲' }, '大 2.5', { homeForm: '勒沃库森：主场 4 胜 1 负；近 5 场 14 入 7 失，进攻组织流畅。', awayForm: '莱比锡：客场 3 胜 2 负；近 5 场 12 入 8 失，高位压迫风格。', attack: '药厂肋部渗透；莱比锡转换快，对攻格局明确。', defense: '双方近 5 场均有失球，大球价值高于闷战。', motivation: '德甲欧冠席位关键战，节奏偏快。', pace: '临场建议：2.75→3 球升盘可跟大2.5；早段红牌则减仓。' }, { confidence: 'high', pickType: 'over', homepageOrder: 63, over25Prob: 74, modelWinRate: 71 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'stuttgart', nameZh: '斯图加特', abbr: 'STU' }, { slug: 'dortmund', nameZh: '多特蒙德', abbr: 'BVB' }, { slug: 'bundesliga', nameZh: '德甲' }, '多特 0', { homeForm: '斯图加特：主场 3 胜 2 负；近 5 场 10 入 9 失。', awayForm: '多特：客场 3 胜 2 负；近 5 场 12 入 9 失，客场火力维持。', attack: '斯图加特边路传中；多特转换威胁大，平手盘跟客队。', defense: '斯图加特主场防线波动；多特客场进球稳定。', motivation: '德甲抢四，多特客场战意与盘口同向。', pace: '临场建议：多特低水可跟；升水且大小降盘则观望。' }, { confidence: 'medium', pickType: 'away', homepageOrder: 64, modelWinRate: 63 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'bayern', nameZh: '拜仁', abbr: 'BAY' }, { slug: 'leverkusen', nameZh: '勒沃库森', abbr: 'B04' }, { slug: 'bundesliga', nameZh: '德甲' }, '拜仁 -0.5', { homeForm: '拜仁：主场 4 胜 1 负；近 5 场 17 入 6 失。', awayForm: '勒沃库森：客场 3 胜 2 负；近 5 场 12 入 8 失，强强对话不保守。', attack: '拜仁禁区压制；药厂反击犀利，总进球可期。', defense: '勒沃库森客场非铁壁；拜仁浅盘升档支持主队。', motivation: '德甲榜首大战，安联主场抢分。', pace: '临场建议：-0.5 拜仁低水可跟；可配大2.5。药厂主力缺阵则加重拜仁。' }, { confidence: 'high', pickType: 'home', homepageOrder: 65, modelWinRate: 72 }),
-  // —— 意甲 ×5 ——
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'inter', nameZh: '国际米兰', abbr: 'INT' }, { slug: 'fiorentina', nameZh: '佛罗伦萨', abbr: 'FIO' }, { slug: 'serie-a', nameZh: '意甲' }, '国米 -1', { homeForm: '国米：主场 4 胜 1 负；近 5 场 12 入 5 失，梅阿查攻防均衡。', awayForm: '佛罗伦萨：客场 2 胜 3 负；近 5 场 8 入 10 失。', attack: '国米中路渗透稳定；紫百合依赖定位球，创造波动。', defense: '佛罗伦萨客场失球偏多；国米深盘合理。', motivation: '意甲争冠，国米主场必须取胜。', pace: '临场建议：-1 低水可跟；紫百合变阵强攻走地再评估。' }, { confidence: 'high', pickType: 'home', homepageOrder: 66, modelWinRate: 73 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'napoli', nameZh: '那不勒斯', abbr: 'NAP' }, { slug: 'lazio', nameZh: '拉齐奥', abbr: 'LAZ' }, { slug: 'serie-a', nameZh: '意甲' }, '大 2.5', { homeForm: '那不勒斯：主场 3 胜 2 负；近 5 场 13 入 7 失，锋线转化率高。', awayForm: '拉齐奥：客场 2 胜 3 负；近 5 场 10 入 9 失，反击威胁大。', attack: '那不勒斯肋部渗透；拉齐奥转换快，双方破门路径清晰。', defense: '双方防线均有波动，支撑大球。', motivation: '意甲抢二，那不勒斯主场不宜闷战。', pace: '临场建议：2.75 大球低水可跟；0-0 早段未降盘可保留下半场大球。' }, { confidence: 'medium', pickType: 'over', homepageOrder: 67, over25Prob: 68, modelWinRate: 67 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'juventus', nameZh: '尤文', abbr: 'JUV' }, { slug: 'atalanta', nameZh: '亚特兰大', abbr: 'ATA' }, { slug: 'serie-a', nameZh: '意甲' }, '大 2.5', { homeForm: '尤文：主场 3 胜 1 平 1 负；近 5 场 9 入 6 失，防守体系成熟。', awayForm: '亚特兰大：客场 3 胜 2 负；近 5 场 14 入 9 失，进攻火力足。', attack: '尤文定位球；亚特兰大高压 + 转换，xG 维持高位。', defense: '尤文偶被直塞打穿；亚特兰大客场失球不少。', motivation: '意甲欧冠席位关键战，客队需抢分。', pace: '临场建议：2.5→2.75 大球可跟；尤文平手低水时可小注主胜。' }, { confidence: 'medium', pickType: 'over', homepageOrder: 68, over25Prob: 67, modelWinRate: 66 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'ac-milan', nameZh: 'AC米兰', abbr: 'MIL' }, { slug: 'torino', nameZh: '都灵', abbr: 'TOR' }, { slug: 'serie-a', nameZh: '意甲' }, 'AC米兰 -0.75', { homeForm: 'AC米兰：主场 3 胜 2 负；近 5 场 10 入 7 失，圣西罗战意足。', awayForm: '都灵：客场 2 胜 3 负；近 5 场 7 入 10 失，客场进攻一般。', attack: '米兰边路传中 + 反击；都灵定位球有威胁但创造有限。', defense: '都灵客场难挡米兰持续施压；浅盘跟主队。', motivation: '意甲抢四，米兰主场必须拿分。', pace: '临场建议：-0.75 低水可跟；退 -0.5 升水减仓。' }, { confidence: 'medium', pickType: 'home', homepageOrder: 69, modelWinRate: 65 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'roma', nameZh: '罗马', abbr: 'ROM' }, { slug: 'sassuolo', nameZh: '萨索洛', abbr: 'SAS' }, { slug: 'serie-a', nameZh: '意甲' }, '罗马 -0.5', { homeForm: '罗马：主场 3 胜 2 负；近 5 场 11 入 8 失，奥林匹克主场战意足。', awayForm: '萨索洛：客场 1 胜 4 负；近 5 场 7 入 12 失，客场防守差。', attack: '罗马中路渗透 + 定位球；萨索洛反击偶有声势。', defense: '萨索洛客场失球多；罗马浅盘支持。', motivation: '意甲欧战席位，罗马主场抢分。', pace: '临场建议：-0.5 罗马低水可跟；萨索洛早段进球走地再评估。' }, { confidence: 'medium', pickType: 'home', homepageOrder: 70, modelWinRate: 64 }),
-  // —— 欧冠 ×5 ——
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'man-city', nameZh: '曼城', abbr: 'MCI' }, { slug: 'real-madrid', nameZh: '皇马', abbr: 'RMA' }, { slug: 'champions-league', nameZh: '欧冠' }, '大 2.5', { homeForm: '曼城：欧冠主场控球压制；近 5 场 15 入 5 失。', awayForm: '皇马：欧冠客场经验足；近 5 场 13 入 6 失，不保守。', attack: '曼城中路渗透；皇马转换犀利，双方 xG 顶格。', defense: '强强对话难零封，大小升盘逻辑成立。', motivation: '欧冠淘汰赛，平局对主队不利。', pace: '临场建议：3 球大球低水可跟；曼城 -0.25 低水可配赛果盘。TG 赛前确认阵容。' }, { confidence: 'high', pickType: 'over', homepageOrder: 71, isFocus: true, over25Prob: 76, modelWinRate: 74 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'bayern', nameZh: '拜仁', abbr: 'BAY' }, { slug: 'psg', nameZh: '巴黎圣日耳曼', abbr: 'PSG' }, { slug: 'champions-league', nameZh: '欧冠' }, '大 2.5', { homeForm: '拜仁：欧冠主场 4 胜 1 负；近 5 场 16 入 6 失。', awayForm: '巴黎：欧冠客场火力维持；近 5 场 14 入 7 失。', attack: '拜仁高位逼抢；巴黎边路个人能力，对攻可期。', defense: '双方客场均有失球记录，支撑大2.5。', motivation: '欧冠半决赛级别对话，节奏偏快。', pace: '临场建议：3→3.25 升盘大球可跟；拜仁 -0.25 低水可小注。防早段红牌。' }, { confidence: 'high', pickType: 'over', homepageOrder: 72, isFocus: true, over25Prob: 75, modelWinRate: 73 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'liverpool', nameZh: '利物浦', abbr: 'LIV' }, { slug: 'barcelona', nameZh: '巴萨', abbr: 'BAR' }, { slug: 'champions-league', nameZh: '欧冠' }, '大 2.5', { homeForm: '利物浦：安菲尔德欧冠气势足；近 5 场 14 入 6 失。', awayForm: '巴萨：欧冠客场控球推进；近 5 场 13 入 7 失。', attack: '利物浦压迫 + 转换；巴萨肋部渗透，破门路径清晰。', defense: '双方高位线均有风险，大球优于闷战。', motivation: '欧冠焦点战，首回合不宜保守。', pace: '临场建议：3 球大球低水可跟；利物浦 0 低水可配。降盘升水则观望。' }, { confidence: 'high', pickType: 'over', homepageOrder: 73, over25Prob: 74, modelWinRate: 72 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'arsenal', nameZh: '阿森纳', abbr: 'ARS' }, { slug: 'inter', nameZh: '国际米兰', abbr: 'INT' }, { slug: 'champions-league', nameZh: '欧冠' }, '阿森纳 0', { homeForm: '阿森纳：欧冠主场 3 胜 2 负；近 5 场 11 入 7 失，酋长球场战意足。', awayForm: '国米：欧冠客场 3 胜 2 负；近 5 场 12 入 6 失，攻防均衡。', attack: '阿森纳两翼内切；国米中路渗透，势均力敌。', defense: '平手盘下主队近况与主场略占优。', motivation: '欧冠八强战，阿森纳主场需建立优势。', pace: '临场建议：阿森纳低水可跟；国米反击犀利走地慎追深盘。' }, { confidence: 'medium', pickType: 'home', homepageOrder: 74, modelWinRate: 66 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'dortmund', nameZh: '多特蒙德', abbr: 'BVB' }, { slug: 'man-city', nameZh: '曼城', abbr: 'MCI' }, { slug: 'champions-league', nameZh: '欧冠' }, '曼城 -0.5', { homeForm: '多特：欧冠主场威斯特法伦气势足；近 5 场 12 入 9 失。', awayForm: '曼城：欧冠客场火力顶级；近 5 场 15 入 6 失。', attack: '多特高压 + 转换；曼城禁区压制，客队 xG 更高。', defense: '多特主场难零封曼城；浅盘跟客队。', motivation: '欧冠淘汰赛，曼城客场抢分动机强。', pace: '临场建议：曼城 -0.5 低水可跟；多特早段进球可保留走地。' }, { confidence: 'medium', pickType: 'away', homepageOrder: 75, modelWinRate: 68 }),
-  // —— 世界杯预选赛 ×4 ——
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'england', nameZh: '英格兰', abbr: 'ENG' }, { slug: 'france', nameZh: '法国', abbr: 'FRA' }, { slug: 'world-cup-qualifiers', nameZh: '世界杯预选赛' }, '大 2.5', { homeForm: '英格兰：预选赛 3 胜 1 平；近 3 场 7 入 2 失，温布利战意足。', awayForm: '法国：预选赛 3 胜 1 负；近 3 场 8 入 3 失，前场创造力顶级。', attack: '英格兰边路提速 + 定位球；法国肋部渗透 + 快反，xG 双高。', defense: '强强对话难长期零封，预选赛节奏仍偏对攻。', motivation: '世界杯预选赛关键战，平局对双方均不理想。', pace: '临场建议：2.75 大球低水可跟；法国 +0.25 低水可配受让。大赛防轮换，赛前 TG 确认名单。' }, { confidence: 'high', pickType: 'over', homepageOrder: 76, isFocus: true, over25Prob: 71, modelWinRate: 70 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'spain', nameZh: '西班牙', abbr: 'ESP' }, { slug: 'germany', nameZh: '德国', abbr: 'GER' }, { slug: 'world-cup-qualifiers', nameZh: '世界杯预选赛' }, '大 2.5', { homeForm: '西班牙：预选赛 4 胜；近 3 场 9 入 1 失，传控压制稳定。', awayForm: '德国：预选赛 3 胜 1 平；近 3 场 7 入 2 失，高位压迫成熟。', attack: '西班牙肋部渗透；德国直塞 + 转换，双方破门路径清晰。', defense: '德国客场防守稳健但非闷战型；大小升盘合理。', motivation: '欧洲区预选赛榜首对话，必须抢分。', pace: '临场建议：2.5→2.75 大球可跟；德国 +0.25 低水可小注。早段谨慎试探后节奏加快。' }, { confidence: 'high', pickType: 'over', homepageOrder: 77, over25Prob: 70, modelWinRate: 69 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'portugal', nameZh: '葡萄牙', abbr: 'POR' }, { slug: 'netherlands', nameZh: '荷兰', abbr: 'NED' }, { slug: 'world-cup-qualifiers', nameZh: '世界杯预选赛' }, '葡萄牙 0', { homeForm: '葡萄牙：预选赛主场 3 胜；近 3 场 8 入 3 失，C罗体系终结效率高。', awayForm: '荷兰：预选赛客场 2 胜 1 平；近 3 场 9 入 4 失，进攻流畅。', attack: '葡萄牙边路传中 + 定位球；荷兰高位压迫 + 转换。', defense: '平手盘下葡萄牙主场与近况略占优。', motivation: '世界杯预选赛直接对话，主场不容失分。', pace: '临场建议：葡萄牙低水可跟；荷兰早段高压走地再评估。大小 2.75 可观望。' }, { confidence: 'medium', pickType: 'home', homepageOrder: 78, modelWinRate: 67 }),
-  seoDailySeed(SEO_DAILY_DATE, { slug: 'brazil', nameZh: '巴西', abbr: 'BRA' }, { slug: 'argentina', nameZh: '阿根廷', abbr: 'ARG' }, { slug: 'world-cup-qualifiers', nameZh: '世界杯预选赛' }, '大 2.5', { homeForm: '巴西：南美预选赛主场 4 胜；近 3 场 8 入 2 失，进攻节奏快。', awayForm: '阿根廷：客场 3 胜 1 负；近 3 场 7 入 3 失，梅西体系组织稳定。', attack: '巴西边路个人能力；阿根廷中路渗透 + 快反，星味足。', defense: '南美德比难零封，历史大球率支撑升盘。', motivation: '南美世界杯预选赛经典对决，平局对双方均不利。', pace: '临场建议：2.5 大球低水可跟；阿根廷 +0.25 低水可配。高温高湿场次注意体能对下半场节奏影响。' }, { confidence: 'high', pickType: 'over', homepageOrder: 79, isFocus: true, over25Prob: 72, modelWinRate: 71 }),
+  seoDailySeed(
+    SEO_DAILY_DATE,
+    { slug: 'man-united', nameZh: '曼联', abbr: 'MUN' },
+    { slug: 'liverpool', nameZh: '利物浦', abbr: 'LIV' },
+    { slug: 'epl', nameZh: '英超' },
+    '大2.5',
+    {
+      homeForm: '曼联：主场 3 胜 1 负 1 和；近 5 场 11 入 10 失，老特拉福德战意拉满但防线松动。',
+      awayForm: '利物浦：客场 3 胜 2 负；近 5 场 14 入 8 失，转换效率顶格，双红会从不保守。',
+      attack: '曼联边路提速 + 定位球；利物浦压迫 + 两翼内切，双方 xG 路径清晰。',
+      defense: '曼联近 5 场连场有失球；利物浦客场零封率偏低，大球逻辑成立。',
+      motivation: '英超双红会抢分战，平局对双方均不理想。',
+      pace: '临场建议：3 球大球低水可跟；曼联中卫缺阵则加重利物浦方向。',
+    },
+    { confidence: 'high', kickoff: '03:00', isHot: true, isFocus: true, pickType: 'over', homepageOrder: 10, lineOpen: '2.75', lineCurrent: '3.0', ouTrend: 'up', over25Prob: 74, modelWinRate: 72, venueZh: '老特拉福德', round: '第38轮' }
+  ),
+  seoDailySeed(
+    SEO_DAILY_DATE,
+    { slug: 'real-madrid', nameZh: '皇马', abbr: 'RMA' },
+    { slug: 'barcelona', nameZh: '巴萨', abbr: 'BAR' },
+    { slug: 'la-liga', nameZh: '西甲' },
+    '皇马不败',
+    {
+      homeForm: '皇马：主场 4 胜 1 和；近 5 场 14 入 4 失，伯纳乌压制力仍属西甲顶格。',
+      awayForm: '巴萨：客场 3 胜 2 负；近 5 场 13 入 6 失，德比战意足但客场失球率偏高。',
+      attack: '皇马边路提速 + 禁区前沿远射；巴萨肋部渗透，双方破门路径清晰。',
+      defense: '皇马主场协防稳定；巴萨客场中卫回追是隐患，不败方向逻辑成立。',
+      motivation: '西甲争冠国家德比，皇马主场必须抢分。',
+      pace: '临场建议：皇马 0 低水可跟；退受让且升水则改以大小为主。',
+    },
+    { confidence: 'high', kickoff: '04:00', isHot: true, isFocus: true, pickType: 'home', homepageOrder: 11, modelWinRate: 68, venueZh: '伯纳乌', round: '第38轮' }
+  ),
+  seoDailySeed(
+    SEO_DAILY_DATE,
+    { slug: 'bayern', nameZh: '拜仁', abbr: 'BAY' },
+    { slug: 'dortmund', nameZh: '多特', abbr: 'BVB' },
+    { slug: 'bundesliga', nameZh: '德甲' },
+    '拜仁 -0.75',
+    {
+      homeForm: '拜仁：主场 4 胜 1 负；近 5 场 17 入 6 失，安联压制力顶级。',
+      awayForm: '多特：客场 3 胜 2 负；近 5 场 13 入 10 失，转换威胁大但防线松动。',
+      attack: '拜仁高位逼抢 + 边路内切；多特反击犀利，总进球可期。',
+      defense: '多特客场难零封拜仁；盘口由 -0.5 升至 -0.75，资金持续流入主队。',
+      motivation: '德甲争冠国家德比，拜仁主场抢分动机强。',
+      pace: '临场建议：-0.75 拜仁低水可跟；退 -0.5 升水则减仓。',
+    },
+    { confidence: 'high', kickoff: '02:30', isHot: true, isFocus: true, pickType: 'home', homepageOrder: 12, lineOpen: '拜仁 -0.5', lineCurrent: '拜仁 -0.75', ouTrend: 'up', modelWinRate: 71, venueZh: '安联球场', round: '第34轮' }
+  ),
+  seoDailySeed(
+    SEO_DAILY_DATE,
+    { slug: 'arsenal', nameZh: '阿森纳', abbr: 'ARS' },
+    { slug: 'tottenham', nameZh: '热刺', abbr: 'TOT' },
+    { slug: 'epl', nameZh: '英超' },
+    '大 2.5',
+    {
+      homeForm: '阿森纳：主场 3 胜 1 负；近 5 场 11 入 7 失，酋长球场战意足。',
+      awayForm: '热刺：客场 3 胜 2 负；近 5 场 12 入 9 失，德比不保守。',
+      attack: '阿森纳两翼内切威胁大；热刺转换效率上游，双方破门路径清晰。',
+      defense: '阿森纳高位线有风险；热刺客场失球不少，支撑大球。',
+      motivation: '北伦敦德比 + 争四战意，节奏不宜闷战。',
+      pace: '临场建议：大小 3 球大球 ≤0.90 可跟；早段进球可保留走地大球。',
+    },
+    { confidence: 'high', kickoff: '22:30', isHot: true, pickType: 'over', homepageOrder: 13, over25Prob: 72, modelWinRate: 70, venueZh: '酋长球场', round: '第38轮' }
+  ),
+  seoDailySeed(
+    SEO_DAILY_DATE,
+    { slug: 'man-city', nameZh: '曼城', abbr: 'MCI' },
+    { slug: 'chelsea', nameZh: '切尔西', abbr: 'CHE' },
+    { slug: 'epl', nameZh: '英超' },
+    '曼城 -0.75',
+    {
+      homeForm: '曼城：主场 4 胜 1 负，控球压制力顶级；近 5 场 16 入 5 失。',
+      awayForm: '切尔西：客场 2 胜 2 负 1 和；近 5 场 9 入 11 失，客场失球偏多。',
+      attack: '曼城中路渗透效率高；切尔西依赖转换，面对高压出球质量下降。',
+      defense: '曼城主场零封率尚可；切尔西肋部与反击隐患大。',
+      motivation: '英超争冠关键战，曼城主场必须拿分。',
+      pace: '临场建议：-0.75 主队低水可跟；退 -0.5 且升水则减仓。',
+    },
+    { confidence: 'high', kickoff: '23:00', isHot: true, pickType: 'home', homepageOrder: 14, modelWinRate: 74, venueZh: '伊蒂哈德球场', round: '第38轮' }
+  ),
 ];
 
 /**
