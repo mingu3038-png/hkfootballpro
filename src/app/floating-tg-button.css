@@ -1,0 +1,206 @@
+/* ========== 全站 TG 浮动悬浮按钮 · 红金世界杯风 ========== */
+
+@keyframes floating-tg-breathe {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(252, 211, 77, 0.35) inset,
+      0 0 18px rgba(185, 28, 28, 0.35),
+      0 0 12px rgba(212, 184, 106, 0.2),
+      0 8px 28px rgba(0, 0, 0, 0.45);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(252, 211, 77, 0.55) inset,
+      0 0 32px rgba(239, 68, 68, 0.55),
+      0 0 24px rgba(184, 148, 70, 0.35),
+      0 12px 36px rgba(0, 0, 0, 0.5);
+    transform: scale(1.03);
+  }
+}
+
+@keyframes floating-tg-ring-pulse {
+  0% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+}
+
+@keyframes floating-tg-halo {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+.floating-tg-btn {
+  position: fixed;
+  z-index: 88;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #fffbeb;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform 0.22s ease,
+    filter 0.22s ease;
+}
+
+.floating-tg-btn__halo {
+  position: absolute;
+  inset: -8px;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(239, 68, 68, 0.35) 0%,
+    rgba(184, 148, 70, 0.18) 45%,
+    transparent 72%
+  );
+  filter: blur(6px);
+  animation: floating-tg-halo 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.floating-tg-btn__ring {
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  border: 1px solid rgba(252, 211, 77, 0.45);
+  animation: floating-tg-ring-pulse 2.4s ease-out infinite;
+  pointer-events: none;
+}
+
+.floating-tg-btn__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 18px;
+  background: linear-gradient(
+    145deg,
+    #0c0608 0%,
+    #1a0a0e 18%,
+    #7f1d1d 42%,
+    #b45309 68%,
+    #d4a84a 92%,
+    #fde68a 100%
+  );
+  border: 1px solid rgba(252, 211, 77, 0.42);
+  animation: floating-tg-breathe 3s ease-in-out infinite;
+}
+
+.floating-tg-btn__icon {
+  flex-shrink: 0;
+  width: 1.65rem;
+  height: 1.65rem;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+}
+
+.floating-tg-btn__label {
+  max-width: 4.5rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.85),
+    0 0 10px rgba(127, 29, 29, 0.35);
+}
+
+.floating-tg-btn:hover {
+  filter: brightness(1.08);
+}
+
+.floating-tg-btn:hover .floating-tg-btn__inner {
+  animation-play-state: paused;
+  box-shadow:
+    0 0 0 1px rgba(252, 211, 77, 0.6) inset,
+    0 0 36px rgba(239, 68, 68, 0.6),
+    0 0 28px rgba(184, 148, 70, 0.4),
+    0 14px 40px rgba(0, 0, 0, 0.55);
+  transform: scale(1.04);
+}
+
+.floating-tg-btn:active {
+  transform: scale(0.97);
+}
+
+/* PC · 右侧中间 */
+@media (min-width: 769px) {
+  .floating-tg-btn {
+    right: max(16px, env(safe-area-inset-right, 0px));
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .floating-tg-btn:hover {
+    transform: translateY(-50%) scale(1.02);
+  }
+
+  .floating-tg-btn:active {
+    transform: translateY(-50%) scale(0.97);
+  }
+
+  .floating-tg-btn__inner {
+    padding: 0.9rem 0.75rem;
+    min-width: 5.5rem;
+  }
+
+  .floating-tg-btn__icon {
+    width: 1.85rem;
+    height: 1.85rem;
+  }
+
+  .floating-tg-btn__label {
+    max-width: 5rem;
+    font-size: 0.72rem;
+  }
+}
+
+/* 手机 · 右下角 */
+@media (max-width: 768px) {
+  .floating-tg-btn {
+    right: max(12px, env(safe-area-inset-right, 0px));
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .floating-tg-btn__inner {
+    padding: 0.65rem 0.7rem;
+    border-radius: 16px;
+  }
+
+  .floating-tg-btn__label {
+    font-size: 0.62rem;
+  }
+
+  /* 分析页底部 sticky 条 · 上移避免遮挡 */
+  body:has(.adx-sticky-tg) .floating-tg-btn {
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-tg-btn__inner,
+  .floating-tg-btn__ring,
+  .floating-tg-btn__halo {
+    animation: none;
+  }
+}

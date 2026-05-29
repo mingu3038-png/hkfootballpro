@@ -9,6 +9,7 @@
 @import './home-hero-premium.css';
 @import './home-layout-fixes.css';
 @import './home-latest-articles.css';
+@import './floating-tg-button.css';
 @import './site-header-mobile.css';
 @source '../**/*.{js,ts,jsx,tsx}';
 
@@ -3858,6 +3859,7 @@ a {
 a.site-header__tg:hover,
 a.home-hero__tg-btn:not(.home-hero__tg-btn--closed):hover,
 a.home-hero__tg-card-btn:hover,
+a.floating-tg-btn:hover,
 a.mobile-tg-bar:hover,
 a.adx-tg-cta__btn:hover,
 a.adx-sticky-tg__btn:hover,

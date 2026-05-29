@@ -42,7 +42,7 @@
   body:has(.home-page) {
     overflow-x: hidden;
     max-width: 100%;
-    padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 
   body:has(.home-page) .home-cta-label--desktop {

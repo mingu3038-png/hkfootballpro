@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { FloatingTgButton } from '@/components/layout/FloatingTgButton';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import { siteConfig } from '@/config/site';
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteHeader />
         <main className="min-h-[calc(100vh-8rem)]">{children}</main>
         <SiteFooter />
+        <FloatingTgButton />
       </body>
     </html>
   );
