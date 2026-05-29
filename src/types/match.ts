@@ -58,6 +58,8 @@ export interface LastNightPick {
   teamLabel: string;
   pickLine?: string;
   result: LastNightPickResult;
+  /** 赛事小标签，例：英超 */
+  leagueLabel?: string;
 }
 
 export interface LastNightResults {
@@ -66,6 +68,8 @@ export interface LastNightResults {
   pushes: number;
   /** 不填则按 红/(红+黑+走) 自动计算 */
   winRatePercent?: number;
+  /** 近10场命中率 %；不填则按 picks 最近10场估算 */
+  recent10HitRatePercent?: number;
   picks: LastNightPick[];
 }
 

@@ -58,11 +58,14 @@ export interface HomeContentLastNight {
   winRatePercent?: number;
   /** 连红 */
   winStreak: { count: number; label: string };
+  /** 近10场命中率 % */
+  recent10HitRatePercent?: number;
   /** 昨晚逐场明细（列表展示） */
   picks: Array<{
     teamLabel: string;
     pickLine?: string;
     result: 'win' | 'loss' | 'push';
+    leagueLabel?: string;
   }>;
 }
 
@@ -185,24 +188,21 @@ export const homeContent: HomeContent = {
 
   // ④ 昨晚战绩
   lastNight: {
-    wins: 7,
-    losses: 2,
-    pushes: 1,
+    wins: 4,
+    losses: 1,
+    pushes: 0,
+    winRatePercent: 80,
+    recent10HitRatePercent: 80,
     winStreak: {
       count: 9,
       label: '近期 9 连红进行中',
     },
     picks: [
-      { teamLabel: '拜仁', pickLine: '-0.5', result: 'win' },
-      { teamLabel: '皇马', pickLine: '大2.5', result: 'win' },
-      { teamLabel: '阿森纳', pickLine: '大2.5', result: 'win' },
-      { teamLabel: '切尔西', pickLine: '-0.5', result: 'win' },
-      { teamLabel: '国际米兰', result: 'win' },
-      { teamLabel: '巴黎圣日耳曼', pickLine: '大3', result: 'win' },
-      { teamLabel: '利物浦', pickLine: '大2.5', result: 'win' },
-      { teamLabel: '曼联', pickLine: '-0.5', result: 'loss' },
-      { teamLabel: '多特蒙德', result: 'loss' },
-      { teamLabel: '曼城', pickLine: '大2.5', result: 'push' },
+      { teamLabel: '拜仁', pickLine: '-0.5', result: 'win', leagueLabel: '德甲' },
+      { teamLabel: '皇马', pickLine: '大2.5', result: 'win', leagueLabel: '西甲' },
+      { teamLabel: '阿森纳', pickLine: '大2.5', result: 'win', leagueLabel: '英超' },
+      { teamLabel: '切尔西', pickLine: '-0.5', result: 'win', leagueLabel: '英超' },
+      { teamLabel: '曼联', pickLine: '-0.5', result: 'loss', leagueLabel: '英超' },
     ],
   },
 
@@ -283,6 +283,7 @@ export function mapHomeContentToLastNightResults(
       lastNight.winRatePercent
     ),
     picks: lastNight.picks,
+    recent10HitRatePercent: lastNight.recent10HitRatePercent,
   };
 }
 

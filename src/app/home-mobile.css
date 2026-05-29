@@ -1097,13 +1097,13 @@
     overflow: hidden;
   }
 
-  /* —— 昨晚战绩（紧凑）—— */
+  /* —— 昨晚战绩（紧凑 · 增强版见 home-last-night-results.css）—— */
   .home-page > .last-night-results::before {
     opacity: 0.25;
   }
 
   .home-page .last-night-results__header {
-    margin-bottom: 0.65rem;
+    margin-bottom: 0.55rem;
   }
 
   .home-page .last-night-results__title {
@@ -1113,56 +1113,6 @@
   .home-page .last-night-results__badge {
     font-size: 0.7rem;
     padding: 0.15rem 0.45rem;
-  }
-
-  .home-page .last-night-results__stats {
-    margin: 0 0 0.65rem;
-    padding: 0.65rem 0.75rem;
-  }
-
-  .home-page .last-night-results__stat strong {
-    font-size: 1.15rem;
-  }
-
-  .home-page .last-night-results__rate strong {
-    font-size: 1.2rem;
-  }
-
-  .home-page .last-night-results__list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    row-gap: 0.35rem;
-    column-gap: 0;
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
-    max-width: 100%;
-  }
-
-  .home-page .last-night-results__item {
-    flex: 0 0 48%;
-    width: 48%;
-    max-width: 48%;
-    box-sizing: border-box;
-    min-height: 36px;
-    padding: 0.4rem 0.5rem;
-    gap: 0.35rem;
-    font-size: 0.72rem;
-  }
-
-  .home-page .last-night-results__item-label {
-    font-size: 0.72rem;
-    line-height: 1.2;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .home-page .last-night-results__item-icon {
-    font-size: 0.7rem;
-    flex-shrink: 0;
   }
 
   /* —— 今日免费重心（紧凑比赛卡）—— */
