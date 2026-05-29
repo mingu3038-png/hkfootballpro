@@ -15,6 +15,9 @@ export interface WorldCupHotTeam {
   abbr: string;
   analysisSlug: string | null;
   analysisUrl: string | null;
+  fifaRank: number;
+  wcOdds: string;
+  recentForm: string;
 }
 
 export interface WorldCupArticleItem {
@@ -37,6 +40,7 @@ export interface WorldCupPredictionItem {
   matchup: string;
   direction: string;
   winRatePercent: number | null;
+  summary: string;
 }
 
 export interface WorldCupHeroHotMatch {
@@ -50,6 +54,21 @@ export interface WorldCupHeroHotMatch {
   awayNameZh: string;
   direction: string;
   winRatePercent: number | null;
+  headline: string;
+}
+
+export interface WorldCupHotDirection {
+  label: string;
+  detail: string;
+  href?: string;
+}
+
+export interface WorldCupPrecursorMatch {
+  slug: string;
+  href: string;
+  label: string;
+  league: string;
+  kickoffTime: string;
 }
 
 /** 2026 世界杯开幕日（揭幕战） */
@@ -57,7 +76,23 @@ export const WORLD_CUP_2026_KICKOFF_DATE = '2026-06-11';
 
 const HERO_HOT_MATCH_SLUG = 'psg-vs-arsenal-2026-05-30';
 
-export const WORLD_CUP_HOT_TEAMS: Omit<WorldCupHotTeam, 'analysisSlug' | 'analysisUrl'>[] = [
+const TEAM_META: Record<
+  string,
+  { fifaRank: number; wcOdds: string; recentForm: string }
+> = {
+  argentina: { fifaRank: 1, wcOdds: '5.50', recentForm: 'WWDLW' },
+  france: { fifaRank: 2, wcOdds: '6.00', recentForm: 'WDWWL' },
+  brazil: { fifaRank: 3, wcOdds: '6.50', recentForm: 'WWLWW' },
+  england: { fifaRank: 4, wcOdds: '7.00', recentForm: 'WWDWL' },
+  portugal: { fifaRank: 5, wcOdds: '9.00', recentForm: 'WWWDW' },
+  spain: { fifaRank: 8, wcOdds: '8.50', recentForm: 'WDWWW' },
+  germany: { fifaRank: 11, wcOdds: '10.00', recentForm: 'LWWWD' },
+};
+
+export const WORLD_CUP_HOT_TEAMS: Omit<
+  WorldCupHotTeam,
+  'analysisSlug' | 'analysisUrl' | 'fifaRank' | 'wcOdds' | 'recentForm'
+>[] = [
   { slug: 'argentina', nameZh: '阿根廷', abbr: 'ARG' },
   { slug: 'france', nameZh: '法国', abbr: 'FRA' },
   { slug: 'brazil', nameZh: '巴西', abbr: 'BRA' },
@@ -86,6 +121,20 @@ function resolveSummary(text?: string, max = 100): string {
   if (!text?.trim()) return '';
   const t = text.trim();
   return t.length > max ? `${t.slice(0, max - 1)}…` : t;
+}
+
+function resolvePredictionSummary(input: DailyAnalysisInput): string {
+  return resolveSummary(
+    input.options?.summary ?? input.content?.pace ?? input.content?.motivation,
+    72
+  );
+}
+
+function resolveSeoPredictionSummary(article: SeoArticle): string {
+  return resolveSummary(
+    article.seoDescription ?? article.analysis.pace ?? article.analysis.motivation,
+    72
+  );
 }
 
 function mapSeoToArticleItem(article: SeoArticle): WorldCupArticleItem {
@@ -126,6 +175,21 @@ function mapAnalysisToPrediction(input: DailyAnalysisInput): WorldCupPredictionI
     matchup: `${input.home.nameZh} vs ${input.away.nameZh}`,
     direction: input.direction,
     winRatePercent: input.options?.modelWinRate ?? null,
+    summary: resolvePredictionSummary(input),
+  };
+}
+
+function mapSeoToPrediction(article: SeoArticle): WorldCupPredictionItem {
+  const { match } = article;
+  return {
+    slug: article.slug,
+    href: getAnalysisUrl(article.slug),
+    league: match.league.nameZh,
+    kickoffTime: match.kickoffTime,
+    matchup: `${match.home.nameZh} vs ${match.away.nameZh}`,
+    direction: article.direction,
+    winRatePercent: article.options?.modelWinRate ?? null,
+    summary: resolveSeoPredictionSummary(article),
   };
 }
 
@@ -138,16 +202,70 @@ function findTeamAnalysisSlug(teamSlug: string): string | null {
   return match?.slug ?? null;
 }
 
-/** 世界杯热门球队 + 关联分析页 */
+/** 世界杯热门球队 + 关联分析页 + 排名赔率战绩 */
 export function getWorldCupHotTeams(): WorldCupHotTeam[] {
   return WORLD_CUP_HOT_TEAMS.map((team) => {
     const analysisSlug = findTeamAnalysisSlug(team.slug);
+    const meta = TEAM_META[team.slug];
     return {
       ...team,
       analysisSlug,
       analysisUrl: analysisSlug ? getAnalysisUrl(analysisSlug) : null,
+      fifaRank: meta?.fifaRank ?? 0,
+      wcOdds: meta?.wcOdds ?? '—',
+      recentForm: meta?.recentForm ?? '—',
     };
   });
+}
+
+/** 顶部动态条文案 */
+export function getWorldCupTickerItems(): string[] {
+  const days = getWorldCupDaysUntilKickoff();
+  return [
+    `距 2026 世界杯开幕 ${days} 天 · 美加墨 48 队`,
+    '阿根廷冠军赔率 5.50 · 卫冕热门持续领跑',
+    '欧联决赛 巴黎圣日耳曼 vs 阿仙奴 03:00 开波',
+    '法国 FIFA #2 · 深盘冠军选项受资金追捧',
+    '巴西 vs 阿根廷 世界杯模拟赛 分析已更新',
+    '英格兰 FIFA #4 · 青春阵容冠军赔率 7.00',
+  ];
+}
+
+/** Hero · 热门方向 */
+export function getWorldCupHotDirections(): WorldCupHotDirection[] {
+  return [
+    { label: '阿根廷', detail: '卫冕热门 · 深盘承接', href: getAnalysisUrl('argentina-vs-france-2026-07-26') },
+    { label: '法国', detail: 'FIFA #2 · 冠军赔率 6.00' },
+    { label: 'PSG -0.25', detail: '欧联决赛重心 · 低水跟进', href: getAnalysisUrl(HERO_HOT_MATCH_SLUG) },
+    { label: '巴西', detail: '南美王者 · 赔率 6.50 下调' },
+  ];
+}
+
+/** Hero · 世界杯前哨战 */
+export function getWorldCupPrecursorMatches(): WorldCupPrecursorMatch[] {
+  return [
+    {
+      slug: HERO_HOT_MATCH_SLUG,
+      href: getAnalysisUrl(HERO_HOT_MATCH_SLUG),
+      label: '巴黎圣日耳曼 vs 阿仙奴',
+      league: '欧联决赛',
+      kickoffTime: '03:00',
+    },
+    {
+      slug: 'scotland-vs-curacao-2026-05-30',
+      href: getAnalysisUrl('scotland-vs-curacao-2026-05-30'),
+      label: '苏格兰 vs 库拉索',
+      league: '国际赛',
+      kickoffTime: '02:00',
+    },
+    {
+      slug: 'brazil-vs-argentina-2026-06-24',
+      href: getAnalysisUrl('brazil-vs-argentina-2026-06-24'),
+      label: '巴西 vs 阿根廷',
+      league: '世界杯',
+      kickoffTime: '04:00',
+    },
+  ];
 }
 
 /** seo-articles.ts 中带 world-cup / 世界杯 的文章 */
@@ -186,11 +304,27 @@ export function getTodayWorldCupPredictions(limit = 5): WorldCupPredictionItem[]
     return todayWc.slice(0, limit).map(mapAnalysisToPrediction);
   }
 
+  const todayFromSeo = seoArticles
+    .filter((a) => {
+      const { home, away } = a.match;
+      return hotSlugs.has(home.slug) || hotSlugs.has(away.slug);
+    })
+    .slice(0, limit)
+    .map(mapSeoToPrediction);
+  if (todayFromSeo.length > 0) {
+    return todayFromSeo;
+  }
+
   const todayHotTeam = getTodayAnalysisMatches().filter(
     (m) => hotSlugs.has(m.home.slug) || hotSlugs.has(m.away.slug)
   );
   if (todayHotTeam.length > 0) {
     return todayHotTeam.slice(0, limit).map(mapAnalysisToPrediction);
+  }
+
+  const todayAll = getTodayAnalysisMatches().slice(0, limit).map(mapAnalysisToPrediction);
+  if (todayAll.length > 0) {
+    return todayAll;
   }
 
   return ANALYSIS_MATCHES.filter((m) => isWorldCupLeagueSlug(m.league.slug))
@@ -208,7 +342,7 @@ export function getWorldCupDaysUntilKickoff(fromDate = SEO_DAILY_DATE): number {
   return Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
 }
 
-/** Hero 右侧 · 今日热门赛事 */
+/** Hero · 今日主推 */
 export function getWorldCupHeroHotMatch(): WorldCupHeroHotMatch {
   const article = seoArticles.find((a) => a.slug === HERO_HOT_MATCH_SLUG);
   if (article) {
@@ -224,6 +358,7 @@ export function getWorldCupHeroHotMatch(): WorldCupHeroHotMatch {
       awayNameZh: '阿仙奴',
       direction: article.direction,
       winRatePercent: article.options?.modelWinRate ?? null,
+      headline: resolveSummary(article.seoDescription ?? article.analysis.pace, 56),
     };
   }
 
@@ -238,5 +373,6 @@ export function getWorldCupHeroHotMatch(): WorldCupHeroHotMatch {
     awayNameZh: '阿仙奴',
     direction: '巴黎圣日耳曼 -0.25',
     winRatePercent: 71,
+    headline: '欧联决赛 PSG 让步低水，决赛经验与进攻爆点占优。',
   };
 }

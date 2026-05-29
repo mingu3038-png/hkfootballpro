@@ -5,7 +5,10 @@ import {
   getWorldCupDaysUntilKickoff,
   getWorldCupHeroHotMatch,
   getWorldCupHotArticles,
+  getWorldCupHotDirections,
   getWorldCupHotTeams,
+  getWorldCupPrecursorMatches,
+  getWorldCupTickerItems,
   WORLD_CUP_TODAY_DATE,
 } from '@/lib/world-cup-page';
 import { buildCategoryMetadata } from '@/lib/seo/build-metadata';
@@ -23,18 +26,24 @@ export default function WorldCupPage() {
   const todayPredictions = getTodayWorldCupPredictions();
   const daysUntilKickoff = getWorldCupDaysUntilKickoff();
   const heroHotMatch = getWorldCupHeroHotMatch();
+  const tickerItems = getWorldCupTickerItems();
+  const hotDirections = getWorldCupHotDirections();
+  const precursors = getWorldCupPrecursorMatches();
 
   return (
     <div className="wc26-page">
       <div className="container">
         <Breadcrumb items={[{ label: '2026 世界杯' }]} />
         <WorldCup2026Content
+          tickerItems={tickerItems}
           teams={teams}
           hotArticles={hotArticles}
           todayPredictions={todayPredictions}
           todayDate={WORLD_CUP_TODAY_DATE}
           daysUntilKickoff={daysUntilKickoff}
           heroHotMatch={heroHotMatch}
+          hotDirections={hotDirections}
+          precursors={precursors}
         />
       </div>
     </div>
