@@ -4,6 +4,11 @@ import type {
   DailyAnalysisOptions,
   DailyAnalysisTeam,
 } from '@/types/daily-analysis';
+import type { SeoArticle } from '@/types/seo-article';
+import {
+  SEO_DAILY_BATCH_DATE,
+  seoArticlesDailyBatch,
+} from '@/lib/seo-articles-batch-2026-05-30';
 
 /** SEO 场次录入格式（date + kickoff 自动转为 kickoffAt / kickoffTimeDisplay） */
 interface SeoAnalysisMatchSeed {
@@ -764,7 +769,34 @@ const SEO_BATCH_2: SeoAnalysisMatchSeed[] = [
 // =============================================================================
 //  每日 SEO 热门（改 SEO_DAILY_DATE + SEO_DAILY_TODAY 即可每日更新）
 // =============================================================================
-export const SEO_DAILY_DATE = '2026-05-29';
+export const SEO_DAILY_DATE = SEO_DAILY_BATCH_DATE;
+
+/** 将 SEO 长文批次转为 analysis-matches 种子（与 seo-articles.ts 同步） */
+function seoArticleToSeed(article: SeoArticle): SeoAnalysisMatchSeed {
+  const o = article.options ?? {};
+  return {
+    slug: article.slug,
+    date: SEO_DAILY_BATCH_DATE,
+    kickoff: article.match.kickoffTime,
+    homeTeam: article.match.home,
+    awayTeam: article.match.away,
+    league: article.match.league,
+    prediction: article.direction,
+    content: article.analysis,
+    confidence: o.confidence,
+    isHot: o.isHot ?? true,
+    isFocus: o.isFocus ?? false,
+    modelWinRate: o.modelWinRate,
+    lineOpen: o.lineOpen,
+    lineCurrent: o.lineCurrent,
+    ouTrend: o.ouTrend,
+    over25Prob: o.over25Prob,
+    pickType: o.pickType,
+    venueZh: o.venueZh,
+    round: o.round,
+    homepageOrder: o.homepageOrder,
+  };
+}
 
 const SEO_DAILY_2026_05_25: SeoAnalysisMatchSeed[] = [
   {
@@ -1959,89 +1991,9 @@ const SEO_DAILY_2026_05_29: SeoAnalysisMatchSeed[] = [
   },
 ];
 
-/** 每日 SEO 热门 ×5（2026-05-29 · 与 seo-articles.ts 同步） */
-const SEO_DAILY_TODAY: SeoAnalysisMatchSeed[] = [
-  seoDailySeed(
-    SEO_DAILY_DATE,
-    { slug: 'man-united', nameZh: '曼联', abbr: 'MUN' },
-    { slug: 'liverpool', nameZh: '利物浦', abbr: 'LIV' },
-    { slug: 'epl', nameZh: '英超' },
-    '大2.5',
-    {
-      homeForm: '曼联：主场 3 胜 1 负 1 和；近 5 场 11 入 10 失，老特拉福德战意拉满但防线松动。',
-      awayForm: '利物浦：客场 3 胜 2 负；近 5 场 14 入 8 失，转换效率顶格，双红会从不保守。',
-      attack: '曼联边路提速 + 定位球；利物浦压迫 + 两翼内切，双方 xG 路径清晰。',
-      defense: '曼联近 5 场连场有失球；利物浦客场零封率偏低，大球逻辑成立。',
-      motivation: '英超双红会抢分战，平局对双方均不理想。',
-      pace: '临场建议：3 球大球低水可跟；曼联中卫缺阵则加重利物浦方向。',
-    },
-    { confidence: 'high', kickoff: '03:00', isHot: true, isFocus: true, pickType: 'over', homepageOrder: 10, lineOpen: '2.75', lineCurrent: '3.0', ouTrend: 'up', over25Prob: 74, modelWinRate: 72, venueZh: '老特拉福德', round: '第38轮' }
-  ),
-  seoDailySeed(
-    SEO_DAILY_DATE,
-    { slug: 'real-madrid', nameZh: '皇马', abbr: 'RMA' },
-    { slug: 'barcelona', nameZh: '巴萨', abbr: 'BAR' },
-    { slug: 'la-liga', nameZh: '西甲' },
-    '皇马不败',
-    {
-      homeForm: '皇马：主场 4 胜 1 和；近 5 场 14 入 4 失，伯纳乌压制力仍属西甲顶格。',
-      awayForm: '巴萨：客场 3 胜 2 负；近 5 场 13 入 6 失，德比战意足但客场失球率偏高。',
-      attack: '皇马边路提速 + 禁区前沿远射；巴萨肋部渗透，双方破门路径清晰。',
-      defense: '皇马主场协防稳定；巴萨客场中卫回追是隐患，不败方向逻辑成立。',
-      motivation: '西甲争冠国家德比，皇马主场必须抢分。',
-      pace: '临场建议：皇马 0 低水可跟；退受让且升水则改以大小为主。',
-    },
-    { confidence: 'high', kickoff: '04:00', isHot: true, isFocus: true, pickType: 'home', homepageOrder: 11, modelWinRate: 68, venueZh: '伯纳乌', round: '第38轮' }
-  ),
-  seoDailySeed(
-    SEO_DAILY_DATE,
-    { slug: 'bayern', nameZh: '拜仁', abbr: 'BAY' },
-    { slug: 'dortmund', nameZh: '多特', abbr: 'BVB' },
-    { slug: 'bundesliga', nameZh: '德甲' },
-    '拜仁 -0.75',
-    {
-      homeForm: '拜仁：主场 4 胜 1 负；近 5 场 17 入 6 失，安联压制力顶级。',
-      awayForm: '多特：客场 3 胜 2 负；近 5 场 13 入 10 失，转换威胁大但防线松动。',
-      attack: '拜仁高位逼抢 + 边路内切；多特反击犀利，总进球可期。',
-      defense: '多特客场难零封拜仁；盘口由 -0.5 升至 -0.75，资金持续流入主队。',
-      motivation: '德甲争冠国家德比，拜仁主场抢分动机强。',
-      pace: '临场建议：-0.75 拜仁低水可跟；退 -0.5 升水则减仓。',
-    },
-    { confidence: 'high', kickoff: '02:30', isHot: true, isFocus: true, pickType: 'home', homepageOrder: 12, lineOpen: '拜仁 -0.5', lineCurrent: '拜仁 -0.75', ouTrend: 'up', modelWinRate: 71, venueZh: '安联球场', round: '第34轮' }
-  ),
-  seoDailySeed(
-    SEO_DAILY_DATE,
-    { slug: 'arsenal', nameZh: '阿森纳', abbr: 'ARS' },
-    { slug: 'tottenham', nameZh: '热刺', abbr: 'TOT' },
-    { slug: 'epl', nameZh: '英超' },
-    '大 2.5',
-    {
-      homeForm: '阿森纳：主场 3 胜 1 负；近 5 场 11 入 7 失，酋长球场战意足。',
-      awayForm: '热刺：客场 3 胜 2 负；近 5 场 12 入 9 失，德比不保守。',
-      attack: '阿森纳两翼内切威胁大；热刺转换效率上游，双方破门路径清晰。',
-      defense: '阿森纳高位线有风险；热刺客场失球不少，支撑大球。',
-      motivation: '北伦敦德比 + 争四战意，节奏不宜闷战。',
-      pace: '临场建议：大小 3 球大球 ≤0.90 可跟；早段进球可保留走地大球。',
-    },
-    { confidence: 'high', kickoff: '22:30', isHot: true, pickType: 'over', homepageOrder: 13, over25Prob: 72, modelWinRate: 70, venueZh: '酋长球场', round: '第38轮' }
-  ),
-  seoDailySeed(
-    SEO_DAILY_DATE,
-    { slug: 'man-city', nameZh: '曼城', abbr: 'MCI' },
-    { slug: 'chelsea', nameZh: '切尔西', abbr: 'CHE' },
-    { slug: 'epl', nameZh: '英超' },
-    '曼城 -0.75',
-    {
-      homeForm: '曼城：主场 4 胜 1 负，控球压制力顶级；近 5 场 16 入 5 失。',
-      awayForm: '切尔西：客场 2 胜 2 负 1 和；近 5 场 9 入 11 失，客场失球偏多。',
-      attack: '曼城中路渗透效率高；切尔西依赖转换，面对高压出球质量下降。',
-      defense: '曼城主场零封率尚可；切尔西肋部与反击隐患大。',
-      motivation: '英超争冠关键战，曼城主场必须拿分。',
-      pace: '临场建议：-0.75 主队低水可跟；退 -0.5 且升水则减仓。',
-    },
-    { confidence: 'high', kickoff: '23:00', isHot: true, pickType: 'home', homepageOrder: 14, modelWinRate: 74, venueZh: '伊蒂哈德球场', round: '第38轮' }
-  ),
-];
+/** 每日 SEO 热门 ×10（2026-05-30 · 与 seo-articles-batch 同步） */
+const SEO_DAILY_TODAY: SeoAnalysisMatchSeed[] =
+  seoArticlesDailyBatch.map(seoArticleToSeed);
 
 /**
  * 手动维护的分析场次（优先级高于批量模板同 slug）
