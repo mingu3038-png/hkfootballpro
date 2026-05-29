@@ -71,3 +71,10 @@ export function getLatestSeoArticles(limit = 8): HomeLatestArticleItem[] {
     .slice(0, limit)
     .map(toHomeItem);
 }
+
+/** 首页「热门分析」候选池 — 优先 isHot，不足则全量 */
+export function getHotSeoArticlePool(): HomeLatestArticleItem[] {
+  const hot = seoArticles.filter((a) => a.options?.isHot);
+  const source = hot.length >= 4 ? hot : seoArticles;
+  return source.map(toHomeItem);
+}
