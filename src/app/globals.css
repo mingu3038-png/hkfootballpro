@@ -13,6 +13,7 @@
 @import './home-last-night-results.css';
 @import './home-live-ticker.css';
 @import './football-predictions.css';
+@import './world-cup-2026.css';
 @import './site-header-mobile.css';
 @source '../**/*.{js,ts,jsx,tsx}';
 
