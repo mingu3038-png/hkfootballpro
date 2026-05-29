@@ -39,6 +39,24 @@ export interface WorldCupPredictionItem {
   winRatePercent: number | null;
 }
 
+export interface WorldCupHeroHotMatch {
+  slug: string;
+  href: string;
+  league: string;
+  kickoffTime: string;
+  homeSlug: string;
+  awaySlug: string;
+  homeNameZh: string;
+  awayNameZh: string;
+  direction: string;
+  winRatePercent: number | null;
+}
+
+/** 2026 世界杯开幕日（揭幕战） */
+export const WORLD_CUP_2026_KICKOFF_DATE = '2026-06-11';
+
+const HERO_HOT_MATCH_SLUG = 'psg-vs-arsenal-2026-05-30';
+
 export const WORLD_CUP_HOT_TEAMS: Omit<WorldCupHotTeam, 'analysisSlug' | 'analysisUrl'>[] = [
   { slug: 'argentina', nameZh: '阿根廷', abbr: 'ARG' },
   { slug: 'france', nameZh: '法国', abbr: 'FRA' },
@@ -181,3 +199,44 @@ export function getTodayWorldCupPredictions(limit = 5): WorldCupPredictionItem[]
 }
 
 export { SEO_DAILY_DATE as WORLD_CUP_TODAY_DATE };
+
+/** 距世界杯开幕剩余天数（以 SEO 当日为基准） */
+export function getWorldCupDaysUntilKickoff(fromDate = SEO_DAILY_DATE): number {
+  const from = new Date(`${fromDate}T12:00:00`);
+  const kickoff = new Date(`${WORLD_CUP_2026_KICKOFF_DATE}T12:00:00`);
+  const diffMs = kickoff.getTime() - from.getTime();
+  return Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
+}
+
+/** Hero 右侧 · 今日热门赛事 */
+export function getWorldCupHeroHotMatch(): WorldCupHeroHotMatch {
+  const article = seoArticles.find((a) => a.slug === HERO_HOT_MATCH_SLUG);
+  if (article) {
+    const { match } = article;
+    return {
+      slug: article.slug,
+      href: getAnalysisUrl(article.slug),
+      league: match.league.nameZh,
+      kickoffTime: match.kickoffTime,
+      homeSlug: match.home.slug,
+      awaySlug: match.away.slug,
+      homeNameZh: match.home.nameZh,
+      awayNameZh: '阿仙奴',
+      direction: article.direction,
+      winRatePercent: article.options?.modelWinRate ?? null,
+    };
+  }
+
+  return {
+    slug: HERO_HOT_MATCH_SLUG,
+    href: getAnalysisUrl(HERO_HOT_MATCH_SLUG),
+    league: '欧联决赛',
+    kickoffTime: '03:00',
+    homeSlug: 'psg',
+    awaySlug: 'arsenal',
+    homeNameZh: '巴黎圣日耳曼',
+    awayNameZh: '阿仙奴',
+    direction: '巴黎圣日耳曼 -0.25',
+    winRatePercent: 71,
+  };
+}

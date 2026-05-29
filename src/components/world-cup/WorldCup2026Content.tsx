@@ -1,8 +1,10 @@
 import Link from 'next/link';
+import { WorldCup2026Hero } from '@/components/world-cup/WorldCup2026Hero';
 import { TeamLogo } from '@/components/ui/TeamLogo';
 import { FLOATING_TG_CTA_LABEL, resolveTelegramUrl } from '@/lib/telegram';
 import type {
   WorldCupArticleItem,
+  WorldCupHeroHotMatch,
   WorldCupHotTeam,
   WorldCupPredictionItem,
 } from '@/lib/world-cup-page';
@@ -12,6 +14,8 @@ interface WorldCup2026ContentProps {
   hotArticles: WorldCupArticleItem[];
   todayPredictions: WorldCupPredictionItem[];
   todayDate: string;
+  daysUntilKickoff: number;
+  heroHotMatch: WorldCupHeroHotMatch;
 }
 
 function WorldCupTgCta() {
@@ -49,26 +53,12 @@ export function WorldCup2026Content({
   hotArticles,
   todayPredictions,
   todayDate,
+  daysUntilKickoff,
+  heroHotMatch,
 }: WorldCup2026ContentProps) {
   return (
     <>
-      <section className="wc26-hero" aria-labelledby="wc26-hero-title">
-        <span className="wc26-hero__ambient" aria-hidden />
-        <div className="wc26-hero__inner">
-          <p className="wc26-hero__eyebrow">FIFA WORLD CUP 2026</p>
-          <h1 id="wc26-hero-title" className="wc26-hero__title">
-            2026 世界杯预测专区
-          </h1>
-          <p className="wc26-hero__desc">
-            美加墨 48 队史上最大规模 · 冠军热门、赛前分析与胜率参考每日更新
-          </p>
-          <div className="wc26-hero__tags">
-            <span className="wc26-hero__tag">黑金专题</span>
-            <span className="wc26-hero__tag">港式盘路</span>
-            <span className="wc26-hero__tag">每日更新</span>
-          </div>
-        </div>
-      </section>
+      <WorldCup2026Hero daysUntilKickoff={daysUntilKickoff} hotMatch={heroHotMatch} />
 
       <section className="wc26-section" aria-labelledby="wc26-teams-title">
         <header className="wc26-section__head">

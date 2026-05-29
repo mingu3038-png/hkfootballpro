@@ -2,6 +2,8 @@ import { Breadcrumb } from '@/components/layout/Breadcrumb';
 import { WorldCup2026Content } from '@/components/world-cup/WorldCup2026Content';
 import {
   getTodayWorldCupPredictions,
+  getWorldCupDaysUntilKickoff,
+  getWorldCupHeroHotMatch,
   getWorldCupHotArticles,
   getWorldCupHotTeams,
   WORLD_CUP_TODAY_DATE,
@@ -19,6 +21,8 @@ export default function WorldCupPage() {
   const teams = getWorldCupHotTeams();
   const hotArticles = getWorldCupHotArticles();
   const todayPredictions = getTodayWorldCupPredictions();
+  const daysUntilKickoff = getWorldCupDaysUntilKickoff();
+  const heroHotMatch = getWorldCupHeroHotMatch();
 
   return (
     <div className="wc26-page">
@@ -29,6 +33,8 @@ export default function WorldCupPage() {
           hotArticles={hotArticles}
           todayPredictions={todayPredictions}
           todayDate={WORLD_CUP_TODAY_DATE}
+          daysUntilKickoff={daysUntilKickoff}
+          heroHotMatch={heroHotMatch}
         />
       </div>
     </div>
