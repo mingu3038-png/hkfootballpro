@@ -22,6 +22,7 @@ import {
   SEO_DAILY_BATCH_DATE,
   seoArticlesDailyBatch,
 } from '@/lib/seo-articles-batch-2026-05-30';
+import { seoArticlesHot20260530 } from '@/lib/seo-articles-hot-2026-05-30';
 
 // =============================================================================
 //  每日 SEO 长文 → seo-articles-batch-YYYY-MM-DD.ts（运行 scripts/generate-seo-batch.mjs）
@@ -30,8 +31,11 @@ import {
 /** 当日批次日期 */
 export const SEO_ARTICLES_DATE = SEO_DAILY_BATCH_DATE;
 
-/** 当日 10 篇 SEO 长文（港式 · 1200–2000 字 · 自动生成 slug / title / description） */
-export const seoArticles: SeoArticle[] = seoArticlesDailyBatch;
+/** 当日 10 篇 SEO 长文 + 5 篇今日热门（港式 · 自动生成 slug / title / description） */
+export const seoArticles: SeoArticle[] = [
+  ...seoArticlesHot20260530,
+  ...seoArticlesDailyBatch,
+];
 
 // =============================================================================
 //  映射（勿改）

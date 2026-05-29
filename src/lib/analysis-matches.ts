@@ -9,6 +9,7 @@ import {
   SEO_DAILY_BATCH_DATE,
   seoArticlesDailyBatch,
 } from '@/lib/seo-articles-batch-2026-05-30';
+import { seoArticlesHot20260530 } from '@/lib/seo-articles-hot-2026-05-30';
 
 /** SEO 场次录入格式（date + kickoff 自动转为 kickoffAt / kickoffTimeDisplay） */
 interface SeoAnalysisMatchSeed {
@@ -1991,9 +1992,11 @@ const SEO_DAILY_2026_05_29: SeoAnalysisMatchSeed[] = [
   },
 ];
 
-/** 每日 SEO 热门 ×10（2026-05-30 · 与 seo-articles-batch 同步） */
-const SEO_DAILY_TODAY: SeoAnalysisMatchSeed[] =
-  seoArticlesDailyBatch.map(seoArticleToSeed);
+/** 每日 SEO 热门（2026-05-30 · 5 篇今日热门 + 10 篇批次同步） */
+const SEO_DAILY_TODAY: SeoAnalysisMatchSeed[] = [
+  ...seoArticlesHot20260530.map(seoArticleToSeed),
+  ...seoArticlesDailyBatch.map(seoArticleToSeed),
+];
 
 /**
  * 手动维护的分析场次（优先级高于批量模板同 slug）
