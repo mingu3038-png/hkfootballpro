@@ -10,6 +10,15 @@ export {
 } from '@/lib/analysis-matches';
 
 export {
+  SEO_ARTICLES_DATE,
+  seoArticles,
+  getSeoArticleInputs,
+  mapSeoArticleToDailyInput,
+} from '@/lib/seo-articles';
+
+export type { SeoArticle, SeoArticleMatch } from '@/types/seo-article';
+
+export {
   buildAllPreMatchAnalyses,
   buildTodayHighlightMatchesFromAnalyses,
   getAllAnalysisSlugs,

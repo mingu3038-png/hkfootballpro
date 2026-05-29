@@ -59,5 +59,11 @@ export interface DailyAnalysisInput {
   content?: PreMatchBrief;
   /** ⑥ 推荐方向，如 大 2.5、客胜、拜仁 -0.75 */
   direction: string;
+  /** 页面 H1 标题（省略则自动生成） */
+  title?: string;
+  /** 浏览器 / OG title（省略则用 title 或队名模板） */
+  seoTitle?: string;
+  /** meta description（省略则自动生成） */
+  seoDescription?: string;
   options?: DailyAnalysisOptions;
 }

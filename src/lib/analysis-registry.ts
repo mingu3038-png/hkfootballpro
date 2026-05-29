@@ -1,6 +1,7 @@
 import { buildAnalysisPage } from '@/lib/analysis-page-builder';
 import { getBatchDailyInputs } from '@/lib/mock-analyses-batch';
 import { ANALYSIS_MATCHES } from '@/lib/analysis-matches';
+import { getSeoArticleInputs } from '@/lib/seo-articles';
 import type { PreMatchAnalysisDetail } from '@/types/analysis';
 import type { DailyAnalysisInput } from '@/types/daily-analysis';
 import type { MatchListItem } from '@/types/match';
@@ -8,7 +9,10 @@ import type { MatchListItem } from '@/types/match';
 /**
  * 批量分析页生成系统
  * ─────────────────────────────────────────
- * 唯一数据源：src/lib/analysis-matches.ts → ANALYSIS_MATCHES
+ * 数据源（优先级从低到高）：
+ * 1. mock-analyses-batch.ts 批量模板
+ * 2. analysis-matches.ts → ANALYSIS_MATCHES
+ * 3. seo-articles.ts → 每日 SEO 文章（最高）
  *
  * 新增一条比赛后自动生成：
  * · /analysis/[slug] 静态页 + SEO title / meta description
@@ -17,13 +21,16 @@ import type { MatchListItem } from '@/types/match';
  * · 首页「最新赛前分析」（featuredInLatest / isHot / isFocus）
  */
 
-/** 合并：批量模板 + 手动条目（同 slug 时手动覆盖） */
+/** 合并：批量模板 + 手动条目 + SEO 文章（同 slug 时后者覆盖） */
 export function getAllAnalysisMatchInputs(): DailyAnalysisInput[] {
   const bySlug = new Map<string, DailyAnalysisInput>();
   for (const input of getBatchDailyInputs()) {
     bySlug.set(input.slug, input);
   }
   for (const input of ANALYSIS_MATCHES) {
+    bySlug.set(input.slug, input);
+  }
+  for (const input of getSeoArticleInputs()) {
     bySlug.set(input.slug, input);
   }
   return [...bySlug.values()];

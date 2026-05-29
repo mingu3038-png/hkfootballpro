@@ -295,6 +295,9 @@ export function buildAnalysisPage(input: DailyAnalysisInput): PreMatchAnalysisDe
   return {
     ...base,
     ...(input.content ? { preMatchBrief: input.content } : {}),
+    pageTitle: input.title,
+    seoTitle: input.seoTitle,
+    seoDescription: input.seoDescription,
     venueZh: o.venueZh ?? base.venueZh,
     round: o.round ?? base.round,
     isHot: o.isHot ?? base.isHot,
