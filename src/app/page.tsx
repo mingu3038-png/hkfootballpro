@@ -17,11 +17,11 @@ export default async function HomePage() {
         streak={data.streak}
         heroTonightFeature={data.heroTonightFeature}
       />
-      <HomeLiveDynamics />
+      <HomeLiveDynamics items={data.liveDynamics} />
       <HomePredictionDirectory />
       <HomeTodayFocusMatches matches={data.todayMatches} />
       <LastNightResults data={data.lastNightResults} winStreak={data.winStreak} />
-      <MobileTgBar />
+      <MobileTgBar label={data.tgPromo.home.mobileBarLabel} />
     </div>
   );
 }

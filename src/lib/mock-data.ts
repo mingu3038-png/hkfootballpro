@@ -1,15 +1,18 @@
 import type { PreMatchAnalysisDetail } from '@/types/analysis';
 import type { MatchAnalysisDetail, MatchListItem } from '@/types/match';
 import type { DailyHomeUpdate, SiteDailyContent, TgPromoContent } from '@/types/site-daily';
-import {
-  buildAllPreMatchAnalyses,
-  buildTodayHighlightMatchesFromAnalyses,
-  getHomepageLatestAnalysisSlugs,
-} from '@/lib/analysis-registry';
+import { buildAllPreMatchAnalyses, getHomepageLatestAnalysisSlugs } from '@/lib/analysis-registry';
 import { resolveTelegramUrl } from '@/lib/telegram';
 
+import {
+  buildDailyHomeUpdateFromHomeContent,
+  homeContent,
+  mapHomeContentToFocusMatches,
+} from '@/lib/home-content';
+
 // =============================================================================
-//  每日首页内容 — 每天只改 export const dailyHomeUpdate（约第 181 行起）
+//  每日首页内容 — 精简首页请改 src/lib/home-content.ts
+//  下方 dailyHomeUpdate 由 homeContent 同步（跑马灯等附属字段仍在本文件）
 // =============================================================================
 //
 //  ┌─────────────────────────────────────────────────────────────────────────┐
@@ -40,7 +43,7 @@ import { resolveTelegramUrl } from '@/lib/telegram';
 // =============================================================================
 
 /** 分析页 TG 文案（非每日首页区，一般不用改） */
-const TG_PROMO_ANALYSIS: TgPromoContent['analysis'] = {
+export const TG_PROMO_ANALYSIS: TgPromoContent['analysis'] = {
   badge: 'Telegram 频道',
   titleSuffix: '· 完整临场分析',
   pickPrefix: '推荐：',
@@ -184,54 +187,10 @@ function mapDailyHomeUpdate(
   };
 }
 
-export const dailyHomeUpdate: DailyHomeUpdate = {
-  // ===========================================================================
-  // ① 今日免费重心 — 模块「今日免费重心」+ 分析链接
-  // ===========================================================================
-  freeFocus: {
-    match: '曼联 vs 利物浦', // 对阵标题
-    time: '03:00', // 开球时间（显示用）
-    league: '英超', // 联赛标签
-    direction: '大2.5', // 推荐方向（核心展示）
-    home: {
-      slug: 'man-united',
-      name: '曼联',
-      logoAbbr: 'MU',
-      recentForm: '3胜1和1负',
-      goalsScored: 12,
-      goalsConceded: 6,
-    },
-    away: {
-      slug: 'liverpool',
-      name: '利物浦',
-      logoAbbr: 'LIV',
-      recentForm: '4胜0和1负',
-      goalsScored: 14,
-      goalsConceded: 5,
-    },
-    statusLabel: '免费公开', // 角标，如「免费公开」
-    analysisUrl: '/analysis/man-united-vs-liverpool-2026-05-25', // 「查看完整分析」链接
-    ctaLabel: '查看完整分析',
-    mobileTgCtaLabel: '立即入 TG 睇臨場', // 手机端 TG 按钮（桌面不变）
-  },
+const homeContentDailyFields = buildDailyHomeUpdateFromHomeContent(homeContent);
 
-  // ===========================================================================
-  // ② 昨晚战绩 — 模块「昨晚战绩」+ 跑马灯首条 + Hero 近10场统计
-  // ===========================================================================
-  lastNight: {
-    wins: 7, // 红
-    losses: 2, // 黑
-    pushes: 1, // 走（为 0 时跑马灯不显示「走」）
-    winRatePercent: 70, // 胜率 %；不写则按 wins/(红+黑+走) 自动算
-    picks: [
-      // result: 'win' | 'loss' | 'push'
-      { teamLabel: '曼联', pickLine: '-0.5', result: 'win' },
-      { teamLabel: '阿森纳', pickLine: '大2.5', result: 'win' },
-      { teamLabel: '国际米兰', result: 'loss' },
-      { teamLabel: '皇家马德里', result: 'win' },
-      { teamLabel: '巴黎圣日耳曼', pickLine: '大3', result: 'win' },
-    ],
-  },
+export const dailyHomeUpdate: DailyHomeUpdate = {
+  ...homeContentDailyFields,
 
   // ===========================================================================
   // ③ 首页跑马灯 — 顶部滚动条（固定 6 条；第 1 条展示为「昨晚 X红X黑」）
@@ -256,63 +215,6 @@ export const dailyHomeUpdate: DailyHomeUpdate = {
   ],
 
   // ===========================================================================
-  // ⑤ TG CTA 文案 — Hero 主/副按钮、TG 卡、手机底栏、Hero 下滚动条
-  // ===========================================================================
-  tgCta: {
-    // — Hero 标题区 —
-    badge: '世界杯前哨战',
-    titleGold: '香港足球',
-    titleRed: '预测站',
-    statusLines: ['今晚重心布局进行中', '临场方向持续更新'],
-    tags: ['专业数据分析', '临场方向', '高赔率重心', '香港足球圈'],
-    heroHint: '今晚临场方向开赛前更新，完整方向只在 TG 发布',
-
-    // — Hero 三个按钮文案 —
-    ctaButtons: {
-      primary: '立即加入 TG',
-      /** 手机 Hero 主按钮（桌面仍用 primary） */
-      mobilePrimary: '🔥 免费领取今晚重心',
-      secondary: '免费领取今晚重心',
-      tertiary: '获取临场方向',
-    },
-
-    // — 倒计时（秒归零后显示 closedButtonLabel）—
-    heroCountdown: {
-      label: '距离今晚重心关闭还有',
-      initialSeconds: 6126,
-      closedButtonLabel: '今晚入口已关闭',
-    },
-
-    // — 主 CTA 备用标题（倒计时按钮内 strong 用 ctaButtons.primary）—
-    heroButton: {
-      title: '领取今晚免费重心',
-      subtitle: '',
-    },
-
-    // — 桌面 Hero 右侧 TG 卡 —
-    card: {
-      title: '官方 TG 频道',
-      subtitle: '香港足球圈 · 临场跟进',
-      benefits: ['获取今晚重心', '临场更新', '水位提醒'],
-      buttonLabel: '立即加入 TG',
-      followerNote: '已有 2,847 位波友领取今晚重心',
-    },
-
-    mobileBarLabel: '🔥 免费领取今晚重心', // 手机底部固定条
-    winRatePercent: 70, // Hero 胜率数字（可与 lastNight.winRatePercent 一致）
-
-    // — Hero 下方横向滚动条（非顶部跑马灯）—
-    liveUpdateTicker: [
-      '🔥 阿森纳方向变化',
-      '🔥 曼联盘口调整',
-      '🔥 临场水位更新',
-      '🔥 今晚第3场重心已更新',
-      '🔥 世界杯专区上线',
-      '🔥 巴黎方向确认',
-    ],
-  },
-
-  // ===========================================================================
   // ① 附属：手机「今日赛前分析」要点（与 freeFocus 同场，可选）
   // ===========================================================================
   preMatchPoints: [
@@ -332,17 +234,6 @@ export const dailyHomeUpdate: DailyHomeUpdate = {
     '🎯 世界杯前哨持续更新',
   ],
 
-  heroHighlights: [
-    '今晚免费公开一场',
-    '更多方向 TG 更新',
-    '每日只更新 3 场重心',
-  ],
-
-  winStreak: {
-    count: 9,
-    label: '近期 9 连红进行中',
-  },
-
   hotLeagues: [
     { label: '英超', href: '/football-predictions/premier-league', hot: true },
     { label: '欧冠', href: '/football-predictions/champions-league', hot: true },
@@ -359,65 +250,6 @@ export const dailyHomeUpdate: DailyHomeUpdate = {
 /** 由 dailyHomeUpdate 映射；首页 ①～⑤ 勿在此重复填写 */
 const dailyHomeFields = mapDailyHomeUpdate(dailyHomeUpdate, TG_PROMO_ANALYSIS);
 
-/** 首页展示但无 /analysis 详情页的补充赛事（港超频道文等） */
-const EXTRA_HOME_HIGHLIGHT_MATCHES: MatchListItem[] = [
-  {
-    id: 'match-hk-001',
-    slug: 'eastern-vs-kitchee-2026-05-28',
-    kickoffAt: '2026-05-28T12:00:00.000Z',
-    status: 'scheduled',
-    homeTeam: { slug: 'eastern', nameZh: '東方' },
-    awayTeam: { slug: 'kitchee', nameZh: '杰志' },
-    league: { slug: 'hong-kong-premier-league', nameZh: '港超' },
-    leagueAbbr: '港超',
-    analysisPublished: true,
-    predictEnabled: true,
-    isFocus: true,
-    pickDirection: '大2.5',
-    winRatePercent: 68,
-  },
-  {
-    id: 'match-epl-002',
-    slug: 'liverpool-vs-brentford-2026-05-26',
-    kickoffAt: '2026-05-26T19:00:00.000Z',
-    status: 'scheduled',
-    homeTeam: { slug: 'liverpool', nameZh: '利物浦' },
-    awayTeam: { slug: 'brentford', nameZh: '布伦特福德' },
-    league: { slug: 'epl', nameZh: '英超' },
-    leagueAbbr: '英超',
-    analysisPublished: false,
-    predictEnabled: true,
-    isHot: true,
-  },
-  {
-    id: 'match-epl-003',
-    slug: 'tottenham-vs-everton-2026-05-27',
-    kickoffAt: '2026-05-27T19:30:00.000Z',
-    status: 'live',
-    homeTeam: { slug: 'tottenham', nameZh: '熱刺' },
-    awayTeam: { slug: 'everton', nameZh: '愛華頓' },
-    league: { slug: 'epl', nameZh: '英超' },
-    leagueAbbr: '英超',
-    homeScore: 1,
-    awayScore: 0,
-    analysisPublished: false,
-    predictEnabled: false,
-    isHot: true,
-  },
-  {
-    id: 'match-hk-002',
-    slug: 'rangers-vs-southern-2026-05-29',
-    kickoffAt: '2026-05-29T11:30:00.000Z',
-    status: 'scheduled',
-    homeTeam: { slug: 'rangers', nameZh: '流浪' },
-    awayTeam: { slug: 'southern', nameZh: '南区' },
-    league: { slug: 'hong-kong-premier-league', nameZh: '港超' },
-    leagueAbbr: '港超',
-    analysisPublished: false,
-    predictEnabled: true,
-  },
-];
-
 export const siteDailyContent: SiteDailyContent = {
   ...dailyHomeFields,
   // 其它首页字段（来源：dailyHomeUpdate 同对象底部）
@@ -426,11 +258,8 @@ export const siteDailyContent: SiteDailyContent = {
   winStreak: { ...dailyHomeUpdate.winStreak },
   homepageHotLeagues: [...dailyHomeUpdate.hotLeagues],
 
-  // —— 今日重点赛事：由 ANALYSIS_MATCHES 自动生成 + 下方无分析页补充场次 ——
-  todayHighlightMatches: [
-    ...buildTodayHighlightMatchesFromAnalyses(),
-    ...EXTRA_HOME_HIGHLIGHT_MATCHES,
-  ],
+  // —— 今日重点赛事：与 home-content.ts 同步 ——
+  todayHighlightMatches: mapHomeContentToFocusMatches(homeContent.todayFocusMatches),
 
   // —— 分析详情页 /analysis/[slug] —— 数据见 src/lib/analysis-matches.ts
   homepageLatestAnalysisSlugs: getHomepageLatestAnalysisSlugs(3),
@@ -484,6 +313,18 @@ export function preMatchToListItem(detail: PreMatchAnalysisDetail, id: string): 
 
 export const mockMatches: MatchListItem[] = [
   ...siteDailyContent.todayHighlightMatches,
+  {
+    id: 'match-hk-eastern-kitchee',
+    slug: 'eastern-vs-kitchee-2026-05-28',
+    kickoffAt: '2026-05-28T12:00:00.000Z',
+    status: 'scheduled',
+    homeTeam: { slug: 'eastern', nameZh: '東方' },
+    awayTeam: { slug: 'kitchee', nameZh: '杰志' },
+    league: { slug: 'hong-kong-premier-league', nameZh: '港超' },
+    leagueAbbr: '港超',
+    analysisPublished: true,
+    predictEnabled: true,
+  },
   {
     id: 'match-hk-extra',
     slug: 'kitchee-vs-rangers-2026-05-30',

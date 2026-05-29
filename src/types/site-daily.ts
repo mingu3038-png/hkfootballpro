@@ -83,7 +83,7 @@ export interface TgPromoContent {
   };
 }
 
-/** 每日首页更新区 — 只改 mock-data.ts 里的 dailyHomeUpdate */
+/** 每日首页更新区 — 精简首页请改 src/lib/home-content.ts */
 export interface DailyHomeTeamSide {
   slug?: string;
   name: string;
@@ -131,7 +131,7 @@ export interface DailyHomeLastNight {
 
 export type DailyHomeTgCta = TgPromoContent['home'];
 
-/** 每日首页 — 只改 mock-data.ts 中的 dailyHomeUpdate */
+/** 每日首页 — 精简首页请改 src/lib/home-content.ts */
 export interface DailyHomeUpdate {
   /** ① 今日免费重心 */
   freeFocus: DailyHomeFreeFocus;

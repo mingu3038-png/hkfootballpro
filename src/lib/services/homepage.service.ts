@@ -1,64 +1,8 @@
 import type { HomePageData } from '@/types/match';
-import { getAnalysisUrl } from '@/config/site';
-import { SEO_DAILY_TODAY } from '@/lib/analysis-matches';
-import { buildHeroTonightFeature } from '@/lib/hero-spotlight';
-import {
-  buildHomeTickerMarquee,
-  mockLeaderboard,
-  mockMatches,
-  preMatchToListItem,
-  siteDailyContent,
-} from '@/lib/mock-data';
+import { getHomePageData as getHomePageDataFromContent } from '@/lib/home-content';
+import { TG_PROMO_ANALYSIS } from '@/lib/mock-data';
 
+/** 精简首页 — 内容来自 src/lib/home-content.ts */
 export async function getHomePageData(): Promise<HomePageData> {
-  const {
-    lastNightResults,
-    todayFreeFocus,
-    todayPreMatchAnalysis,
-    todayLiveDirectionUpdates,
-    todayHighlightMatches,
-    preMatchAnalyses,
-  } = siteDailyContent;
-
-  const latestSlugs =
-    siteDailyContent.homepageLatestAnalysisSlugs ?? Object.keys(preMatchAnalyses);
-
-  const latestAnalyses = latestSlugs
-    .map((slug) => {
-      const detail = preMatchAnalyses[slug];
-      if (!detail) return null;
-      return {
-        match: preMatchToListItem(detail, `latest-${slug}`),
-        summaryZh: detail.recommendation.summary,
-        analysisUrl: getAnalysisUrl(slug),
-      };
-    })
-    .filter((item): item is NonNullable<typeof item> => item !== null);
-
-  const liveMatches = mockMatches.filter((m) => m.status === 'live');
-
-  return {
-    lastNightResults,
-    todayFreeFocus,
-    todayPreMatchAnalysis,
-    todayLiveDirectionUpdates,
-    tgPromo: siteDailyContent.tgPromo,
-    tickerMarquee: buildHomeTickerMarquee(),
-    floatingAnnouncements: siteDailyContent.floatingAnnouncements,
-    heroHighlights: siteDailyContent.heroHighlights,
-    winStreak: siteDailyContent.winStreak,
-    streak: {
-      wins: lastNightResults.wins,
-      losses: lastNightResults.losses,
-      pushes: lastNightResults.pushes,
-    },
-    hotLeagues: siteDailyContent.homepageHotLeagues,
-    hotLeaguesTodayUpdateCount: SEO_DAILY_TODAY.length,
-    liveMatches,
-    todayMatches: todayHighlightMatches,
-    heroTonightFeature: buildHeroTonightFeature(todayFreeFocus, preMatchAnalyses),
-    latestAnalyses,
-    leaderboardTop: mockLeaderboard.slice(0, 5),
-    weeklyChallenge: siteDailyContent.weeklyChallenge,
-  };
+  return getHomePageDataFromContent(TG_PROMO_ANALYSIS);
 }

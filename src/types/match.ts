@@ -143,6 +143,8 @@ export interface HomePageData {
   }>;
   leaderboardTop: Array<{ rank: number; username: string; displayName: string; points: number }>;
   weeklyChallenge?: { slug: string; titleZh: string; matchCount: number };
+  /** 手机端临场动态横滑条文案 */
+  liveDynamics: readonly string[];
 }
 
 export interface CategoryPageData {
