@@ -11,6 +11,8 @@
 @import './home-latest-articles.css';
 @import './floating-tg-button.css';
 @import './home-last-night-results.css';
+@import './home-hot-articles.css';
+@import './home-live-ticker.css';
 @import './site-header-mobile.css';
 @source '../**/*.{js,ts,jsx,tsx}';
 

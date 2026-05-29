@@ -1,0 +1,221 @@
+/* ========== 即时动态栏 · Hero 下 · 世界杯黑金跑马灯 ========== */
+
+@keyframes home-live-ticker-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes home-live-ticker-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.85);
+  }
+}
+
+.home-live-ticker {
+  position: relative;
+  z-index: 55;
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    rgba(6, 4, 5, 0.98) 0%,
+    rgba(18, 8, 10, 0.96) 35%,
+    rgba(22, 12, 6, 0.95) 65%,
+    rgba(6, 4, 5, 0.98) 100%
+  );
+  border-bottom: 1px solid rgba(184, 148, 70, 0.22);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(184, 148, 70, 0.08);
+}
+
+.home-live-ticker__bar {
+  display: flex;
+  align-items: stretch;
+  min-height: 2.5rem;
+  max-height: 2.75rem;
+}
+
+.home-live-ticker__live {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0 0.85rem;
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  color: #fde68a;
+  background: linear-gradient(
+    180deg,
+    rgba(127, 29, 29, 0.55) 0%,
+    rgba(28, 10, 12, 0.9) 100%
+  );
+  border-right: 1px solid rgba(184, 148, 70, 0.25);
+  box-shadow: 4px 0 16px rgba(0, 0, 0, 0.25);
+}
+
+.home-live-ticker__live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
+  animation: home-live-ticker-pulse 1.4s ease-in-out infinite;
+}
+
+.home-live-ticker__viewport {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 4%,
+    #000 96%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 4%,
+    #000 96%,
+    transparent 100%
+  );
+}
+
+.home-live-ticker__track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  height: 100%;
+  padding: 0.4rem 0;
+  animation: home-live-ticker-scroll 42s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.home-live-ticker__viewport:hover .home-live-ticker__track,
+.home-live-ticker__viewport:focus-within .home-live-ticker__track,
+.home-live-ticker__viewport:active .home-live-ticker__track {
+  animation-play-state: paused;
+}
+
+.home-live-ticker__chip {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0.35rem;
+  padding: 0.28rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  color: #fafafa;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-pill);
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.home-live-ticker__chip--hot {
+  color: #fecaca;
+  border-color: rgba(239, 68, 68, 0.35);
+  background: rgba(127, 29, 29, 0.35);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.15);
+}
+
+.home-live-ticker__chip--alert {
+  color: #fde68a;
+  border-color: rgba(234, 179, 8, 0.35);
+  background: rgba(120, 53, 15, 0.35);
+  box-shadow: 0 0 10px rgba(234, 179, 8, 0.12);
+}
+
+.home-live-ticker__chip--featured {
+  color: #bbf7d0;
+  border-color: rgba(34, 197, 94, 0.3);
+  background: rgba(6, 40, 20, 0.4);
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.12);
+}
+
+.home-live-ticker__chip--hk {
+  color: #fde68a;
+  border-color: rgba(184, 148, 70, 0.4);
+  background: rgba(184, 148, 70, 0.12);
+  box-shadow: 0 0 12px rgba(184, 148, 70, 0.15);
+}
+
+.home-live-ticker__chip--default {
+  color: #e7e5e4;
+  border-color: rgba(184, 148, 70, 0.2);
+}
+
+.home-live-ticker__chip::after {
+  content: '◆';
+  margin-left: 0.85rem;
+  font-size: 0.45rem;
+  color: rgba(184, 148, 70, 0.45);
+  vertical-align: middle;
+}
+
+/* —— 手机：更紧凑 + 可触摸暂停 —— */
+@media (max-width: 768px) {
+  .home-live-ticker__bar {
+    min-height: 2.15rem;
+    max-height: 2.35rem;
+  }
+
+  .home-live-ticker__live {
+    padding: 0 0.55rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+  }
+
+  .home-live-ticker__live-dot {
+    width: 5px;
+    height: 5px;
+  }
+
+  .home-live-ticker__track {
+    padding: 0.28rem 0;
+    animation-duration: 32s;
+  }
+
+  .home-live-ticker__chip {
+    margin: 0 0.25rem;
+    padding: 0.22rem 0.6rem;
+    font-size: 0.72rem;
+  }
+
+  .home-live-ticker__chip::after {
+    margin-left: 0.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-live-ticker__track {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    padding: 0.35rem 0.5rem;
+  }
+
+  .home-live-ticker__live-dot {
+    animation: none;
+  }
+}

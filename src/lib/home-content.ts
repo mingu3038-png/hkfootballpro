@@ -2,8 +2,9 @@
  * 首页内容配置 — 只改本文件即可更新精简首页
  *
  * ① hero 主推赛事
- * ② 临场动态（手机横滑条）
- * ③ 今日重点赛事
+ * ② 即时动态栏（Hero 下横滑跑马灯）
+ * ③ 临场动态（手机横滑条）
+ * ④ 今日重点赛事
  * ④ 昨晚战绩
  * ⑤ TG CTA 文案
  */
@@ -76,6 +77,8 @@ export interface HomeContentTgCta extends DailyHomeTgCta {
 
 export interface HomeContent {
   hero: HomeContentHero;
+  /** Hero 下即时动态栏（每日改 liveTicker） */
+  liveTicker: readonly string[];
   liveDynamics: readonly string[];
   todayFocusMatches: HomeContentFocusMatch[];
   lastNight: HomeContentLastNight;
@@ -100,7 +103,17 @@ export const homeContent: HomeContent = {
     analysisSlug: 'man-united-vs-liverpool-2026-05-29',
   },
 
-  // ② 临场动态
+  // ② 即时动态栏（Hero 下方 · 横滑跑马灯）
+  liveTicker: [
+    '🔥 曼联盘口持续升温',
+    '⚠️ 临场方向 30 分钟前更新',
+    '📊 今日精选 5 场重心',
+    '🇭🇰 香港波友热议双红会大小球',
+    '🔥 皇马国家德比升盘跟进',
+    '⚠️ 拜仁 -0.75 临场水位变化',
+  ],
+
+  // ③ 临场动态（手机模块）
   liveDynamics: [
     '双红会曼联 vs 利物浦 盘口升温',
     '皇马国家德比临场方向更新',
@@ -456,5 +469,6 @@ export async function getHomePageData(
     latestAnalyses: [],
     leaderboardTop: [],
     liveDynamics: [...homeContent.liveDynamics],
+    liveTicker: [...homeContent.liveTicker],
   };
 }

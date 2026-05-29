@@ -149,6 +149,8 @@ export interface HomePageData {
   weeklyChallenge?: { slug: string; titleZh: string; matchCount: number };
   /** 手机端临场动态横滑条文案 */
   liveDynamics: readonly string[];
+  /** Hero 下即时动态栏 */
+  liveTicker: readonly string[];
 }
 
 export interface CategoryPageData {
