@@ -1,0 +1,504 @@
+/* ========== 最新分析文章 · 世界杯黑金体育媒体风 ========== */
+
+.home-latest-articles {
+  position: relative;
+  z-index: 23;
+  padding: 1.75rem 0 2.25rem;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 4, 5, 0.95) 0%,
+    rgba(10, 6, 8, 0.92) 50%,
+    rgba(8, 8, 10, 0.88) 100%
+  );
+  overflow: hidden;
+}
+
+.home-latest-articles__ambient {
+  position: absolute;
+  inset: -20% -10%;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 50% at 12% 40%, rgba(16, 52, 32, 0.2) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 45% at 92% 30%, rgba(184, 148, 70, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 50% 100%, rgba(127, 29, 29, 0.15) 0%, transparent 60%);
+  filter: blur(6px);
+}
+
+.home-latest-articles__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.home-latest-articles__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+}
+
+.home-latest-articles__eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+  opacity: 0.85;
+}
+
+.home-latest-articles__title {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.5vw, 1.65rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  background: linear-gradient(135deg, #fafafa 0%, #d4b86a 45%, #fafafa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.home-latest-articles__sub {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* —— 卡片基础 —— */
+.home-latest-articles__card {
+  position: relative;
+  border-radius: calc(var(--radius) - 4px);
+  overflow: hidden;
+}
+
+.home-latest-articles__card-link,
+.home-latest-articles__card--list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.1rem 1.15rem 1rem;
+  text-decoration: none;
+  color: inherit;
+  background: linear-gradient(
+    145deg,
+    rgba(22, 10, 12, 0.92) 0%,
+    rgba(12, 8, 10, 0.88) 45%,
+    rgba(18, 14, 8, 0.85) 100%
+  );
+  border: 1px solid rgba(184, 148, 70, 0.18);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.home-latest-articles__card--list {
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+}
+
+.home-latest-articles__card-link:hover,
+.home-latest-articles__card--list:hover {
+  transform: translateY(-3px);
+  border-color: rgba(184, 148, 70, 0.45);
+  box-shadow:
+    0 0 28px rgba(184, 148, 70, 0.2),
+    0 0 48px rgba(127, 29, 29, 0.12),
+    0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* 动态边框光晕 */
+.home-latest-articles__border-glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(184, 148, 70, 0.5) 25%,
+    rgba(239, 68, 68, 0.35) 50%,
+    rgba(184, 148, 70, 0.5) 75%,
+    transparent 100%
+  );
+  background-size: 200% 200%;
+  animation: home-latest-border-flow 4s linear infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.55;
+  transition: opacity 0.28s ease;
+}
+
+.home-latest-articles__card-link:hover .home-latest-articles__border-glow,
+.home-latest-articles__card--list:hover .home-latest-articles__border-glow {
+  opacity: 1;
+}
+
+@keyframes home-latest-border-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.home-latest-articles__sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.04) 50%,
+    transparent 60%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.home-latest-articles__card-link:hover .home-latest-articles__sheen {
+  opacity: 1;
+}
+
+/* —— 标签 —— */
+.home-latest-articles__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.home-latest-articles__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.home-latest-articles__tag--hot {
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.home-latest-articles__tag--focus {
+  color: #fde68a;
+  background: rgba(184, 148, 70, 0.22);
+  border: 1px solid rgba(184, 148, 70, 0.4);
+}
+
+.home-latest-articles__tag--vip {
+  color: #fef3c7;
+  background: linear-gradient(135deg, rgba(184, 148, 70, 0.35), rgba(127, 29, 29, 0.25));
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  box-shadow: 0 0 12px rgba(184, 148, 70, 0.25);
+}
+
+/* —— 队徽光晕 —— */
+.home-latest-articles__teams {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  margin: 0.65rem 0 0.5rem;
+}
+
+.home-latest-articles__teams--lg {
+  gap: 1rem;
+  margin: 0.85rem 0 0.65rem;
+}
+
+.home-latest-articles__crest {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-latest-articles__crest-halo {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184, 148, 70, 0.35) 0%, transparent 70%);
+  filter: blur(4px);
+  animation: home-latest-halo-pulse 2.8s ease-in-out infinite;
+}
+
+.home-latest-articles__card-link:hover .home-latest-articles__crest-halo {
+  background: radial-gradient(circle, rgba(184, 148, 70, 0.55) 0%, rgba(239, 68, 68, 0.15) 50%, transparent 72%);
+}
+
+@keyframes home-latest-halo-pulse {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+.home-latest-articles__logo {
+  position: relative;
+  z-index: 1;
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
+}
+
+.home-latest-articles__teams--lg .home-latest-articles__logo {
+  width: 3.25rem;
+  height: 3.25rem;
+}
+
+.home-latest-articles__teams--sm .home-latest-articles__logo {
+  width: 2rem;
+  height: 2rem;
+}
+
+.home-latest-articles__vs {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  opacity: 0.9;
+}
+
+.home-latest-articles__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.home-latest-articles__league {
+  font-weight: 600;
+  color: rgba(212, 184, 106, 0.95);
+}
+
+.home-latest-articles__time {
+  font-variant-numeric: tabular-nums;
+}
+
+.home-latest-articles__dot {
+  opacity: 0.5;
+}
+
+.home-latest-articles__seo-title {
+  margin: 0.35rem 0 0.25rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.home-latest-articles__card--hero .home-latest-articles__seo-title {
+  font-size: clamp(1.15rem, 2vw, 1.35rem);
+}
+
+.home-latest-articles__match {
+  margin: 0 0 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(250, 250, 250, 0.88);
+}
+
+.home-latest-articles__summary {
+  margin: 0;
+  flex: 1;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.home-latest-articles__card--hero .home-latest-articles__summary {
+  -webkit-line-clamp: 3;
+  font-size: 0.85rem;
+}
+
+.home-latest-articles__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.home-latest-articles__pick {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fde68a;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+  background: rgba(184, 148, 70, 0.15);
+  border: 1px solid rgba(184, 148, 70, 0.28);
+}
+
+.home-latest-articles__cta {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gold);
+  transition: color 0.2s ease;
+}
+
+.home-latest-articles__card-link:hover .home-latest-articles__cta {
+  color: #fde68a;
+}
+
+.home-latest-articles__card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.home-latest-articles__arrow {
+  flex-shrink: 0;
+  font-size: 1.1rem;
+  color: var(--gold);
+  opacity: 0.7;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.home-latest-articles__card--list:hover .home-latest-articles__arrow {
+  transform: translateX(4px);
+  opacity: 1;
+}
+
+.home-latest-articles__card--list .home-latest-articles__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.home-latest-articles__card--list .home-latest-articles__tags {
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.home-latest-articles__card--list .home-latest-articles__summary {
+  -webkit-line-clamp: 1;
+}
+
+/* —— PC 布局 —— */
+.home-latest-articles__desktop {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.home-latest-articles__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.home-latest-articles__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.home-latest-articles__list-item {
+  margin: 0;
+}
+
+/* —— 手机横滑 —— */
+.home-latest-articles__mobile {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .home-latest-articles__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .home-latest-articles {
+    padding: 1.25rem 0 1.5rem;
+  }
+
+  .home-latest-articles__desktop {
+    display: none;
+  }
+
+  .home-latest-articles__mobile {
+    display: block;
+    margin-inline: -1rem;
+    padding-inline: 1rem;
+  }
+
+  .home-latest-articles__rail {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1rem;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.5rem;
+    scrollbar-width: none;
+  }
+
+  .home-latest-articles__rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  .home-latest-articles__rail-item {
+    flex: 0 0 min(82vw, 300px);
+    scroll-snap-align: start;
+  }
+
+  .home-latest-articles__rail-item .home-latest-articles__card--compact {
+    min-height: 100%;
+  }
+
+  .home-latest-articles__rail::after {
+    content: '';
+    flex: 0 0 0.5rem;
+  }
+
+  .home-latest-articles__sub {
+    width: 100%;
+    font-size: 0.72rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .home-latest-articles__card--hero .home-latest-articles__card-link {
+    padding: 1.35rem 1.5rem 1.2rem;
+  }
+}
