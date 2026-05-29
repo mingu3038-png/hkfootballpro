@@ -1,0 +1,288 @@
+/* ========== 赛前预测页 · /football-predictions ========== */
+
+.fp-page {
+  position: relative;
+  padding: 1.5rem 0 2.5rem;
+  background:
+    linear-gradient(180deg, rgba(6, 4, 5, 0.98) 0%, rgba(10, 6, 8, 0.95) 100%),
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(127, 29, 29, 0.12) 0%, transparent 55%);
+}
+
+.fp-page__header {
+  margin-bottom: 1.25rem;
+}
+
+.fp-page__eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  opacity: 0.85;
+}
+
+.fp-page__title {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #fafafa 0%, #d4b86a 50%, #fafafa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.fp-page__desc {
+  margin: 0;
+  max-width: 36rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+/* —— 分类 + 列表 —— */
+.fp-board__tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.45rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+  margin-bottom: 0.75rem;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.fp-board__tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.fp-board__tab {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.fp-board__tab:hover {
+  color: #fde68a;
+  border-color: rgba(184, 148, 70, 0.35);
+}
+
+.fp-board__tab--active {
+  color: #fffbeb;
+  background: linear-gradient(
+    135deg,
+    rgba(127, 29, 29, 0.55) 0%,
+    rgba(184, 148, 70, 0.25) 100%
+  );
+  border-color: rgba(184, 148, 70, 0.45);
+  box-shadow: 0 0 16px rgba(184, 148, 70, 0.18);
+}
+
+.fp-board__tab-count {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.05rem 0.35rem;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 0, 0, 0.35);
+  color: #fde68a;
+}
+
+.fp-board__date {
+  margin: 0 0 0.85rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.fp-board__empty {
+  margin: 0;
+  padding: 2rem 1rem;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  border: 1px dashed rgba(184, 148, 70, 0.25);
+  border-radius: var(--radius);
+}
+
+.fp-board__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .fp-board__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .fp-board__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* —— 赛事卡 —— */
+.fp-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  height: 100%;
+  padding: 1rem 1.05rem 0.95rem;
+  border-radius: calc(var(--radius) - 4px);
+  background: linear-gradient(
+    145deg,
+    rgba(20, 10, 12, 0.94) 0%,
+    rgba(12, 8, 10, 0.9) 100%
+  );
+  border: 1px solid rgba(184, 148, 70, 0.2);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.fp-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(184, 148, 70, 0.42);
+  box-shadow:
+    0 0 24px rgba(184, 148, 70, 0.15),
+    0 12px 32px rgba(0, 0, 0, 0.42);
+}
+
+.fp-card--focus {
+  border-color: rgba(239, 68, 68, 0.35);
+}
+
+.fp-card--hot .fp-card__glow {
+  opacity: 0.5;
+}
+
+.fp-card__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 0%,
+    rgba(184, 148, 70, 0.12) 0%,
+    transparent 70%
+  );
+  opacity: 0.35;
+}
+
+.fp-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.fp-card__league {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #fde68a;
+  padding: 0.12rem 0.45rem;
+  border-radius: 4px;
+  background: rgba(184, 148, 70, 0.15);
+  border: 1px solid rgba(184, 148, 70, 0.28);
+}
+
+.fp-card__time {
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+.fp-card__matchup {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.35;
+  color: #fafafa;
+}
+
+.fp-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.65rem;
+  margin-top: 0.15rem;
+}
+
+.fp-card__direction {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #fde68a;
+  padding: 0.18rem 0.55rem;
+  border-radius: var(--radius-pill);
+  background: rgba(127, 29, 29, 0.35);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.fp-card__rate {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #86efac;
+}
+
+.fp-card__cta {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  margin-top: 0.35rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  width: 100%;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.fp-card:hover .fp-card__cta {
+  color: #fde68a;
+}
+
+@media (max-width: 767px) {
+  .fp-page {
+    padding: 1rem 0 2rem;
+  }
+
+  .fp-page__title {
+    font-size: 1.35rem;
+  }
+
+  .fp-board__tabs {
+    margin-inline: -0.25rem;
+    padding-inline: 0.25rem;
+  }
+
+  .fp-card {
+    padding: 0.85rem 0.9rem 0.8rem;
+  }
+
+  .fp-card__matchup {
+    font-size: 0.92rem;
+  }
+}

@@ -2183,6 +2183,22 @@ export const ANALYSIS_MATCHES: DailyAnalysisInput[] = [
   ...SEO_DAILY_TODAY.map(seoBatchToInput),
 ];
 
+/** 按 slug 日期筛选 analysis-matches 条目 */
+export function getAnalysisMatchesForDate(date: string): DailyAnalysisInput[] {
+  const suffix = `-${date}`;
+  return ANALYSIS_MATCHES.filter((m) => m.slug.endsWith(suffix)).sort((a, b) => {
+    const ao = a.options?.homepageOrder ?? 999;
+    const bo = b.options?.homepageOrder ?? 999;
+    if (ao !== bo) return ao - bo;
+    return new Date(a.kickoffAt).getTime() - new Date(b.kickoffAt).getTime();
+  });
+}
+
+/** 当日 SEO 热门赛事（与 SEO_DAILY_DATE 同步） */
+export function getTodayAnalysisMatches(): DailyAnalysisInput[] {
+  return getAnalysisMatchesForDate(SEO_DAILY_DATE);
+}
+
 /** SEO 批次原始数据（供查阅 / 导出） */
 export {
   SEO_BATCH_1,
