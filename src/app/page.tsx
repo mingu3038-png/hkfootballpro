@@ -18,9 +18,9 @@ export default async function HomePage() {
         heroTonightFeature={data.heroTonightFeature}
       />
       <HomeLiveTicker items={data.liveTicker} />
-      <HomeLatestArticles />
       <HomePredictionDirectory />
       <HomeTodayFocusMatches matches={data.todayMatches} />
+      <HomeLatestArticles />
       <LastNightResults data={data.lastNightResults} winStreak={data.winStreak} />
     </div>
   );

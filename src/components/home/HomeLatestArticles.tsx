@@ -124,12 +124,11 @@ function ArticleCard({ item, variant }: ArticleCardProps) {
 
 /** 首页 · 最新分析文章（数据来自 seo-articles.ts） */
 export function HomeLatestArticles() {
-  const articles = getLatestSeoArticles(8);
+  const articles = getLatestSeoArticles(5);
   if (articles.length === 0) return null;
 
   const [hero, ...rest] = articles;
   const gridItems = rest.slice(0, 4);
-  const listItems = rest.slice(4, 7);
 
   return (
     <section
@@ -148,7 +147,7 @@ export function HomeLatestArticles() {
           <p className="home-latest-articles__sub">世界杯黑金 · 港式盘路 · 每日更新</p>
         </header>
 
-        {/* PC：1 大卡 + 4 小卡 + 列表 */}
+        {/* PC：1 大卡 + 4 小卡 */}
         <div className="home-latest-articles__desktop">
           <ArticleCard item={hero} variant="hero" />
           {gridItems.length > 0 && (
@@ -157,13 +156,6 @@ export function HomeLatestArticles() {
                 <ArticleCard key={item.slug} item={item} variant="compact" />
               ))}
             </div>
-          )}
-          {listItems.length > 0 && (
-            <ul className="home-latest-articles__list">
-              {listItems.map((item) => (
-                <ArticleCard key={item.slug} item={item} variant="list" />
-              ))}
-            </ul>
           )}
         </div>
 
