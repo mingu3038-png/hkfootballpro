@@ -1,4 +1,4 @@
-/** 二级页「世界杯焦点」列表（首页已改用今日重点赛事数据） */
+/** 二级页「今日热门分析」列表（与 seo-articles-hot 同步） */
 
 export interface HomeHotAnalysisCard {
   slug: string;
@@ -10,23 +10,33 @@ export interface HomeHotAnalysisCard {
 
 export const HOME_HOT_ANALYSES_WC_FOCUS: HomeHotAnalysisCard[] = [
   {
-    slug: 'brazil-vs-argentina-2026-06-24',
-    league: '世界杯',
-    kickoff: '09:00',
-    matchup: '巴西 vs 阿根廷',
+    slug: 'psg-vs-arsenal-2026-05-30',
+    league: '欧联决赛',
+    kickoff: '03:00',
+    matchup: '巴黎圣日耳曼 vs 阿森纳',
   },
   {
-    slug: 'france-vs-germany-2026-06-25',
-    league: '世界杯',
-    kickoff: '09:00',
-    matchup: '法国 vs 德国',
-    locked: true,
+    slug: 'scotland-vs-curacao-2026-05-30',
+    league: '国际赛',
+    kickoff: '02:00',
+    matchup: '苏格兰 vs 库拉索',
   },
   {
-    slug: 'england-vs-spain-2026-06-26',
-    league: '世界杯',
-    kickoff: '09:00',
-    matchup: '英格兰 vs 西班牙',
-    locked: true,
+    slug: 'molde-vs-sandefjord-2026-05-30',
+    league: '挪超',
+    kickoff: '01:00',
+    matchup: '莫迪 vs 辛迪夫佐特',
+  },
+  {
+    slug: 'malmo-vs-halmstad-2026-05-30',
+    league: '瑞典超',
+    kickoff: '01:30',
+    matchup: '马尔默 vs 哈尔姆斯塔德',
+  },
+  {
+    slug: 'chengdu-vs-shandong-2026-05-30',
+    league: '中超',
+    kickoff: '19:35',
+    matchup: '成都蓉城 vs 山东泰山',
   },
 ];

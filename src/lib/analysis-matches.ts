@@ -6,10 +6,9 @@ import type {
 } from '@/types/daily-analysis';
 import type { SeoArticle } from '@/types/seo-article';
 import {
-  SEO_DAILY_BATCH_DATE,
-  seoArticlesDailyBatch,
-} from '@/lib/seo-articles-batch-2026-05-30';
-import { seoArticlesHot20260530 } from '@/lib/seo-articles-hot-2026-05-30';
+  SEO_HOT_BATCH_DATE,
+  seoArticlesHot20260530,
+} from '@/lib/seo-articles-hot-2026-05-30';
 
 /** SEO 场次录入格式（date + kickoff 自动转为 kickoffAt / kickoffTimeDisplay） */
 interface SeoAnalysisMatchSeed {
@@ -770,14 +769,14 @@ const SEO_BATCH_2: SeoAnalysisMatchSeed[] = [
 // =============================================================================
 //  每日 SEO 热门（改 SEO_DAILY_DATE + SEO_DAILY_TODAY 即可每日更新）
 // =============================================================================
-export const SEO_DAILY_DATE = SEO_DAILY_BATCH_DATE;
+export const SEO_DAILY_DATE = SEO_HOT_BATCH_DATE;
 
 /** 将 SEO 长文批次转为 analysis-matches 种子（与 seo-articles.ts 同步） */
 function seoArticleToSeed(article: SeoArticle): SeoAnalysisMatchSeed {
   const o = article.options ?? {};
   return {
     slug: article.slug,
-    date: SEO_DAILY_BATCH_DATE,
+    date: SEO_DAILY_DATE,
     kickoff: article.match.kickoffTime,
     homeTeam: article.match.home,
     awayTeam: article.match.away,
@@ -1992,11 +1991,9 @@ const SEO_DAILY_2026_05_29: SeoAnalysisMatchSeed[] = [
   },
 ];
 
-/** 每日 SEO 热门（2026-05-30 · 5 篇今日热门 + 10 篇批次同步） */
-const SEO_DAILY_TODAY: SeoAnalysisMatchSeed[] = [
-  ...seoArticlesHot20260530.map(seoArticleToSeed),
-  ...seoArticlesDailyBatch.map(seoArticleToSeed),
-];
+/** 每日 SEO 热门（2026-05-30 · 仅 5 场真实赛事） */
+const SEO_DAILY_TODAY: SeoAnalysisMatchSeed[] =
+  seoArticlesHot20260530.map(seoArticleToSeed);
 
 /**
  * 手动维护的分析场次（优先级高于批量模板同 slug）
