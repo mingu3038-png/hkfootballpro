@@ -406,8 +406,12 @@ body:has(.home-page) > .home-pred-dir {
 
 body:has(.home-page) > .home-focus-matches {
   padding-top: 0.65rem !important;
-  padding-bottom: 1rem !important;
+  padding-bottom: 0.5rem !important;
   margin: 0 !important;
+}
+
+body:has(.home-page) > .home-latest-articles {
+  padding-top: 0.6rem !important;
 }
 
 body:has(.home-page) .home-focus-matches__container {
@@ -560,7 +564,11 @@ body:has(.home-page) .home-focus-matches__head {
 
   body:has(.home-page) > .home-focus-matches {
     padding-top: 6px !important;
-    padding-bottom: 8px !important;
+    padding-bottom: 4px !important;
+  }
+
+  body:has(.home-page) > .home-latest-articles {
+    padding-top: 0.45rem !important;
   }
 
   body:has(.home-page) .home-focus-matches__container {
@@ -569,5 +577,15 @@ body:has(.home-page) .home-focus-matches__head {
 
   body:has(.home-page) .home-focus-matches__slot--hero .home-focus-matches__card--hero {
     --focus-card-h: 10.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  body:has(.home-page) > .home-focus-matches {
+    padding-bottom: 8px !important;
+  }
+
+  body:has(.home-page) > .home-latest-articles {
+    padding-top: 0.7rem !important;
   }
 }
