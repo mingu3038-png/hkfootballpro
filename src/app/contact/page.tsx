@@ -29,7 +29,7 @@ export default function ContactPage() {
         {
           heading: 'Telegram 频道',
           paragraphs: [
-            '如需接收临场更新与免费重心推送，可加入官方 TG 频道。',
+            '如需接收临场更新与赛前分析提醒，可加入官方 TG 频道。',
             `频道链接：${tgUrl}`,
           ],
         },
