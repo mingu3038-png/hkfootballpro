@@ -1,4 +1,4 @@
-import { FLOATING_TG_CTA_LABEL, resolveTelegramUrl } from '@/lib/telegram';
+import { FLOATING_TG_CTA_LABEL, FLOATING_TG_CTA_LABEL_MOBILE, resolveTelegramUrl } from '@/lib/telegram';
 
 function TelegramIcon({ className }: { className?: string }) {
   return (
@@ -22,7 +22,8 @@ export function FloatingTgButton() {
       <span className="floating-tg-btn__ring" aria-hidden />
       <span className="floating-tg-btn__inner">
         <TelegramIcon className="floating-tg-btn__icon" />
-        <span className="floating-tg-btn__label">{FLOATING_TG_CTA_LABEL}</span>
+        <span className="floating-tg-btn__label floating-tg-btn__label--desktop">{FLOATING_TG_CTA_LABEL}</span>
+        <span className="floating-tg-btn__label floating-tg-btn__label--mobile">{FLOATING_TG_CTA_LABEL_MOBILE}</span>
       </span>
     </a>
   );

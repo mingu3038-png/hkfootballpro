@@ -125,6 +125,10 @@
     0 0 10px rgba(127, 29, 29, 0.35);
 }
 
+.floating-tg-btn__label--mobile {
+  display: none;
+}
+
 .floating-tg-btn:hover {
   filter: brightness(1.08);
 }
@@ -169,31 +173,84 @@
     height: 1.85rem;
   }
 
-  .floating-tg-btn__label {
+  .floating-tg-btn__label--desktop {
     max-width: 5rem;
     font-size: 0.72rem;
   }
+
+  .floating-tg-btn__label--mobile {
+    display: none;
+  }
 }
 
-/* 手机 · 右下角 */
+/* 手机 · 右下角 · 紧凑尺寸 */
 @media (max-width: 768px) {
   .floating-tg-btn {
-    right: max(12px, env(safe-area-inset-right, 0px));
-    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    right: max(10px, env(safe-area-inset-right, 0px));
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .floating-tg-btn__halo {
+    inset: -3px;
+    filter: blur(4px);
+    opacity: 0.7;
+  }
+
+  .floating-tg-btn__ring {
+    inset: -1px;
   }
 
   .floating-tg-btn__inner {
-    padding: 0.65rem 0.7rem;
-    border-radius: 16px;
+    flex-direction: row;
+    gap: 0.28rem;
+    padding: 0.42rem 0.52rem;
+    border-radius: 999px;
+    animation: floating-tg-breathe-mobile 3s ease-in-out infinite;
   }
 
-  .floating-tg-btn__label {
-    font-size: 0.62rem;
+  @keyframes floating-tg-breathe-mobile {
+    0%,
+    100% {
+      box-shadow:
+        0 0 0 1px rgba(252, 211, 77, 0.3) inset,
+        0 0 10px rgba(185, 28, 28, 0.28),
+        0 4px 14px rgba(0, 0, 0, 0.38);
+      transform: scale(1);
+    }
+    50% {
+      box-shadow:
+        0 0 0 1px rgba(252, 211, 77, 0.45) inset,
+        0 0 16px rgba(239, 68, 68, 0.38),
+        0 6px 18px rgba(0, 0, 0, 0.42);
+      transform: scale(1.015);
+    }
+  }
+
+  .floating-tg-btn__icon {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .floating-tg-btn__label--desktop {
+    display: none;
+  }
+
+  .floating-tg-btn__label--mobile {
+    display: block;
+    max-width: none;
+    font-size: 0.58rem;
+    line-height: 1.1;
+    white-space: nowrap;
   }
 
   /* 分析页底部 sticky 条 · 上移避免遮挡 */
   body:has(.adx-sticky-tg) .floating-tg-btn {
-    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(68px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* 首页底部留白，避免内容被浮动按钮遮住 */
+  body:has(.home-page) main {
+    padding-bottom: calc(3.25rem + env(safe-area-inset-bottom, 0px));
   }
 }
 
@@ -202,5 +259,11 @@
   .floating-tg-btn__ring,
   .floating-tg-btn__halo {
     animation: none;
+  }
+
+  @media (max-width: 768px) {
+    .floating-tg-btn__inner {
+      animation: none;
+    }
   }
 }
