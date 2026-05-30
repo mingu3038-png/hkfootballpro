@@ -76,7 +76,17 @@ function FocusMatchCard({ match, tier }: FocusMatchCardProps) {
         <span className="home-focus-matches__rim" aria-hidden />
 
         {badge && (
-          <span className="home-focus-matches__badge">{badge}</span>
+          <span
+            className={`home-focus-matches__badge ${
+              isDailySpotlight(match.coverageTier)
+                ? 'home-focus-matches__badge--spotlight'
+                : match.coverageTier === 'data_reference'
+                  ? 'home-focus-matches__badge--data'
+                  : ''
+            }`}
+          >
+            {badge}
+          </span>
         )}
 
         <div className="home-focus-matches__crest-row">
@@ -130,14 +140,15 @@ function FocusMatchCard({ match, tier }: FocusMatchCardProps) {
   );
 }
 
-/** 首页 · 今日重点赛事（主卡 + 副卡 + 普通卡，共 6 场） */
+/** 首页 · 今日重点赛事（1 主 spotlight + 4 data_reference 网格） */
 export function HomeTodayFocusMatches({ matches }: HomeTodayFocusMatchesProps) {
   const items = pickHomeFocusMatches(matches, HOME_FOCUS_MATCHES_MAX);
   if (items.length === 0) return null;
 
   const hero = items[0];
-  const secondary = items.slice(1, 3);
-  const tertiary = items.slice(3, 6);
+  const quad = items.slice(1, 5);
+  const sideCards = quad.slice(0, 2);
+  const bottomCards = quad.slice(2, 4);
   const mobileRest = items.slice(1);
 
   return (
@@ -162,18 +173,18 @@ export function HomeTodayFocusMatches({ matches }: HomeTodayFocusMatchesProps) {
             </div>
           )}
 
-          {secondary.length > 0 && (
-            <div className="home-focus-matches__slot home-focus-matches__slot--subs">
-              {secondary.map((match) => (
-                <FocusMatchCard key={`pc-sub-${match.id}`} match={match} tier="sub" />
+          {sideCards.length > 0 && (
+            <div className="home-focus-matches__slot home-focus-matches__slot--side">
+              {sideCards.map((match) => (
+                <FocusMatchCard key={`pc-side-${match.id}`} match={match} tier="sub" />
               ))}
             </div>
           )}
 
-          {tertiary.length > 0 && (
-            <div className="home-focus-matches__slot home-focus-matches__slot--std">
-              {tertiary.map((match) => (
-                <FocusMatchCard key={`pc-std-${match.id}`} match={match} tier="std" />
+          {bottomCards.length > 0 && (
+            <div className="home-focus-matches__slot home-focus-matches__slot--bottom">
+              {bottomCards.map((match) => (
+                <FocusMatchCard key={`pc-bottom-${match.id}`} match={match} tier="std" />
               ))}
             </div>
           )}
@@ -188,7 +199,7 @@ export function HomeTodayFocusMatches({ matches }: HomeTodayFocusMatchesProps) {
                 <FocusMatchCard
                   key={`mob-${match.id}`}
                   match={match}
-                  tier={index < secondary.length ? 'sub' : 'std'}
+                  tier={index < sideCards.length ? 'sub' : 'std'}
                 />
               ))}
             </div>

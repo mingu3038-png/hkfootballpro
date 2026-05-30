@@ -28,7 +28,7 @@ export function SiteHeaderMobile() {
   }, [open, close]);
 
   return (
-    <div className="site-header-mob md:hidden">
+    <div className="site-header-mob lg:hidden">
       <div className="site-header-mob__bar">
         <Link href="/" className="site-header-mob__logo" aria-label="返回首页">
           <Image
