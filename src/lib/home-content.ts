@@ -240,7 +240,7 @@ export const homeContent: HomeContent = {
     recent10HitRatePercent: 80,
     winStreak: {
       count: 8,
-      label: '近 10 场 8 红 2 黑，命中率 80%',
+      label: '历史记录 · 近10场 8红2黑 · 非今日推荐',
     },
     picks: [
       { teamLabel: '拜仁', pickLine: '-0.5', result: 'win', leagueLabel: '德甲' },

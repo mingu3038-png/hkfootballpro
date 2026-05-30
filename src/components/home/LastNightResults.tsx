@@ -32,14 +32,18 @@ export function LastNightResults({ data, winStreak }: LastNightResultsProps) {
   const recent10Rate = resolveRecent10HitRate(data);
 
   return (
-    <section className="last-night-results" aria-labelledby="last-night-results-title">
+    <section
+      className="last-night-results"
+      aria-labelledby="last-night-results-title"
+      aria-label="昨晚赛果回顾：已结算历史记录，不代表今日推荐方向"
+    >
       <div className="home-page__container last-night-results__inner">
         <header className="last-night-results__header">
           <h2 id="last-night-results-title" className="last-night-results__title">
             <span className="last-night-results__title-accent" aria-hidden />
-            昨晚战绩
+            昨晚赛果回顾
           </h2>
-          <span className="last-night-results__badge">已结算</span>
+          <span className="last-night-results__badge">历史记录</span>
         </header>
 
         <div className="last-night-results__hero-card">
@@ -59,7 +63,7 @@ export function LastNightResults({ data, winStreak }: LastNightResultsProps) {
 
           <div className="last-night-results__summary">
             <div className="last-night-results__hit-block">
-              <span className="last-night-results__hit-eyebrow">昨晚</span>
+              <span className="last-night-results__hit-eyebrow">昨日已结算</span>
               <p className="last-night-results__hit-score">
                 <span className="last-night-results__hit-total">{total}</span>
                 <span className="last-night-results__hit-sep">中</span>
@@ -67,7 +71,7 @@ export function LastNightResults({ data, winStreak }: LastNightResultsProps) {
               </p>
             </div>
 
-            <div className="last-night-results__mini-stats" aria-label="昨晚红黑走明细">
+            <div className="last-night-results__mini-stats" aria-label="昨日已结算红黑走明细，非今日推荐">
               <span className="last-night-results__mini-stat last-night-results__mini-stat--win">
                 <strong>{data.wins}</strong>红
               </span>
@@ -85,7 +89,7 @@ export function LastNightResults({ data, winStreak }: LastNightResultsProps) {
           <div className="last-night-results__progress">
             <div className="last-night-results__progress-head">
               <span className="last-night-results__progress-label">
-                近10场命中率 · 仅供分析参考
+                历史记录 · 近10场命中率 · 非今日方向
               </span>
               <strong className="last-night-results__progress-value">{recent10Rate}%</strong>
             </div>
@@ -95,7 +99,7 @@ export function LastNightResults({ data, winStreak }: LastNightResultsProps) {
               aria-valuenow={recent10Rate}
               aria-valuemin={0}
               aria-valuemax={100}
-              aria-label={`近10场命中率 ${recent10Rate}%，仅供分析参考，非结果保证`}
+              aria-label={`近10场历史命中率 ${recent10Rate}%，已结算回顾，非今日推荐`}
             >
               <span
                 className="last-night-results__progress-fill"
@@ -106,12 +110,13 @@ export function LastNightResults({ data, winStreak }: LastNightResultsProps) {
           </div>
         </div>
 
-        <ul className="last-night-results__list">
+        <ul className="last-night-results__list" aria-label="历史 pick 赛果回顾，非今日推荐方向">
           {data.picks.map((pick, index) => (
             <li
               key={`${pick.teamLabel}-${index}`}
               className={`last-night-results__item last-night-results__item--${pick.result}`}
               style={{ animationDelay: `${index * 0.06}s` }}
+              aria-label={`${pick.leagueLabel ?? ''} ${formatPickLabel(pick)} · 已结算${resultLabel[pick.result]}`}
             >
               <span className="last-night-results__item-glow" aria-hidden />
               <div className="last-night-results__item-body">
