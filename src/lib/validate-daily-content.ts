@@ -1,4 +1,5 @@
 import { homeContent } from '@/lib/home-content';
+import { validateDailyBatchParity } from '@/lib/validate-daily-batch-parity';
 import { getTodaySeoArticleInputs } from '@/lib/seo-articles';
 import { isDailySpotlight, type CoverageTier } from '@/types/coverage-tier';
 import type { DailyAnalysisInput } from '@/types/daily-analysis';
@@ -136,12 +137,24 @@ function runCli(): void {
   }
   if (result.ok) {
     console.log('validate-daily-content: OK');
-    return;
+  } else {
+    for (const issue of result.issues) {
+      console.error(`[${issue.code}] ${issue.message}`);
+    }
   }
-  for (const issue of result.issues) {
-    console.error(`[${issue.code}] ${issue.message}`);
+
+  const parity = validateDailyBatchParity();
+  if (parity.ok) {
+    console.log('validate-daily-batch-parity: OK');
+  } else {
+    for (const issue of parity.issues) {
+      console.error(`[${issue.code}] ${issue.message}`);
+    }
   }
-  process.exitCode = 1;
+
+  if (!result.ok || !parity.ok) {
+    process.exitCode = 1;
+  }
 }
 
 const isDirectRun =
