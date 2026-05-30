@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { MatchCard } from '@/components/match/MatchCard';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
-import { mockMatches } from '@/lib/mock-data';
+import { getPredictMatches } from '@/lib/live-predict-matches';
 import { buildCategoryMetadata } from '@/lib/seo/build-metadata';
 import type { LeagueSlug } from '@/config/leagues';
 import type { Metadata } from 'next';
@@ -18,7 +18,7 @@ export const metadata: Metadata = buildCategoryMetadata(
 );
 
 export default function PredictPage() {
-  const predictable = mockMatches.filter((m) => m.predictEnabled);
+  const predictable = getPredictMatches();
 
   return (
     <div className="container py-8">

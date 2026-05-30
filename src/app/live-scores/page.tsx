@@ -1,6 +1,6 @@
 import { MatchCard } from '@/components/match/MatchCard';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
-import { mockMatches } from '@/lib/mock-data';
+import { getLiveScoresMatches } from '@/lib/live-predict-matches';
 import { buildCategoryMetadata } from '@/lib/seo/build-metadata';
 import type { LeagueSlug } from '@/config/leagues';
 import type { Metadata } from 'next';
@@ -46,7 +46,7 @@ export default function LiveScoresPage() {
       </header>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        {mockMatches.map((match) => (
+        {getLiveScoresMatches().map((match) => (
           <MatchCard
             key={match.id}
             match={match}
