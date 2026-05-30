@@ -1,14 +1,59 @@
 import Link from 'next/link';
 import { TeamLogo } from '@/components/ui/TeamLogo';
 import { resolveTelegramUrl, TELEGRAM_CTA_LABEL } from '@/lib/telegram';
-import type {
-  HkfbArticleItem,
-  HkfbGuideCard,
-  HkfbFocusMatch,
-  HkfbHotTeam,
-  HkfbNewsItem,
-  HkfbStandingRow,
+import {
+  HKFB_NEWS_CATEGORIES,
+  type HkfbArticleItem,
+  type HkfbFixture,
+  type HkfbGuideCard,
+  type HkfbFocusMatch,
+  type HkfbHotTeam,
+  type HkfbNewsItem,
+  type HkfbStandingRow,
 } from '@/lib/hong-kong-football-page';
+
+function newsTagClass(tag: string): string {
+  switch (tag) {
+    case '港队名单':
+      return 'hkfb-news__tag--squad';
+    case '东亚杯':
+      return 'hkfb-news__tag--ea';
+    case 'U23':
+      return 'hkfb-news__tag--u23';
+    case '港超':
+      return 'hkfb-news__tag--hkpl';
+    default:
+      return '';
+  }
+}
+
+function newsCatClass(tag: string): string {
+  switch (tag) {
+    case '港队名单':
+      return 'hkfb-news__cat--squad';
+    case '东亚杯':
+      return 'hkfb-news__cat--ea';
+    case 'U23':
+      return 'hkfb-news__cat--u23';
+    case '港超':
+      return 'hkfb-news__cat--hkpl';
+    default:
+      return '';
+  }
+}
+
+function fixtureStatusClass(status: HkfbFixture['status']): string {
+  switch (status) {
+    case '进行中':
+      return 'hkfb-fixtures__status--live';
+    case '已完场':
+      return 'hkfb-fixtures__status--ft';
+    case '延期':
+      return 'hkfb-fixtures__status--postponed';
+    default:
+      return 'hkfb-fixtures__status--scheduled';
+  }
+}
 
 function TelegramIcon({ className }: { className?: string }) {
   return (
@@ -20,6 +65,7 @@ function TelegramIcon({ className }: { className?: string }) {
 
 interface HongKongFootballContentProps {
   focusMatch: HkfbFocusMatch;
+  fixtures: HkfbFixture[];
   standings: HkfbStandingRow[];
   hotTeams: HkfbHotTeam[];
   nationalNews: HkfbNewsItem[];
@@ -29,6 +75,7 @@ interface HongKongFootballContentProps {
 
 export function HongKongFootballContent({
   focusMatch,
+  fixtures,
   standings,
   hotTeams,
   nationalNews,
@@ -47,11 +94,13 @@ export function HongKongFootballContent({
         </div>
         <div className="hkfb-hero__grid">
           <div className="hkfb-hero__left">
-            <p className="hkfb-hero__eyebrow">HONG KONG FOOTBALL</p>
+            <p className="hkfb-hero__eyebrow">HONG KONG FOOTBALL HUB</p>
             <h1 id="hkfb-hero-title" className="hkfb-hero__title">
-              香港足球资讯
+              香港足球中心
             </h1>
-            <p className="hkfb-hero__desc">港超、港队、足总杯、亚冠与本地足球动态</p>
+            <p className="hkfb-hero__desc">
+              港超赛程、港队动态、积分榜与本地赛事赛前分析
+            </p>
           </div>
           <aside className="hkfb-hero__tg">
             <span className="hkfb-hero__tg-shine" aria-hidden />
@@ -59,7 +108,9 @@ export function HongKongFootballContent({
               <TelegramIcon className="hkfb-hero__tg-icon" />
               <p className="hkfb-hero__tg-title">官方 TG 频道</p>
             </div>
-            <p className="hkfb-hero__tg-copy">港超临场 · 港队名单 · 免费推送</p>
+            <p className="hkfb-hero__tg-copy">
+              接收港超赛前提醒、港队名单更新与临场资讯
+            </p>
             <a
               href={tgUrl}
               target="_blank"
@@ -120,13 +171,46 @@ export function HongKongFootballContent({
         </article>
       </section>
 
+      <section className="hkfb-section hkfb-section--fixtures" aria-labelledby="hkfb-fixtures-title">
+        <header className="hkfb-section__head">
+          <h2 id="hkfb-fixtures-title" className="hkfb-section__title">
+            港超赛程与赛果
+          </h2>
+          <p className="hkfb-section__sub">本地赛事 · 近 5 场</p>
+        </header>
+        <div className="hkfb-fixtures">
+          <div className="hkfb-fixtures__head" aria-hidden>
+            <span>日期</span>
+            <span>时间</span>
+            <span>主队</span>
+            <span>客队</span>
+            <span>状态</span>
+          </div>
+          <ul className="hkfb-fixtures__list">
+            {fixtures.map((fx) => (
+              <li key={fx.id} className="hkfb-fixtures__row">
+                <time className="hkfb-fixtures__date" dateTime={fx.date}>
+                  {fx.date.slice(5).replace('-', '/')}
+                </time>
+                <span className="hkfb-fixtures__time">{fx.time}</span>
+                <span className="hkfb-fixtures__team hkfb-fixtures__team--home">{fx.homeNameZh}</span>
+                <span className="hkfb-fixtures__team hkfb-fixtures__team--away">{fx.awayNameZh}</span>
+                <span className={`hkfb-fixtures__status ${fixtureStatusClass(fx.status)}`}>
+                  {fx.status}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <div className="hkfb-split">
         <section className="hkfb-section" aria-labelledby="hkfb-standings-title">
           <header className="hkfb-section__head">
             <h2 id="hkfb-standings-title" className="hkfb-section__title">
               港超积分榜
             </h2>
-            <p className="hkfb-section__sub">前 6 名</p>
+            <p className="hkfb-section__sub">港超积分榜 · 2025/26 · 定期更新</p>
           </header>
           <div className="hkfb-table-wrap">
             <table className="hkfb-table">
@@ -168,12 +252,19 @@ export function HongKongFootballContent({
             <h2 id="hkfb-national-title" className="hkfb-section__title">
               港队动态
             </h2>
+            <div className="hkfb-news__categories" aria-label="动态分类">
+              {HKFB_NEWS_CATEGORIES.map((cat) => (
+                <span key={cat} className={`hkfb-news__cat ${newsCatClass(cat)}`}>
+                  {cat}
+                </span>
+              ))}
+            </div>
           </header>
           <ul className="hkfb-news">
             {nationalNews.map((item) => (
               <li key={item.id}>
                 <Link href={item.href} className="hkfb-news__item">
-                  <span className="hkfb-news__tag">{item.tag}</span>
+                  <span className={`hkfb-news__tag ${newsTagClass(item.tag)}`}>{item.tag}</span>
                   <h3 className="hkfb-news__title">{item.title}</h3>
                   <p className="hkfb-news__summary">{item.summary}</p>
                   <time className="hkfb-news__date">{item.date}</time>

@@ -4,6 +4,15 @@ import { mockAnalyses } from '@/lib/mock-data';
 import { seoArticles } from '@/lib/seo-articles';
 import type { SeoArticle } from '@/types/seo-article';
 
+export interface HkfbFixture {
+  id: string;
+  date: string;
+  time: string;
+  homeNameZh: string;
+  awayNameZh: string;
+  status: '未开始' | '进行中' | '已完场' | '延期';
+}
+
 export interface HkfbFocusMatch {
   slug: string;
   href: string;
@@ -92,7 +101,7 @@ export const HKFB_HOT_TEAMS: HkfbHotTeam[] = [
 export const HKFB_NATIONAL_NEWS: HkfbNewsItem[] = [
   {
     id: 'wc-qual',
-    tag: '世界杯外围赛',
+    tag: '港队名单',
     title: '港队作客东南亚 · 防守反击成主旋律',
     summary: '教练组强调客场抢分，中场逼抢与定位球部署是重点。',
     date: '2026-05-28',
@@ -115,12 +124,56 @@ export const HKFB_NATIONAL_NEWS: HkfbNewsItem[] = [
     href: '/hong-kong-football/national-team',
   },
   {
-    id: 'squad',
-    tag: '最新名单',
-    title: '港队 26 人名单 · 杰志、理文共 8 人入选',
-    summary: '门将位置竞争加剧，旅欧球员状态受关注。',
+    id: 'hkpl-focus',
+    tag: '港超',
+    title: '港超榜首大战 · 理文主场迎战杰志',
+    summary: '两队仅相差 5 分，临场阵容与边路速度或成关键变量。',
     date: '2026-05-22',
-    href: '/hong-kong-football/national-team',
+    href: '/hong-kong-football/premier-league',
+  },
+];
+
+/** 港超赛程与赛果 · 本地赛事（静态展示，非 API） */
+export const HKFB_FIXTURES: HkfbFixture[] = [
+  {
+    id: 'fx-1',
+    date: '2026-05-31',
+    time: '20:00',
+    homeNameZh: '理文',
+    awayNameZh: '杰志',
+    status: '未开始',
+  },
+  {
+    id: 'fx-2',
+    date: '2026-05-30',
+    time: '19:30',
+    homeNameZh: '杰志',
+    awayNameZh: '流浪',
+    status: '未开始',
+  },
+  {
+    id: 'fx-3',
+    date: '2026-05-28',
+    time: '20:00',
+    homeNameZh: '东方',
+    awayNameZh: '杰志',
+    status: '已完场',
+  },
+  {
+    id: 'fx-4',
+    date: '2026-05-27',
+    time: '20:00',
+    homeNameZh: '港会',
+    awayNameZh: '理文',
+    status: '已完场',
+  },
+  {
+    id: 'fx-5',
+    date: '2026-06-01',
+    time: '18:00',
+    homeNameZh: '大埔',
+    awayNameZh: '南区',
+    status: '延期',
   },
 ];
 
@@ -248,3 +301,9 @@ export function getHongKongFootballArticles(limit = 6): HkfbArticleItem[] {
 export function getHkplStandings(): HkfbStandingRow[] {
   return HKPL_STANDINGS;
 }
+
+export function getHkplFixtures(): HkfbFixture[] {
+  return HKFB_FIXTURES;
+}
+
+export const HKFB_NEWS_CATEGORIES = ['港队名单', '东亚杯', 'U23', '港超'] as const;

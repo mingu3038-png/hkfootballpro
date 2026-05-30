@@ -222,7 +222,11 @@
 }
 
 .hkfb-section--focus {
-  padding-bottom: 2.25rem;
+  padding-bottom: 1.5rem;
+}
+
+.hkfb-section--fixtures {
+  padding-bottom: 2rem;
 }
 
 .hkfb-section--articles {
@@ -247,8 +251,132 @@
 
 .hkfb-section__sub {
   margin: 0;
-  font-size: calc(0.76rem * var(--hkfb-fs));
+  font-size: calc(0.78rem * var(--hkfb-fs));
+  line-height: 1.45;
+  color: rgba(250, 250, 250, 0.55);
+}
+
+.hkfb-section__sub--muted {
   color: rgba(250, 250, 250, 0.48);
+}
+
+/* —— 港超赛程与赛果 —— */
+.hkfb-fixtures {
+  border-radius: calc(var(--radius) - 4px);
+  border: 1px solid var(--hkfb-card-border);
+  background: rgba(14, 8, 10, 0.48);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.hkfb-fixtures__head,
+.hkfb-fixtures__row {
+  display: grid;
+  grid-template-columns: 3.2rem 3rem 1fr 1fr 4.2rem;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.62rem 0.85rem;
+}
+
+.hkfb-fixtures__head {
+  font-size: calc(0.64rem * var(--hkfb-fs));
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: rgba(250, 250, 250, 0.45);
+  background: rgba(127, 29, 29, 0.16);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.hkfb-fixtures__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hkfb-fixtures__row {
+  font-size: calc(0.8rem * var(--hkfb-fs));
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.hkfb-fixtures__row:first-child {
+  border-top: none;
+}
+
+.hkfb-fixtures__date,
+.hkfb-fixtures__time {
+  font-variant-numeric: tabular-nums;
+  color: rgba(250, 250, 250, 0.62);
+}
+
+.hkfb-fixtures__team {
+  font-weight: 700;
+  color: rgba(250, 250, 250, 0.9);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hkfb-fixtures__team--home {
+  text-align: right;
+}
+
+.hkfb-fixtures__team--away {
+  text-align: left;
+}
+
+.hkfb-fixtures__status {
+  justify-self: end;
+  padding: 0.14rem 0.42rem;
+  font-size: calc(0.62rem * var(--hkfb-fs));
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}
+
+.hkfb-fixtures__status--scheduled {
+  color: rgba(253, 230, 138, 0.92);
+  background: rgba(120, 90, 20, 0.28);
+  border: 1px solid rgba(212, 168, 74, 0.22);
+}
+
+.hkfb-fixtures__status--live {
+  color: #fecaca;
+  background: rgba(127, 29, 29, 0.45);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.hkfb-fixtures__status--ft {
+  color: rgba(214, 211, 209, 0.88);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hkfb-fixtures__status--postponed {
+  color: rgba(254, 215, 170, 0.9);
+  background: rgba(124, 45, 18, 0.32);
+  border: 1px solid rgba(251, 146, 60, 0.25);
+}
+
+@media (max-width: 520px) {
+  .hkfb-fixtures__head {
+    display: none;
+  }
+
+  .hkfb-fixtures__row {
+    grid-template-columns: 3rem 2.75rem 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 0.35rem 0.45rem;
+    padding: 0.72rem 0.75rem;
+  }
+
+  .hkfb-fixtures__status {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
 }
 
 /* —— 今日焦点 · ESPN 头条大卡 —— */
@@ -541,6 +669,50 @@
 }
 
 /* —— 港队动态 · 新闻列表 —— */
+.hkfb-news__categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.35rem;
+}
+
+.hkfb-news__cat {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem 0.48rem;
+  font-size: calc(0.58rem * var(--hkfb-fs));
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: rgba(250, 250, 250, 0.55);
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.hkfb-news__cat--squad {
+  color: rgba(254, 202, 202, 0.9);
+  border-color: rgba(239, 68, 68, 0.22);
+  background: rgba(127, 29, 29, 0.2);
+}
+
+.hkfb-news__cat--ea {
+  color: rgba(253, 230, 138, 0.88);
+  border-color: rgba(212, 168, 74, 0.25);
+  background: rgba(120, 90, 20, 0.18);
+}
+
+.hkfb-news__cat--u23 {
+  color: rgba(191, 219, 254, 0.9);
+  border-color: rgba(59, 130, 246, 0.25);
+  background: rgba(30, 58, 138, 0.22);
+}
+
+.hkfb-news__cat--hkpl {
+  color: rgba(187, 247, 208, 0.88);
+  border-color: rgba(34, 197, 94, 0.22);
+  background: rgba(20, 83, 45, 0.22);
+}
+
 .hkfb-news {
   list-style: none;
   margin: 0;
@@ -589,6 +761,31 @@
   color: rgba(254, 202, 202, 0.95);
   border-radius: 3px;
   background: rgba(127, 29, 29, 0.35);
+  border: 1px solid rgba(239, 68, 68, 0.18);
+}
+
+.hkfb-news__tag--squad {
+  color: rgba(254, 202, 202, 0.95);
+  background: rgba(127, 29, 29, 0.38);
+  border-color: rgba(239, 68, 68, 0.28);
+}
+
+.hkfb-news__tag--ea {
+  color: rgba(253, 230, 138, 0.92);
+  background: rgba(120, 90, 20, 0.32);
+  border-color: rgba(212, 168, 74, 0.28);
+}
+
+.hkfb-news__tag--u23 {
+  color: rgba(191, 219, 254, 0.92);
+  background: rgba(30, 58, 138, 0.35);
+  border-color: rgba(59, 130, 246, 0.28);
+}
+
+.hkfb-news__tag--hkpl {
+  color: rgba(187, 247, 208, 0.9);
+  background: rgba(20, 83, 45, 0.35);
+  border-color: rgba(34, 197, 94, 0.25);
 }
 
 .hkfb-news__title {
