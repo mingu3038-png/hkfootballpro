@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { FloatingTgButton } from '@/components/layout/FloatingTgButton';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { SiteFooter } from '@/components/layout/SiteFooter';
-import { siteConfig } from '@/config/site';
+import { getHomeCanonicalUrl, siteConfig } from '@/config/site';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -12,9 +12,9 @@ export const metadata: Metadata = {
   },
   description: siteConfig.defaultDescription,
   keywords: [...siteConfig.keywords],
-  metadataBase: new URL(siteConfig.url),
+  metadataBase: new URL(getHomeCanonicalUrl()),
   alternates: {
-    canonical: siteConfig.url,
+    canonical: getHomeCanonicalUrl(),
   },
   icons: {
     icon: [{ url: siteConfig.brandFavicon, type: 'image/svg+xml' }],

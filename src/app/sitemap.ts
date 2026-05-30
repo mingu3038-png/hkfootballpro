@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const base = SITEMAP_ORIGIN;
 
   const staticEntries = SITEMAP_STATIC_PATHS.map((path) => ({
-    url: `${base}${path}`,
+    url: path === '' ? `${base}/` : `${base}${path}`,
     lastModified: new Date(),
     changeFrequency: 'daily' as const,
     priority: path === '' ? 1 : path === '/live-scores' || path === '/world-cup-2026' ? 0.9 : 0.7,

@@ -1,22 +1,23 @@
-import { siteConfig } from '@/config/site';
+import { getHomeCanonicalUrl, getSiteOrigin, siteConfig } from '@/config/site';
 import { homeContent } from '@/lib/home-content';
 import { HOME_PREDICTION_DIRECTORY } from '@/lib/home-prediction-directory';
 
 export function buildHomePageJsonLd(): Record<string, unknown> {
-  const siteUrl = siteConfig.url;
+  const siteOrigin = getSiteOrigin();
+  const homeUrl = getHomeCanonicalUrl();
 
   const focusItems = homeContent.todayFocusMatches.map((match, index) => ({
     '@type': 'ListItem',
     position: index + 1,
     name: `${match.homeTeam} vs ${match.awayTeam}`,
-    url: `${siteUrl}/analysis/${match.slug}`,
+    url: `${siteOrigin}/analysis/${match.slug}`,
   }));
 
   const directoryItems = HOME_PREDICTION_DIRECTORY.rows.flatMap((row) => row.items).map((item, index) => ({
     '@type': 'ListItem',
     position: focusItems.length + index + 1,
     name: item.label,
-    url: `${siteUrl}${item.href}`,
+    url: `${siteOrigin}${item.href}`,
   }));
 
   return {
@@ -24,23 +25,23 @@ export function buildHomePageJsonLd(): Record<string, unknown> {
     '@graph': [
       {
         '@type': 'WebSite',
-        '@id': `${siteUrl}/#website`,
+        '@id': `${siteOrigin}/#website`,
         name: siteConfig.seoSiteName,
         alternateName: siteConfig.nameZh,
-        url: siteUrl,
+        url: homeUrl,
         inLanguage: siteConfig.locale,
         description: siteConfig.defaultDescription,
-        publisher: { '@id': `${siteUrl}/#organization` },
+        publisher: { '@id': `${siteOrigin}/#organization` },
       },
       {
         '@type': 'Organization',
-        '@id': `${siteUrl}/#organization`,
+        '@id': `${siteOrigin}/#organization`,
         name: siteConfig.seoSiteName,
         alternateName: siteConfig.nameZh,
-        url: siteUrl,
+        url: homeUrl,
         logo: {
           '@type': 'ImageObject',
-          url: `${siteUrl}${siteConfig.brandLogo}`,
+          url: `${siteOrigin}${siteConfig.brandLogo}`,
         },
         contactPoint: {
           '@type': 'ContactPoint',
@@ -51,13 +52,13 @@ export function buildHomePageJsonLd(): Record<string, unknown> {
       },
       {
         '@type': 'ItemList',
-        '@id': `${siteUrl}/#featured-matches`,
+        '@id': `${siteOrigin}/#featured-matches`,
         name: '今日重点足球赛事',
         itemListElement: focusItems,
       },
       {
         '@type': 'ItemList',
-        '@id': `${siteUrl}/#prediction-directory`,
+        '@id': `${siteOrigin}/#prediction-directory`,
         name: HOME_PREDICTION_DIRECTORY.title,
         itemListElement: directoryItems,
       },

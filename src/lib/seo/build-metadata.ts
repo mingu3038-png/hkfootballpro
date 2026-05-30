@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { siteConfig } from '@/config/site';
+import { getCanonicalUrl, siteConfig } from '@/config/site';
 
 type PageType = 'home' | 'category' | 'match-analysis' | 'live-score' | 'article' | 'static';
 
@@ -15,8 +15,7 @@ interface BuildMetadataInput {
 }
 
 function resolveCanonical(path: string): string {
-  if (path === '/' || path === '') return siteConfig.url;
-  return `${siteConfig.url}${path.startsWith('/') ? path : `/${path}`}`;
+  return getCanonicalUrl(path);
 }
 
 function resolveFullTitle(pageTitle: string): string {

@@ -1,9 +1,25 @@
 /** 正式站域名（无尾斜杠） */
-export const PRODUCTION_SITE_URL = 'https://hkfootballpro.com';
+export const PRODUCTION_SITE_URL = 'https://www.hkfootballpro.com';
 
 function normalizeSiteUrl(raw?: string): string {
   const value = (raw?.trim() || PRODUCTION_SITE_URL).replace(/\/+$/, '');
   return value || PRODUCTION_SITE_URL;
+}
+
+/** 全站 origin，用于 canonical / OG / JSON-LD / sitemap */
+export function getSiteOrigin(): string {
+  return normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);
+}
+
+/** 首页 canonical（带尾斜杠） */
+export function getHomeCanonicalUrl(): string {
+  return `${getSiteOrigin()}/`;
+}
+
+/** 内页 canonical：path 为 /foo；首页 path 为 / 或空时返回带尾斜杠 URL */
+export function getCanonicalUrl(path: string): string {
+  if (path === '/' || path === '') return getHomeCanonicalUrl();
+  return `${getSiteOrigin()}${path.startsWith('/') ? path : `/${path}`}`;
 }
 
 export const siteConfig = {
@@ -21,7 +37,7 @@ export const siteConfig = {
   focusPlayerImage: '/images/focus-player-silhouette.svg',
   /** 今日免费重心 · 左侧对决海报 */
   focusFaceoffPoster: '/images/focus-faceoff-poster.png',
-  url: normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
+  url: getSiteOrigin(),
   brandLogo: '/brand/logo.svg',
   brandFavicon: '/brand/favicon.svg',
   /** 全站 / 分析页默认 Open Graph 图 */
