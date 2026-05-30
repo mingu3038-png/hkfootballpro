@@ -13,8 +13,8 @@ import { buildCategoryMetadata } from '@/lib/seo/build-metadata';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildCategoryMetadata(
-  '2026 世界杯预测专区',
-  '2026 美加墨世界杯冠军热门、赛前分析与今日预测，阿根廷法国巴西英格兰葡萄牙西班牙德国专题。',
+  '2026 世界杯专题',
+  '2026 美加墨世界杯热门球队、赛前分析与今日预测，阿根廷法国巴西英格兰专题。',
   '/world-cup-2026'
 );
 

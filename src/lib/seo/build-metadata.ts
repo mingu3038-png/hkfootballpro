@@ -14,16 +14,23 @@ interface BuildMetadataInput {
   modifiedAt?: Date;
 }
 
-export function buildMetadata(input: BuildMetadataInput): Metadata {
-  const title = input.title
-    ? `${input.title}｜${siteConfig.nameZh}`
-    : siteConfig.defaultTitle;
+function resolveCanonical(path: string): string {
+  if (path === '/' || path === '') return siteConfig.url;
+  return `${siteConfig.url}${path.startsWith('/') ? path : `/${path}`}`;
+}
 
+function resolveFullTitle(pageTitle: string): string {
+  return `${pageTitle}｜${siteConfig.seoSiteName}`;
+}
+
+export function buildMetadata(input: BuildMetadataInput): Metadata {
   const description = input.description ?? siteConfig.defaultDescription;
-  const url = `${siteConfig.url}${input.path}`;
+  const url = resolveCanonical(input.path);
+  const pageTitle = input.title;
+  const fullTitle = pageTitle ? resolveFullTitle(pageTitle) : siteConfig.defaultTitle;
 
   return {
-    title,
+    title: pageTitle ? pageTitle : { absolute: siteConfig.defaultTitle },
     description,
     keywords: input.keywords ?? [...siteConfig.keywords],
     alternates: { canonical: url },
@@ -32,25 +39,35 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
       type: input.pageType === 'match-analysis' ? 'article' : 'website',
       locale: siteConfig.locale,
       url,
-      siteName: siteConfig.nameZh,
-      title,
+      siteName: siteConfig.seoSiteName,
+      title: fullTitle,
       description,
       ...(input.publishedAt && { publishedTime: input.publishedAt.toISOString() }),
       ...(input.modifiedAt && { modifiedTime: input.modifiedAt.toISOString() }),
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: fullTitle,
       description,
     },
   };
 }
 
-/** 分类页 title 模板 */
-export function buildCategoryMetadata(label: string, description: string, path: string): Metadata {
+/** 分类 / 频道页 metadata（title 为页面专属标题，品牌后缀由 layout template 统一追加） */
+export function buildCategoryMetadata(title: string, description: string, path: string): Metadata {
   return buildMetadata({
     pageType: 'category',
-    title: `${label}赛前预测与分析`,
+    title,
+    description,
+    path,
+  });
+}
+
+/** 静态信息页 metadata */
+export function buildStaticMetadata(title: string, description: string, path: string): Metadata {
+  return buildMetadata({
+    pageType: 'static',
+    title,
     description,
     path,
   });
@@ -69,12 +86,12 @@ export function buildMatchAnalysisMetadata(params: {
   keywords?: string[];
   publishedAt?: Date;
 }): Metadata {
-  const defaultTitle = `${params.homeTeamZh} 对 ${params.awayTeamZh} 赛前分析｜${params.leagueZh} 比分预测 ${params.kickoffDate}`;
-  const defaultDesc = `${params.homeTeamZh} 对 ${params.awayTeamZh} 赛前分析：${params.summary}`;
+  const defaultTitle = `${params.homeTeamZh} 对 ${params.awayTeamZh} 赛前分析`;
+  const defaultDesc = `${params.homeTeamZh} 对 ${params.awayTeamZh}（${params.leagueZh}）：${params.summary}`;
 
   return buildMetadata({
     pageType: 'match-analysis',
-    title: params.seoTitle ?? defaultTitle,
+    title: params.seoTitle?.replace(/\s*｜\s*.*$/, '') ?? defaultTitle,
     description: params.seoDescription ?? defaultDesc,
     path: params.path,
     keywords: params.keywords,

@@ -10,7 +10,7 @@ export function SiteFooter() {
           <div>
             <h3 className="mb-3 text-lg font-bold">{siteConfig.nameZh}</h3>
             <p className="text-sm text-[var(--text-muted)]">
-              专注香港足球及国际赛事赛前分析，提供即时比分、比分竞猜及预测排行榜。免费参与，仅供娱乐及分析交流。
+              专注香港足球及国际赛事赛前分析，提供即时比分、比分竞猜及预测排行榜。内容仅供娱乐及分析参考，不构成投注建议。
             </p>
           </div>
 

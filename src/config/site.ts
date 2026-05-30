@@ -7,10 +7,10 @@ function normalizeSiteUrl(raw?: string): string {
 }
 
 export const siteConfig = {
-  name: 'HK Score Predict',
-  nameZh: '港波预测',
+  name: 'HK Football Pro',
+  nameZh: '香港足球预测站',
   /** 分析页等 SEO 用品牌名（title 后缀） */
-  seoSiteName: '香港足球预测站',
+  seoSiteName: 'HK Football Pro',
   /** 分析页 title / H1 后缀，例：…｜香港足球预测 */
   seoBrandShort: '香港足球预测',
   /** Telegram 频道/群组（可被 NEXT_PUBLIC_TELEGRAM_URL 覆盖） */
@@ -29,19 +29,21 @@ export const siteConfig = {
   brandTagline: '香港足球传媒 · 世界杯情报',
   brandBadge: 'WC 2026',
   locale: 'zh-HK',
-  defaultTitle: '香港足球比分预测｜赛前分析・即时比分・免费竞猜',
+  defaultTitle: '香港足球赛前分析与即时比分｜HK Football Pro',
   defaultDescription:
-    '专注香港足球及英超赛前分析，提供即时比分、比分竞猜及预测排行榜。港超、足总杯、2026世界杯预测一应俱全。',
+    'hkfootballpro 专注香港足球及国际赛事赛前分析，提供即时比分、港超资讯与免费竞猜社区。内容仅供娱乐及分析参考，不构成投注建议。',
   keywords: [
     '足球分析',
     '香港足球预测',
-    '港超预测',
+    '港超分析',
     'football prediction',
     'soccer predictions today',
     'live score',
     'world cup 2026 predictions',
     '比分竞猜',
+    'hkfootballpro',
   ],
+  contactEmail: 'hello@hkfootballpro.com',
 } as const;
 
 /** 赛前分析详情页路径 */

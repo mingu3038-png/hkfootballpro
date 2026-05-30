@@ -8,11 +8,14 @@ import './globals.css';
 export const metadata: Metadata = {
   title: {
     default: siteConfig.defaultTitle,
-    template: `%s｜${siteConfig.nameZh}`,
+    template: `%s｜${siteConfig.seoSiteName}`,
   },
   description: siteConfig.defaultDescription,
   keywords: [...siteConfig.keywords],
   metadataBase: new URL(siteConfig.url),
+  alternates: {
+    canonical: siteConfig.url,
+  },
   icons: {
     icon: [{ url: siteConfig.brandFavicon, type: 'image/svg+xml' }],
     apple: [{ url: siteConfig.brandLogo, type: 'image/svg+xml' }],
@@ -20,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: siteConfig.locale,
-    siteName: siteConfig.nameZh,
+    siteName: siteConfig.seoSiteName,
     title: siteConfig.defaultTitle,
     description: siteConfig.defaultDescription,
     images: [

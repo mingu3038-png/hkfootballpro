@@ -97,7 +97,7 @@ export const homeContent: HomeContent = {
     homeSlug: 'psg',
     awaySlug: 'arsenal',
     time: '03:00',
-    league: '欧联决赛',
+    league: '欧冠决赛',
     direction: '巴黎圣日耳曼 -0.25',
     winRatePercent: 71,
     analysisSlug: 'psg-vs-arsenal-2026-05-30',
@@ -105,17 +105,17 @@ export const homeContent: HomeContent = {
 
   // ② 即时动态栏（Hero 下方 · 横滑跑马灯）
   liveTicker: [
-    '🔥 欧联决赛 PSG vs 阿森纳 盘口升温',
+    '🔥 欧冠决赛 PSG vs 阿森纳 盘口升温',
     '⚠️ 临场方向 30 分钟前更新',
     '📊 今日精选 5 场重心',
-    '🇭🇰 香港波友热议欧联决赛大小球',
+    '🇭🇰 香港波友热议欧冠决赛大小球',
     '🔥 苏格兰深盘 -1.5 跟进',
     '⚠️ 挪超莫迪大2.5 临场更新',
   ],
 
   // ③ 临场动态（手机模块）
   liveDynamics: [
-    '欧联决赛 PSG vs 阿森纳 重心已更新',
+    '欧冠决赛 PSG vs 阿森纳 重心已更新',
     '苏格兰 vs 库拉索 深盘跟进',
     '莫迪 vs 辛迪夫佐特 大2.5 升盘',
     '马尔默 -1.25 低水承接',
@@ -131,8 +131,8 @@ export const homeContent: HomeContent = {
       awaySlug: 'arsenal',
       slug: 'psg-vs-arsenal-2026-05-30',
       kickoffAt: '2026-05-29T19:00:00.000Z',
-      league: '欧联决赛',
-      leagueSlug: 'uel',
+      league: '欧冠决赛',
+      leagueSlug: 'ucl',
       direction: '巴黎圣日耳曼 -0.25',
       winRatePercent: 71,
       analysisPublished: true,
@@ -226,9 +226,9 @@ export const homeContent: HomeContent = {
     badge: '世界杯前哨战',
     titleGold: '香港足球',
     titleRed: '预测站',
-    statusLines: ['欧联决赛重心已更新', '临场方向持续更新'],
+    statusLines: ['欧冠决赛重心已更新', '临场方向持续更新'],
     tags: ['专业数据分析', '临场方向', '高赔率重心', '香港足球圈'],
-    heroHint: '欧联决赛 PSG vs 阿森纳 完整方向 TG 发布',
+    heroHint: '欧冠决赛 PSG vs 阿森纳 完整方向 TG 发布',
     ctaButtons: {
       primary: '立即加入 TG',
       mobilePrimary: '🔥 TG 已开放今晚免费场',
@@ -254,7 +254,7 @@ export const homeContent: HomeContent = {
     mobileBarLabel: '🔥 TG 已开放今晚免费场',
     winRatePercent: 70,
     liveUpdateTicker: [
-      '🔥 欧联决赛 PSG -0.25 跟进',
+      '🔥 欧冠决赛 PSG -0.25 跟进',
       '🔥 苏格兰 -1.5 深盘更新',
       '🔥 莫迪大2.5 升盘',
       '🔥 马尔默 -1.25 低水',
@@ -262,7 +262,7 @@ export const homeContent: HomeContent = {
     ],
     heroHighlights: [
       '今日 5 场重心已更新',
-      '欧联决赛 TG 跟进',
+      '欧冠决赛 TG 跟进',
       '每日精选临场发布',
     ],
   },

@@ -223,7 +223,7 @@ export function getWorldCupTickerItems(): string[] {
   const days = getWorldCupDaysUntilKickoff();
   return [
     `距 2026 世界杯开幕 ${days} 天 · 美加墨 48 队`,
-    '欧联决赛 巴黎圣日耳曼 vs 阿仙奴 03:00',
+    '欧冠决赛 巴黎圣日耳曼 vs 阿仙奴 03:00',
     '阿根廷冠军赔率 5.50 · 卫冕热门领跑',
   ];
 }
@@ -233,7 +233,7 @@ export function getWorldCupHotDirections(): WorldCupHotDirection[] {
   return [
     { label: '阿根廷', detail: '卫冕热门 · 深盘承接', href: getAnalysisUrl('argentina-vs-france-2026-07-26') },
     { label: '法国', detail: 'FIFA #2 · 冠军赔率 6.00' },
-    { label: 'PSG -0.25', detail: '欧联决赛重心 · 低水跟进', href: getAnalysisUrl(HERO_HOT_MATCH_SLUG) },
+    { label: 'PSG -0.25', detail: '欧冠决赛重心 · 低水跟进', href: getAnalysisUrl(HERO_HOT_MATCH_SLUG) },
     { label: '巴西', detail: '南美王者 · 赔率 6.50 下调' },
   ];
 }
@@ -245,7 +245,7 @@ export function getWorldCupPrecursorMatches(): WorldCupPrecursorMatch[] {
       slug: HERO_HOT_MATCH_SLUG,
       href: getAnalysisUrl(HERO_HOT_MATCH_SLUG),
       label: '巴黎圣日耳曼 vs 阿仙奴',
-      league: '欧联决赛',
+      league: '欧冠决赛',
       kickoffTime: '03:00',
     },
     {
@@ -362,7 +362,7 @@ export function getWorldCupHeroHotMatch(): WorldCupHeroHotMatch {
   return {
     slug: HERO_HOT_MATCH_SLUG,
     href: getAnalysisUrl(HERO_HOT_MATCH_SLUG),
-    league: '欧联决赛',
+    league: '欧冠决赛',
     kickoffTime: '03:00',
     homeSlug: 'psg',
     awaySlug: 'arsenal',
@@ -370,6 +370,6 @@ export function getWorldCupHeroHotMatch(): WorldCupHeroHotMatch {
     awayNameZh: '阿仙奴',
     direction: '巴黎圣日耳曼 -0.25',
     winRatePercent: 71,
-    headline: '欧联决赛 PSG 让步低水，决赛经验与进攻爆点占优。',
+    headline: '欧冠决赛 PSG 让步低水，决赛经验与进攻爆点占优。',
   };
 }

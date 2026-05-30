@@ -11,7 +11,7 @@ export interface HomeHotAnalysisCard {
 export const HOME_HOT_ANALYSES_WC_FOCUS: HomeHotAnalysisCard[] = [
   {
     slug: 'psg-vs-arsenal-2026-05-30',
-    league: '欧联决赛',
+    league: '欧冠决赛',
     kickoff: '03:00',
     matchup: '巴黎圣日耳曼 vs 阿森纳',
   },

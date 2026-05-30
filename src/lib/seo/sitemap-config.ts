@@ -15,11 +15,16 @@ export const SITEMAP_CORE_PATHS = [
 
 export const SITEMAP_STATIC_PATHS = [
   ...SITEMAP_CORE_PATHS,
+  '/about',
+  '/contact',
+  '/disclaimer',
   '/hong-kong-football',
   '/hong-kong-football/premier-league',
+  '/hong-kong-football/national-team',
   '/football-predictions',
   '/football-predictions/today',
   '/football-predictions/premier-league',
   '/predict',
+  '/predict/rules',
   '/leaderboard',
 ] as const;
