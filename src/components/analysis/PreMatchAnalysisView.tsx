@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { AnalysisMidTgCta } from '@/components/analysis/AnalysisMidTgCta';
 import { AnalysisSportsEventJsonLd } from '@/components/analysis/AnalysisSportsEventJsonLd';
 import { AnalysisTgCard } from '@/components/analysis/AnalysisTgCard';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
@@ -7,6 +8,7 @@ import { getAnalysisUrl } from '@/config/site';
 import {
   resolvePreMatchBrief,
   resolveRecommendationPicks,
+  resolveTgMidCtaBlocks,
 } from '@/lib/analysis-content';
 import { buildPreMatchAnalysisH1 } from '@/lib/seo/pre-match-analysis-seo';
 import type {
@@ -172,6 +174,7 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
   const pageTitle = buildPreMatchAnalysisH1(data);
   const brief = resolvePreMatchBrief(data);
   const picks = resolveRecommendationPicks(data);
+  const midTgBlock = resolveTgMidCtaBlocks(data, tgCopy.midCtaBlocks)[0];
   const h2hTotal = data.headToHead.homeWins + data.headToHead.draws + data.headToHead.awayWins;
   const ou = data.overUnderAnalysis;
   const modelWinRate = data.modelWinRate ?? ou.over25Probability;
@@ -379,6 +382,14 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
             </p>
             <p className="adx-panel__summary">{data.recommendation.summary}</p>
           </section>
+
+          {midTgBlock && (
+            <AnalysisMidTgCta
+              headline={midTgBlock.headline}
+              subline={midTgBlock.subline}
+              buttonLabel={midTgBlock.buttonLabel}
+            />
+          )}
 
           <section className="adx-panel" aria-labelledby="adx-h2h-title">
             <h2 id="adx-h2h-title" className="adx-panel__title">

@@ -246,7 +246,7 @@ export const homeContent: HomeContent = {
     titleGold: '香港足球',
     titleRed: '预测站',
     statusLines: ['欧冠决赛分析已更新', '临场盘口持续追踪'],
-    tags: ['专业数据分析', '临场方向', '盘口数据参考', '香港足球圈'],
+    tags: ['专业数据分析', '临场更新', '盘口数据参考', '香港足球圈'],
     heroHint: '欧冠决赛 PSG vs 阿森纳 赛前分析已公开',
     ctaButtons: {
       primary: '查看分析',
@@ -265,12 +265,16 @@ export const homeContent: HomeContent = {
     },
     card: {
       title: '官方 TG 频道',
-      subtitle: '香港足球圈 · 临场跟进',
-      benefits: ['赛前观点整理', '临场更新', '水位提醒'],
-      buttonLabel: '加入 TG 频道',
+      subtitle: '关注 TG 获取每日赛前分析提醒',
+      benefits: [
+        '赛前 30 分钟更新首发与盘口变化',
+        '每日赛前分析提醒',
+        '临场盘口变动追踪',
+      ],
+      buttonLabel: '加入 TG 查看临场更新',
       followerNote: '开赛前推送临场更新',
     },
-    mobileBarLabel: '查看临场更新',
+    mobileBarLabel: '加入 TG 查看临场更新',
     winRatePercent: 80,
     liveUpdateTicker: [
       '🔥 欧冠决赛 PSG -0.25 跟进',
@@ -345,7 +349,7 @@ export function mapHomeContentToTodayFreeFocus(hero: HomeContentHero): TodayFree
     statusLabel: '免费公开',
     analysisUrl,
     ctaLabel: '查看完整分析',
-    mobileTgCtaLabel: '立即入 TG 睇臨場',
+    mobileTgCtaLabel: '加入 TG 查看临场更新',
   };
 }
 
@@ -433,7 +437,7 @@ export function buildDailyHomeUpdateFromHomeContent(
       statusLabel: '免费公开',
       analysisUrl: `/analysis/${hero.analysisSlug}`,
       ctaLabel: '查看完整分析',
-      mobileTgCtaLabel: '立即入 TG 睇臨場',
+      mobileTgCtaLabel: '加入 TG 查看临场更新',
     },
     lastNight: {
       wins: lastNight.wins,
