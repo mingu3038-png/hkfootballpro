@@ -36,7 +36,6 @@ export const footerNav = [
   { label: '足球分析', href: '/football-analysis' },
   { label: '关于我们', href: '/about' },
   { label: '竞猜规则', href: '/predict/rules' },
-  { label: '免责声明', href: '/disclaimer' },
   { label: '联络我们', href: '/contact' },
 ] as const;
 
