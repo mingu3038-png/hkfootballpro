@@ -10,7 +10,7 @@ export interface HkfbFixture {
   time: string;
   homeNameZh: string;
   awayNameZh: string;
-  status: '未开始' | '进行中' | '已完场' | '延期';
+  status: '未開始' | '進行中' | '已完場' | '延期';
 }
 
 export interface HkfbFocusMatch {
@@ -98,36 +98,44 @@ export const HKFB_HOT_TEAMS: HkfbHotTeam[] = [
   { slug: 'hkfc', nameZh: '港会', abbr: 'HKF', href: '/hong-kong-football/premier-league' },
 ];
 
+/** 香港足球中心 · 今日港超焦點摘要（僅本頁展示，與頻道長文可獨立維護） */
+const HKFB_FOCUS_MATCH_SUMMARY =
+  '東方近況：近4個旺角主場2勝1和1負、失3球，定位球與邊路傳中為主要得分手段，終結效率一般。杰志近況：作客5戰3勝2負、入8球，轉換速度與肋部滲透仍屬港超上游。攻防對照：東方防線壓縮較好、防守轉換偏慢；杰志高位壓迫強但身後空檔需留意。結合往績與臨場盤路，1-1 或 1-2 屬合理參考區間，僅供賽前分析，非結果保證。';
+
 export const HKFB_NATIONAL_NEWS: HkfbNewsItem[] = [
   {
     id: 'wc-qual',
-    tag: '港队名单',
-    title: '港队作客东南亚 · 防守反击成主旋律',
-    summary: '教练组强调客场抢分，中场逼抢与定位球部署是重点。',
+    tag: '港隊名單',
+    title: '港隊公布29人集訓名單 · 杰志理文共佔8席',
+    summary:
+      '門將新增2名港超主力，中衛組合以東方、大埔球員為主；教練組透露定位球演練比重增加，東亞盃前仍會按U23表現微調陣容。',
     date: '2026-05-28',
     href: '/hong-kong-football/national-team',
   },
   {
     id: 'ea-cup',
-    tag: '东亚杯',
-    title: '东亚杯集训名单公布 · 3 名 U23 上调',
-    summary: '年轻球员获得机会，锋线仍倚重经验球员。',
+    tag: '東亞盃',
+    title: '東亞盃最終23人名單確定 · U23前鋒首次入選',
+    summary:
+      '鋒線保留2名老將壓陣，邊路以速度型球員為主；旅英中場恢復訓練後入選，球隊本週加練防守轉換與角球防守站位。',
     date: '2026-05-26',
     href: '/hong-kong-football/national-team',
   },
   {
     id: 'u23',
     tag: 'U23',
-    title: 'U23 友赛逼和对手 · 后场出球有进步',
-    summary: '新帅试阵双后腰，边路速度仍是主要武器。',
+    title: 'U23 作客1比1逼和柬埔寨 · 門將撲救成功率86%',
+    summary:
+      '雙后腰保護肋部效果尚可，但邊路回防到位率偏低，被對手反擊險些再破門；禁區前沿最後一傳成功率58%，定位球防守仍有漏洞。',
     date: '2026-05-24',
     href: '/hong-kong-football/national-team',
   },
   {
     id: 'hkpl-focus',
     tag: '港超',
-    title: '港超榜首大战 · 理文主场迎战杰志',
-    summary: '两队仅相差 5 分，临场阵容与边路速度或成关键变量。',
+    title: '理文主場迎戰杰志 · 榜首相差5分',
+    summary:
+      '理文近3個主場2勝1和、失2球，邊路提速與定位球為主要武器；杰志客場場均1.6球，防守轉換速度仍是港超頂級。臨場需關注杰志中場停賽對組織的影響。',
     date: '2026-05-22',
     href: '/hong-kong-football/premier-league',
   },
@@ -141,7 +149,7 @@ export const HKFB_FIXTURES: HkfbFixture[] = [
     time: '20:00',
     homeNameZh: '理文',
     awayNameZh: '杰志',
-    status: '未开始',
+    status: '未開始',
   },
   {
     id: 'fx-2',
@@ -149,7 +157,7 @@ export const HKFB_FIXTURES: HkfbFixture[] = [
     time: '19:30',
     homeNameZh: '杰志',
     awayNameZh: '流浪',
-    status: '未开始',
+    status: '未開始',
   },
   {
     id: 'fx-3',
@@ -157,7 +165,7 @@ export const HKFB_FIXTURES: HkfbFixture[] = [
     time: '20:00',
     homeNameZh: '东方',
     awayNameZh: '杰志',
-    status: '已完场',
+    status: '已完場',
   },
   {
     id: 'fx-4',
@@ -165,7 +173,7 @@ export const HKFB_FIXTURES: HkfbFixture[] = [
     time: '20:00',
     homeNameZh: '港会',
     awayNameZh: '理文',
-    status: '已完场',
+    status: '已完場',
   },
   {
     id: 'fx-5',
@@ -180,18 +188,21 @@ export const HKFB_FIXTURES: HkfbFixture[] = [
 export const HKFB_BETTING_GUIDES: HkfbGuideCard[] = [
   {
     slug: 'handicap',
-    title: '什么是让球',
-    summary: '强弱队实力差距时，庄家以让球平衡盘口，港式盘路常用 ±0.25、±0.5 档位。',
+    title: '什麼是讓球',
+    summary:
+      '港超常見讓球盤：強隊讓弱隊球。例「杰志 -0.5」= 杰志須淨勝至少1球才算贏盤；受讓方「+0.25」則可能贏半或走水。新手可先理解盤口檔位，再對照臨場水位研判下盤走勢。',
   },
   {
     slug: 'over-under',
-    title: '什么是大小球',
-    summary: '预测总入球是否高于或低于盘口，如大 2.5 即至少 3 球。',
+    title: '什麼是大小球',
+    summary:
+      '預測雙方總入球是否高於或低於盤口線。大2.5 = 至少入3球才算大；小2.5 = 0至2球算小。港超部分場次臨場會調整大小球水位，只反映盤路定義，不代表一定踢出該結果。',
   },
   {
     slug: 'line-move',
-    title: '什么是升盘',
-    summary: '临场水位或盘口变动，反映资金流向与庄家对赛果的最新判断。',
+    title: '什麼是升盤',
+    summary:
+      '臨場讓球盤由 -0.5 升至 -0.75，表示市場更傾向讓球方；常見觸發包括陣容消息、傷病或水位變動。升盤不等於賽果已定，退盤亦然，需結合港超球隊近況與首發名單再判斷。',
   },
 ];
 
@@ -248,7 +259,7 @@ export function getHkplFocusMatch(): HkfbFocusMatch {
       league: detail.league.nameZh,
       kickoffTime: formatKickoffTime(detail.kickoffAt),
       round: detail.round ?? '港超',
-      summary: detail.analysis.summaryZh,
+      summary: HKFB_FOCUS_MATCH_SUMMARY,
     };
   }
 
@@ -261,8 +272,8 @@ export function getHkplFocusMatch(): HkfbFocusMatch {
     awayNameZh: '杰志',
     league: '港超',
     kickoffTime: '20:00',
-    round: '港超第20轮',
-    summary: '东方主场防守稳健；杰志作客保持高产。榜首大战值得关注。',
+    round: '港超第20輪',
+    summary: HKFB_FOCUS_MATCH_SUMMARY,
   };
 }
 
@@ -306,4 +317,4 @@ export function getHkplFixtures(): HkfbFixture[] {
   return HKFB_FIXTURES;
 }
 
-export const HKFB_NEWS_CATEGORIES = ['港队名单', '东亚杯', 'U23', '港超'] as const;
+export const HKFB_NEWS_CATEGORIES = ['港隊名單', '東亞盃', 'U23', '港超'] as const;

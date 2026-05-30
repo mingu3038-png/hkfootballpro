@@ -14,9 +14,9 @@ import {
 
 function newsTagClass(tag: string): string {
   switch (tag) {
-    case '港队名单':
+    case '港隊名單':
       return 'hkfb-news__tag--squad';
-    case '东亚杯':
+    case '東亞盃':
       return 'hkfb-news__tag--ea';
     case 'U23':
       return 'hkfb-news__tag--u23';
@@ -29,9 +29,9 @@ function newsTagClass(tag: string): string {
 
 function newsCatClass(tag: string): string {
   switch (tag) {
-    case '港队名单':
+    case '港隊名單':
       return 'hkfb-news__cat--squad';
-    case '东亚杯':
+    case '東亞盃':
       return 'hkfb-news__cat--ea';
     case 'U23':
       return 'hkfb-news__cat--u23';
@@ -44,9 +44,9 @@ function newsCatClass(tag: string): string {
 
 function fixtureStatusClass(status: HkfbFixture['status']): string {
   switch (status) {
-    case '进行中':
+    case '進行中':
       return 'hkfb-fixtures__status--live';
-    case '已完场':
+    case '已完場':
       return 'hkfb-fixtures__status--ft';
     case '延期':
       return 'hkfb-fixtures__status--postponed';
@@ -99,17 +99,17 @@ export function HongKongFootballContent({
               香港足球中心
             </h1>
             <p className="hkfb-hero__desc">
-              港超赛程、港队动态、积分榜与本地赛事赛前分析
+              港超賽程、港隊動態、積分榜與本地賽事賽前分析
             </p>
           </div>
           <aside className="hkfb-hero__tg">
             <span className="hkfb-hero__tg-shine" aria-hidden />
             <div className="hkfb-hero__tg-head">
               <TelegramIcon className="hkfb-hero__tg-icon" />
-              <p className="hkfb-hero__tg-title">官方 TG 频道</p>
+              <p className="hkfb-hero__tg-title">官方 TG 頻道</p>
             </div>
             <p className="hkfb-hero__tg-copy">
-              接收港超赛前提醒、港队名单更新与临场资讯
+              接收港超賽前提醒、港隊名單更新與臨場資訊
             </p>
             <a
               href={tgUrl}
@@ -126,14 +126,14 @@ export function HongKongFootballContent({
       <section className="hkfb-section hkfb-section--focus" aria-labelledby="hkfb-focus-title">
         <header className="hkfb-section__head hkfb-section__head--focus">
           <h2 id="hkfb-focus-title" className="hkfb-section__title">
-            今日港超焦点
+            今日港超焦點
           </h2>
         </header>
         <article className="hkfb-focus">
           <span className="hkfb-focus__glow" aria-hidden />
           <span className="hkfb-focus__glow-gold" aria-hidden />
           <div className="hkfb-focus__top">
-            <span className="hkfb-focus__badge">今日焦点</span>
+            <span className="hkfb-focus__badge">今日焦點</span>
             <span className="hkfb-focus__league">{focusMatch.league}</span>
           </div>
           <div className="hkfb-focus__meta">
@@ -174,17 +174,17 @@ export function HongKongFootballContent({
       <section className="hkfb-section hkfb-section--fixtures" aria-labelledby="hkfb-fixtures-title">
         <header className="hkfb-section__head">
           <h2 id="hkfb-fixtures-title" className="hkfb-section__title">
-            港超赛程与赛果
+            港超賽程與賽果
           </h2>
-          <p className="hkfb-section__sub">本地赛事 · 近 5 场</p>
+          <p className="hkfb-section__sub">本地賽事 · 近 5 場</p>
         </header>
         <div className="hkfb-fixtures">
           <div className="hkfb-fixtures__head" aria-hidden>
             <span>日期</span>
-            <span>时间</span>
-            <span>主队</span>
-            <span>客队</span>
-            <span>状态</span>
+            <span>時間</span>
+            <span>主隊</span>
+            <span>客隊</span>
+            <span>狀態</span>
           </div>
           <ul className="hkfb-fixtures__list">
             {fixtures.map((fx) => (
@@ -208,20 +208,20 @@ export function HongKongFootballContent({
         <section className="hkfb-section" aria-labelledby="hkfb-standings-title">
           <header className="hkfb-section__head">
             <h2 id="hkfb-standings-title" className="hkfb-section__title">
-              港超积分榜
+              港超積分榜
             </h2>
-            <p className="hkfb-section__sub">港超积分榜 · 2025/26 · 定期更新</p>
+            <p className="hkfb-section__sub">港超積分榜 · 2025/26 · 定期更新</p>
           </header>
           <div className="hkfb-table-wrap">
             <table className="hkfb-table">
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">球队</th>
-                  <th scope="col">赛</th>
-                  <th scope="col">胜</th>
+                  <th scope="col">球隊</th>
+                  <th scope="col">賽</th>
+                  <th scope="col">勝</th>
                   <th scope="col">和</th>
-                  <th scope="col">负</th>
+                  <th scope="col">負</th>
                   <th scope="col">分</th>
                 </tr>
               </thead>
@@ -250,9 +250,9 @@ export function HongKongFootballContent({
         <section className="hkfb-section" aria-labelledby="hkfb-national-title">
           <header className="hkfb-section__head">
             <h2 id="hkfb-national-title" className="hkfb-section__title">
-              港队动态
+              港隊動態
             </h2>
-            <div className="hkfb-news__categories" aria-label="动态分类">
+            <div className="hkfb-news__categories" aria-label="動態分類">
               {HKFB_NEWS_CATEGORIES.map((cat) => (
                 <span key={cat} className={`hkfb-news__cat ${newsCatClass(cat)}`}>
                   {cat}
@@ -278,7 +278,7 @@ export function HongKongFootballContent({
       <section className="hkfb-section" aria-labelledby="hkfb-teams-title">
         <header className="hkfb-section__head">
           <h2 id="hkfb-teams-title" className="hkfb-section__title">
-            热门球队
+            熱門球隊
           </h2>
         </header>
         <ul className="hkfb-teams">
@@ -298,7 +298,7 @@ export function HongKongFootballContent({
       <section className="hkfb-section" aria-labelledby="hkfb-guide-title">
         <header className="hkfb-section__head">
           <h2 id="hkfb-guide-title" className="hkfb-section__title">
-            港式盘口教学
+            港式盤口教學
           </h2>
         </header>
         <ul className="hkfb-guides">
@@ -318,7 +318,7 @@ export function HongKongFootballContent({
           <h2 id="hkfb-articles-title" className="hkfb-section__title">
             最新港足分析
           </h2>
-          <p className="hkfb-section__sub">同步 hong-kong-football 标签文章</p>
+          <p className="hkfb-section__sub">同步 hong-kong-football 標籤文章</p>
         </header>
         <ul className="hkfb-articles">
           {latestArticles.map((item) => (
@@ -331,7 +331,7 @@ export function HongKongFootballContent({
                 <h3 className="hkfb-article__match">{item.matchLabel}</h3>
                 <p className="hkfb-article__title">{item.title}</p>
                 {item.summary && <p className="hkfb-article__summary">{item.summary}</p>}
-                <span className="hkfb-article__cta">阅读全文 →</span>
+                <span className="hkfb-article__cta">閱讀全文 →</span>
               </Link>
             </li>
           ))}

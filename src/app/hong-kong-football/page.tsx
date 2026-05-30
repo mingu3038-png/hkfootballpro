@@ -14,7 +14,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildCategoryMetadata(
   '香港足球中心',
-  '港超赛程、港队动态、积分榜与本地赛事赛前分析，汇集港超焦点与最新港足文章。',
+  '港超賽程、港隊動態、積分榜與本地賽事賽前分析，匯集港超焦點與最新港足文章。',
   '/hong-kong-football'
 );
 
