@@ -90,6 +90,28 @@ export interface Recommendation {
   picks?: string[];
 }
 
+/** 页面公开展示模式（由 coverageTier 派生，供第 3 步 UI 切换） */
+export type AnalysisDisplayMode = 'editorial_spotlight' | 'data_reference';
+
+/**
+ * 构建层输出的公开展示数据。
+ * spotlight：与 recommendation / aiInsight 等一致；
+ * data_reference：中性摘要，不含明确推荐方向（legacy 字段仍保留供当前 UI 读取）。
+ */
+export interface AnalysisPublicDisplay {
+  exposeDirection: boolean;
+  /** 公开层编辑观点；data 模式为 null */
+  editorialDirection: string | null;
+  recommendationSummary: string;
+  overUnderSummary: string;
+  oddsSummary: string;
+  aiInsightEv: string;
+  /** 中性节奏观察（不含编辑观点句） */
+  paceObservation: string;
+  /** data 模式 SEO 描述；spotlight 时可与 seoDescription 对齐 */
+  seoDescription: string;
+}
+
 /** 港式赛前分析正文 */
 export interface PreMatchBrief {
   homeForm: string;
@@ -148,6 +170,10 @@ export interface PreMatchAnalysisDetail {
   isFocus?: boolean;
   /** 公开内容层级（editorial_spotlight / data_reference） */
   coverageTier?: CoverageTier;
+  /** 页面展示模式（由 coverageTier 派生） */
+  displayMode?: AnalysisDisplayMode;
+  /** 构建层公开展示数据（spotlight / data 分流） */
+  publicDisplay?: AnalysisPublicDisplay;
   /** 页面主标题（缺省自动生成） */
   pageTitle?: string;
   /** Hero 模型胜率（%） */

@@ -1,5 +1,6 @@
 import type { FormResult, PreMatchAnalysisDetail } from '@/types/analysis';
 import type { DailyAnalysisInput } from '@/types/daily-analysis';
+import { buildAnalysisPublicDisplay } from '@/lib/analysis-display-layer';
 
 type Confidence = PreMatchAnalysisDetail['recommendation']['confidence'];
 
@@ -292,7 +293,7 @@ export function buildAnalysisPage(input: DailyAnalysisInput): PreMatchAnalysisDe
   const o = input.options ?? {};
   const base = buildBatchAnalysis(dailyInputToBatchSeed(input));
 
-  return {
+  const detail: PreMatchAnalysisDetail = {
     ...base,
     ...(input.content ? { preMatchBrief: input.content } : {}),
     pageTitle: input.title,
@@ -312,5 +313,13 @@ export function buildAnalysisPage(input: DailyAnalysisInput): PreMatchAnalysisDe
       picks: o.picks ?? [],
       summary: o.summary ?? base.recommendation.summary,
     },
+  };
+
+  const { displayMode, publicDisplay } = buildAnalysisPublicDisplay(detail, o.coverageTier);
+
+  return {
+    ...detail,
+    displayMode,
+    publicDisplay,
   };
 }

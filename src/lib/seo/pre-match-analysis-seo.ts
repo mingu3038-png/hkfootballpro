@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import type { PreMatchAnalysisDetail } from '@/types/analysis';
+import { isDataReferenceDisplay, resolveDisplayMode } from '@/lib/analysis-display-layer';
 import { getAnalysisUrl, siteConfig } from '@/config/site';
 
 const SEO_DESCRIPTION_TERMS = [
@@ -50,7 +51,15 @@ export function buildPreMatchAnalysisH1(data: PreMatchAnalysisDetail): string {
 
 /** 自动生成 meta description（含 SEO 必含词） */
 export function buildPreMatchAnalysisDescription(data: PreMatchAnalysisDetail): string {
+  if (isDataReferenceDisplay(data) && data.publicDisplay?.seoDescription) {
+    return data.publicDisplay.seoDescription.trim();
+  }
+
   if (data.seoDescription?.trim()) return data.seoDescription.trim();
+
+  if (data.publicDisplay?.seoDescription) {
+    return data.publicDisplay.seoDescription.trim();
+  }
 
   const { homeTeam, awayTeam, league, recommendation, overUnderAnalysis } = data;
   const ouLine = overUnderAnalysis.lineCurrent;
@@ -75,13 +84,17 @@ function descriptionIncludesRequiredTerms(text: string): boolean {
 /** 由比赛数据自动生成 keywords */
 export function buildPreMatchAnalysisKeywords(data: PreMatchAnalysisDetail): string[] {
   const { homeTeam, awayTeam, league, recommendation, round } = data;
+  const exposeDirection =
+    data.publicDisplay?.exposeDirection ??
+    resolveDisplayMode(data.coverageTier) === 'editorial_spotlight';
+
   const raw = [
     `${homeTeam.nameZh} vs ${awayTeam.nameZh}`,
     `${homeTeam.nameZh} 对 ${awayTeam.nameZh}`,
     `${league.nameZh} 赛前分析`,
     `${league.nameZh} 比分预测`,
     `${league.nameZh} 大小球`,
-    recommendation.direction,
+    ...(exposeDirection ? [recommendation.direction] : []),
     '赛前分析',
     '大小球',
     '大小球分析',
