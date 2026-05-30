@@ -9,11 +9,18 @@ import {
   getTodayDailyBatchDate,
 } from '@/data/daily';
 import {
+  getAllDailyBatchAnalysisInputs,
+  getDailyBatchAnalysisInputsByDate,
+} from '@/lib/daily-analysis-registry';
+import type { SeoArticle } from '@/types/seo-article';
+import {
+  getSeoArticleInputs,
   getTodaySeoArticleInputs,
   mapSeoArticleToDailyInput,
   seoArticles,
   SEO_ARTICLES_DATE,
 } from '@/lib/seo-articles';
+import { seoArticlesHot20260530 } from '@/lib/seo-articles-hot-2026-05-30';
 import { isDailySpotlight } from '@/types/coverage-tier';
 import type { DailyBatch } from '@/types/daily-batch';
 import type { DailyAnalysisInput } from '@/types/daily-analysis';
@@ -262,6 +269,86 @@ export function validateDailyBatchParity(
   };
 }
 
+/** 历史批次 vs 对应 seo-articles-hot 文件（仅 matches 层） */
+export function validateHistoricalDailyBatchParity(
+  date: string,
+  seoHotArticles: SeoArticle[]
+): DailyBatchValidationResult {
+  const issues: DailyBatchValidationIssue[] = [];
+  const batch = getDailyBatchByDate(date);
+  if (!batch) {
+    return {
+      ok: false,
+      issues: [{ code: 'BATCH_NOT_FOUND', message: `未注册 daily batch：${date}` }],
+    };
+  }
+
+  issues.push(...validateDailyBatchStructure(batch).issues);
+
+  const batchInputs = mapDailyBatchToDailyInputs(batch);
+  const seoInputs = seoHotArticles.map(mapSeoArticleToDailyInput);
+
+  if (batchInputs.length !== seoInputs.length) {
+    issues.push({
+      code: 'HISTORICAL_MATCH_COUNT',
+      message: `${date} daily batch ${batchInputs.length} 场 vs seo-hot ${seoInputs.length} 场`,
+    });
+  }
+
+  const seoBySlug = new Map(seoInputs.map((input) => [input.slug, input]));
+  for (const batchInput of batchInputs) {
+    const seoInput = seoBySlug.get(batchInput.slug);
+    if (!seoInput) {
+      issues.push({
+        code: 'HISTORICAL_SEO_SLUG_MISSING',
+        message: `${date} seo-hot 缺少 slug：${batchInput.slug}`,
+      });
+      continue;
+    }
+    compareDailyInputs(batchInput, seoInput, `${date} daily-batch vs seo-hot`, issues);
+  }
+
+  return { ok: issues.length === 0, issues };
+}
+
+/** 全量 DailyBatch 分析输入 vs getAllSeoArticleInputs（B1 合并链 parity） */
+export function validateAllDailyBatchAnalysisRegistryParity(): DailyBatchValidationResult {
+  const issues: DailyBatchValidationIssue[] = [];
+  const batchInputs = getAllDailyBatchAnalysisInputs();
+  const seoInputs = getSeoArticleInputs();
+
+  if (batchInputs.length !== seoInputs.length) {
+    issues.push({
+      code: 'ALL_BATCH_SEO_COUNT',
+      message: `DailyBatch 共 ${batchInputs.length} 场 vs seo-articles 共 ${seoInputs.length} 场`,
+    });
+  }
+
+  const seoBySlug = new Map(seoInputs.map((input) => [input.slug, input]));
+  for (const batchInput of batchInputs) {
+    const seoInput = seoBySlug.get(batchInput.slug);
+    if (!seoInput) {
+      issues.push({
+        code: 'ALL_BATCH_SEO_SLUG_MISSING',
+        message: `seo-articles 缺少 DailyBatch slug：${batchInput.slug}`,
+      });
+      continue;
+    }
+    compareDailyInputs(batchInput, seoInput, 'all-daily-batch vs seo-articles', issues);
+  }
+
+  for (const seoInput of seoInputs) {
+    if (!batchInputs.find((input) => input.slug === seoInput.slug)) {
+      issues.push({
+        code: 'ALL_BATCH_SLUG_MISSING',
+        message: `DailyBatch 缺少 seo-articles slug：${seoInput.slug}`,
+      });
+    }
+  }
+
+  return { ok: issues.length === 0, issues };
+}
+
 /** 校验指定日期的 batch 是否已注册且结构合法 */
 export function validateRegisteredDailyBatch(date: string): DailyBatchValidationResult {
   const batch = getDailyBatchByDate(date);
@@ -287,19 +374,53 @@ export function validateRegisteredDailyBatch(date: string): DailyBatchValidation
 
 /** CLI：npx tsx src/lib/validate-daily-batch-parity.ts */
 function runCli(): void {
+  let failed = false;
+
   const batch = getTodayDailyBatch();
   console.log(`daily batch 日期：${batch.date}`);
   console.log(`seo-articles 日期：${SEO_ARTICLES_DATE}`);
 
   const parity = validateDailyBatchParity(batch);
   if (parity.ok) {
-    console.log('validate-daily-batch-parity: OK');
-    return;
+    console.log('validate-daily-batch-parity (today): OK');
+  } else {
+    failed = true;
+    for (const issue of parity.issues) {
+      console.error(`[${issue.code}] ${issue.message}`);
+    }
   }
-  for (const issue of parity.issues) {
-    console.error(`[${issue.code}] ${issue.message}`);
+
+  const historical = validateHistoricalDailyBatchParity('2026-05-30', seoArticlesHot20260530);
+  if (historical.ok) {
+    console.log('validate-daily-batch-parity (2026-05-30): OK');
+  } else {
+    failed = true;
+    for (const issue of historical.issues) {
+      console.error(`[${issue.code}] ${issue.message}`);
+    }
   }
-  process.exitCode = 1;
+
+  const registryParity = validateAllDailyBatchAnalysisRegistryParity();
+  if (registryParity.ok) {
+    console.log('validate-daily-batch-analysis-registry: OK');
+  } else {
+    failed = true;
+    for (const issue of registryParity.issues) {
+      console.error(`[${issue.code}] ${issue.message}`);
+    }
+  }
+
+  const todayBatchInputs = getDailyBatchAnalysisInputsByDate(getTodayDailyBatchDate());
+  if (todayBatchInputs.length === 5) {
+    console.log('today DailyBatch match count: 5');
+  } else {
+    failed = true;
+    console.error(`today DailyBatch match count: ${todayBatchInputs.length} (expected 5)`);
+  }
+
+  if (failed) {
+    process.exitCode = 1;
+  }
 }
 
 const isDirectRun =

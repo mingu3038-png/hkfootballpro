@@ -5,6 +5,7 @@
  * 页面仍读 seo-articles / home-content；本 registry 仅作数据底座与 parity 校验。
  */
 import type { DailyBatch } from '@/types/daily-batch';
+import { dailyBatch20260530, DAILY_BATCH_DATE as DATE_20260530 } from '@/data/daily/2026-05-30';
 import { dailyBatch20260531, DAILY_BATCH_DATE as DATE_20260531 } from '@/data/daily/2026-05-31';
 
 export interface DailyBatchRegistryEntry {
@@ -12,8 +13,9 @@ export interface DailyBatchRegistryEntry {
   batch: DailyBatch;
 }
 
-/** 全部 daily 批次（历史只增不删） */
+/** 全部 daily 批次（历史只增不删，按日期升序） */
 export const DAILY_BATCH_REGISTRY: DailyBatchRegistryEntry[] = [
+  { date: DATE_20260530, batch: dailyBatch20260530 },
   { date: DATE_20260531, batch: dailyBatch20260531 },
 ];
 
