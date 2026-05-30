@@ -52,6 +52,7 @@ export default function PredictPage() {
             match={match}
             leagueSlug={leagueSlugMap[match.league.slug]}
             showAnalysisLink={false}
+            tagStrategy="daily-strategy"
           />
         ))}
       </div>

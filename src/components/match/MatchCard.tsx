@@ -2,11 +2,17 @@ import Link from 'next/link';
 import type { MatchListItem } from '@/types/match';
 import { getMatchAnalysisUrl, getLiveScoreUrl, getPredictUrl } from '@/config/leagues';
 import type { LeagueSlug } from '@/config/leagues';
+import {
+  resolveDailyStrategyMatchModifiers,
+  resolveDailyStrategyMatchTags,
+} from '@/lib/match-list-tag-display';
 
 interface MatchCardProps {
   match: MatchListItem;
   leagueSlug?: LeagueSlug;
   showAnalysisLink?: boolean;
+  /** /live-scores、/predict 使用每日策略标签；其他页面保持默认 isHot/isFocus */
+  tagStrategy?: 'default' | 'daily-strategy';
 }
 
 const LEAGUE_BADGE_CLASS: Record<string, string> = {
@@ -37,7 +43,12 @@ function statusBadge(status: MatchListItem['status']) {
   }
 }
 
-export function MatchCard({ match, leagueSlug, showAnalysisLink = true }: MatchCardProps) {
+export function MatchCard({
+  match,
+  leagueSlug,
+  showAnalysisLink = true,
+  tagStrategy = 'default',
+}: MatchCardProps) {
   const analysisUrl =
     leagueSlug && match.analysisPublished
       ? getMatchAnalysisUrl(leagueSlug, match.slug)
@@ -47,27 +58,46 @@ export function MatchCard({ match, leagueSlug, showAnalysisLink = true }: MatchC
     LEAGUE_BADGE_CLASS[match.league.slug] ?? 'match-card__league-badge--default';
   const abbr = match.leagueAbbr ?? match.league.nameZh.slice(0, 2);
 
+  const useDailyStrategy = tagStrategy === 'daily-strategy';
+  const modifiers = useDailyStrategy
+    ? resolveDailyStrategyMatchModifiers(match)
+    : { hot: Boolean(match.isHot), focus: Boolean(match.isFocus) };
+
+  const topTags = useDailyStrategy
+    ? resolveDailyStrategyMatchTags(match)
+    : [
+        ...(match.isHot
+          ? [{ className: 'match-card__tag match-card__tag--hot', label: '热门' }]
+          : []),
+        ...(match.isFreePublic
+          ? [{ className: 'match-card__tag match-card__tag--free', label: '免费公开' }]
+          : []),
+        ...(match.isLiveUpdating
+          ? [{ className: 'match-card__tag match-card__tag--live', label: '临场更新中' }]
+          : []),
+        ...(match.isFocus
+          ? [{ className: 'match-card__tag match-card__tag--focus', label: '重心' }]
+          : []),
+      ];
+
   const cardClass = [
     'card',
     'match-card',
-    match.isHot ? 'match-card--hot' : '',
-    match.isFocus ? 'match-card--focus' : '',
+    modifiers.hot ? 'match-card--hot' : '',
+    modifiers.focus ? 'match-card--focus' : '',
   ]
     .filter(Boolean)
     .join(' ');
 
   return (
     <article className={cardClass}>
-      {(match.isHot || match.isFocus || match.isFreePublic || match.isLiveUpdating) && (
+      {topTags.length > 0 && (
         <div className="match-card__top-tags">
-          {match.isHot && <span className="match-card__tag match-card__tag--hot">热门</span>}
-          {match.isFreePublic && (
-            <span className="match-card__tag match-card__tag--free">免费公开</span>
-          )}
-          {match.isLiveUpdating && (
-            <span className="match-card__tag match-card__tag--live">临场更新中</span>
-          )}
-          {match.isFocus && <span className="match-card__tag match-card__tag--focus">重心</span>}
+          {topTags.map((tag) => (
+            <span key={tag.label} className={tag.className}>
+              {tag.label}
+            </span>
+          ))}
         </div>
       )}
 

@@ -51,6 +51,7 @@ export default function LiveScoresPage() {
             key={match.id}
             match={match}
             leagueSlug={leagueSlugMap[match.league.slug]}
+            tagStrategy="daily-strategy"
           />
         ))}
       </div>
