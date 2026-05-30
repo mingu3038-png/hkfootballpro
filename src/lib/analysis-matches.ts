@@ -1,4 +1,5 @@
 import type { PreMatchBrief } from '@/types/analysis';
+import type { CoverageTier } from '@/types/coverage-tier';
 import type {
   DailyAnalysisInput,
   DailyAnalysisOptions,
@@ -39,6 +40,7 @@ interface SeoAnalysisMatchSeed {
   venueZh?: string;
   round?: string;
   homepageOrder?: number;
+  coverageTier?: CoverageTier;
 }
 
 function seoKickoffUtcIso(date: string, kickoff: string): string {
@@ -80,6 +82,7 @@ function seoBatchToInput(seed: SeoAnalysisMatchSeed): DailyAnalysisInput {
       venueZh: seed.venueZh,
       round: seed.round,
       homepageOrder: seed.homepageOrder,
+      coverageTier: seed.coverageTier,
     },
   };
 }
@@ -795,6 +798,7 @@ function seoArticleToSeed(article: SeoArticle): SeoAnalysisMatchSeed {
     venueZh: o.venueZh,
     round: o.round,
     homepageOrder: o.homepageOrder,
+    coverageTier: o.coverageTier,
   };
 }
 

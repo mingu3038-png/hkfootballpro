@@ -25,7 +25,7 @@ export default function FootballPredictionsPage() {
           <p className="fp-page__eyebrow">PRE-MATCH PICKS</p>
           <h1 className="fp-page__title">足球赛前预测</h1>
           <p className="fp-page__desc">
-            自动同步今日分析赛事，按联赛筛选查看方向、胜率与完整赛前分析。
+            自动同步今日分析赛事，按联赛筛选查看今日重点观察与数据参考赛事。
           </p>
         </header>
 

@@ -4,9 +4,11 @@ import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import {
   filterPredictionsByCategory,
+  getPredictionCardDisplay,
   PREDICTION_CATEGORIES,
   type FootballPredictionItem,
 } from '@/lib/football-predictions-today';
+import { isDailySpotlight } from '@/types/coverage-tier';
 
 interface FootballPredictionsBoardProps {
   items: FootballPredictionItem[];
@@ -58,10 +60,12 @@ export function FootballPredictionsBoard({ items, todayLabel }: FootballPredicti
         <p className="fp-board__empty">该分类暂无今日赛事，请切换其他分类。</p>
       ) : (
         <ul className="fp-board__list">
-          {filtered.map((item) => (
+          {filtered.map((item) => {
+            const display = getPredictionCardDisplay(item);
+            return (
             <li key={item.slug} className="fp-board__item">
               <article
-                className={`fp-card${item.isFocus ? ' fp-card--focus' : ''}${item.isHot ? ' fp-card--hot' : ''}`}
+                className={`fp-card${isDailySpotlight(item.coverageTier) ? ' fp-card--focus' : ''}${item.isHot ? ' fp-card--hot' : ''}`}
               >
                 <span className="fp-card__glow" aria-hidden />
                 <div className="fp-card__head">
@@ -70,17 +74,18 @@ export function FootballPredictionsBoard({ items, todayLabel }: FootballPredicti
                 </div>
                 <h2 className="fp-card__matchup">{item.matchup}</h2>
                 <div className="fp-card__meta">
-                  <span className="fp-card__direction">{item.direction}</span>
-                  {item.winRatePercent != null && (
-                    <span className="fp-card__rate">胜率 {item.winRatePercent}%</span>
+                  <span className="fp-card__direction">{display.primaryLabel}</span>
+                  {display.secondaryLabel && (
+                    <span className="fp-card__rate">{display.secondaryLabel}</span>
                   )}
                 </div>
                 <Link href={item.analysisUrl} className="fp-card__cta">
-                  查看分析 →
+                  {display.ctaLabel}
                 </Link>
               </article>
             </li>
-          ))}
+            );
+          })}
         </ul>
       )}
     </div>

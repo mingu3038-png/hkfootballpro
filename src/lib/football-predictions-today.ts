@@ -1,5 +1,5 @@
 import { getAnalysisUrl } from '@/config/site';
-import type { CoverageTier } from '@/types/coverage-tier';
+import { isDailySpotlight, type CoverageTier } from '@/types/coverage-tier';
 import type { DailyAnalysisInput } from '@/types/daily-analysis';
 import { getTodayAnalysisMatches, SEO_DAILY_DATE } from '@/lib/analysis-matches';
 
@@ -30,6 +30,38 @@ export interface FootballPredictionItem {
   isHot: boolean;
   isFocus: boolean;
   coverageTier?: CoverageTier;
+  lineOpen?: string;
+  lineCurrent?: string;
+}
+
+export interface PredictionCardDisplay {
+  primaryLabel: string;
+  secondaryLabel?: string;
+  ctaLabel: string;
+}
+
+/** 列表卡展示文案（spotlight 暴露 direction，data 为中性信息） */
+export function getPredictionCardDisplay(item: FootballPredictionItem): PredictionCardDisplay {
+  if (isDailySpotlight(item.coverageTier)) {
+    return {
+      primaryLabel: item.direction,
+      secondaryLabel:
+        item.winRatePercent != null ? `模型参考率 ${item.winRatePercent}%` : undefined,
+      ctaLabel: '查看重点分析 →',
+    };
+  }
+
+  let secondaryLabel =
+    item.winRatePercent != null ? `模型参考率 ${item.winRatePercent}%` : '盘口变化追踪';
+  if (item.lineOpen && item.lineCurrent && item.lineOpen !== item.lineCurrent) {
+    secondaryLabel = `盘口 ${item.lineOpen} → ${item.lineCurrent}`;
+  }
+
+  return {
+    primaryLabel: '数据参考',
+    secondaryLabel,
+    ctaLabel: '查看数据参考 →',
+  };
 }
 
 function mapToPredictionItem(input: DailyAnalysisInput): FootballPredictionItem {
@@ -46,6 +78,8 @@ function mapToPredictionItem(input: DailyAnalysisInput): FootballPredictionItem 
     isHot: o.isHot ?? false,
     isFocus: o.isFocus ?? false,
     coverageTier: o.coverageTier,
+    lineOpen: o.lineOpen,
+    lineCurrent: o.lineCurrent,
   };
 }
 
