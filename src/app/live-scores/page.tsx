@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { MatchCard } from '@/components/match/MatchCard';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
 import { mockMatches } from '@/lib/mock-data';
@@ -26,14 +25,23 @@ export default function LiveScoresPage() {
         <h1 className="text-3xl font-bold mb-3">即时比分</h1>
         <div className="flex flex-wrap gap-2">
           {[
-            { label: '港超', href: '/live-scores/hong-kong' },
-            { label: '英超', href: '/live-scores/premier-league' },
-            { label: '今日赛果', href: '/live-scores/results/today' },
+            { label: '港超', hint: '港超即时比分筛选即将推出' },
+            { label: '英超', hint: '英超即时比分筛选即将推出' },
+            { label: '今日赛果', hint: '今日赛果专题即将推出' },
           ].map((item) => (
-            <Link key={item.href} href={item.href} className="btn btn-outline text-xs">
+            <span
+              key={item.label}
+              role="button"
+              aria-disabled="true"
+              title={item.hint}
+              className="btn btn-outline text-xs opacity-50 cursor-not-allowed pointer-events-none"
+            >
               {item.label}
-            </Link>
+            </span>
           ))}
+          <p className="w-full text-xs text-[var(--text-muted)]">
+            联赛筛选与赛果专题开发中，请先在下方查看赛事列表。
+          </p>
         </div>
       </header>
 

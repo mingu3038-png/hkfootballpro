@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
 import { mockLeaderboard } from '@/lib/mock-data';
 import { buildCategoryMetadata } from '@/lib/seo/build-metadata';
@@ -19,14 +18,23 @@ export default function LeaderboardPage() {
         <h1 className="text-3xl font-bold mb-3">预测排行榜</h1>
         <div className="flex flex-wrap gap-2">
           {[
-            { label: '本周', href: '/leaderboard/weekly' },
-            { label: '本月', href: '/leaderboard/monthly' },
-            { label: '港超专家', href: '/leaderboard/hong-kong' },
+            { label: '本周', hint: '本周排行榜即将推出' },
+            { label: '本月', hint: '本月排行榜即将推出' },
+            { label: '港超专家', hint: '港超专家榜即将推出' },
           ].map((item) => (
-            <Link key={item.href} href={item.href} className="btn btn-outline text-xs">
+            <span
+              key={item.label}
+              role="button"
+              aria-disabled="true"
+              title={item.hint}
+              className="btn btn-outline text-xs opacity-50 cursor-not-allowed pointer-events-none"
+            >
               {item.label}
-            </Link>
+            </span>
           ))}
+          <p className="w-full text-xs text-[var(--text-muted)]">
+            分类排行榜开发中，目前显示综合总榜。
+          </p>
         </div>
       </header>
 
