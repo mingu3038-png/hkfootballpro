@@ -16,7 +16,7 @@ import type { MatchListItem } from '@/types/match';
  *
  * 新增一条比赛后自动生成：
  * · /analysis/[slug] 静态页 + SEO title / meta description
- * · sitemap.xml 条目（经 siteDailyContent.preMatchAnalyses）
+ * · sitemap.xml 条目（DailyBatch registry，阶段 B2）
  * · 首页「今日重点赛事」卡片（showOnHomepage !== false）
  * · 首页「最新赛前分析」（featuredInLatest / isHot / isFocus）
  */

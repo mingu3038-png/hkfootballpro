@@ -2,7 +2,7 @@
  * 统一每日批次 registry（阶段 0+1）
  *
  * 换日：新增 src/data/daily/YYYY-MM-DD.ts 并在 DAILY_BATCH_REGISTRY 追加。
- * 页面仍读 seo-articles / home-content；本 registry 仅作数据底座与 parity 校验。
+ * archive / sitemap 已读本 registry；seo-articles 仍保留 parity 兼容。
  */
 import type { DailyBatch } from '@/types/daily-batch';
 import { dailyBatch20260530, DAILY_BATCH_DATE as DATE_20260530 } from '@/data/daily/2026-05-30';

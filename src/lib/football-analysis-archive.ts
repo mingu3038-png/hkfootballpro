@@ -1,5 +1,8 @@
 import { getAnalysisUrl } from '@/config/site';
-import { getAllSeoArticles, SEO_ARTICLES_DATE } from '@/lib/seo-articles';
+import {
+  getAllDailyBatchSeoArticles,
+  getTodayDailyBatchAnalysisDate,
+} from '@/lib/daily-analysis-registry';
 import { isDailySpotlight } from '@/types/coverage-tier';
 import type { SeoArticle } from '@/types/seo-article';
 
@@ -58,12 +61,12 @@ function sortItems(items: ArchivedAnalysisItem[], articlesBySlug: Map<string, Se
   });
 }
 
-/** 最近 N 天已归档 SEO 分析（不含当日批次） */
+/** 最近 N 天已归档 DailyBatch 分析（不含当日批次） */
 export function getArchivedSeoArticles(days = 7): ArchivedAnalysisItem[] {
-  const today = SEO_ARTICLES_DATE;
+  const today = getTodayDailyBatchAnalysisDate();
   const cutoff = subtractDays(today, days);
 
-  return getAllSeoArticles()
+  return getAllDailyBatchSeoArticles()
     .map((article) => {
       const date = slugBatchDate(article.slug);
       if (!date || date >= today || date < cutoff) return null;
@@ -74,7 +77,7 @@ export function getArchivedSeoArticles(days = 7): ArchivedAnalysisItem[] {
 
 /** 按比赛日分组，日期倒序 */
 export function getArchivedSeoArticlesGrouped(days = 7): ArchivedAnalysisGroup[] {
-  const articlesBySlug = new Map(getAllSeoArticles().map((a) => [a.slug, a]));
+  const articlesBySlug = new Map(getAllDailyBatchSeoArticles().map((a) => [a.slug, a]));
   const items = getArchivedSeoArticles(days);
   const byDate = new Map<string, ArchivedAnalysisItem[]>();
 

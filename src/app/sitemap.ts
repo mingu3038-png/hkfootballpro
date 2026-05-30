@@ -1,7 +1,8 @@
 import type { MetadataRoute } from 'next';
 import { getAnalysisUrl } from '@/config/site';
 import { getMatchAnalysisUrl } from '@/config/leagues';
-import { mockAnalyses, siteDailyContent } from '@/lib/mock-data';
+import { mockAnalyses } from '@/lib/mock-data';
+import { getAllDailyBatchSeoArticles } from '@/lib/daily-analysis-registry';
 import { SITEMAP_ORIGIN, SITEMAP_STATIC_PATHS } from '@/lib/seo/sitemap-config';
 import type { LeagueSlug } from '@/config/leagues';
 
@@ -30,14 +31,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  const preMatchAnalysisPages = Object.entries(siteDailyContent.preMatchAnalyses).map(
-    ([slug, detail]) => ({
-      url: `${base}${getAnalysisUrl(slug)}`,
-      lastModified: new Date(detail.publishedAt),
-      changeFrequency: 'daily' as const,
-      priority: 0.85,
-    })
-  );
+  const preMatchAnalysisPages = getAllDailyBatchSeoArticles().map((article) => ({
+    url: `${base}${getAnalysisUrl(article.slug)}`,
+    lastModified: new Date(article.publishedAt),
+    changeFrequency: 'daily' as const,
+    priority: 0.85,
+  }));
 
   return [...staticEntries, ...leagueAnalysisPages, ...preMatchAnalysisPages];
 }

@@ -4,7 +4,8 @@
  * 每条文章自动生成：
  * · /analysis/{slug}  静态页（世界杯黑金 UI，不改布局）
  * · SEO title / meta description / JSON-LD
- * · sitemap.xml 条目
+ * · sitemap.xml / 历史归档 → daily-analysis-registry（阶段 B2）
+ * · 校验脚本 / 兼容 import → 仍读本文件与 seo-articles-hot-*
  *
  * 当日赛事维护：src/lib/seo-articles-hot-YYYY-MM-DD.ts
  * 换日：新建 hot 文件并在下方 SEO_HOT_BATCHES 追加，勿删除旧批次。
@@ -33,7 +34,7 @@ export const SEO_ARTICLES_DATE = SEO_HOT_BATCH_DATE;
 /** 当日 SEO 分析（今日列表 / 校验 / 首页最新） */
 export const seoArticles: SeoArticle[] = seoArticlesHot20260531;
 
-/** 全部 SEO 分析（分析页 / sitemap / 静态生成） */
+/** 全部 SEO 分析（兼容 export；archive/sitemap 已改读 DailyBatch registry） */
 export const seoArticlesAll: SeoArticle[] = SEO_HOT_BATCHES.flat();
 
 // =============================================================================
