@@ -73,39 +73,49 @@ export function HongKongFootballContent({
       </section>
 
       <section className="hkfb-section hkfb-section--focus" aria-labelledby="hkfb-focus-title">
-        <header className="hkfb-section__head">
+        <header className="hkfb-section__head hkfb-section__head--focus">
           <h2 id="hkfb-focus-title" className="hkfb-section__title">
             今日港超焦点
           </h2>
         </header>
         <article className="hkfb-focus">
           <span className="hkfb-focus__glow" aria-hidden />
+          <span className="hkfb-focus__glow-gold" aria-hidden />
+          <div className="hkfb-focus__top">
+            <span className="hkfb-focus__badge">今日焦点</span>
+            <span className="hkfb-focus__league">{focusMatch.league}</span>
+          </div>
           <div className="hkfb-focus__meta">
             <span className="hkfb-focus__round">{focusMatch.round}</span>
             <time className="hkfb-focus__time">{focusMatch.kickoffTime}</time>
           </div>
           <div className="hkfb-focus__matchup">
             <div className="hkfb-focus__team">
-              <TeamLogo
-                slug={focusMatch.homeSlug}
-                nameZh={focusMatch.homeNameZh}
-                className="hkfb-focus__logo"
-              />
-              <span>{focusMatch.homeNameZh}</span>
+              <span className="hkfb-focus__logo-wrap">
+                <TeamLogo
+                  slug={focusMatch.homeSlug}
+                  nameZh={focusMatch.homeNameZh}
+                  className="hkfb-focus__logo"
+                />
+              </span>
+              <span className="hkfb-focus__team-name">{focusMatch.homeNameZh}</span>
             </div>
             <span className="hkfb-focus__vs">VS</span>
             <div className="hkfb-focus__team">
-              <TeamLogo
-                slug={focusMatch.awaySlug}
-                nameZh={focusMatch.awayNameZh}
-                className="hkfb-focus__logo"
-              />
-              <span>{focusMatch.awayNameZh}</span>
+              <span className="hkfb-focus__logo-wrap">
+                <TeamLogo
+                  slug={focusMatch.awaySlug}
+                  nameZh={focusMatch.awayNameZh}
+                  className="hkfb-focus__logo"
+                />
+              </span>
+              <span className="hkfb-focus__team-name">{focusMatch.awayNameZh}</span>
             </div>
           </div>
           <p className="hkfb-focus__summary">{focusMatch.summary}</p>
           <Link href={focusMatch.href} className="hkfb-focus__cta">
             查看分析
+            <span className="hkfb-focus__cta-arrow" aria-hidden>→</span>
           </Link>
         </article>
       </section>
@@ -184,7 +194,9 @@ export function HongKongFootballContent({
           {hotTeams.map((team) => (
             <li key={team.slug}>
               <Link href={team.href} className="hkfb-team">
-                <TeamLogo slug={team.slug} nameZh={team.nameZh} className="hkfb-team__logo" />
+                <span className="hkfb-team__logo-wrap">
+                  <TeamLogo slug={team.slug} nameZh={team.nameZh} className="hkfb-team__logo" />
+                </span>
                 <span className="hkfb-team__name">{team.nameZh}</span>
               </Link>
             </li>
