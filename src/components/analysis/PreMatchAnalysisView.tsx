@@ -1,8 +1,5 @@
 import Link from 'next/link';
-import { AnalysisInlineTgCta } from '@/components/analysis/AnalysisInlineTgCta';
-import { AnalysisMidTgCta } from '@/components/analysis/AnalysisMidTgCta';
 import { AnalysisSportsEventJsonLd } from '@/components/analysis/AnalysisSportsEventJsonLd';
-import { AnalysisStickyTgBar } from '@/components/analysis/AnalysisStickyTgBar';
 import { AnalysisTgCard } from '@/components/analysis/AnalysisTgCard';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
 import { TeamLogo } from '@/components/ui/TeamLogo';
@@ -10,7 +7,6 @@ import { getAnalysisUrl } from '@/config/site';
 import {
   resolvePreMatchBrief,
   resolveRecommendationPicks,
-  resolveTgMidCtaBlocks,
 } from '@/lib/analysis-content';
 import { buildPreMatchAnalysisH1 } from '@/lib/seo/pre-match-analysis-seo';
 import type {
@@ -176,7 +172,6 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
   const pageTitle = buildPreMatchAnalysisH1(data);
   const brief = resolvePreMatchBrief(data);
   const picks = resolveRecommendationPicks(data);
-  const midCtas = resolveTgMidCtaBlocks(data, tgCopy.midCtaBlocks);
   const h2hTotal = data.headToHead.homeWins + data.headToHead.draws + data.headToHead.awayWins;
   const ou = data.overUnderAnalysis;
   const modelWinRate = data.modelWinRate ?? ou.over25Probability;
@@ -380,14 +375,6 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
             <p className="adx-panel__summary">{data.recommendation.summary}</p>
           </section>
 
-          {midCtas[0] && (
-            <AnalysisMidTgCta
-              headline={midCtas[0].headline}
-              subline={midCtas[0].subline}
-              buttonLabel={midCtas[0].buttonLabel}
-            />
-          )}
-
           <section className="adx-panel" aria-labelledby="adx-h2h-title">
             <h2 id="adx-h2h-title" className="adx-panel__title">
               <span className="adx-panel__icon" aria-hidden />
@@ -494,14 +481,6 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
             <p className="adx-ai-summary">{data.aiInsight.ev}</p>
           </section>
 
-          {midCtas[1] && (
-            <AnalysisMidTgCta
-              headline={midCtas[1].headline}
-              subline={midCtas[1].subline}
-              buttonLabel={midCtas[1].buttonLabel}
-            />
-          )}
-
           {data.riskWarning.items.length > 0 && (
             <section
               className={`adx-panel adx-panel--risk adx-panel--risk-${data.riskWarning.level}`}
@@ -519,11 +498,8 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
             </section>
           )}
 
-          <AnalysisInlineTgCta label={tgCopy.inlineCtaLabel} />
-
           <div className="adx-convert-below" role="note">
             <p className="adx-convert-below__line">{tgCopy.tgUpdateNote}</p>
-            <p className="adx-convert-below__followers">{tgCopy.followerNote}</p>
           </div>
 
           {data.relatedArticles.length > 0 && (
@@ -553,15 +529,11 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
             pick={data.recommendation.direction}
           />
 
-          <p className="adx-convert-footer">{tgCopy.footerTeaser}</p>
-
           <Link href="/football-analysis" className="btn btn-outline analysis-detail__more">
             更多赛前分析 →
           </Link>
         </div>
       </div>
-
-      <AnalysisStickyTgBar copy={tgCopy.stickyBar} />
     </article>
   );
 }

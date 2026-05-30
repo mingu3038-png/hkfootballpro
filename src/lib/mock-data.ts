@@ -42,40 +42,40 @@ import {
 //  下方 siteDailyContent / mockMatches — 非每日必改。
 // =============================================================================
 
-/** 分析页 TG 文案（非每日首页区，一般不用改） */
+/** 分析页 TG 文案（非每日首页区） */
 export const TG_PROMO_ANALYSIS: TgPromoContent['analysis'] = {
   badge: 'Telegram 频道',
-  titleSuffix: '· 完整临场分析',
-  pickPrefix: '推荐：',
-  defaultPickLabel: '临场方向',
-  subtitleSuffix: '· 水位变动、阵容确认与走地提示，开赛前推送',
+  titleSuffix: '· 赛前变动跟进',
+  pickPrefix: '观点：',
+  defaultPickLabel: '赛前观点',
+  subtitleSuffix: '· 开赛前更新阵容与盘口变化',
   benefits: [
-    '亚盘 / 大小球临场水位预警',
+    '亚盘 / 大小球临场水位变动',
     '伤停与首发阵容确认',
-    '走地跟进与重心更新',
+    '开赛前推送盘口更新',
   ],
-  buttonLabel: '进入 TG 查看最终方向',
+  buttonLabel: '查看临场更新',
   disclaimer: '预测仅供参考，请理性投注',
-  inlineCtaLabel: '完整临场方向已更新 → 立即加入 TG',
-  midUpdateNote: '临场方向将在开赛前更新',
-  tgUpdateNote: 'TG 内更新最终方向',
-  followerNote: '已有 2847 位波友领取今晚重心',
-  footerTeaser: '今晚还有 2 场重心未公开',
+  inlineCtaLabel: '关注赛前变动 → 查看临场更新',
+  midUpdateNote: '阵容与盘口将在开赛前更新',
+  tgUpdateNote: '关注赛前变动，开赛前更新阵容与盘口变化',
+  followerNote: '',
+  footerTeaser: '',
   stickyBar: {
-    headline: '完整临场方向已更新',
-    subtitle: '临场水位 / 阵容变动 / 走地跟进',
-    buttonLabel: '立即加入 TG',
+    headline: '关注赛前变动',
+    subtitle: '开赛前更新阵容与盘口变化',
+    buttonLabel: '查看临场更新',
   },
   midCtaBlocks: [
     {
-      headline: '更多临场方向已更新 TG',
-      subline: '串关 / 角球 / 临场走势已放 TG',
-      buttonLabel: '立即加入 TG',
+      headline: '关注赛前盘口变动',
+      subline: '开赛前更新阵容与水位变化',
+      buttonLabel: '查看临场更新',
     },
     {
-      headline: '完整临场水位跟进 TG',
-      subline: '首发确认后推送最终方向 · 走地同步',
-      buttonLabel: '立即加入 TG',
+      headline: '开赛前跟进阵容确认',
+      subline: '临场盘口变动会在频道更新',
+      buttonLabel: '查看临场更新',
     },
   ],
 };

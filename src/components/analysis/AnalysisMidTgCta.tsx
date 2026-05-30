@@ -9,7 +9,7 @@ interface AnalysisMidTgCtaProps {
 export function AnalysisMidTgCta({
   headline,
   subline,
-  buttonLabel = '立即加入 TG',
+  buttonLabel = '查看临场更新',
 }: AnalysisMidTgCtaProps) {
   return (
     <div className="adx-mid-cta">
