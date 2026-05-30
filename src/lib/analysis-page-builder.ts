@@ -302,6 +302,7 @@ export function buildAnalysisPage(input: DailyAnalysisInput): PreMatchAnalysisDe
     round: o.round ?? base.round,
     isHot: o.isHot ?? base.isHot,
     isFocus: o.isFocus ?? base.isFocus,
+    coverageTier: o.coverageTier,
     modelWinRate: o.modelWinRate ?? base.modelWinRate,
     publishedAt: o.publishedAt ?? base.publishedAt,
     recommendation: {

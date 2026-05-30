@@ -9,6 +9,7 @@
  * ⑤ TG CTA 文案
  */
 import type { HeroTonightFeature } from '@/lib/hero-spotlight';
+import type { CoverageTier } from '@/types/coverage-tier';
 import type { HomePageData, LastNightResults, MatchListItem, TodayFreeFocus } from '@/types/match';
 import type { DailyHomeTgCta, DailyHomeUpdate, TgPromoContent } from '@/types/site-daily';
 
@@ -27,6 +28,8 @@ export interface HomeContentHero {
   winRatePercent: number;
   /** 分析页 slug，例：man-united-vs-liverpool-2026-05-25 */
   analysisSlug: string;
+  /** 公开内容层级 */
+  coverageTier: CoverageTier;
 }
 
 export interface HomeContentFocusMatch {
@@ -46,6 +49,8 @@ export interface HomeContentFocusMatch {
   analysisPublished?: boolean;
   isFocus?: boolean;
   isHot?: boolean;
+  /** 公开内容层级（与 seo-articles options.coverageTier 一致） */
+  coverageTier: CoverageTier;
 }
 
 export interface HomeContentRecent10 {
@@ -114,6 +119,7 @@ export const homeContent: HomeContent = {
     direction: '巴黎圣日耳曼 -0.25',
     winRatePercent: 71,
     analysisSlug: 'psg-vs-arsenal-2026-05-30',
+    coverageTier: 'editorial_spotlight',
   },
 
   // ② 即时动态栏（Hero 下方 · 横滑跑马灯）
@@ -151,6 +157,7 @@ export const homeContent: HomeContent = {
       analysisPublished: true,
       isFocus: true,
       isHot: true,
+      coverageTier: 'editorial_spotlight',
     },
     {
       homeTeam: '苏格兰',
@@ -166,6 +173,7 @@ export const homeContent: HomeContent = {
       analysisPublished: true,
       isFocus: true,
       isHot: true,
+      coverageTier: 'data_reference',
     },
     {
       homeTeam: '莫迪',
@@ -181,6 +189,7 @@ export const homeContent: HomeContent = {
       analysisPublished: true,
       isFocus: true,
       isHot: true,
+      coverageTier: 'data_reference',
     },
     {
       homeTeam: '马尔默',
@@ -196,6 +205,7 @@ export const homeContent: HomeContent = {
       analysisPublished: true,
       isFocus: true,
       isHot: true,
+      coverageTier: 'data_reference',
     },
     {
       homeTeam: '成都蓉城',
@@ -211,6 +221,7 @@ export const homeContent: HomeContent = {
       analysisPublished: true,
       isFocus: true,
       isHot: true,
+      coverageTier: 'data_reference',
     },
   ],
 
@@ -389,6 +400,7 @@ export function mapHomeContentToFocusMatches(
     isHot: item.isHot,
     pickDirection: item.direction,
     winRatePercent: item.winRatePercent,
+    coverageTier: item.coverageTier,
   }));
 }
 

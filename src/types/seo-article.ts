@@ -35,6 +35,6 @@ export interface SeoArticle {
   seoTitle?: string;
   /** meta description */
   seoDescription?: string;
-  /** 盘口、标签等可选参数 */
+  /** 盘口、标签等可选参数（含 coverageTier：editorial_spotlight | data_reference） */
   options?: DailyAnalysisOptions;
 }

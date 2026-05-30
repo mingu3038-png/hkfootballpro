@@ -64,6 +64,7 @@ export function buildHomeHighlightFromInput(input: DailyAnalysisInput): MatchLis
     pickDirection: input.direction,
     winRatePercent: o.modelWinRate,
     over25Prob: o.over25Prob,
+    coverageTier: o.coverageTier,
   };
 }
 

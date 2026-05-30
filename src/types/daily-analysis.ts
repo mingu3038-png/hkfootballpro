@@ -1,4 +1,5 @@
 import type { PreMatchBrief } from '@/types/analysis';
+import type { CoverageTier } from '@/types/coverage-tier';
 
 /** 分析页球队（主队 / 客队） */
 export interface DailyAnalysisTeam {
@@ -39,6 +40,11 @@ export interface DailyAnalysisOptions {
   predictEnabled?: boolean;
   analysisPublished?: boolean;
   status?: 'scheduled' | 'live' | 'finished' | 'postponed' | 'cancelled';
+  /**
+   * 公开内容层级：editorial_spotlight = 今日重点观察（可展示编辑观点）；
+   * data_reference = 数据参考（后续 UI 隐藏明确方向，第 1 步仅标记）
+   */
+  coverageTier?: CoverageTier;
 }
 
 /**

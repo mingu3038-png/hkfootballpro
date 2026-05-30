@@ -1,4 +1,5 @@
 import { getAnalysisUrl } from '@/config/site';
+import type { CoverageTier } from '@/types/coverage-tier';
 import type { DailyAnalysisInput } from '@/types/daily-analysis';
 import { getTodayAnalysisMatches, SEO_DAILY_DATE } from '@/lib/analysis-matches';
 
@@ -28,6 +29,7 @@ export interface FootballPredictionItem {
   analysisUrl: string;
   isHot: boolean;
   isFocus: boolean;
+  coverageTier?: CoverageTier;
 }
 
 function mapToPredictionItem(input: DailyAnalysisInput): FootballPredictionItem {
@@ -43,6 +45,7 @@ function mapToPredictionItem(input: DailyAnalysisInput): FootballPredictionItem 
     analysisUrl: getAnalysisUrl(input.slug),
     isHot: o.isHot ?? false,
     isFocus: o.isFocus ?? false,
+    coverageTier: o.coverageTier,
   };
 }
 

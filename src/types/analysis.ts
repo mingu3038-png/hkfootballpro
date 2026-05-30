@@ -1,3 +1,5 @@
+import type { CoverageTier } from '@/types/coverage-tier';
+
 export type FormResult = 'W' | 'D' | 'L';
 
 export interface TeamRecentStatus {
@@ -144,6 +146,8 @@ export interface PreMatchAnalysisDetail {
   isHot?: boolean;
   /** Hero · 重心标签 */
   isFocus?: boolean;
+  /** 公开内容层级（editorial_spotlight / data_reference） */
+  coverageTier?: CoverageTier;
   /** 页面主标题（缺省自动生成） */
   pageTitle?: string;
   /** Hero 模型胜率（%） */

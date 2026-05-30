@@ -1,4 +1,5 @@
 import type { HeroTonightFeature } from '@/lib/hero-spotlight';
+import type { CoverageTier } from '@/types/coverage-tier';
 import type { TgPromoContent } from '@/types/site-daily';
 
 export interface MatchListItem {
@@ -29,6 +30,8 @@ export interface MatchListItem {
   winRatePercent?: number;
   /** 大 2.5 概率 %（无胜率时作补充） */
   over25Prob?: number;
+  /** 公开内容层级（与 DailyAnalysisOptions.coverageTier 一致） */
+  coverageTier?: CoverageTier;
 }
 
 export interface MatchAnalysisDetail extends MatchListItem {
