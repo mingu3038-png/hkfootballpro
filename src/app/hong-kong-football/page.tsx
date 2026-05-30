@@ -1,38 +1,35 @@
-import Link from 'next/link';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
-import { hkFootballNav } from '@/config/navigation';
+import { HongKongFootballContent } from '@/components/hong-kong-football/HongKongFootballContent';
+import {
+  getHkplFocusMatch,
+  getHkplStandings,
+  getHongKongFootballArticles,
+  HKFB_BETTING_GUIDES,
+  HKFB_HOT_TEAMS,
+  HKFB_NATIONAL_NEWS,
+} from '@/lib/hong-kong-football-page';
 import { buildCategoryMetadata } from '@/lib/seo/build-metadata';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildCategoryMetadata(
-  '香港足球',
-  '港超、足总杯、港甲最新赛前分析、比分预测及免费竞猜。',
+  '香港足球资讯',
+  '港超、港队、足总杯、亚冠与本地足球动态，港超积分榜与最新港足分析。',
   '/hong-kong-football'
 );
 
 export default function HongKongFootballPage() {
   return (
-    <div className="container py-8">
-      <Breadcrumb items={[{ label: '香港足球' }]} />
-
-      <header className="mb-10">
-        <h1 className="text-3xl font-bold mb-3">香港足球预测</h1>
-        <p className="text-[var(--text-muted)] max-w-2xl">
-          专注港超、足总杯及本地赛事。从赛前分析到比分竞猜，为香港足球爱好者而设。
-        </p>
-      </header>
-
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {hkFootballNav.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="card block transition hover:border-[var(--accent)]/40"
-          >
-            <h2 className="text-lg font-bold mb-2">{item.label}</h2>
-            <span className="text-sm text-[var(--accent)]">进入 →</span>
-          </Link>
-        ))}
+    <div className="hkfb-page">
+      <div className="container hkfb-page__container">
+        <Breadcrumb items={[{ label: '香港足球' }]} />
+        <HongKongFootballContent
+          focusMatch={getHkplFocusMatch()}
+          standings={getHkplStandings()}
+          hotTeams={HKFB_HOT_TEAMS}
+          nationalNews={HKFB_NATIONAL_NEWS}
+          bettingGuides={HKFB_BETTING_GUIDES}
+          latestArticles={getHongKongFootballArticles()}
+        />
       </div>
     </div>
   );
