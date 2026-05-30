@@ -10,6 +10,7 @@ import {
   resolveRecommendationPicks,
   resolveTgMidCtaBlocks,
 } from '@/lib/analysis-content';
+import { isDataReferenceDisplay } from '@/lib/analysis-display-layer';
 import { buildPreMatchAnalysisH1 } from '@/lib/seo/pre-match-analysis-seo';
 import type {
   FormResult,
@@ -179,6 +180,17 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
   const ou = data.overUnderAnalysis;
   const modelWinRate = data.modelWinRate ?? ou.over25Probability;
   const accessLabel = data.accessLabel ?? '免费公开';
+  const isDataReference = isDataReferenceDisplay(data);
+  const publicDisplay = data.publicDisplay;
+  const ouSummary = isDataReference
+    ? (publicDisplay?.overUnderSummary ?? ou.summary)
+    : ou.summary;
+  const oddsSummary = isDataReference
+    ? (publicDisplay?.oddsSummary ?? data.oddsAnalysis.summary)
+    : data.oddsAnalysis.summary;
+  const paceObservation = isDataReference
+    ? (publicDisplay?.paceObservation ?? brief.pace)
+    : brief.pace;
 
   return (
     <article
@@ -207,7 +219,12 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
               开赛 {data.kickoffTimeDisplay}
             </time>
             {data.isHot && <span className="adx-hero__tag adx-hero__tag--hot">热门</span>}
-            {data.isFocus && <span className="adx-hero__tag adx-hero__tag--focus">今日重点</span>}
+            {!isDataReference && data.isFocus && (
+              <span className="adx-hero__tag adx-hero__tag--focus">今日重点</span>
+            )}
+            {isDataReference && (
+              <span className="adx-hero__tag adx-hero__tag--focus">数据参考</span>
+            )}
             {data.round && <span className="adx-hero__round">{data.round}</span>}
             <span className="adx-hero__access">{accessLabel}</span>
             <span className={`adx-hero__status adx-hero__status--${data.status}`}>
@@ -233,23 +250,49 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
           </div>
 
           <div className="adx-hero__pick-strip">
-            <div className="adx-hero__pick">
-              <span className="adx-hero__pick-label">编辑观点</span>
-              <span className="adx-hero__pick-value">{data.recommendation.direction}</span>
-            </div>
-            <div className="adx-hero__pick-divider" aria-hidden />
-            <div className="adx-hero__pick">
-              <span className="adx-hero__pick-label">模型参考率</span>
-              <span className="adx-hero__pick-value adx-hero__pick-value--rate">{modelWinRate}%</span>
-            </div>
-            <div className="adx-hero__pick-divider" aria-hidden />
-            <div className="adx-hero__pick">
-              <span className="adx-hero__pick-label">把握程度</span>
-              <span className="adx-hero__pick-value">{confidenceLabel(data.recommendation.confidence)}</span>
-            </div>
+            {isDataReference ? (
+              <>
+                <div className="adx-hero__pick">
+                  <span className="adx-hero__pick-label">赛前数据观察</span>
+                  <span className="adx-hero__pick-value">双方近况 · 盘口走势</span>
+                </div>
+                <div className="adx-hero__pick-divider" aria-hidden />
+                <div className="adx-hero__pick">
+                  <span className="adx-hero__pick-label">模型参考率</span>
+                  <span className="adx-hero__pick-value adx-hero__pick-value--rate">
+                    {modelWinRate}%
+                  </span>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="adx-hero__pick">
+                  <span className="adx-hero__pick-label">编辑观点</span>
+                  <span className="adx-hero__pick-value">{data.recommendation.direction}</span>
+                </div>
+                <div className="adx-hero__pick-divider" aria-hidden />
+                <div className="adx-hero__pick">
+                  <span className="adx-hero__pick-label">模型参考率</span>
+                  <span className="adx-hero__pick-value adx-hero__pick-value--rate">
+                    {modelWinRate}%
+                  </span>
+                </div>
+                <div className="adx-hero__pick-divider" aria-hidden />
+                <div className="adx-hero__pick">
+                  <span className="adx-hero__pick-label">把握程度</span>
+                  <span className="adx-hero__pick-value">
+                    {confidenceLabel(data.recommendation.confidence)}
+                  </span>
+                </div>
+              </>
+            )}
           </div>
 
-          <p className="adx-hero__venue">站内模型参考 · 仅供分析参考 · 非结果保证</p>
+          <p className="adx-hero__venue">
+            {isDataReference
+              ? '站内数据参考 · 不含明确推荐方向 · 非结果保证'
+              : '站内模型参考 · 仅供分析参考 · 非结果保证'}
+          </p>
 
           {data.venueZh && (
             <p className="adx-hero__venue" itemProp="location">
@@ -283,8 +326,8 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
                 <p className="adx-brief-item__text">{brief.motivation}</p>
               </li>
               <li className="adx-brief-item">
-                <h3 className="adx-brief-item__label">节奏判断</h3>
-                <p className="adx-brief-item__text">{brief.pace}</p>
+                <h3 className="adx-brief-item__label">{isDataReference ? '节奏观察' : '节奏判断'}</h3>
+                <p className="adx-brief-item__text">{paceObservation}</p>
               </li>
             </ul>
             <div className="adx-status-grid adx-status-grid--nested">
@@ -298,7 +341,7 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
               <span className="adx-panel__icon" aria-hidden />
               大小球分析
             </h2>
-            <p className="adx-panel__summary">{ou.summary}</p>
+            <p className="adx-panel__summary">{ouSummary}</p>
             <div className="adx-ou-highlight">
               <div className="adx-ou-highlight__item">
                 <span className="adx-ou-highlight__label">初盘</span>
@@ -361,6 +404,7 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
             </div>
           </section>
 
+          {!isDataReference && (
           <section className="adx-panel adx-panel--pick" aria-labelledby="adx-pick-title">
             <h2 id="adx-pick-title" className="adx-panel__title">
               <span className="adx-panel__icon" aria-hidden />
@@ -382,6 +426,7 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
             </p>
             <p className="adx-panel__summary">{data.recommendation.summary}</p>
           </section>
+          )}
 
           {midTgBlock && (
             <AnalysisMidTgCta
@@ -450,7 +495,7 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
               <span className="adx-panel__icon" aria-hidden />
               亚盘分析
             </h2>
-            <p className="adx-panel__summary">{data.oddsAnalysis.summary}</p>
+            <p className="adx-panel__summary">{oddsSummary}</p>
             <div className="adx-data-table">
               <div className="adx-data-table__head">
                 <span>盘口</span>
@@ -471,6 +516,7 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
             </div>
           </section>
 
+          {!isDataReference && (
           <section className="adx-panel adx-panel--ai" aria-labelledby="adx-ai-title">
             <h2 id="adx-ai-title" className="adx-panel__title adx-panel__title--ai">
               <span className="adx-panel__icon" aria-hidden />
@@ -496,6 +542,7 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
             </div>
             <p className="adx-ai-summary">{data.aiInsight.ev}</p>
           </section>
+          )}
 
           {data.riskWarning.items.length > 0 && (
             <section
@@ -542,7 +589,7 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
             copy={tgCopy}
             homeTeam={data.homeTeam.nameZh}
             awayTeam={data.awayTeam.nameZh}
-            pick={data.recommendation.direction}
+            pick={isDataReference ? undefined : data.recommendation.direction}
           />
 
           <Link href="/football-analysis" className="btn btn-outline analysis-detail__more">
