@@ -8,8 +8,8 @@ import type {
 import type { SeoArticle } from '@/types/seo-article';
 import {
   SEO_HOT_BATCH_DATE,
-  seoArticlesHot20260530,
-} from '@/lib/seo-articles-hot-2026-05-30';
+  seoArticlesHot20260531,
+} from '@/lib/seo-articles-hot-2026-05-31';
 
 /** SEO 场次录入格式（date + kickoff 自动转为 kickoffAt / kickoffTimeDisplay） */
 interface SeoAnalysisMatchSeed {
@@ -1995,9 +1995,9 @@ const SEO_DAILY_2026_05_29: SeoAnalysisMatchSeed[] = [
   },
 ];
 
-/** 每日 SEO 热门（2026-05-30 · 仅 5 场真实赛事） */
+/** 每日 SEO 热门（2026-05-31 · 仅 5 场真实赛事） */
 const SEO_DAILY_TODAY: SeoAnalysisMatchSeed[] =
-  seoArticlesHot20260530.map(seoArticleToSeed);
+  seoArticlesHot20260531.map(seoArticleToSeed);
 
 /**
  * 手动维护的分析场次（优先级高于批量模板同 slug）
