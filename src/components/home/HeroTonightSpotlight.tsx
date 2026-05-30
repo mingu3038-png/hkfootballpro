@@ -7,7 +7,6 @@ import { TeamLogo } from '@/components/ui/TeamLogo';
 import { focusPosterTint } from '@/lib/home-match-poster';
 import type { HeroTonightFeature } from '@/lib/hero-spotlight';
 import { getTeamLogoPath } from '@/lib/team-logo';
-import { resolveTelegramUrl } from '@/lib/telegram';
 import type { TgPromoContent } from '@/types/site-daily';
 
 interface HeroTonightSpotlightProps {
@@ -28,9 +27,8 @@ function formatHms(totalSeconds: number): string {
 export function HeroTonightSpotlight({
   feature,
   countdown,
-  freeCtaLabel = '免费领取分析',
+  freeCtaLabel = '查看临场更新',
 }: HeroTonightSpotlightProps) {
-  const tgUrl = resolveTelegramUrl();
   const homeBg = getTeamLogoPath(feature.homeTeam.slug, feature.homeTeam.nameZh);
   const awayBg = getTeamLogoPath(feature.awayTeam.slug, feature.awayTeam.nameZh);
   const tint = focusPosterTint(feature.homeTeam.slug, feature.awayTeam.slug);
@@ -144,14 +142,9 @@ export function HeroTonightSpotlight({
               {countdown.closedButtonLabel}
             </span>
           ) : (
-            <a
-              href={tgUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="home-hero__match-hub-cta"
-            >
+            <Link href={feature.analysisUrl} className="home-hero__match-hub-cta">
               {freeCtaLabel}
-            </a>
+            </Link>
           )}
           <Link href={feature.analysisUrl} className="home-hero__match-hub-link">
             查看赛前分析 →

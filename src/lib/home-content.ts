@@ -245,14 +245,14 @@ export const homeContent: HomeContent = {
     badge: '世界杯前哨战',
     titleGold: '香港足球',
     titleRed: '预测站',
-    statusLines: ['欧冠决赛重心已更新', '临场方向持续更新'],
-    tags: ['专业数据分析', '临场方向', '高赔率重心', '香港足球圈'],
-    heroHint: '欧冠决赛 PSG vs 阿森纳 完整方向 TG 发布',
+    statusLines: ['欧冠决赛分析已更新', '临场盘口持续追踪'],
+    tags: ['专业数据分析', '临场方向', '盘口数据参考', '香港足球圈'],
+    heroHint: '欧冠决赛 PSG vs 阿森纳 赛前分析已公开',
     ctaButtons: {
-      primary: '立即加入 TG',
-      mobilePrimary: '🔥 TG 已开放今晚免费场',
-      secondary: '🔥 TG 已开放今晚免费场',
-      tertiary: '获取临场方向',
+      primary: '查看分析',
+      mobilePrimary: '查看分析',
+      secondary: '查看临场更新',
+      tertiary: '更多赛事分析',
     },
     heroCountdown: {
       label: '距离今晚重心关闭还有',
@@ -260,17 +260,17 @@ export const homeContent: HomeContent = {
       closedButtonLabel: '今晚入口已关闭',
     },
     heroButton: {
-      title: '领取今晚免费重心',
+      title: '查看今日重点分析',
       subtitle: '',
     },
     card: {
       title: '官方 TG 频道',
       subtitle: '香港足球圈 · 临场跟进',
-      benefits: ['获取今晚重心', '临场更新', '水位提醒'],
-      buttonLabel: '立即加入 TG',
-      followerNote: '已有 2,847 位波友领取今晚重心',
+      benefits: ['赛前观点整理', '临场更新', '水位提醒'],
+      buttonLabel: '加入 TG 频道',
+      followerNote: '开赛前推送临场更新',
     },
-    mobileBarLabel: '🔥 TG 已开放今晚免费场',
+    mobileBarLabel: '查看临场更新',
     winRatePercent: 80,
     liveUpdateTicker: [
       '🔥 欧冠决赛 PSG -0.25 跟进',
@@ -280,9 +280,9 @@ export const homeContent: HomeContent = {
       '🔥 成都蓉城平手偏主',
     ],
     heroHighlights: [
-      '今日 5 场重心已更新',
-      '欧冠决赛 TG 跟进',
-      '每日精选临场发布',
+      '今日 5 场赛前分析已更新',
+      '欧冠决赛盘口追踪中',
+      '每日精选赛事收录',
     ],
   },
 };
@@ -398,9 +398,9 @@ export function mapHomeContentToTgPromoHome(
     winRatePercent,
     heroHighlights: [...heroHighlights],
     ctaButtons: tg.ctaButtons ?? {
-      primary: '立即加入 TG',
-      secondary: '免费领取今晚重心',
-      tertiary: '获取临场方向',
+      primary: '查看分析',
+      secondary: '查看临场更新',
+      tertiary: '更多赛事分析',
     },
   };
 }

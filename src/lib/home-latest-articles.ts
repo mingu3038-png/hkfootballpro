@@ -2,7 +2,7 @@ import { getAnalysisUrl } from '@/config/site';
 import { seoArticles } from '@/lib/seo-articles';
 import type { SeoArticle } from '@/types/seo-article';
 
-export type HomeLatestArticleTag = '热门' | '重心' | 'VIP';
+export type HomeLatestArticleTag = '热门' | '重心' | '深度分析' | '今日重点';
 
 export interface HomeLatestArticleItem {
   slug: string;
@@ -26,8 +26,10 @@ function resolveTags(article: SeoArticle): HomeLatestArticleTag[] {
   const tags: HomeLatestArticleTag[] = [];
   if (o.isFocus) tags.push('重心');
   if (o.isHot) tags.push('热门');
-  if (o.featuredInLatest || (o.isFocus && (o.modelWinRate ?? 0) >= 72)) {
-    tags.push('VIP');
+  if (o.featuredInLatest && o.homepageOrder === 1) {
+    tags.push('今日重点');
+  } else if (o.featuredInLatest || (o.isFocus && (o.modelWinRate ?? 0) >= 72)) {
+    tags.push('深度分析');
   }
   return tags.length > 0 ? tags : ['热门'];
 }

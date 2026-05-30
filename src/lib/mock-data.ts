@@ -177,9 +177,9 @@ function mapDailyHomeUpdate(
         winRatePercent: winRate,
         heroHighlights: daily.heroHighlights,
         ctaButtons: daily.tgCta.ctaButtons ?? {
-          primary: '立即加入 TG',
-          secondary: '免费领取今晚重心',
-          tertiary: '获取临场方向',
+          primary: '查看分析',
+          secondary: '查看临场更新',
+          tertiary: '更多赛事分析',
         },
       },
       analysis: analysisPromo,
@@ -228,10 +228,10 @@ export const dailyHomeUpdate: DailyHomeUpdate = {
   // 其它首页文案（与当日一并改，不在上面 ①～⑤ 主清单内）
   // ===========================================================================
   floatingAnnouncements: [
-    '🔥 今晚免费重心已更新',
-    '⚽ 临场方向已放 TG',
+    '今日赛前分析已更新',
+    '临场盘口变动追踪中',
     '📈 近 10 场命中率 80%',
-    '🎯 世界杯前哨持续更新',
+    '世界杯前哨持续更新',
   ],
 
   hotLeagues: [

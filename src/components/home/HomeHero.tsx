@@ -147,14 +147,18 @@ export function HomeHero({ tgPromo, streak, heroTonightFeature }: HomeHeroProps)
               </div>
             </div>
 
-            <HeroFocusCta home={home} hideCountdown />
+            <HeroFocusCta
+              home={home}
+              hideCountdown
+              analysisUrl={heroTonightFeature.analysisUrl}
+            />
           </div>
 
           <div className="home-hero__center">
             <HeroTonightSpotlight
               feature={heroTonightFeature}
               countdown={home.heroCountdown}
-              freeCtaLabel={home.ctaButtons?.secondary ?? '免费领取分析'}
+              freeCtaLabel={home.ctaButtons?.secondary ?? '查看临场更新'}
             />
           </div>
 
@@ -163,7 +167,7 @@ export function HomeHero({ tgPromo, streak, heroTonightFeature }: HomeHeroProps)
             <div className="home-hero__tg-card">
               <div className="home-hero__tg-card-shine" aria-hidden />
               <div className="home-hero__tg-card-glow" aria-hidden />
-              <span className="home-hero__vip-badge" aria-hidden>VIP</span>
+              <span className="home-hero__vip-badge" aria-hidden>今日重点</span>
               <div className="home-hero__tg-card-header">
                 <TelegramIcon className="home-hero__tg-card-icon" />
                 <div>
@@ -187,7 +191,7 @@ export function HomeHero({ tgPromo, streak, heroTonightFeature }: HomeHeroProps)
                 rel="noopener noreferrer"
                 className="home-hero__tg-card-btn"
               >
-                {home.ctaButtons?.primary ?? TELEGRAM_CTA_LABEL}
+                {home.card.buttonLabel ?? TELEGRAM_CTA_LABEL}
               </a>
 
               <p className="home-hero__tg-note">{home.card.followerNote}</p>
