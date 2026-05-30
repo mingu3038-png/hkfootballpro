@@ -6,6 +6,7 @@ import type {
   DailyAnalysisTeam,
 } from '@/types/daily-analysis';
 import type { SeoArticle } from '@/types/seo-article';
+import { seoArticlesHot20260530 } from '@/lib/seo-articles-hot-2026-05-30';
 import {
   SEO_HOT_BATCH_DATE,
   seoArticlesHot20260531,
@@ -774,12 +775,17 @@ const SEO_BATCH_2: SeoAnalysisMatchSeed[] = [
 // =============================================================================
 export const SEO_DAILY_DATE = SEO_HOT_BATCH_DATE;
 
+function slugBatchDate(slug: string): string | null {
+  const match = slug.match(/-(\d{4}-\d{2}-\d{2})$/);
+  return match?.[1] ?? null;
+}
+
 /** 将 SEO 长文批次转为 analysis-matches 种子（与 seo-articles.ts 同步） */
-function seoArticleToSeed(article: SeoArticle): SeoAnalysisMatchSeed {
+function seoArticleToSeed(article: SeoArticle, batchDate?: string): SeoAnalysisMatchSeed {
   const o = article.options ?? {};
   return {
     slug: article.slug,
-    date: SEO_DAILY_DATE,
+    date: batchDate ?? slugBatchDate(article.slug) ?? SEO_DAILY_DATE,
     kickoff: article.match.kickoffTime,
     homeTeam: article.match.home,
     awayTeam: article.match.away,
@@ -1995,9 +2001,15 @@ const SEO_DAILY_2026_05_29: SeoAnalysisMatchSeed[] = [
   },
 ];
 
-/** 每日 SEO 热门（2026-05-31 · 仅 5 场真实赛事） */
-const SEO_DAILY_TODAY: SeoAnalysisMatchSeed[] =
-  seoArticlesHot20260531.map(seoArticleToSeed);
+/** 每日 SEO 热门（2026-05-30 · 历史批次） */
+const SEO_DAILY_2026_05_30: SeoAnalysisMatchSeed[] = seoArticlesHot20260530.map((article) =>
+  seoArticleToSeed(article, '2026-05-30')
+);
+
+/** 每日 SEO 热门（2026-05-31 · 当日批次） */
+const SEO_DAILY_TODAY: SeoAnalysisMatchSeed[] = seoArticlesHot20260531.map((article) =>
+  seoArticleToSeed(article, SEO_DAILY_DATE)
+);
 
 /**
  * 手动维护的分析场次（优先级高于批量模板同 slug）
@@ -2184,6 +2196,7 @@ export const ANALYSIS_MATCHES: DailyAnalysisInput[] = [
   ...SEO_DAILY_2026_05_25.map(seoBatchToInput),
   ...SEO_DAILY_2026_05_26.map(seoBatchToInput),
   ...SEO_DAILY_2026_05_29.map(seoBatchToInput),
+  ...SEO_DAILY_2026_05_30.map(seoBatchToInput),
   ...SEO_DAILY_TODAY.map(seoBatchToInput),
 ];
 
@@ -2210,5 +2223,6 @@ export {
   SEO_DAILY_2026_05_25,
   SEO_DAILY_2026_05_26,
   SEO_DAILY_2026_05_29,
+  SEO_DAILY_2026_05_30,
   SEO_DAILY_TODAY,
 };

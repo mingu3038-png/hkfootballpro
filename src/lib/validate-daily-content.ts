@@ -1,5 +1,5 @@
 import { homeContent } from '@/lib/home-content';
-import { getSeoArticleInputs } from '@/lib/seo-articles';
+import { getTodaySeoArticleInputs } from '@/lib/seo-articles';
 import { isDailySpotlight, type CoverageTier } from '@/types/coverage-tier';
 import type { DailyAnalysisInput } from '@/types/daily-analysis';
 
@@ -38,8 +38,8 @@ function spotlightSlugsFromInputs(
 export function validateDailySpotlightContent(): DailyContentValidationResult {
   const issues: DailyContentValidationIssue[] = [];
 
-  const seoInputs = getSeoArticleInputs();
-  const seoSpotlights = spotlightSlugsFromInputs(seoInputs, 'seo-articles', issues);
+  const seoInputs = getTodaySeoArticleInputs();
+  const seoSpotlights = spotlightSlugsFromInputs(seoInputs, 'seo-articles（当日）', issues);
 
   if (seoSpotlights.length === 0) {
     issues.push({
