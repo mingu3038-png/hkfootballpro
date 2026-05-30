@@ -20,7 +20,7 @@ function splitAttackDefense(text: string): { attack: string; defense: string } {
 function buildMotivation(data: PreMatchAnalysisDetail): string {
   const parts: string[] = [];
   if (data.round) parts.push(`${data.round}，双方抢分战意明确`);
-  if (data.isFocus) parts.push('本场为今日重心，市场关注度高于一般联赛场次');
+  if (data.isFocus) parts.push('本场为今日重点收录赛事，市场关注度高于一般联赛场次');
   if (data.isHot) parts.push('热门对阵，临场水位或于赛前 1 小时加速变动');
   if (data.venueZh) parts.push(`${data.homeTeam.nameZh}坐镇${data.venueZh}，主场气势占优`);
   if (parts.length === 0) {
@@ -47,10 +47,16 @@ export function resolvePreMatchBrief(data: PreMatchAnalysisDetail): PreMatchBrie
   };
 }
 
-/** 推荐方向列表（👉 格式） */
+/** 补充观点列表（与 Hero 编辑观点重复时不展示） */
 export function resolveRecommendationPicks(data: PreMatchAnalysisDetail): string[] {
-  if (data.recommendation.picks?.length) return data.recommendation.picks;
-  return [`👉 方向：${data.recommendation.direction}`];
+  if (!data.recommendation.picks?.length) return [];
+
+  const normalize = (pick: string) =>
+    pick.replace(/^👉\s*方向[：:]\s*/, '').replace(/^观点[：:]\s*/, '').trim();
+
+  return data.recommendation.picks.filter(
+    (pick) => normalize(pick) !== data.recommendation.direction.trim()
+  );
 }
 
 export function resolveTgMidCtaBlocks(

@@ -200,7 +200,7 @@ export function buildBatchAnalysis(seed: BatchMatchSeed): PreMatchAnalysisDetail
       confidence: seed.confidence,
       scorePick: seed.pickType === 'over' ? '2-1 · 2-2 · 1-2' : '1-0 · 2-1 · 0-1',
       edge: `+${(2.5 + (h % 20) / 10).toFixed(1)}% EV`,
-      picks: [`👉 方向：${seed.direction}`],
+      picks: [],
       summary: recSummary,
     },
     aiInsight: {
@@ -308,7 +308,7 @@ export function buildAnalysisPage(input: DailyAnalysisInput): PreMatchAnalysisDe
       ...base.recommendation,
       direction: input.direction,
       confidence: o.confidence ?? base.recommendation.confidence,
-      picks: o.picks ?? [`👉 方向：${input.direction}`],
+      picks: o.picks ?? [],
       summary: o.summary ?? base.recommendation.summary,
     },
   };

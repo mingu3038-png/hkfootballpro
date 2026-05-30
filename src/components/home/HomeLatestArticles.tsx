@@ -8,7 +8,7 @@ import {
 
 const TAG_CLASS: Record<HomeLatestArticleTag, string> = {
   热门: 'home-latest-articles__tag home-latest-articles__tag--hot',
-  重心: 'home-latest-articles__tag home-latest-articles__tag--focus',
+  精选分析: 'home-latest-articles__tag home-latest-articles__tag--focus',
   深度分析: 'home-latest-articles__tag home-latest-articles__tag--vip',
   今日重点: 'home-latest-articles__tag home-latest-articles__tag--vip',
 };

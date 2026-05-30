@@ -120,7 +120,7 @@ export const homeContent: HomeContent = {
   liveTicker: [
     '🔥 欧冠决赛 PSG vs 阿森纳 盘口升温',
     '⚠️ 临场方向 30 分钟前更新',
-    '📊 今日精选 5 场重心',
+    '📊 今日 5 场精选分析已收录',
     '🇭🇰 香港波友热议欧冠决赛大小球',
     '🔥 苏格兰深盘 -1.5 跟进',
     '⚠️ 挪超莫迪大2.5 临场更新',
@@ -128,7 +128,7 @@ export const homeContent: HomeContent = {
 
   // ③ 临场动态（手机模块）
   liveDynamics: [
-    '欧冠决赛 PSG vs 阿森纳 重心已更新',
+    '欧冠决赛 PSG vs 阿森纳 分析已更新',
     '苏格兰 vs 库拉索 深盘跟进',
     '莫迪 vs 辛迪夫佐特 大2.5 升盘',
     '马尔默 -1.25 低水承接',
@@ -255,9 +255,9 @@ export const homeContent: HomeContent = {
       tertiary: '更多赛事分析',
     },
     heroCountdown: {
-      label: '距离今晚重心关闭还有',
+      label: '距离开赛还有',
       initialSeconds: 6126,
-      closedButtonLabel: '今晚入口已关闭',
+      closedButtonLabel: '开赛后见赛果回顾',
     },
     heroButton: {
       title: '查看今日重点分析',

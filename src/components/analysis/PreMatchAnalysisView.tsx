@@ -204,7 +204,7 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
               开赛 {data.kickoffTimeDisplay}
             </time>
             {data.isHot && <span className="adx-hero__tag adx-hero__tag--hot">热门</span>}
-            {data.isFocus && <span className="adx-hero__tag adx-hero__tag--focus">重心</span>}
+            {data.isFocus && <span className="adx-hero__tag adx-hero__tag--focus">今日重点</span>}
             {data.round && <span className="adx-hero__round">{data.round}</span>}
             <span className="adx-hero__access">{accessLabel}</span>
             <span className={`adx-hero__status adx-hero__status--${data.status}`}>
@@ -231,7 +231,7 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
 
           <div className="adx-hero__pick-strip">
             <div className="adx-hero__pick">
-              <span className="adx-hero__pick-label">推荐方向</span>
+              <span className="adx-hero__pick-label">编辑观点</span>
               <span className="adx-hero__pick-value">{data.recommendation.direction}</span>
             </div>
             <div className="adx-hero__pick-divider" aria-hidden />
@@ -361,8 +361,9 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
           <section className="adx-panel adx-panel--pick" aria-labelledby="adx-pick-title">
             <h2 id="adx-pick-title" className="adx-panel__title">
               <span className="adx-panel__icon" aria-hidden />
-              推荐方向
+              编辑观点
             </h2>
+            {picks.length > 0 && (
             <ul className="adx-pick-list">
               {picks.map((pick) => (
                 <li key={pick} className="adx-pick-list__item">
@@ -370,6 +371,7 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
                 </li>
               ))}
             </ul>
+            )}
             <p className="adx-pick-meta">
               把握程度 {confidenceLabel(data.recommendation.confidence)}（编辑分级） · 模型参考率{' '}
               {modelWinRate}%（站内模型参考） · 比分参考 {data.recommendation.scorePick} · 仅供分析参考 ·

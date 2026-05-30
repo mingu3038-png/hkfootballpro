@@ -24,6 +24,13 @@ interface FocusMatchCardProps {
   tier: FocusCardTier;
 }
 
+function focusBadge(match: MatchListItem, tier: FocusCardTier): string | null {
+  if (!match.isFocus && !match.isHot) return null;
+  if (tier === 'hero' && match.isFocus) return '今日重点';
+  if (match.isFocus) return '焦点赛事';
+  return '热门';
+}
+
 function focusCta(match: MatchListItem): { href: string; label: string } {
   if (match.analysisPublished) {
     return { href: getAnalysisUrl(match.slug), label: '查看赛前分析 →' };
@@ -37,6 +44,7 @@ function FocusMatchCard({ match, tier }: FocusMatchCardProps) {
   const awayBg = getTeamLogoPath(match.awayTeam.slug ?? awaySlug, match.awayTeam.nameZh);
   const { href, label } = focusCta(match);
   const { direction, rateLabel } = getFocusPickDisplay(match);
+  const badge = focusBadge(match, tier);
   const matchup = `${match.homeTeam.nameZh} vs ${match.awayTeam.nameZh}`;
 
   return (
@@ -64,10 +72,8 @@ function FocusMatchCard({ match, tier }: FocusMatchCardProps) {
         <span className="home-focus-matches__glow" aria-hidden />
         <span className="home-focus-matches__rim" aria-hidden />
 
-        {(match.isFocus || match.isHot) && (
-          <span className="home-focus-matches__badge">
-            {match.isFocus ? '重心' : '热门'}
-          </span>
+        {(match.isFocus || match.isHot) && badge && (
+          <span className="home-focus-matches__badge">{badge}</span>
         )}
 
         <div className="home-focus-matches__crest-row">
