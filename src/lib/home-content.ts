@@ -9,6 +9,8 @@
  * ⑤ TG CTA 文案
  */
 import type { HeroTonightFeature } from '@/lib/hero-spotlight';
+import { getDailyBatchMatchListItems } from '@/lib/daily-batch-mappers';
+import { getDailyBatchHero } from '@/lib/home-daily-batch';
 import type { CoverageTier } from '@/types/coverage-tier';
 import type { HomePageData, LastNightResults, MatchListItem, TodayFreeFocus } from '@/types/match';
 import type { DailyHomeTgCta, DailyHomeUpdate, TgPromoContent } from '@/types/site-daily';
@@ -464,11 +466,56 @@ export function buildDailyHomeUpdateFromHomeContent(
   };
 }
 
-/** 精简首页数据（page.tsx 使用） */
+/** 精简首页数据（page.tsx 使用 · 今日赛事读 DailyBatch，其余仍走 homeContent） */
 export async function getHomePageData(
   analysisPromo: TgPromoContent['analysis']
 ): Promise<HomePageData> {
-  const { hero, lastNight, tgCta, todayFocusMatches, recent10 } = homeContent;
+  const hero = getDailyBatchHero();
+  const todayMatches = getDailyBatchMatchListItems();
+  const { lastNight, tgCta, recent10, liveTicker, liveDynamics } = homeContent;
+
+  return assembleHomePageData(analysisPromo, {
+    hero,
+    todayMatches,
+    lastNight,
+    tgCta,
+    recent10,
+    liveTicker,
+    liveDynamics,
+  });
+}
+
+/** 旧路径：全部来自 homeContent（兼容保留） */
+export async function getHomePageDataFromHomeContent(
+  analysisPromo: TgPromoContent['analysis']
+): Promise<HomePageData> {
+  const { hero, lastNight, tgCta, todayFocusMatches, recent10, liveTicker, liveDynamics } =
+    homeContent;
+
+  return assembleHomePageData(analysisPromo, {
+    hero,
+    todayMatches: mapHomeContentToFocusMatches(todayFocusMatches),
+    lastNight,
+    tgCta,
+    recent10,
+    liveTicker,
+    liveDynamics,
+  });
+}
+
+function assembleHomePageData(
+  analysisPromo: TgPromoContent['analysis'],
+  input: {
+    hero: HomeContentHero;
+    todayMatches: MatchListItem[];
+    lastNight: HomeContentLastNight;
+    tgCta: HomeContentTgCta;
+    recent10: HomeContentRecent10;
+    liveTicker: readonly string[];
+    liveDynamics: readonly string[];
+  }
+): HomePageData {
+  const { hero, todayMatches, lastNight, tgCta, recent10, liveTicker, liveDynamics } = input;
   const lastNightResults = mapHomeContentToLastNightResults(lastNight);
   const winRate = recent10.hitRatePercent;
   const todayFreeFocus = mapHomeContentToTodayFreeFocus(hero);
@@ -500,11 +547,11 @@ export async function getHomePageData(
     hotLeagues: [],
     hotLeaguesTodayUpdateCount: 0,
     liveMatches: [],
-    todayMatches: mapHomeContentToFocusMatches(todayFocusMatches),
+    todayMatches,
     heroTonightFeature: mapHomeContentToHeroTonightFeature(hero),
     latestAnalyses: [],
     leaderboardTop: [],
-    liveDynamics: [...homeContent.liveDynamics],
-    liveTicker: [...homeContent.liveTicker],
+    liveDynamics: [...liveDynamics],
+    liveTicker: [...liveTicker],
   };
 }
