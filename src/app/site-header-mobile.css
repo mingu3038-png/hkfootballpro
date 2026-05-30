@@ -3,7 +3,8 @@
   :root {
     --layout-header-h: 3.5rem;
     --site-header-mob-bar-h: 56px;
-    --site-header-mob-quick-h: 2.5rem;
+    --site-header-mob-touch-min: 44px;
+    --site-header-mob-quick-h: calc(var(--site-header-mob-touch-min) + 0.75rem);
     --site-header-mob-stack-h: calc(
       var(--site-header-mob-bar-h) + var(--site-header-mob-quick-h)
     );
@@ -103,8 +104,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 2.35rem;
-    min-height: 2rem;
+    min-width: var(--site-header-mob-touch-min);
+    min-height: var(--site-header-mob-touch-min);
     padding: 0.28rem 0.55rem;
     font-size: 0.68rem;
     font-weight: 800;
@@ -123,8 +124,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.35rem;
-    height: 2rem;
+    width: var(--site-header-mob-touch-min);
+    height: var(--site-header-mob-touch-min);
+    min-width: var(--site-header-mob-touch-min);
+    min-height: var(--site-header-mob-touch-min);
     padding: 0;
     margin: 0;
     color: #fde68a;
@@ -172,7 +175,7 @@
     gap: 0.45rem;
     height: var(--site-header-mob-quick-h);
     min-height: var(--site-header-mob-quick-h);
-    padding: 0.35rem 0.75rem;
+    padding: 0.375rem 0.75rem;
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
@@ -198,8 +201,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 1.75rem;
-    padding: 0.32rem 0.72rem;
+    min-height: var(--site-header-mob-touch-min);
+    padding: 0.375rem 0.72rem;
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.03em;
@@ -299,8 +302,8 @@
   .site-header-mob__menu-link {
     display: flex;
     align-items: center;
-    min-height: 2.65rem;
-    padding: 0.45rem 0.7rem;
+    min-height: var(--site-header-mob-touch-min);
+    padding: 0.5rem 0.7rem;
     font-size: 0.88rem;
     font-weight: 700;
     letter-spacing: 0.02em;
