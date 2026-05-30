@@ -142,7 +142,7 @@ export function HomeHero({ tgPromo, streak, heroTonightFeature }: HomeHeroProps)
               </div>
               <div className="home-hero__stat-divider" />
               <div className="home-hero__stat-block">
-                <p className="home-hero__stat-label">胜率</p>
+                <p className="home-hero__stat-label">近10场命中率 · 仅供分析参考 · 非结果保证</p>
                 <p className="home-hero__stat-rate">{home.winRatePercent}%</p>
               </div>
             </div>

@@ -19,7 +19,9 @@ export function HeroOpsStrip({ streak, hotLeagues, liveMatches }: HeroOpsStripPr
           <span className="hero-ops-strip__streak-win">{streak.wins} 红</span>
           <span className="hero-ops-strip__streak-lose">{streak.losses} 黑</span>
           <span className="hero-ops-strip__streak-push">{streak.pushes} 走</span>
-          <span className="hero-ops-strip__streak-rate">胜率 {winRate}%</span>
+          <span className="hero-ops-strip__streak-rate">
+            近10场命中率 {winRate}% · 仅供分析参考
+          </span>
         </div>
 
         <div className="hero-ops-strip__leagues">

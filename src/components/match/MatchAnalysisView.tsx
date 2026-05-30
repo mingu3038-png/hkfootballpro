@@ -104,7 +104,9 @@ export function MatchAnalysisView({ data, breadcrumbChannel, breadcrumbLeague }:
                 {analysis.editorScoreHome} - {analysis.editorScoreAway}
               </p>
               <p className="text-sm text-[var(--text-muted)] mt-2">
-                信心：{analysis.editorConfidence === 'high' ? '高' : analysis.editorConfidence === 'medium' ? '中' : '低'}
+                把握程度：
+                {analysis.editorConfidence === 'high' ? '高' : analysis.editorConfidence === 'medium' ? '中' : '低'}
+                （编辑分级 · 仅供分析参考 · 非结果保证）
               </p>
               <p className="text-xs text-[var(--text-muted)] mt-1">撰文：{analysis.editor.nameZh}</p>
             </div>

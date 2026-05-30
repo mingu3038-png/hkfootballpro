@@ -84,7 +84,9 @@ export function LastNightResults({ data, winStreak }: LastNightResultsProps) {
 
           <div className="last-night-results__progress">
             <div className="last-night-results__progress-head">
-              <span className="last-night-results__progress-label">近10场命中率</span>
+              <span className="last-night-results__progress-label">
+                近10场命中率 · 仅供分析参考
+              </span>
               <strong className="last-night-results__progress-value">{recent10Rate}%</strong>
             </div>
             <div
@@ -93,7 +95,7 @@ export function LastNightResults({ data, winStreak }: LastNightResultsProps) {
               aria-valuenow={recent10Rate}
               aria-valuemin={0}
               aria-valuemax={100}
-              aria-label={`近10场命中率 ${recent10Rate}%`}
+              aria-label={`近10场命中率 ${recent10Rate}%，仅供分析参考，非结果保证`}
             >
               <span
                 className="last-night-results__progress-fill"

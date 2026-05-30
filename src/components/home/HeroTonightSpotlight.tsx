@@ -123,7 +123,7 @@ export function HeroTonightSpotlight({
             {feature.pickDirection}
           </span>
           <span className="home-hero__match-hub-pick home-hero__match-hub-pick--rate">
-            胜率 {feature.winRatePercent}%
+            模型参考率 {feature.winRatePercent}% · 站内模型参考 · 非结果保证
           </span>
         </div>
 

@@ -206,7 +206,7 @@ export function buildBatchAnalysis(seed: BatchMatchSeed): PreMatchAnalysisDetail
     aiInsight: {
       pace: `${seed.home.nameZh}主场倾向${seed.pickType === 'over' ? '高位逼抢、边路提速' : '稳守反击'}；${seed.away.nameZh}客场${awayGpg >= 2 ? '推进节奏快' : '以控球消耗为主'}。预计开场 15–25 分钟节奏${seed.pickType === 'over' ? '偏快，不宜预期闷战' : '谨慎，下半场才拉开空间'}。`,
       attackDefense: `进攻：${seed.home.nameZh}近5场 ${homeLast5.gf} 入球，场均 ${homeGpg} 球，${seed.home.nameZh === '拜仁慕尼黑' || seed.home.nameZh === '曼城' ? '禁区压制力顶级' : '主场创造机会稳定'}；${seed.away.nameZh}近5场 ${awayLast5.gf} 入球，场均 ${awayGpg} 球，${awayGpg >= 2.2 ? '锋线转化率维持高位' : '终结效率一般' }。防守：${seed.home.nameZh}近5场 ${homeLast5.ga} 失球，${homeCpg >= 1.5 ? '高位线身后空档连场被利用' : '协防尚可但定位球二点偏弱'}；${seed.away.nameZh}客场 ${awayLast5.ga} 失球，${awayCpg >= 1.6 ? '中卫回追速度是隐患' : '零封率偏低需留意'}。`,
-      ev: `模型 ${seed.direction} 胜率约 ${seed.modelWinRate}%，对比市场隐含概率估算 ${(2.5 + (h % 20) / 10).toFixed(1)}% EV；亚盘与大小盘信号${seed.pickType === 'over' ? '同向看好总进球' : '共振支持赛果盘'}。`,
+      ev: `模型 ${seed.direction} 模型参考率约 ${seed.modelWinRate}%（站内模型参考，仅供分析参考，非结果保证）；对比市场隐含概率估算 ${(2.5 + (h % 20) / 10).toFixed(1)}% EV；亚盘与大小盘信号${seed.pickType === 'over' ? '同向看好总进球' : '共振支持赛果盘'}。`,
       risk: `${seed.confidence === 'high' ? '中等' : '偏高'}风险：战意或轮换影响节奏；临场水位若逆向需减仓。完整临场方向开赛前会在 TG 更新。`,
     },
     riskWarning: {

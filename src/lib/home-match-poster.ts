@@ -79,9 +79,9 @@ export function getFocusPickDisplay(match: MatchListItem): {
 
   let rateLabel: string | undefined;
   if (match.winRatePercent != null) {
-    rateLabel = `胜率 ${match.winRatePercent}%`;
+    rateLabel = `模型参考率 ${match.winRatePercent}% · 仅供分析参考`;
   } else if (match.over25Prob != null) {
-    rateLabel = `大2.5 ${match.over25Prob}%`;
+    rateLabel = `大2.5 参考 ${match.over25Prob}% · 仅供分析参考`;
   }
 
   return { direction, rateLabel };

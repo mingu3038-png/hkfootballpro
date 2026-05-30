@@ -236,15 +236,17 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
             </div>
             <div className="adx-hero__pick-divider" aria-hidden />
             <div className="adx-hero__pick">
-              <span className="adx-hero__pick-label">模型胜率</span>
+              <span className="adx-hero__pick-label">模型参考率</span>
               <span className="adx-hero__pick-value adx-hero__pick-value--rate">{modelWinRate}%</span>
             </div>
             <div className="adx-hero__pick-divider" aria-hidden />
             <div className="adx-hero__pick">
-              <span className="adx-hero__pick-label">信心</span>
+              <span className="adx-hero__pick-label">把握程度</span>
               <span className="adx-hero__pick-value">{confidenceLabel(data.recommendation.confidence)}</span>
             </div>
           </div>
+
+          <p className="adx-hero__venue">站内模型参考 · 仅供分析参考 · 非结果保证</p>
 
           {data.venueZh && (
             <p className="adx-hero__venue" itemProp="location">
@@ -369,8 +371,9 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
               ))}
             </ul>
             <p className="adx-pick-meta">
-              信心 {confidenceLabel(data.recommendation.confidence)} · 模型 {modelWinRate}% · 比分参考{' '}
-              {data.recommendation.scorePick}
+              把握程度 {confidenceLabel(data.recommendation.confidence)}（编辑分级） · 模型参考率{' '}
+              {modelWinRate}%（站内模型参考） · 比分参考 {data.recommendation.scorePick} · 仅供分析参考 ·
+              非结果保证
             </p>
             <p className="adx-panel__summary">{data.recommendation.summary}</p>
           </section>
@@ -470,7 +473,7 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
                 <p className="adx-ai-card__text">{data.aiInsight.attackDefense}</p>
               </div>
               <div className="adx-ai-card adx-ai-card--ev">
-                <span className="adx-ai-card__label">EV</span>
+                <span className="adx-ai-card__label">模型参考</span>
                 <p className="adx-ai-card__text">{data.aiInsight.ev}</p>
               </div>
               <div className="adx-ai-card adx-ai-card--risk">
