@@ -218,16 +218,13 @@ export function getWorldCupHotTeams(): WorldCupHotTeam[] {
   });
 }
 
-/** 顶部动态条文案 */
+/** 顶部动态条文案（精简） */
 export function getWorldCupTickerItems(): string[] {
   const days = getWorldCupDaysUntilKickoff();
   return [
     `距 2026 世界杯开幕 ${days} 天 · 美加墨 48 队`,
-    '阿根廷冠军赔率 5.50 · 卫冕热门持续领跑',
-    '欧联决赛 巴黎圣日耳曼 vs 阿仙奴 03:00 开波',
-    '法国 FIFA #2 · 深盘冠军选项受资金追捧',
-    '巴西 vs 阿根廷 世界杯模拟赛 分析已更新',
-    '英格兰 FIFA #4 · 青春阵容冠军赔率 7.00',
+    '欧联决赛 巴黎圣日耳曼 vs 阿仙奴 03:00',
+    '阿根廷冠军赔率 5.50 · 卫冕热门领跑',
   ];
 }
 

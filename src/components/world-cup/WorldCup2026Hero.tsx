@@ -2,13 +2,9 @@ import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import { TeamLogo } from '@/components/ui/TeamLogo';
 import { resolveTelegramUrl, TELEGRAM_CTA_LABEL } from '@/lib/telegram';
-import type {
-  WorldCupHeroHotMatch,
-  WorldCupHotDirection,
-  WorldCupHotTeam,
-  WorldCupPrecursorMatch,
-} from '@/lib/world-cup-page';
+import type { WorldCupHeroHotMatch } from '@/lib/world-cup-page';
 
+const HERO_TAGS = ['世界杯前哨', '港式数据', '每日更新'] as const;
 const HERO_PARTICLE_COUNT = 10;
 
 function TelegramIcon({ className }: { className?: string }) {
@@ -19,33 +15,12 @@ function TelegramIcon({ className }: { className?: string }) {
   );
 }
 
-function FormDots({ form }: { form: string }) {
-  return (
-    <span className="wc26-form" aria-label={`最近战绩 ${form}`}>
-      {form.split('').map((r, i) => (
-        <span key={`${r}-${i}`} className={`wc26-form__dot wc26-form__dot--${r.toLowerCase()}`}>
-          {r}
-        </span>
-      ))}
-    </span>
-  );
-}
-
 interface WorldCup2026HeroProps {
   daysUntilKickoff: number;
   hotMatch: WorldCupHeroHotMatch;
-  hotDirections: WorldCupHotDirection[];
-  precursors: WorldCupPrecursorMatch[];
-  heroTeams: WorldCupHotTeam[];
 }
 
-export function WorldCup2026Hero({
-  daysUntilKickoff,
-  hotMatch,
-  hotDirections,
-  precursors,
-  heroTeams,
-}: WorldCup2026HeroProps) {
+export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026HeroProps) {
   const tgUrl = resolveTelegramUrl();
 
   return (
@@ -54,7 +29,7 @@ export function WorldCup2026Hero({
         <div className="wc26-hero__gradient" />
         <div className="wc26-hero__red-glow" />
         <div className="wc26-hero__gold-glow" />
-        <div className="wc26-hero__spotlight wc26-hero__spotlight--left" />
+        <div className="wc26-hero__left-glow" />
         <div className="wc26-hero__vignette" />
         <div className="wc26-hero__particles">
           {Array.from({ length: HERO_PARTICLE_COUNT }).map((_, i) => (
@@ -65,99 +40,58 @@ export function WorldCup2026Hero({
 
       <div className="wc26-hero__grid">
         <div className="wc26-hero__left">
-          <header className="wc26-hero__head">
-            <p className="wc26-hero__eyebrow">FIFA WORLD CUP 2026 · 港式世界杯媒体站</p>
-            <h1 id="wc26-hero-title" className="wc26-hero__title">
-              2026 世界杯预测专区
-            </h1>
-            <p className="wc26-hero__desc">每日更新世界杯分析、盘口方向、热门球队动态</p>
-          </header>
-
-          <div className="wc26-hero__panels">
-            <div className="wc26-hero__panel">
-              <h2 className="wc26-hero__panel-title">今日主推</h2>
-              <Link href={hotMatch.href} className="wc26-hero__spotlight-match">
-                <div className="wc26-hero__spotlight-head">
-                  <span>{hotMatch.league}</span>
-                  <time>{hotMatch.kickoffTime}</time>
-                </div>
-                <p className="wc26-hero__spotlight-names">
-                  {hotMatch.homeNameZh} vs {hotMatch.awayNameZh}
-                </p>
-                <p className="wc26-hero__spotlight-line">{hotMatch.headline}</p>
-                <div className="wc26-hero__spotlight-meta">
-                  <span>{hotMatch.direction}</span>
-                  {hotMatch.winRatePercent != null && (
-                    <span className="wc26-hero__spotlight-rate">胜率 {hotMatch.winRatePercent}%</span>
-                  )}
-                </div>
-              </Link>
-            </div>
-
-            <div className="wc26-hero__panel">
-              <h2 className="wc26-hero__panel-title">热门方向</h2>
-              <ul className="wc26-hero__dirs">
-                {hotDirections.map((item) => (
-                  <li key={item.label}>
-                    {item.href ? (
-                      <Link href={item.href} className="wc26-hero__dir">
-                        <strong>{item.label}</strong>
-                        <span>{item.detail}</span>
-                      </Link>
-                    ) : (
-                      <div className="wc26-hero__dir wc26-hero__dir--static">
-                        <strong>{item.label}</strong>
-                        <span>{item.detail}</span>
-                      </div>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="wc26-hero__panel">
-              <h2 className="wc26-hero__panel-title">世界杯前哨战</h2>
-              <ul className="wc26-hero__precursors">
-                {precursors.map((item) => (
-                  <li key={item.slug}>
-                    <Link href={item.href} className="wc26-hero__precursor">
-                      <span className="wc26-hero__precursor-league">{item.league}</span>
-                      <span className="wc26-hero__precursor-label">{item.label}</span>
-                      <time className="wc26-hero__precursor-time">{item.kickoffTime}</time>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="wc26-hero__panel wc26-hero__panel--teams">
-              <h2 className="wc26-hero__panel-title">热门球队</h2>
-              <ul className="wc26-hero__team-strip">
-                {heroTeams.slice(0, 4).map((team) => (
-                  <li key={team.slug}>
-                    {team.analysisUrl ? (
-                      <Link href={team.analysisUrl} className="wc26-hero__team-pill">
-                        <TeamLogo slug={team.slug} nameZh={team.nameZh} className="wc26-hero__team-logo" />
-                        <span className="wc26-hero__team-name">{team.nameZh}</span>
-                        <span className="wc26-hero__team-rank">#{team.fifaRank}</span>
-                      </Link>
-                    ) : (
-                      <div className="wc26-hero__team-pill wc26-hero__team-pill--static">
-                        <TeamLogo slug={team.slug} nameZh={team.nameZh} className="wc26-hero__team-logo" />
-                        <span className="wc26-hero__team-name">{team.nameZh}</span>
-                        <span className="wc26-hero__team-rank">#{team.fifaRank}</span>
-                      </div>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <p className="wc26-hero__eyebrow">FIFA WORLD CUP 2026</p>
+          <h1 id="wc26-hero-title" className="wc26-hero__title">
+            2026 世界杯预测专区
+          </h1>
+          <p className="wc26-hero__desc">美加墨 48 队 · 港式世界杯专题</p>
+          <div className="wc26-hero__tags">
+            {HERO_TAGS.map((tag) => (
+              <span key={tag} className="wc26-hero__tag">
+                {tag}
+              </span>
+            ))}
           </div>
+
+          <Link href={hotMatch.href} className="wc26-hero__feature">
+            <span className="wc26-hero__feature-glow" aria-hidden />
+            <div className="wc26-hero__feature-top">
+              <span className="wc26-hero__feature-label">今日主推</span>
+              <span className="wc26-hero__feature-league">{hotMatch.league}</span>
+            </div>
+            <time className="wc26-hero__feature-time">{hotMatch.kickoffTime}</time>
+            <div className="wc26-hero__feature-matchup">
+              <div className="wc26-hero__feature-team">
+                <TeamLogo
+                  slug={hotMatch.homeSlug}
+                  nameZh={hotMatch.homeNameZh}
+                  className="wc26-hero__feature-logo"
+                />
+                <span>{hotMatch.homeNameZh}</span>
+              </div>
+              <span className="wc26-hero__feature-vs">VS</span>
+              <div className="wc26-hero__feature-team">
+                <TeamLogo
+                  slug={hotMatch.awaySlug}
+                  nameZh={hotMatch.awayNameZh}
+                  className="wc26-hero__feature-logo"
+                />
+                <span>{hotMatch.awayNameZh}</span>
+              </div>
+            </div>
+            {hotMatch.headline && <p className="wc26-hero__feature-line">{hotMatch.headline}</p>}
+            <div className="wc26-hero__feature-actions">
+              <span className="wc26-hero__feature-cta">{hotMatch.direction}</span>
+              {hotMatch.winRatePercent != null && (
+                <span className="wc26-hero__feature-rate">胜率 {hotMatch.winRatePercent}%</span>
+              )}
+            </div>
+          </Link>
         </div>
 
         <aside className="wc26-hero__right">
           <div className="wc26-hero__countdown" aria-live="polite">
-            <span className="wc26-hero__countdown-label">距离世界杯开幕还有</span>
+            <span className="wc26-hero__countdown-label">距离世界杯开幕</span>
             <span className="wc26-hero__countdown-value">
               <span className="wc26-hero__countdown-num">{daysUntilKickoff}</span>
               <span className="wc26-hero__countdown-unit">天</span>
@@ -165,15 +99,12 @@ export function WorldCup2026Hero({
           </div>
 
           <div className="wc26-hero__tg">
+            <span className="wc26-hero__tg-shine" aria-hidden />
             <div className="wc26-hero__tg-head">
               <TelegramIcon className="wc26-hero__tg-icon" />
               <p className="wc26-hero__tg-title">官方 TG 频道</p>
             </div>
-            <ul className="wc26-hero__tg-list">
-              <li>即时盘口</li>
-              <li>临场更新</li>
-              <li>免费方向</li>
-            </ul>
+            <p className="wc26-hero__tg-copy">世界杯临场分析 · 免费推送</p>
             <a
               href={tgUrl}
               target="_blank"
@@ -189,4 +120,14 @@ export function WorldCup2026Hero({
   );
 }
 
-export { FormDots };
+export function FormDots({ form }: { form: string }) {
+  return (
+    <span className="wc26-form" aria-label={`最近战绩 ${form}`}>
+      {form.split('').map((r, i) => (
+        <span key={`${r}-${i}`} className={`wc26-form__dot wc26-form__dot--${r.toLowerCase()}`}>
+          {r}
+        </span>
+      ))}
+    </span>
+  );
+}
