@@ -1,4 +1,4 @@
-# 每日手动更新流程
+# 每日手动更新流程（DailyBatch）
 
 > 适用站点：https://www.hkfootballpro.com/  
 > 内容策略：**每天公开 1 场 `editorial_spotlight`（编辑重点观察）**，其余当日赛事均为 **`data_reference`（数据参考，不展示明确推荐方向）**。  
@@ -17,45 +17,66 @@
 
 - 数据层仍可保留 `direction` 字段（供内部、SEO 元数据、构建层使用），**公开展示由 `coverageTier` + 展示层控制**。
 - 全站同一天只能有 **1 个** `editorial_spotlight`。
-- `home-content.ts` 与 `seo-articles-hot-*.ts` 的 `coverageTier` **必须一致**。
-- 首页「昨晚赛果回顾」是 **已结算历史记录**，与当日推荐无关；更新时勿与今日 spotlight 混淆。
+- **旧日期批次不能删除** — 历史 `/analysis/[slug]`、`/football-analysis` 归档与 sitemap 依赖 registry 全量保留。
+- 首页「昨晚赛果回顾」是 **已结算历史记录**，与当日推荐无关；数据来自 `DailyBatch.results.lastNight`，勿与今日 spotlight 混淆。
 
 ---
 
-## 2. 每日需更新的文件
+## 2. 每日只需改什么（DailyBatch 主流程）
 
-### 2.1 必改（新比赛日）
+### 2.1 必做（每个新比赛日）
 
-| 顺序 | 文件 | 作用 |
+| 顺序 | 操作 | 说明 |
 |------|------|------|
-| ① | `src/lib/seo-articles-hot-YYYY-MM-DD.ts` | **当日分析正文 + coverageTier 标记**（核心数据源） |
-| ② | `src/lib/seo-articles.ts` | 将 import 指向新的 hot 批次文件 |
-| ③ | `src/lib/analysis-matches.ts` | 同步 import 新批次（`SEO_DAILY_TODAY` / `SEO_DAILY_DATE`） |
-| ④ | `src/lib/home-content.ts` | 首页 Hero、跑马灯、今日重点、昨晚赛果、TG 文案 |
+| ① | 新建 `src/data/daily/YYYY-MM-DD.ts` | 复制 `_template.ts`，填写当日全部数据 |
+| ② | 注册 `src/data/daily/index.ts` | 在 `DAILY_BATCH_REGISTRY` **末尾追加**新日期；更新 `DAILY_REGISTRY_ACTIVE_DATE` 为新日期 |
 
-**换日操作**：复制上一日 `seo-articles-hot-*.ts` 为新区间文件名，改 `SEO_HOT_BATCH_DATE`、slug 日期、比赛列表与正文。
+**就这两步。** 首页、`/football-predictions`、`/live-scores`、`/predict`、`/analysis/[slug]`、sitemap、历史归档均由 registry 自动分流，**无需改页面组件或业务逻辑**。
 
-### 2.2 建议同步（非自动联动）
+### 2.2 各页面读什么
 
-| 文件 | 何时改 |
-|------|--------|
-| `src/lib/home-hot-analyses-today.ts` | 二级页「今日热门分析」卡片列表与当日 slug 一致时 |
-| `src/lib/home-content.ts` → `lastNight` | **赛后**更新昨日已结算 pick（红/黑/走），保持「历史记录」语义 |
+| 页面 / 功能 | 数据源 | 行为 |
+|-------------|--------|------|
+| 首页 `/` | `getTodayDailyBatch()`（`DAILY_REGISTRY_ACTIVE_DATE`） | **仅显示 active date** |
+| `/football-predictions` | 同上 | **仅显示 active date 的 5 场** |
+| `/live-scores`、`/predict` | 同上 + 固定 HK 场次 | 仅 active date |
+| `/analysis/[slug]` | `analysis-registry` ← 全历史 DailyBatch | **5/30、5/31… 全部可访问** |
+| `/football-analysis` 历史归档 | `getAllDailyBatchSeoArticles()` | **保留历史文章**（不含 active date） |
+| `sitemap.xml` | `getAllDailyBatchSeoArticles()` | **输出全部历史 DailyBatch 分析 URL** |
 
-### 2.3 通常不必改（策略已内置）
+### 2.3 通常不必改
 
-以下文件由 `coverageTier` 自动分流，**日常换日无需修改**：
+以下由 `coverageTier` 与 DailyBatch mapper 自动处理，**日常换日无需修改**：
 
+- `src/components/**` — 所有 UI 组件
 - `src/lib/analysis-display-layer.ts` — 分析页展示层
-- `src/lib/football-predictions-today.ts` — 赛前预测列表展示
-- `src/components/home/*`、`src/components/analysis/*`、`src/components/football-predictions/*`
+- `src/lib/football-predictions-today.ts` — 赛前预测列表
+- `src/lib/home-daily-batch.ts`、`src/lib/daily-batch-mappers.ts` — 映射层
 - `src/types/coverage-tier.ts`
 
+### 2.4 兼容层（可选，非主流程）
+
+`seo-articles-hot-*.ts` 与 `seo-articles.ts` 仍保留作 parity 校验与旧 import 兼容。**新内容以 DailyBatch 为准**；若需双重校验，可同步更新 hot 文件，但非换日必需步骤。
+
 ---
 
-## 3. 如何选择 1 场 editorial_spotlight
+## 3. 新建 `YYYY-MM-DD.ts`
 
-### 3.1 选题建议
+### 3.1 复制模板
+
+```bash
+cp src/data/daily/_template.ts src/data/daily/YYYY-MM-DD.ts
+```
+
+修改：
+
+- `DAILY_BATCH_DATE` → 实际日期
+- `export const dailyBatch…` → 按日期命名（如 `dailyBatch20260601`）
+- `matches[]` — 当日全部赛事与分析正文
+- `results` — 见第 5 节
+- `homepage` — 跑马灯、动态、TG 文案
+
+### 3.2 如何选择 1 场 editorial_spotlight
 
 优先选 **1 场** 作为当日公开编辑观点，通常满足：
 
@@ -63,16 +84,14 @@
 - 有清晰盘口叙事与完整分析正文
 - 愿意在 TG / 首页 Hero 主推的场次
 
-其余全部设为 `data_reference`，即使内部有 `direction` 也不对外当「今日推荐」。
-
-### 3.2 在 `seo-articles-hot-*.ts` 中标记
+其余全部设为 `data_reference`。
 
 **Spotlight（仅 1 条）示例：**
 
 ```ts
+coverageTier: 'editorial_spotlight',
+homepageOrder: 1,   // 必须为 1
 options: {
-  coverageTier: 'editorial_spotlight',
-  homepageOrder: 1,        // 必须为 1
   isHot: true,
   isFocus: true,
   showOnHomepage: true,
@@ -85,232 +104,259 @@ options: {
 **Data reference（其余每条）示例：**
 
 ```ts
+coverageTier: 'data_reference',
+homepageOrder: 2,   // 2、3、4… 递增，不重复
 options: {
-  coverageTier: 'data_reference',
-  homepageOrder: 2,        // 2、3、4… 递增，不重复
   isHot: true,
-  isFocus: true,
-  showOnHomepage: true,
-  featuredInLatest: true,
   modelWinRate: 69,
-  lineOpen: '2.5',         // 可选，列表可显示「盘口 X → Y」
+  lineOpen: '2.5',
   lineCurrent: '2.75',
   ouTrend: 'up',
   // ...
 },
 ```
 
-**每条必须有 `options.coverageTier`**，否则 `validate-daily-content` 会报错。
+**每条必须有 `coverageTier`**，否则 `validate-daily-content` 会报错。
 
 ### 3.3 slug 与日期规范
 
 - 格式：`{主队slug}-vs-{客队slug}-YYYY-MM-DD`
-- 例：`psg-vs-arsenal-2026-05-30`
-- `SEO_HOT_BATCH_DATE`、slug 后缀日期、`kickoffAt` 须与「比赛日」一致
+- 例：`japan-vs-iceland-2026-05-31`
+- `DAILY_BATCH_DATE`、slug 后缀日期、`kickoffAt` 须与「比赛日」一致
 
-### 3.4 同步 `home-content.ts`
+### 3.4 homepage 文案要点
 
-| 区块 | Spotlight 要求 |
-|------|----------------|
-| `hero` | `coverageTier: 'editorial_spotlight'`，`analysisSlug` = spotlight 的 slug |
-| `todayFocusMatches[]` | **恰好 1 条** `editorial_spotlight`，其余 `data_reference`；每条 `slug` / `coverageTier` 与 seo 批次一致 |
-| `liveTicker` / `liveDynamics` / `tgCta` | 文案体现「1 场重点观察 + N 场数据参考」，勿写多个「今日重心」 |
+| 区块 | 要求 |
+|------|------|
+| `liveTicker` / `liveDynamics` | 体现「1 场重点观察 + N 场数据参考」，勿写多个「今日重心」 |
+| `tgCta.statusLines` | 恰好 2 条字符串 |
+| `tgCta.heroHighlights` | 恰好 3 条字符串 |
+| `tgCta.heroCountdown.initialSeconds` | spotlight 开球倒计时秒数 |
 
-`direction` 字段在 `home-content` 中可保留（构建用），但 **data_reference 场次在公开 UI 不会显示该 direction**。
-
----
-
-## 4. data_reference 场次注意事项
-
-1. **分析正文 `pace` 等字段**可含编辑口吻，但分析页会通过展示层 **隐藏「编辑观点」区块**，页头显示「站内数据参考 · 不含明确推荐方向」。
-2. **列表页 / 首页** 对 data_reference 只显示：
-   - 主标签：`数据参考`
-   - 副标签：`模型参考率 XX%` 或 `盘口 open → current`
-   - CTA：`查看数据参考 →`
-3. **不要**在 data_reference 的 `seoDescription` 里写死「推荐 XXX -0.5」类公开诱导（可写「盘口观察」「数据整理」）。
-4. Spotlight 的 `seoDescription` 可明确写观察方向（如 PSG -0.25）。
+Hero / 今日重点卡片由 `matches` 中 `editorial_spotlight` + `homepageOrder` **自动推导**，无需单独维护 `home-content.ts`。
 
 ---
 
-## 5. 更新「昨晚赛果回顾」（历史记录）
+## 4. 注册新日期
 
-位置：`src/lib/home-content.ts` → `lastNight`
+编辑 `src/data/daily/index.ts`：
+
+```ts
+import { dailyBatch20260601, DAILY_BATCH_DATE as DATE_20260601 } from '@/data/daily/2026-06-01';
+
+export const DAILY_BATCH_REGISTRY: DailyBatchRegistryEntry[] = [
+  { date: DATE_20260530, batch: dailyBatch20260530 },
+  { date: DATE_20260531, batch: dailyBatch20260531 },
+  { date: DATE_20260601, batch: dailyBatch20260601 }, // ← 追加，勿删旧条目
+];
+
+export const DAILY_REGISTRY_ACTIVE_DATE = DATE_20260601; // ← 切到新日期
+```
+
+**规则**
+
+- `DAILY_BATCH_REGISTRY` 按日期升序，**只增不删**。
+- `DAILY_REGISTRY_ACTIVE_DATE` = 当日 active date；首页与 `/football-predictions` 只读此日期。
+- 旧批次文件保留在 repo 中，供历史分析页、归档与 sitemap 使用。
+
+---
+
+## 5. 更新「昨晚赛果回顾」与「近 10 场」
+
+位置：**当日 active batch** → `results` 区块（非独立 `home-content.ts`）
+
+```ts
+results: {
+  recent10: {
+    wins: 8,
+    losses: 2,
+    pushes: 0,
+    hitRatePercent: 80,
+  },
+  lastNight: {
+    wins: 4,
+    losses: 1,
+    pushes: 0,
+    recent10HitRatePercent: 80,
+    winStreak: {
+      count: 8,
+      label: '历史记录 · 近10场 8红2黑 · 非今日推荐',
+    },
+    picks: [
+      { teamLabel: '拜仁', pickLine: '-0.5', result: 'win', leagueLabel: '德甲' },
+      // ...
+    ],
+  },
+},
+```
 
 | 字段 | 说明 |
 |------|------|
-| `wins` / `losses` / `pushes` | 昨日汇总 |
-| `picks[]` | 逐场 `{ teamLabel, pickLine, result, leagueLabel }` |
-| `winStreak.label` | 须含「历史记录」「非今日推荐」等语义（见当前线上文案） |
-| `recent10` | 与 Hero「近 10 场」一致 |
+| `recent10` | 首页 Hero「近 10 场」红/黑/走水与命中率 |
+| `lastNight.picks[]` | 昨晚逐场 `{ teamLabel, pickLine, result, leagueLabel }` |
+| `lastNight.winStreak.label` | 须含「历史记录」「非今日推荐」等语义 |
 
-**这是已结算历史，不是今日方向。** UI 标题为「昨晚赛果回顾 / 历史记录」，勿与当日 spotlight 混排。
-
----
-
-## 6. 换日完整 Checklist
-
-```
-[ ] 1. 新建 seo-articles-hot-YYYY-MM-DD.ts（N 场真实赛事 + 分析正文）
-[ ] 2. 指定 1 场 editorial_spotlight（homepageOrder: 1），其余 data_reference
-[ ] 3. 更新 seo-articles.ts import
-[ ] 4. 更新 analysis-matches.ts import
-[ ] 5. 更新 home-content.ts（hero / todayFocusMatches / 文案 / 可选 lastNight）
-[ ] 6. 可选：home-hot-analyses-today.ts
-[ ] 7. 本地验证（见第 7 节）
-[ ] 8. git commit & push → 等待部署
-[ ] 9. 线上验证（见第 8 节）
-```
+**这是已结算历史，不是今日方向。** UI 标题为「昨晚赛果回顾 / 历史记录」，赛后更新 active batch 的 `results` 即可。
 
 ---
 
-## 7. 提交前本地验证
+## 6. data_reference 场次注意事项
+
+1. 分析页会通过展示层 **隐藏「编辑观点」区块**，页头显示「站内数据参考 · 不含明确推荐方向」。
+2. 列表页 / 首页对 data_reference 只显示「数据参考」+ 模型/盘口副文案。
+3. **不要**在 data_reference 的 `seoDescription` 里写死「推荐 XXX -0.5」类公开诱导。
+4. Spotlight 的 `seoDescription` 可明确写观察方向。
+
+---
+
+## 7. 换日完整 Checklist
+
+```
+[ ] 1. 复制 _template.ts → src/data/daily/YYYY-MM-DD.ts
+[ ] 2. 填写 matches：1 场 editorial_spotlight（homepageOrder: 1）+ 其余 data_reference
+[ ] 3. 填写 results.recent10 / results.lastNight（赛后更新昨晚赛果）
+[ ] 4. 填写 homepage（liveTicker / liveDynamics / tgCta）
+[ ] 5. 在 index.ts 追加 registry 条目 + 更新 DAILY_REGISTRY_ACTIVE_DATE
+[ ] 6. 本地验证（见第 8 节）
+[ ] 7. git commit & push → 等待部署
+[ ] 8. 线上验证（见第 9 节）
+```
+
+---
+
+## 8. 提交前本地验证
 
 在项目根目录执行：
 
 ```bash
-# 1. 内容策略校验（必须通过）
+# 1. DailyBatch 与 seo-articles / home-content parity（必须通过）
+npx tsx src/lib/validate-daily-batch-parity.ts
+
+# 2. 内容策略校验（spotlight 唯一性等）
 npx tsx src/lib/validate-daily-content.ts
 
-# 2. 类型检查
+# 3. 类型检查
 npx tsc --noEmit
 
-# 3. 生产构建
+# 4. 生产构建
 npm run build
 ```
 
-### 7.1 `validate-daily-content` 检查项
+### 8.1 校验脚本检查项
 
-脚本会校验：
+**`validate-daily-batch-parity`**
 
-- seo 批次中 **有且仅有 1 个** `editorial_spotlight`
-- 每条 seo 文章都有 `coverageTier`
-- spotlight 的 `homepageOrder === 1`
-- `home-content.hero` 为 spotlight 且 slug 与 seo 一致
-- `home-content.todayFocusMatches` 中 **有且仅有 1 个** spotlight
-- home 与 seo 同 slug 的 `coverageTier` 一致
+- 当日 batch 与 `seo-articles` / `home-content` 字段一致
+- 历史 batch 与对应 `seo-articles-hot-*` 一致
+- 全量 DailyBatch 与 `getSeoArticleInputs()` slug 对齐
 
-通过时输出：
+**`validate-daily-content`**
+
+- 当日 batch 中有且仅有 1 个 `editorial_spotlight`
+- 每条有 `coverageTier`；spotlight 的 `homepageOrder === 1`
+- home-content（由 batch 推导）与 seo 批次 tier 一致
+
+通过时典型输出：
 
 ```
-今日重点观察：{slug}
+validate-daily-batch-parity (today): OK
 validate-daily-content: OK
+今日重点观察：{spotlight-slug}
 ```
-
-### 7.2 构建后快速静态检查（可选）
-
-```bash
-# 赛前预测列表：仅 spotlight 的 fp-card__direction 为 direction 文案
-node -e "
-const fs=require('fs');
-const html=fs.readFileSync('.next/server/app/football-predictions.html','utf8');
-const dirs=[...html.matchAll(/fp-card__direction[^>]*>([^<]+)/g)].map(m=>m[1].trim());
-console.log('directions:', dirs);
-"
-```
-
-期望：1 条为 spotlight 的 `direction`，其余为 `数据参考`。
 
 ---
 
-## 8. 部署后线上验证
+## 9. 部署后线上验证
 
 视口建议：**390px 宽**（手机），确认无横向溢出。
 
-### 8.1 必查页面
+### 9.1 必查页面
 
 | 页面 | URL 示例 | 验证要点 |
 |------|----------|----------|
-| 首页 | `/` | Hero / 今日重点：仅 spotlight 显示 direction；其余「数据参考」；昨晚赛果为「历史记录 / 非今日」 |
-| 赛前预测 | `/football-predictions` | 5 张卡仅 1 张显示 direction；其余「数据参考 + 模型/盘口」 |
-| Spotlight 分析 | `/analysis/{spotlight-slug}` | 有「编辑观点」；显示明确 direction |
-| Data 分析 ×2 | `/analysis/{data-slug}` | 页头「站内数据参考」；**无**编辑观点；无 `👉 方向` |
-| 即时比分 | `/live-scores` | 200，无 404，无溢出 |
-| 比分竞猜 | `/predict` | 同上 |
-| 排行榜 | `/leaderboard` | 同上 |
-| 关于我们 | `/about` | 同上 |
-| 免责声明 | `/disclaimer` | 同上 |
-| 联络我们 | `/contact` | 同上 |
+| 首页 | `/` | 仅 active date；spotlight 显示 direction；其余「数据参考」 |
+| 赛前预测 | `/football-predictions` | 仅 active date 5 场；1 张 direction + 其余数据参考 |
+| Spotlight 分析 | `/analysis/{spotlight-slug}` | 有编辑观点 |
+| Data 分析 | `/analysis/{data-slug}` | 「站内数据参考」；无编辑观点 |
+| 分析中心 | `/football-analysis` | 历史归档含昨日批次；今日 spotlight 卡片正常 |
+| sitemap | `/sitemap.xml` | 含 active + 历史 DailyBatch 全部分析 URL |
+| 即时比分 / 竞猜 | `/live-scores`、`/predict` | 200，无溢出 |
 
-### 8.2 策略核对表
+### 9.2 策略核对表
 
 | 检查项 | 预期 |
 |--------|------|
-| 404 | 以上页面均正常加载 |
-| 横向溢出 | `scrollWidth - innerWidth === 0`（390px） |
-| 今日明确方向 | **全站公开 UI 仅 spotlight 1 场** |
-| data_reference | 列表/首页/分析页均为中性「数据参考」 |
-| 昨晚赛果 | 标题「昨晚赛果回顾」；徽章「历史记录」；含「非今日」类说明 |
-
-### 8.3 浏览器控制台快查（可选）
-
-在目标页 Console 执行：
-
-```javascript
-({
-  overflowX: Math.max(document.documentElement.scrollWidth, document.body.scrollWidth) - innerWidth,
-  is404: /404|页面不存在/i.test(document.body.innerText.slice(0, 500))
-})
-```
+| active date | 首页 / football-predictions 仅新日期内容 |
+| 历史分析 | 旧日期 `/analysis/*` 仍可访问 |
+| 历史归档 | `/football-analysis` 显示旧日期分组 |
+| 404 | 以上页面均正常 |
+| 昨晚赛果 | 「历史记录 / 非今日推荐」语义 |
 
 ---
 
-## 9. 数据流关系（便于排查）
+## 10. 数据流关系
 
 ```
-seo-articles-hot-YYYY-MM-DD.ts
+src/data/daily/YYYY-MM-DD.ts
         │
-        ├── seo-articles.ts ──► analysis-registry ──► /analysis/[slug]
-        │
-        └── analysis-matches.ts ──► getTodayAnalysisMatches()
+        └── src/data/daily/index.ts（DAILY_BATCH_REGISTRY + ACTIVE_DATE）
                     │
-                    ├── /football-predictions 列表
-                    └── sitemap / 其他聚合
-
-home-content.ts ──► 首页 Hero / 今日重点 / 昨晚赛果 / 跑马灯
+        ┌───────────┼───────────┬──────────────────┐
+        ▼           ▼           ▼                  ▼
+  getTodayDailyBatch   getAllDailyBatches    daily-batch-mappers
+        │                   │                  │
+        ▼                   ▼                  ▼
+   首页 / FP /        analysis-registry    daily-analysis-registry
+   live-scores              │                  │
+        │                   ▼                  ▼
+        │            /analysis/[slug]    sitemap + /football-analysis 归档
         │
-        └── coverageTier 须与 seo 批次一致
+        └── results.recent10 / lastNight → 首页 Hero 战绩区
 
 coverageTier
-        │
         ├── editorial_spotlight → 展示 direction + 编辑观点
         └── data_reference      → 展示「数据参考」+ 中性副文案
 ```
 
 ---
 
-## 10. 常见问题
+## 11. 常见问题
 
 | 现象 | 可能原因 | 处理 |
 |------|----------|------|
-| 列表 5 场都显示 direction | seo 批次未设 `coverageTier`，或 `analysis-matches` 未透传 | 检查 options.coverageTier 与 `seoArticleToSeed` 映射 |
-| validate 报 MULTIPLE_SPOTLIGHTS | 多于 1 场设为 editorial_spotlight | 只保留 1 场 spotlight |
-| validate 报 HERO_SPOTLIGHT_MISMATCH | hero.analysisSlug 与 spotlight slug 不一致 | 对齐 `home-content.hero` |
-| 分析页 data 仍显示编辑观点 | 该场误标为 editorial_spotlight | 改为 data_reference 并重新 build |
-| 首页 lastNight 被当成今日推荐 | 文案未区分历史 | 使用「昨晚赛果回顾 / 历史记录 / 非今日推荐」 |
+| 首页仍显示旧日期 | 未更新 `DAILY_REGISTRY_ACTIVE_DATE` | 改 index.ts active date |
+| 历史分析 404 | 删除了旧 batch 或未注册 | 恢复文件并在 registry 保留条目 |
+| 列表 5 场都显示 direction | 多场设为 editorial_spotlight | 只保留 1 场 spotlight |
+| validate 报 MULTIPLE_SPOTLIGHTS | 同上 | 改 coverageTier |
+| sitemap 缺历史 URL | 旧 batch 未在 registry | 追加 registry，勿删旧条目 |
+| 昨晚赛果未更新 | 只改了 matches 未改 results | 更新 active batch 的 `results.lastNight` |
 
 ---
 
-## 11. 提交与部署建议
+## 12. 提交与部署建议
 
-1. **单次 commit 聚焦当日内容**：seo 批次 + home-content + import 切换。
+1. **单次 commit 聚焦当日内容**：新 `YYYY-MM-DD.ts` + `index.ts` 注册与 active date 切换。
 2. **推荐 commit message 示例**：
-   - `Update daily content for YYYY-MM-DD with PSG as editorial spotlight`
-   - `Clarify last night results as historical records`（仅改 lastNight 时）
-3. Push 到 `main` 后等待 CI/Vercel 部署完成，再执行第 8 节线上验证。
-4. 若 spotlight 临场变更方向：**只改数据层 `direction` 与 spotlight 正文**，不要改动 data_reference 的 coverageTier。
+   - `Add daily batch for YYYY-MM-DD with Japan as editorial spotlight`
+   - `Update lastNight results in daily batch`
+3. Push 到 `main` 后等待部署，再执行第 9 节线上验证。
 
 ---
 
-## 12. 相关文件索引
+## 13. 相关文件索引
 
 | 路径 | 说明 |
 |------|------|
-| `src/types/coverage-tier.ts` | `editorial_spotlight` / `data_reference` 类型定义 |
-| `src/lib/validate-daily-content.ts` | 每日策略校验脚本 |
+| `src/data/daily/_template.ts` | 新日期复制模板 |
+| `src/data/daily/index.ts` | Registry + active date |
+| `src/types/daily-batch.ts` | DailyBatch 类型定义 |
+| `src/types/coverage-tier.ts` | `editorial_spotlight` / `data_reference` |
+| `src/lib/validate-daily-batch-parity.ts` | DailyBatch parity 校验 |
+| `src/lib/validate-daily-content.ts` | 内容策略校验 |
+| `src/lib/daily-batch-mappers.ts` | Batch → 页面数据映射 |
 | `src/lib/analysis-display-layer.ts` | 分析页公开展示逻辑 |
-| `src/lib/football-predictions-today.ts` | 赛前预测列表展示逻辑 |
 | `docs/03-URL-ROUTE-MAP.md` | 全站 URL 对照 |
 
 ---
 
-*文档版本：与 2026-05-30 内容策略（PSG spotlight + 4 data_reference）对齐。*
+*文档版本：DailyBatch 主迁移完成后（2026-05-31 active date 示例）。*
