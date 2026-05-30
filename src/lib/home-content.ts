@@ -48,6 +48,17 @@ export interface HomeContentFocusMatch {
   isHot?: boolean;
 }
 
+export interface HomeContentRecent10 {
+  /** 近 10 场 · 红 */
+  wins: number;
+  /** 近 10 场 · 黑 */
+  losses: number;
+  /** 近 10 场 · 走 */
+  pushes: number;
+  /** 近 10 场命中率 % */
+  hitRatePercent: number;
+}
+
 export interface HomeContentLastNight {
   /** 红 */
   wins: number;
@@ -57,7 +68,7 @@ export interface HomeContentLastNight {
   pushes: number;
   /** 胜率 %；不填则按 红/(红+黑+走) 自动算 */
   winRatePercent?: number;
-  /** 连红 */
+  /** 近 10 场战绩摘要（Hero「近 10 场」区块） */
   winStreak: { count: number; label: string };
   /** 近10场命中率 % */
   recent10HitRatePercent?: number;
@@ -81,6 +92,8 @@ export interface HomeContent {
   liveTicker: readonly string[];
   liveDynamics: readonly string[];
   todayFocusMatches: HomeContentFocusMatch[];
+  /** 近 10 场战绩（与 Hero、昨晚战绩摘要一致） */
+  recent10: HomeContentRecent10;
   lastNight: HomeContentLastNight;
   tgCta: HomeContentTgCta;
 }
@@ -201,16 +214,22 @@ export const homeContent: HomeContent = {
     },
   ],
 
-  // ④ 昨晚战绩
+  // ④ 昨晚战绩（明细为昨夜场次；近 10 场汇总见 recent10）
+  recent10: {
+    wins: 8,
+    losses: 2,
+    pushes: 0,
+    hitRatePercent: 80,
+  },
+
   lastNight: {
     wins: 4,
     losses: 1,
     pushes: 0,
-    winRatePercent: 80,
     recent10HitRatePercent: 80,
     winStreak: {
-      count: 9,
-      label: '近期 9 连红进行中',
+      count: 8,
+      label: '近 10 场 8 红 2 黑，命中率 80%',
     },
     picks: [
       { teamLabel: '拜仁', pickLine: '-0.5', result: 'win', leagueLabel: '德甲' },
@@ -252,7 +271,7 @@ export const homeContent: HomeContent = {
       followerNote: '已有 2,847 位波友领取今晚重心',
     },
     mobileBarLabel: '🔥 TG 已开放今晚免费场',
-    winRatePercent: 70,
+    winRatePercent: 80,
     liveUpdateTicker: [
       '🔥 欧冠决赛 PSG -0.25 跟进',
       '🔥 苏格兰 -1.5 深盘更新',
@@ -433,9 +452,9 @@ export function buildDailyHomeUpdateFromHomeContent(
 export async function getHomePageData(
   analysisPromo: TgPromoContent['analysis']
 ): Promise<HomePageData> {
-  const { hero, lastNight, tgCta, todayFocusMatches } = homeContent;
+  const { hero, lastNight, tgCta, todayFocusMatches, recent10 } = homeContent;
   const lastNightResults = mapHomeContentToLastNightResults(lastNight);
-  const winRate = lastNightResults.winRatePercent ?? 0;
+  const winRate = recent10.hitRatePercent;
   const todayFreeFocus = mapHomeContentToTodayFreeFocus(hero);
   const analysisUrl = todayFreeFocus.analysisUrl;
 
@@ -458,9 +477,9 @@ export async function getHomePageData(
     heroHighlights: [...tgCta.heroHighlights],
     winStreak: { ...lastNight.winStreak },
     streak: {
-      wins: lastNight.wins,
-      losses: lastNight.losses,
-      pushes: lastNight.pushes,
+      wins: recent10.wins,
+      losses: recent10.losses,
+      pushes: recent10.pushes,
     },
     hotLeagues: [],
     hotLeaguesTodayUpdateCount: 0,

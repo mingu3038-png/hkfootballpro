@@ -35,7 +35,7 @@ import {
 //  同对象内还有（一般随当日一起改，非上面 5 项主清单）：
 //  · floatingAnnouncements — 顶栏浮动公告 4 条
 //  · heroHighlights — Hero 卖点 3 条
-//  · winStreak —「近期连胜」文案
+//  · winStreak —「近 10 场战绩」摘要文案
 //  · hotLeagues —「热门赛事」链接
 //
 //  分析页 /analysis/[slug] — 只改 src/lib/analysis-matches.ts（ANALYSIS_MATCHES）
@@ -230,7 +230,7 @@ export const dailyHomeUpdate: DailyHomeUpdate = {
   floatingAnnouncements: [
     '🔥 今晚免费重心已更新',
     '⚽ 临场方向已放 TG',
-    '📈 近期胜率 70%',
+    '📈 近 10 场命中率 80%',
     '🎯 世界杯前哨持续更新',
   ],
 
