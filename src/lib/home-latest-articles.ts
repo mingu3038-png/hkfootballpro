@@ -1,8 +1,9 @@
 import { getAnalysisUrl } from '@/config/site';
 import { seoArticles } from '@/lib/seo-articles';
+import { isDailySpotlight } from '@/types/coverage-tier';
 import type { SeoArticle } from '@/types/seo-article';
 
-export type HomeLatestArticleTag = '热门' | '精选分析' | '深度分析' | '今日重点';
+export type HomeLatestArticleTag = '热门' | '精选分析' | '深度分析' | '今日重点' | '数据参考';
 
 export interface HomeLatestArticleItem {
   slug: string;
@@ -13,7 +14,8 @@ export interface HomeLatestArticleItem {
   matchLabel: string;
   league: string;
   kickoffTime: string;
-  direction: string;
+  /** 卡片底部展示文案（spotlight 为 direction，data 为中性标签） */
+  footLabel: string;
   homeSlug: string;
   awaySlug: string;
   homeName: string;
@@ -25,8 +27,10 @@ function resolveTags(article: SeoArticle): HomeLatestArticleTag[] {
   const o = article.options ?? {};
   const tags: HomeLatestArticleTag[] = [];
   if (o.isHot) tags.push('热门');
-  if (o.featuredInLatest && o.homepageOrder === 1) {
+  if (isDailySpotlight(o.coverageTier)) {
     tags.push('今日重点');
+  } else if (o.coverageTier === 'data_reference') {
+    tags.push('数据参考');
   } else if (o.isFocus && o.featuredInLatest) {
     tags.push('精选分析');
   } else if (o.featuredInLatest || (o.isFocus && (o.modelWinRate ?? 0) >= 72)) {
@@ -35,7 +39,31 @@ function resolveTags(article: SeoArticle): HomeLatestArticleTag[] {
   return tags.length > 0 ? tags : ['热门'];
 }
 
+function resolveFootLabel(article: SeoArticle): string {
+  const o = article.options ?? {};
+  if (isDailySpotlight(o.coverageTier)) {
+    return article.direction;
+  }
+  if (o.modelWinRate != null) {
+    return `数据参考 · 模型参考率 ${o.modelWinRate}%`;
+  }
+  if (o.lineOpen && o.lineCurrent && o.lineOpen !== o.lineCurrent) {
+    return `数据参考 · 盘口 ${o.lineOpen} → ${o.lineCurrent}`;
+  }
+  return '数据参考 · 盘口变化追踪';
+}
+
 function resolveSummary(article: SeoArticle): string {
+  const o = article.options ?? {};
+  if (o.coverageTier === 'data_reference') {
+    const snippet = article.analysis.homeForm?.trim() ?? '';
+    if (snippet) {
+      return snippet.length > 120 ? `${snippet.slice(0, 119)}…` : snippet;
+    }
+    const { home, away } = article.match;
+    return `${home.nameZh} vs ${away.nameZh} 本站整理双方近况与盘口走势，仅供数据参考。`;
+  }
+
   if (article.seoDescription?.trim()) {
     const text = article.seoDescription.trim();
     return text.length > 120 ? `${text.slice(0, 119)}…` : text;
@@ -55,7 +83,7 @@ function toHomeItem(article: SeoArticle): HomeLatestArticleItem {
     matchLabel: `${match.home.nameZh} vs ${match.away.nameZh}`,
     league: match.league.nameZh,
     kickoffTime: match.kickoffTime,
-    direction: article.direction,
+    footLabel: resolveFootLabel(article),
     homeSlug: match.home.slug,
     awaySlug: match.away.slug,
     homeName: match.home.nameZh,

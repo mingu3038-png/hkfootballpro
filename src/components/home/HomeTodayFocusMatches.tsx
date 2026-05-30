@@ -11,6 +11,7 @@ import {
   pickHomeFocusMatches,
 } from '@/lib/home-match-poster';
 import { getTeamLogoPath } from '@/lib/team-logo';
+import { isDailySpotlight } from '@/types/coverage-tier';
 import type { MatchListItem } from '@/types/match';
 
 interface HomeTodayFocusMatchesProps {
@@ -25,17 +26,19 @@ interface FocusMatchCardProps {
 }
 
 function focusBadge(match: MatchListItem, tier: FocusCardTier): string | null {
-  if (!match.isFocus && !match.isHot) return null;
-  if (tier === 'hero' && match.isFocus) return '今日重点';
-  if (match.isFocus) return '焦点赛事';
-  return '热门';
+  if (isDailySpotlight(match.coverageTier)) {
+    return tier === 'hero' ? '今日重点观察' : '今日重点';
+  }
+  if (match.coverageTier === 'data_reference') return '数据参考';
+  if (match.isHot) return '热门';
+  return null;
 }
 
 function focusCta(match: MatchListItem): { href: string; label: string } {
-  if (match.analysisPublished) {
-    return { href: getAnalysisUrl(match.slug), label: '查看赛前分析 →' };
-  }
-  return { href: getAnalysisUrl(match.slug), label: '查看赛事 →' };
+  const label = isDailySpotlight(match.coverageTier)
+    ? '查看赛前分析 →'
+    : '查看数据参考 →';
+  return { href: getAnalysisUrl(match.slug), label };
 }
 
 function FocusMatchCard({ match, tier }: FocusMatchCardProps) {
@@ -72,7 +75,7 @@ function FocusMatchCard({ match, tier }: FocusMatchCardProps) {
         <span className="home-focus-matches__glow" aria-hidden />
         <span className="home-focus-matches__rim" aria-hidden />
 
-        {(match.isFocus || match.isHot) && badge && (
+        {badge && (
           <span className="home-focus-matches__badge">{badge}</span>
         )}
 

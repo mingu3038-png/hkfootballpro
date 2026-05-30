@@ -11,6 +11,7 @@ const TAG_CLASS: Record<HomeLatestArticleTag, string> = {
   精选分析: 'home-latest-articles__tag home-latest-articles__tag--focus',
   深度分析: 'home-latest-articles__tag home-latest-articles__tag--vip',
   今日重点: 'home-latest-articles__tag home-latest-articles__tag--vip',
+  数据参考: 'home-latest-articles__tag home-latest-articles__tag--focus',
 };
 
 interface ArticleCardProps {
@@ -78,7 +79,7 @@ function ArticleCard({ item, variant }: ArticleCardProps) {
                 ·
               </span>
               <time className="home-latest-articles__time">{item.kickoffTime}</time>
-              <span className="home-latest-articles__pick">{item.direction}</span>
+              <span className="home-latest-articles__pick">{item.footLabel}</span>
             </div>
             <h3 className="home-latest-articles__seo-title">{item.seoTitle}</h3>
             <p className="home-latest-articles__match">{item.matchLabel}</p>
@@ -115,7 +116,7 @@ function ArticleCard({ item, variant }: ArticleCardProps) {
         <p className="home-latest-articles__match">{item.matchLabel}</p>
         <p className="home-latest-articles__summary">{item.summary}</p>
         <div className="home-latest-articles__foot">
-          <span className="home-latest-articles__pick">{item.direction}</span>
+          <span className="home-latest-articles__pick">{item.footLabel}</span>
           <span className="home-latest-articles__cta">阅读分析 →</span>
         </div>
       </Link>

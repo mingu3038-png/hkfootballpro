@@ -1,4 +1,5 @@
 import type { MatchListItem } from '@/types/match';
+import { isDailySpotlight } from '@/types/coverage-tier';
 
 /** 首页赛事海报 · 队徽缩写与封面色 */
 
@@ -69,22 +70,33 @@ export function focusPosterTint(homeSlug: string, awaySlug: string): string {
   return `linear-gradient(128deg, hsl(${h} 52% 22% / 0.55) 0%, rgba(8, 4, 10, 0.88) 48%, hsl(${a} 46% 20% / 0.5) 100%)`;
 }
 
-/** 卡片 / Hero 推荐信息展示 */
+/** 卡片 / Hero 推荐信息展示（spotlight 才暴露 direction） */
 export function getFocusPickDisplay(match: MatchListItem): {
   direction?: string;
   rateLabel?: string;
 } {
-  const direction = match.pickDirection?.trim();
-  if (!direction) return {};
+  if (isDailySpotlight(match.coverageTier)) {
+    const direction = match.pickDirection?.trim();
+    if (!direction) return {};
 
-  let rateLabel: string | undefined;
-  if (match.winRatePercent != null) {
-    rateLabel = `模型参考率 ${match.winRatePercent}% · 仅供分析参考`;
-  } else if (match.over25Prob != null) {
-    rateLabel = `大2.5 参考 ${match.over25Prob}% · 仅供分析参考`;
+    let rateLabel: string | undefined;
+    if (match.winRatePercent != null) {
+      rateLabel = `模型参考率 ${match.winRatePercent}% · 仅供分析参考`;
+    } else if (match.over25Prob != null) {
+      rateLabel = `大2.5 参考 ${match.over25Prob}% · 仅供分析参考`;
+    }
+
+    return { direction, rateLabel };
   }
 
-  return { direction, rateLabel };
+  let rateLabel = '数据参考 · 盘口变化追踪';
+  if (match.winRatePercent != null) {
+    rateLabel = `数据参考 · 模型参考率 ${match.winRatePercent}%`;
+  } else if (match.over25Prob != null) {
+    rateLabel = `数据参考 · 大2.5 参考 ${match.over25Prob}%`;
+  }
+
+  return { rateLabel };
 }
 
 /** 首页今日重点 · 去重后取前 N 场（按列表顺序 / homepageOrder） */
