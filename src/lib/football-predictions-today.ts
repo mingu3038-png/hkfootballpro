@@ -1,7 +1,9 @@
 import { getAnalysisUrl } from '@/config/site';
+import { getTodayDailyBatch, getTodayDailyBatchDate } from '@/data/daily';
+import { mapDailyBatchToDailyInputs } from '@/lib/daily-batch-mappers';
+import { getTodayAnalysisMatches } from '@/lib/analysis-matches';
 import { isDailySpotlight, type CoverageTier } from '@/types/coverage-tier';
 import type { DailyAnalysisInput } from '@/types/daily-analysis';
-import { getTodayAnalysisMatches, SEO_DAILY_DATE } from '@/lib/analysis-matches';
 
 export interface PredictionCategory {
   id: string;
@@ -83,8 +85,13 @@ function mapToPredictionItem(input: DailyAnalysisInput): FootballPredictionItem 
   };
 }
 
-/** 赛前预测页 · 今日全部赛事 */
+/** 赛前预测页 · 今日全部赛事（/football-predictions · 读 DailyBatch registry） */
 export function getFootballPredictionsToday(): FootballPredictionItem[] {
+  return mapDailyBatchToDailyInputs(getTodayDailyBatch()).map(mapToPredictionItem);
+}
+
+/** 旧路径：analysis-matches 当日批次（其他页面 / 兼容保留） */
+export function getFootballPredictionsTodayFromAnalysisMatches(): FootballPredictionItem[] {
   return getTodayAnalysisMatches().map(mapToPredictionItem);
 }
 
@@ -98,4 +105,5 @@ export function filterPredictionsByCategory(
   return items.filter((item) => cat.leagueSlugs.includes(item.leagueSlug));
 }
 
-export { SEO_DAILY_DATE as PREDICTIONS_TODAY_DATE };
+/** /football-predictions 日期标签（与 DailyBatch 活跃日一致） */
+export const PREDICTIONS_TODAY_DATE = getTodayDailyBatchDate();
