@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
+import { ArchivedAnalysisSection } from '@/components/football-analysis/ArchivedAnalysisSection';
+import { getArchivedSeoArticlesGrouped } from '@/lib/football-analysis-archive';
 import { buildStaticMetadata } from '@/lib/seo/build-metadata';
 import type { Metadata } from 'next';
 
@@ -38,6 +40,8 @@ const ANALYSIS_LINKS = [
 ] as const;
 
 export default function FootballAnalysisPage() {
+  const archivedGroups = getArchivedSeoArticlesGrouped(7);
+
   return (
     <div className="container py-8 max-w-3xl">
       <Breadcrumb items={[{ label: '足球分析' }]} />
@@ -61,6 +65,8 @@ export default function FootballAnalysisPage() {
           </Link>
         ))}
       </div>
+
+      <ArchivedAnalysisSection groups={archivedGroups} />
     </div>
   );
 }
