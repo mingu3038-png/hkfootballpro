@@ -462,7 +462,12 @@ export function formatWcDisplayText(text: string): string {
     .replace(/走势整理/g, '變化參考')
     .replace(/开球时间/g, '開賽時間')
     .replace(/开球/g, '開賽')
-    .replace(/模型参考/g, '模型參考');
+    .replace(/模型参考率/g, '模型參考率')
+    .replace(/模型参考/g, '模型參考')
+    .replace(/攻防数据/g, '攻防數據')
+    .replace(/数据/g, '數據')
+    .replace(/与/g, '與')
+    .replace(/为/g, '為');
 }
 
 /** 最新文章 · 專題分類標籤 */
