@@ -8,8 +8,8 @@ import { buildCategoryMetadata } from '@/lib/seo/build-metadata';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildCategoryMetadata(
-  '国际足球赛前预测',
-  '英超、欧冠、世界杯等国际赛事赛前分析、比分预测及胜率参考，每日更新。',
+  '國際足球賽前分析',
+  '涵蓋英超、歐冠、世界盃等國際賽事賽前分析、數據參考與模型參考率，每日更新。內容僅供分析參考，不構成投注建議。',
   '/football-predictions'
 );
 
@@ -19,13 +19,13 @@ export default function FootballPredictionsPage() {
   return (
     <div className="fp-page">
       <div className="container">
-        <Breadcrumb items={[{ label: '赛前预测' }]} />
+        <Breadcrumb items={[{ label: '賽前分析' }]} />
 
         <header className="fp-page__header">
-          <p className="fp-page__eyebrow">PRE-MATCH PICKS</p>
-          <h1 className="fp-page__title">足球赛前预测</h1>
+          <p className="fp-page__eyebrow">PRE-MATCH ANALYSIS</p>
+          <h1 className="fp-page__title">足球賽前分析</h1>
           <p className="fp-page__desc">
-            自动同步今日分析赛事，按联赛筛选查看今日重点观察与数据参考赛事。
+            自動同步今日分析賽事，按聯賽篩選查看今日重點觀察與數據參考賽事。
           </p>
         </header>
 

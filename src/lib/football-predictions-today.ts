@@ -14,9 +14,9 @@ export interface PredictionCategory {
 
 export const PREDICTION_CATEGORIES: PredictionCategory[] = [
   { id: 'epl', label: '英超', leagueSlugs: ['epl'] },
-  { id: 'ucl', label: '欧冠', leagueSlugs: ['champions-league', 'ucl', 'uefa-champions-league'] },
-  { id: 'world-cup', label: '世界杯', leagueSlugs: ['world-cup', 'wc', 'wc-2026'] },
-  { id: 'international', label: '国际赛', leagueSlugs: ['international'] },
+  { id: 'ucl', label: '歐冠', leagueSlugs: ['champions-league', 'ucl', 'uefa-champions-league'] },
+  { id: 'world-cup', label: '世界盃', leagueSlugs: ['world-cup', 'wc', 'wc-2026'] },
+  { id: 'international', label: '國際賽', leagueSlugs: ['international'] },
   { id: 'csl', label: '中超', leagueSlugs: ['csl'] },
 ];
 
@@ -48,21 +48,21 @@ export function getPredictionCardDisplay(item: FootballPredictionItem): Predicti
     return {
       primaryLabel: item.direction,
       secondaryLabel:
-        item.winRatePercent != null ? `模型参考率 ${item.winRatePercent}%` : undefined,
-      ctaLabel: '查看重点分析 →',
+        item.winRatePercent != null ? `模型參考率 ${item.winRatePercent}%` : undefined,
+      ctaLabel: '查看賽前分析 →',
     };
   }
 
   let secondaryLabel =
-    item.winRatePercent != null ? `模型参考率 ${item.winRatePercent}%` : '盘口变化追踪';
+    item.winRatePercent != null ? `模型參考率 ${item.winRatePercent}%` : '盤口變化追蹤';
   if (item.lineOpen && item.lineCurrent && item.lineOpen !== item.lineCurrent) {
-    secondaryLabel = `盘口 ${item.lineOpen} → ${item.lineCurrent}`;
+    secondaryLabel = `盤口 ${item.lineOpen} → ${item.lineCurrent}`;
   }
 
   return {
-    primaryLabel: '数据参考',
+    primaryLabel: '數據參考',
     secondaryLabel,
-    ctaLabel: '查看数据参考 →',
+    ctaLabel: '查看數據參考 →',
   };
 }
 

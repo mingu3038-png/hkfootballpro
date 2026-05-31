@@ -36,7 +36,7 @@ export function FootballPredictionsBoard({ items, todayLabel }: FootballPredicti
 
   return (
     <div className="fp-board">
-      <div className="fp-board__tabs" role="tablist" aria-label="联赛分类">
+      <div className="fp-board__tabs" role="tablist" aria-label="聯賽分類">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -53,11 +53,11 @@ export function FootballPredictionsBoard({ items, todayLabel }: FootballPredicti
       </div>
 
       <p className="fp-board__date" role="status">
-        今日赛事 · {todayLabel} · 共 {filtered.length} 场
+        今日賽事 · {todayLabel} · 共 {filtered.length} 場
       </p>
 
       {filtered.length === 0 ? (
-        <p className="fp-board__empty">该分类暂无今日赛事，请切换其他分类。</p>
+        <p className="fp-board__empty">該分類暫無今日賽事，請切換其他分類。</p>
       ) : (
         <ul className="fp-board__list">
           {filtered.map((item) => {
