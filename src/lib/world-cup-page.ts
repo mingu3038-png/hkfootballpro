@@ -331,6 +331,37 @@ export function getTodayWorldCupPredictions(limit = 5): WorldCupPredictionItem[]
 
 export { SEO_DAILY_DATE as WORLD_CUP_TODAY_DATE };
 
+export type WorldCupArticleCategory = '世界盃' | '球隊觀察' | '數據參考';
+
+/** 頁面可見文案 · 繁體顯示（不改數據源結構） */
+export function formatWcDisplayText(text: string): string {
+  return text
+    .replace(/世界杯/g, '世界盃')
+    .replace(/国际赛/g, '國際賽')
+    .replace(/临场/g, '臨場');
+}
+
+/** 最新文章 · 專題分類標籤 */
+export function resolveWorldCupArticleCategory(
+  item: WorldCupArticleItem
+): WorldCupArticleCategory {
+  if (/世界[盃杯]/.test(item.league) || item.slug.includes('world-cup')) {
+    return '世界盃';
+  }
+
+  const hotNames = WORLD_CUP_HOT_TEAMS.map((team) => team.nameZh);
+  if (hotNames.some((name) => item.matchLabel.includes(name))) {
+    return '球隊觀察';
+  }
+
+  const hotSlugs = WORLD_CUP_HOT_TEAMS.map((team) => team.slug);
+  if (hotSlugs.some((slug) => item.slug.includes(slug))) {
+    return '球隊觀察';
+  }
+
+  return '數據參考';
+}
+
 /** 距世界杯开幕剩余天数（以 SEO 当日为基准） */
 export function getWorldCupDaysUntilKickoff(fromDate = SEO_DAILY_DATE): number {
   const from = new Date(`${fromDate}T12:00:00`);

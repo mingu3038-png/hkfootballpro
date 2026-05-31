@@ -2,11 +2,10 @@ import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import { TeamLogo } from '@/components/ui/TeamLogo';
 import { resolveTelegramUrl } from '@/lib/telegram';
-import type { WorldCupHeroHotMatch } from '@/lib/world-cup-page';
+import { formatWcDisplayText, type WorldCupHeroHotMatch } from '@/lib/world-cup-page';
 
 const WC_TG_CTA_LABEL = '加入 TG 查看臨場更新';
 
-const HERO_TAGS = ['世界盃前哨', '港式數據', '每日更新'] as const;
 const HERO_PARTICLE_COUNT = 10;
 
 function TelegramIcon({ className }: { className?: string }) {
@@ -24,6 +23,9 @@ interface WorldCup2026HeroProps {
 
 export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026HeroProps) {
   const tgUrl = resolveTelegramUrl();
+  const league = formatWcDisplayText(hotMatch.league);
+  const headline = hotMatch.headline ? formatWcDisplayText(hotMatch.headline) : '';
+  const direction = hotMatch.direction ? formatWcDisplayText(hotMatch.direction) : '';
 
   return (
     <section className="wc26-hero" aria-labelledby="wc26-hero-title">
@@ -40,88 +42,97 @@ export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026Her
         </div>
       </div>
 
-      <div className="wc26-hero__grid">
-        <div className="wc26-hero__left">
+      <div className="wc26-hero__shell">
+        <div className="wc26-hero__dash-head">
           <p className="wc26-hero__eyebrow">FIFA WORLD CUP 2026</p>
           <h1 id="wc26-hero-title" className="wc26-hero__title">
             2026 世界盃專題中心
           </h1>
-          <p className="wc26-hero__desc">美加墨 48 隊 · 世界盃專題資訊與賽前觀察</p>
-          <div className="wc26-hero__tags">
-            {HERO_TAGS.map((tag) => (
-              <span key={tag} className="wc26-hero__tag">
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          <Link href={hotMatch.href} className="wc26-hero__feature">
-            <span className="wc26-hero__feature-glow" aria-hidden />
-            <div className="wc26-hero__feature-top">
-              <span className="wc26-hero__feature-label">今日關注賽事</span>
-              <span className="wc26-hero__feature-league">{hotMatch.league}</span>
-            </div>
-            <time className="wc26-hero__feature-time">{hotMatch.kickoffTime}</time>
-            <div className="wc26-hero__feature-matchup">
-              <div className="wc26-hero__feature-team">
-                <TeamLogo
-                  slug={hotMatch.homeSlug}
-                  nameZh={hotMatch.homeNameZh}
-                  className="wc26-hero__feature-logo"
-                />
-                <span className="wc26-hero__feature-team-name">{hotMatch.homeNameZh}</span>
-              </div>
-              <span className="wc26-hero__feature-vs">VS</span>
-              <div className="wc26-hero__feature-team">
-                <TeamLogo
-                  slug={hotMatch.awaySlug}
-                  nameZh={hotMatch.awayNameZh}
-                  className="wc26-hero__feature-logo"
-                />
-                <span className="wc26-hero__feature-team-name">{hotMatch.awayNameZh}</span>
-              </div>
-            </div>
-            {hotMatch.headline && <p className="wc26-hero__feature-line">{hotMatch.headline}</p>}
-            <div className="wc26-hero__feature-actions">
-              <span className="wc26-hero__feature-tag">數據參考</span>
-              {hotMatch.direction && (
-                <span className="wc26-hero__feature-dir">參考方向 · {hotMatch.direction}</span>
-              )}
-              {hotMatch.winRatePercent != null && (
-                <span className="wc26-hero__feature-rate">
-                  模型參考率 {hotMatch.winRatePercent}%
-                </span>
-              )}
-            </div>
-          </Link>
+          <p className="wc26-hero__desc">美加墨合辦 · 48 隊參賽 · 賽前觀察與數據參考</p>
         </div>
 
-        <aside className="wc26-hero__right">
-          <div className="wc26-hero__countdown" aria-live="polite">
-            <span className="wc26-hero__countdown-label">距離世界盃開幕</span>
-            <span className="wc26-hero__countdown-value">
-              <span className="wc26-hero__countdown-num">{daysUntilKickoff}</span>
-              <span className="wc26-hero__countdown-unit">天</span>
-            </span>
+        <div className="wc26-hero__stats" aria-label="世界盃專題概覽">
+          <div className="wc26-hero__stat wc26-hero__stat--primary">
+            <span className="wc26-hero__stat-value">{daysUntilKickoff}</span>
+            <span className="wc26-hero__stat-label">天後開幕</span>
+          </div>
+          <div className="wc26-hero__stat">
+            <span className="wc26-hero__stat-value">48</span>
+            <span className="wc26-hero__stat-label">參賽隊伍</span>
+          </div>
+          <div className="wc26-hero__stat">
+            <span className="wc26-hero__stat-value">美加墨</span>
+            <span className="wc26-hero__stat-label">合辦國家</span>
+          </div>
+        </div>
+
+        <div className="wc26-hero__grid">
+          <div className="wc26-hero__left">
+            <Link href={hotMatch.href} className="wc26-hero__feature">
+              <span className="wc26-hero__feature-glow" aria-hidden />
+              <div className="wc26-hero__feature-top">
+                <span className="wc26-hero__feature-label">今日關注賽事</span>
+                <span className="wc26-hero__feature-league">{league}</span>
+              </div>
+              <time className="wc26-hero__feature-time">{hotMatch.kickoffTime}</time>
+              <div className="wc26-hero__feature-matchup">
+                <div className="wc26-hero__feature-team">
+                  <TeamLogo
+                    slug={hotMatch.homeSlug}
+                    className="wc26-hero__feature-logo"
+                    alt={hotMatch.homeNameZh}
+                  />
+                  <span className="wc26-hero__feature-team-name">{hotMatch.homeNameZh}</span>
+                </div>
+                <span className="wc26-hero__feature-vs">VS</span>
+                <div className="wc26-hero__feature-team">
+                  <TeamLogo
+                    slug={hotMatch.awaySlug}
+                    className="wc26-hero__feature-logo"
+                    alt={hotMatch.awayNameZh}
+                  />
+                  <span className="wc26-hero__feature-team-name">{hotMatch.awayNameZh}</span>
+                </div>
+              </div>
+              {headline && <p className="wc26-hero__feature-line">{headline}</p>}
+              <div className="wc26-hero__feature-actions">
+                <span className="wc26-hero__feature-tag">數據參考</span>
+                {direction && (
+                  <span className="wc26-hero__feature-dir">參考方向 · {direction}</span>
+                )}
+                {hotMatch.winRatePercent != null && (
+                  <span className="wc26-hero__feature-rate">
+                    模型參考率 {hotMatch.winRatePercent}%
+                  </span>
+                )}
+              </div>
+            </Link>
           </div>
 
-          <div className="wc26-hero__tg">
-            <span className="wc26-hero__tg-shine" aria-hidden />
-            <div className="wc26-hero__tg-head">
-              <TelegramIcon className="wc26-hero__tg-icon" />
-              <p className="wc26-hero__tg-title">官方 TG 頻道</p>
+          <aside className="wc26-hero__right">
+            <div className="wc26-hero__tg">
+              <span className="wc26-hero__tg-shine" aria-hidden />
+              <div className="wc26-hero__tg-head">
+                <TelegramIcon className="wc26-hero__tg-icon" />
+                <p className="wc26-hero__tg-title">官方 TG 頻道</p>
+              </div>
+              <p className="wc26-hero__tg-copy">世界盃賽前觀察 · 陣容與數據更新</p>
+              <ul className="wc26-hero__tg-points">
+                <li>賽前提醒</li>
+                <li>陣容 / 傷停</li>
+                <li>臨場資訊</li>
+              </ul>
+              <a
+                href={tgUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="wc26-hero__tg-btn"
+              >
+                {WC_TG_CTA_LABEL}
+              </a>
             </div>
-            <p className="wc26-hero__tg-copy">世界盃賽前觀察 · 賽前提醒</p>
-            <a
-              href={tgUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="wc26-hero__tg-btn"
-            >
-              {WC_TG_CTA_LABEL}
-            </a>
-          </div>
-        </aside>
+          </aside>
+        </div>
       </div>
     </section>
   );
