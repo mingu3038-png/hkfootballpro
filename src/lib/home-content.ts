@@ -260,7 +260,7 @@ export const homeContent: HomeContent = {
   tgCta: {
     badge: '世界杯前哨战',
     titleGold: '香港足球',
-    titleRed: '预测站',
+    titleRed: '賽前分析站',
     statusLines: ['日本 vs 冰岛分析已更新', '临场盘口持续追踪'],
     tags: ['专业数据分析', '临场更新', '盘口数据参考', '香港足球圈'],
     heroHint: '国际赛 日本 vs 冰岛 赛前分析已公开',
@@ -409,6 +409,13 @@ export function mapHomeContentToFocusMatches(
   }));
 }
 
+/** 首页 Hero 旧品牌词 → 现行用语（DailyBatch 镜像仍可能含简体旧词） */
+function normalizeHeroBrandText(text: string): string {
+  return text
+    .replace(/预测站/g, '賽前分析站')
+    .replace(/免费预测社区/g, '賽前分析平台');
+}
+
 export function mapHomeContentToTgPromoHome(
   tg: HomeContentTgCta,
   winRatePercent: number
@@ -416,6 +423,8 @@ export function mapHomeContentToTgPromoHome(
   const { heroHighlights, ...tgCta } = tg;
   return {
     ...tgCta,
+    titleGold: normalizeHeroBrandText(tg.titleGold),
+    titleRed: normalizeHeroBrandText(tg.titleRed),
     winRatePercent,
     heroHighlights: [...heroHighlights],
     ctaButtons: tg.ctaButtons ?? {
