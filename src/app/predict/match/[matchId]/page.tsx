@@ -43,7 +43,7 @@ export default async function PredictMatchPage({ params }: Props) {
 
       <div className="card">
         <p className="text-sm text-[var(--text-muted)] mb-1">{match.league.nameZh}</p>
-        <h1 className="text-xl font-bold mb-6">估下几比几？</h1>
+        <h1 className="text-xl font-bold mb-6">估下幾比幾？</h1>
         <PredictForm homeTeam={match.homeTeam.nameZh} awayTeam={match.awayTeam.nameZh} />
       </div>
     </div>

@@ -15,7 +15,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
       <ol className="flex flex-wrap items-center gap-1 text-sm text-[var(--text-muted)]">
         <li>
           <Link href="/" className="hover:text-[var(--accent)]">
-            首页
+            首頁
           </Link>
         </li>
         {items.map((item, index) => (

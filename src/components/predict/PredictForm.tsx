@@ -72,7 +72,7 @@ export function PredictForm({ homeTeam, awayTeam }: PredictFormProps) {
         </div>
       </div>
       <button type="submit" className="btn btn-primary w-full">
-        确认提交
+        確認提交
       </button>
     </form>
   );

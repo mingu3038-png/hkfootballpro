@@ -7,7 +7,7 @@ export const TELEGRAM_CTA_LABEL = '加入 TG 查看临场更新';
 export const FLOATING_TG_CTA_LABEL = '加入 TG 查看临场更新';
 
 /** 手机端浮动按钮短文案（紧凑显示） */
-export const FLOATING_TG_CTA_LABEL_MOBILE = '查看临场更新';
+export const FLOATING_TG_CTA_LABEL_MOBILE = '查看臨場更新';
 
 /**
  * 全站 Telegram 链接唯一入口。

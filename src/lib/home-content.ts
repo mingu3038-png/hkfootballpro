@@ -267,7 +267,7 @@ export const homeContent: HomeContent = {
     ctaButtons: {
       primary: '查看分析',
       mobilePrimary: '查看分析',
-      secondary: '查看临场更新',
+      secondary: '查看臨場更新',
       tertiary: '更多赛事分析',
     },
     heroCountdown: {
@@ -413,7 +413,8 @@ export function mapHomeContentToFocusMatches(
 function normalizeHeroBrandText(text: string): string {
   return text
     .replace(/预测站/g, '賽前分析站')
-    .replace(/免费预测社区/g, '賽前分析平台');
+    .replace(/免费预测社区/g, '賽前分析平台')
+    .replace(/查看临场更新/g, '查看臨場更新');
 }
 
 export function mapHomeContentToTgPromoHome(
@@ -427,11 +428,16 @@ export function mapHomeContentToTgPromoHome(
     titleRed: normalizeHeroBrandText(tg.titleRed),
     winRatePercent,
     heroHighlights: [...heroHighlights],
-    ctaButtons: tg.ctaButtons ?? {
-      primary: '查看分析',
-      secondary: '查看临场更新',
-      tertiary: '更多赛事分析',
-    },
+    ctaButtons: tg.ctaButtons
+      ? {
+          ...tg.ctaButtons,
+          secondary: normalizeHeroBrandText(tg.ctaButtons.secondary),
+        }
+      : {
+          primary: '查看分析',
+          secondary: '查看臨場更新',
+          tertiary: '更多赛事分析',
+        },
   };
 }
 

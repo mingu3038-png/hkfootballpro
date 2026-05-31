@@ -7,7 +7,7 @@ interface AnalysisStickyTgBarProps {
 
 export function AnalysisStickyTgBar({ copy }: AnalysisStickyTgBarProps) {
   return (
-    <aside className="adx-sticky-tg" aria-label="查看临场更新">
+    <aside className="adx-sticky-tg" aria-label="查看臨場更新">
       <div className="adx-sticky-tg__inner">
         <div className="adx-sticky-tg__copy">
           <p className="adx-sticky-tg__headline">{copy.headline}</p>

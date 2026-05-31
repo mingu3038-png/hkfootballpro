@@ -27,7 +27,7 @@ function formatHms(totalSeconds: number): string {
 export function HeroTonightSpotlight({
   feature,
   countdown,
-  freeCtaLabel = '查看临场更新',
+  freeCtaLabel = '查看臨場更新',
 }: HeroTonightSpotlightProps) {
   const homeBg = getTeamLogoPath(feature.homeTeam.slug, feature.homeTeam.nameZh);
   const awayBg = getTeamLogoPath(feature.awayTeam.slug, feature.awayTeam.nameZh);

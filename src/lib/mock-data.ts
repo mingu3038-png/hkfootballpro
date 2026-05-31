@@ -173,7 +173,7 @@ function mapDailyHomeUpdate(
         heroHighlights: daily.heroHighlights,
         ctaButtons: daily.tgCta.ctaButtons ?? {
           primary: '查看分析',
-          secondary: '查看临场更新',
+          secondary: '查看臨場更新',
           tertiary: '更多赛事分析',
         },
       },

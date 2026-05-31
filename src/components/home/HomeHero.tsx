@@ -158,7 +158,7 @@ export function HomeHero({ tgPromo, streak, heroTonightFeature }: HomeHeroProps)
             <HeroTonightSpotlight
               feature={heroTonightFeature}
               countdown={home.heroCountdown}
-              freeCtaLabel={home.ctaButtons?.secondary ?? '查看临场更新'}
+              freeCtaLabel={home.ctaButtons?.secondary ?? '查看臨場更新'}
             />
           </div>
 

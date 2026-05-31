@@ -203,7 +203,7 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
       <div className="container analysis-detail__inner">
         <Breadcrumb
           items={[
-            { label: '首页', href: '/' },
+            { label: '首頁', href: '/' },
             { label: '足球分析', href: '/football-analysis' },
             { label: `${data.homeTeam.nameZh} vs ${data.awayTeam.nameZh}` },
           ]}
