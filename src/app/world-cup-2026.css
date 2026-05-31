@@ -1,14 +1,17 @@
-/* ========== 2026 世界杯专题首页 · /world-cup-2026 ========== */
+/* ========== 2026 世界盃專題中心 · /world-cup-2026 ========== */
 
 .wc26-page {
   --wc26-fs: 1.1;
   position: relative;
   padding-bottom: 1.5rem;
+  overflow-x: clip;
   background: linear-gradient(180deg, rgba(4, 3, 4, 0.99) 0%, rgba(8, 6, 8, 0.97) 100%);
 }
 
 .wc26-page__container {
   max-width: 68rem;
+  min-width: 0;
+  overflow-x: clip;
 }
 
 /* —— 动态条 —— */
@@ -34,7 +37,7 @@
 }
 
 .wc26-ticker {
-  margin: 0 -1rem 0.65rem;
+  margin: 0 0 0.65rem;
   background: rgba(6, 4, 6, 0.55);
 }
 
@@ -91,8 +94,8 @@
 /* —— Hero —— */
 .wc26-hero {
   position: relative;
-  margin-inline: -1rem;
-  padding: 0.35rem 1rem 0.85rem;
+  margin-inline: 0;
+  padding: 0.35rem 0 0.85rem;
   overflow: hidden;
 }
 
@@ -329,10 +332,19 @@
   flex-direction: column;
   align-items: center;
   gap: 0.35rem;
+  min-width: 0;
   font-size: calc(0.78rem * var(--wc26-fs));
   font-weight: 800;
   text-align: center;
   color: #fafafa;
+}
+
+.wc26-hero__feature-team-name {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .wc26-hero__feature-logo,
@@ -365,24 +377,26 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.4rem 0.55rem;
 }
 
-.wc26-hero__feature-cta {
+.wc26-hero__feature-tag {
   display: inline-flex;
   align-items: center;
-  padding: 0.45rem 0.95rem;
-  font-size: calc(0.78rem * var(--wc26-fs));
+  padding: 0.28rem 0.65rem;
+  font-size: calc(0.68rem * var(--wc26-fs));
   font-weight: 800;
-  color: #fffbeb;
+  color: rgba(253, 230, 138, 0.95);
   border-radius: var(--radius-pill);
-  background: linear-gradient(135deg, rgba(127, 29, 29, 0.95), rgba(180, 83, 9, 0.9));
-  box-shadow: 0 4px 18px rgba(127, 29, 29, 0.35);
-  transition: filter 0.2s ease;
+  background: rgba(184, 148, 70, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(184, 148, 70, 0.22);
 }
 
-.wc26-hero__feature:hover .wc26-hero__feature-cta {
-  filter: brightness(1.06);
+.wc26-hero__feature-dir {
+  font-size: calc(0.72rem * var(--wc26-fs));
+  font-weight: 600;
+  line-height: 1.35;
+  color: rgba(250, 250, 250, 0.62);
 }
 
 .wc26-hero__feature-rate {
@@ -569,6 +583,8 @@
 
 .wc26-section__head {
   margin-bottom: 0.65rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid rgba(212, 168, 74, 0.1);
 }
 
 .wc26-section__title {
@@ -609,10 +625,12 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 0.25rem;
+  min-width: 0;
   padding: 0.65rem 0.6rem;
   text-decoration: none;
   color: inherit;
   border-radius: calc(var(--radius) - 4px);
+  border: 1px solid rgba(212, 168, 74, 0.08);
   background: linear-gradient(160deg, rgba(14, 8, 10, 0.55) 0%, rgba(8, 4, 6, 0.35) 100%);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   transition: background 0.2s ease, box-shadow 0.2s ease;
@@ -634,14 +652,20 @@
 }
 
 .wc26-team__name {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: calc(0.82rem * var(--wc26-fs));
   font-weight: 800;
   color: #fafafa;
 }
 
 .wc26-team__meta {
+  max-width: 100%;
   font-size: calc(0.65rem * var(--wc26-fs));
   font-weight: 600;
+  line-height: 1.35;
   color: rgba(250, 250, 250, 0.55);
 }
 
@@ -666,10 +690,12 @@
   display: flex;
   flex-direction: column;
   min-height: 11.5rem;
+  min-width: 0;
   padding: 0.9rem 1rem 1rem;
   text-decoration: none;
   color: inherit;
   border-radius: calc(var(--radius) - 2px);
+  border: 1px solid rgba(212, 168, 74, 0.1);
   background: linear-gradient(165deg, rgba(14, 8, 10, 0.5) 0%, rgba(8, 4, 6, 0.38) 100%);
   box-shadow: 0 0 28px rgba(0, 0, 0, 0.22);
   transition: background 0.2s ease, box-shadow 0.2s ease;
@@ -706,6 +732,7 @@
   font-weight: 800;
   line-height: 1.25;
   color: #fafafa;
+  overflow-wrap: anywhere;
 }
 
 .wc26-predict__summary {
@@ -730,16 +757,25 @@
 .wc26-predict__badge {
   display: inline-flex;
   align-items: center;
+  max-width: 100%;
   padding: 0.32rem 0.65rem;
   font-size: calc(0.72rem * var(--wc26-fs));
   font-weight: 800;
+  line-height: 1.3;
   border-radius: var(--radius-pill);
 }
 
+.wc26-predict__badge--ref {
+  color: rgba(253, 230, 138, 0.95);
+  background: rgba(184, 148, 70, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(184, 148, 70, 0.22);
+}
+
 .wc26-predict__badge--dir {
-  color: #fffbeb;
-  background: linear-gradient(135deg, rgba(127, 29, 29, 0.9), rgba(153, 69, 10, 0.85));
-  box-shadow: 0 2px 12px rgba(127, 29, 29, 0.25);
+  color: rgba(250, 250, 250, 0.72);
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 .wc26-predict__badge--rate {
@@ -774,10 +810,12 @@
   flex-direction: column;
   gap: 0.3rem;
   height: 100%;
+  min-width: 0;
   padding: 0.7rem 0.8rem;
   text-decoration: none;
   color: inherit;
   border-radius: calc(var(--radius) - 4px);
+  border: 1px solid rgba(212, 168, 74, 0.08);
   background: rgba(10, 6, 8, 0.4);
   box-shadow: 0 0 18px rgba(0, 0, 0, 0.18);
   transition: background 0.2s ease, box-shadow 0.2s ease;
@@ -809,7 +847,9 @@
   margin: 0;
   font-size: calc(0.88rem * var(--wc26-fs));
   font-weight: 800;
+  line-height: 1.3;
   color: #fafafa;
+  overflow-wrap: anywhere;
 }
 
 .wc26-article__summary {
@@ -834,9 +874,13 @@
 }
 
 .wc26-article__dir {
+  flex: 1 1 auto;
+  min-width: 0;
   font-size: calc(0.68rem * var(--wc26-fs));
-  font-weight: 700;
-  color: rgba(253, 230, 138, 0.9);
+  font-weight: 600;
+  line-height: 1.35;
+  color: rgba(250, 250, 250, 0.62);
+  overflow-wrap: anywhere;
 }
 
 .wc26-article__rate {
@@ -846,7 +890,7 @@
 }
 
 .wc26-article__cta {
-  margin-left: auto;
+  flex-shrink: 0;
   font-size: calc(0.68rem * var(--wc26-fs));
   font-weight: 700;
   color: var(--gold);
@@ -867,10 +911,17 @@
 }
 
 .wc26-tg__title {
-  margin: 0 0 0.55rem;
+  margin: 0 0 0.35rem;
   font-size: calc(0.88rem * var(--wc26-fs));
   font-weight: 800;
   color: #fafafa;
+}
+
+.wc26-tg__sub {
+  margin: 0 0 0.55rem;
+  font-size: calc(0.75rem * var(--wc26-fs));
+  line-height: 1.45;
+  color: rgba(250, 250, 250, 0.62);
 }
 
 .wc26-tg__btn {
@@ -894,7 +945,7 @@
 
 @media (max-width: 767px) {
   .wc26-hero {
-    padding: 0.3rem 1rem 0.75rem;
+    padding: 0.3rem 0 0.75rem;
   }
 
   .wc26-hero__countdown {
@@ -911,22 +962,24 @@
   }
 
   .wc26-articles {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 0.5rem;
-    margin-inline: -1rem;
-    padding-inline: 1rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-
-  .wc26-articles::-webkit-scrollbar {
-    display: none;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow-x: visible;
   }
 
   .wc26-articles > li {
-    flex: 0 0 min(78vw, 280px);
-    scroll-snap-align: start;
+    min-width: 0;
+  }
+
+  .wc26-hero__tg-btn,
+  .wc26-tg__btn {
+    font-size: calc(0.78rem * var(--wc26-fs));
+    white-space: normal;
+    text-align: center;
+    line-height: 1.35;
   }
 }
 

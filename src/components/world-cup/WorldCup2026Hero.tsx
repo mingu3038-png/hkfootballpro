@@ -1,10 +1,12 @@
 import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import { TeamLogo } from '@/components/ui/TeamLogo';
-import { resolveTelegramUrl, TELEGRAM_CTA_LABEL } from '@/lib/telegram';
+import { resolveTelegramUrl } from '@/lib/telegram';
 import type { WorldCupHeroHotMatch } from '@/lib/world-cup-page';
 
-const HERO_TAGS = ['世界杯前哨', '港式数据', '每日更新'] as const;
+const WC_TG_CTA_LABEL = '加入 TG 查看臨場更新';
+
+const HERO_TAGS = ['世界盃前哨', '港式數據', '每日更新'] as const;
 const HERO_PARTICLE_COUNT = 10;
 
 function TelegramIcon({ className }: { className?: string }) {
@@ -42,9 +44,9 @@ export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026Her
         <div className="wc26-hero__left">
           <p className="wc26-hero__eyebrow">FIFA WORLD CUP 2026</p>
           <h1 id="wc26-hero-title" className="wc26-hero__title">
-            2026 世界杯预测专区
+            2026 世界盃專題中心
           </h1>
-          <p className="wc26-hero__desc">美加墨 48 队 · 港式世界杯专题</p>
+          <p className="wc26-hero__desc">美加墨 48 隊 · 世界盃專題資訊與賽前觀察</p>
           <div className="wc26-hero__tags">
             {HERO_TAGS.map((tag) => (
               <span key={tag} className="wc26-hero__tag">
@@ -56,7 +58,7 @@ export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026Her
           <Link href={hotMatch.href} className="wc26-hero__feature">
             <span className="wc26-hero__feature-glow" aria-hidden />
             <div className="wc26-hero__feature-top">
-              <span className="wc26-hero__feature-label">今日主推</span>
+              <span className="wc26-hero__feature-label">今日關注賽事</span>
               <span className="wc26-hero__feature-league">{hotMatch.league}</span>
             </div>
             <time className="wc26-hero__feature-time">{hotMatch.kickoffTime}</time>
@@ -67,7 +69,7 @@ export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026Her
                   nameZh={hotMatch.homeNameZh}
                   className="wc26-hero__feature-logo"
                 />
-                <span>{hotMatch.homeNameZh}</span>
+                <span className="wc26-hero__feature-team-name">{hotMatch.homeNameZh}</span>
               </div>
               <span className="wc26-hero__feature-vs">VS</span>
               <div className="wc26-hero__feature-team">
@@ -76,14 +78,19 @@ export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026Her
                   nameZh={hotMatch.awayNameZh}
                   className="wc26-hero__feature-logo"
                 />
-                <span>{hotMatch.awayNameZh}</span>
+                <span className="wc26-hero__feature-team-name">{hotMatch.awayNameZh}</span>
               </div>
             </div>
             {hotMatch.headline && <p className="wc26-hero__feature-line">{hotMatch.headline}</p>}
             <div className="wc26-hero__feature-actions">
-              <span className="wc26-hero__feature-cta">{hotMatch.direction}</span>
+              <span className="wc26-hero__feature-tag">數據參考</span>
+              {hotMatch.direction && (
+                <span className="wc26-hero__feature-dir">參考方向 · {hotMatch.direction}</span>
+              )}
               {hotMatch.winRatePercent != null && (
-                <span className="wc26-hero__feature-rate">胜率 {hotMatch.winRatePercent}%</span>
+                <span className="wc26-hero__feature-rate">
+                  模型參考率 {hotMatch.winRatePercent}%
+                </span>
               )}
             </div>
           </Link>
@@ -91,7 +98,7 @@ export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026Her
 
         <aside className="wc26-hero__right">
           <div className="wc26-hero__countdown" aria-live="polite">
-            <span className="wc26-hero__countdown-label">距离世界杯开幕</span>
+            <span className="wc26-hero__countdown-label">距離世界盃開幕</span>
             <span className="wc26-hero__countdown-value">
               <span className="wc26-hero__countdown-num">{daysUntilKickoff}</span>
               <span className="wc26-hero__countdown-unit">天</span>
@@ -102,16 +109,16 @@ export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026Her
             <span className="wc26-hero__tg-shine" aria-hidden />
             <div className="wc26-hero__tg-head">
               <TelegramIcon className="wc26-hero__tg-icon" />
-              <p className="wc26-hero__tg-title">官方 TG 频道</p>
+              <p className="wc26-hero__tg-title">官方 TG 頻道</p>
             </div>
-            <p className="wc26-hero__tg-copy">世界杯临场分析 · 免费推送</p>
+            <p className="wc26-hero__tg-copy">世界盃賽前觀察 · 賽前提醒</p>
             <a
               href={tgUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="wc26-hero__tg-btn"
             >
-              {TELEGRAM_CTA_LABEL}
+              {WC_TG_CTA_LABEL}
             </a>
           </div>
         </aside>
@@ -122,7 +129,7 @@ export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026Her
 
 export function FormDots({ form }: { form: string }) {
   return (
-    <span className="wc26-form" aria-label={`最近战绩 ${form}`}>
+    <span className="wc26-form" aria-label={`最近戰績 ${form}`}>
       {form.split('').map((r, i) => (
         <span key={`${r}-${i}`} className={`wc26-form__dot wc26-form__dot--${r.toLowerCase()}`}>
           {r}

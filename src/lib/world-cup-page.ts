@@ -94,12 +94,12 @@ export const WORLD_CUP_HOT_TEAMS: Omit<
   'analysisSlug' | 'analysisUrl' | 'fifaRank' | 'wcOdds' | 'recentForm'
 >[] = [
   { slug: 'argentina', nameZh: '阿根廷', abbr: 'ARG' },
-  { slug: 'france', nameZh: '法国', abbr: 'FRA' },
+  { slug: 'france', nameZh: '法國', abbr: 'FRA' },
   { slug: 'brazil', nameZh: '巴西', abbr: 'BRA' },
-  { slug: 'england', nameZh: '英格兰', abbr: 'ENG' },
+  { slug: 'england', nameZh: '英格蘭', abbr: 'ENG' },
   { slug: 'portugal', nameZh: '葡萄牙', abbr: 'POR' },
   { slug: 'spain', nameZh: '西班牙', abbr: 'ESP' },
-  { slug: 'germany', nameZh: '德国', abbr: 'GER' },
+  { slug: 'germany', nameZh: '德國', abbr: 'GER' },
 ];
 
 const WC_LEAGUE_SLUGS = new Set(['world-cup', 'world-cup-2026', 'wc', 'wc-2026']);
@@ -222,9 +222,9 @@ export function getWorldCupHotTeams(): WorldCupHotTeam[] {
 export function getWorldCupTickerItems(): string[] {
   const days = getWorldCupDaysUntilKickoff();
   return [
-    `距 2026 世界杯开幕 ${days} 天 · 美加墨 48 队`,
-    '欧冠决赛 巴黎圣日耳曼 vs 阿仙奴 03:00',
-    '阿根廷冠军赔率 5.50 · 卫冕热门领跑',
+    `距 2026 世界盃開幕 ${days} 天 · 美加墨 48 隊`,
+    '歐冠決賽 巴黎聖日耳曼 vs 阿仙奴 03:00',
+    '阿根廷奪冠熱度 5.50 · 衛冕球隊受關注',
   ];
 }
 
