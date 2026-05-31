@@ -212,8 +212,8 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
   const h2hTotal = data.headToHead.homeWins + data.headToHead.draws + data.headToHead.awayWins;
   const ou = data.overUnderAnalysis;
   const modelWinRate = data.modelWinRate ?? ou.over25Probability;
-  const accessLabel = data.accessLabel ?? '免费公开';
   const isEvergreen = data.contentType === 'evergreen';
+  const accessLabel = data.accessLabel ?? (isEvergreen ? '公開閱讀' : '免费公开');
   const isDataReference = isDataReferenceDisplay(data);
   const publicDisplay = data.publicDisplay;
   const ouSummary = isDataReference

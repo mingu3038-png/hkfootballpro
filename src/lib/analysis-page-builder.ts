@@ -318,7 +318,7 @@ export function buildAnalysisPage(input: DailyAnalysisInput): PreMatchAnalysisDe
   };
 
   if (o.contentType === 'evergreen') {
-    detail.accessLabel = '免費公開';
+    detail.accessLabel = '公開閱讀';
     detail.relatedArticles = [];
     detail.riskWarning = {
       level: 'low',
