@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import { TeamLogo } from '@/components/ui/TeamLogo';
 import { resolveTelegramUrl } from '@/lib/telegram';
-import { formatWcDisplayText, type WorldCupHeroHotMatch } from '@/lib/world-cup-page';
+import { formatWcDisplayText, isWorldCupFixtureLeague, type WorldCupHeroHotMatch } from '@/lib/world-cup-page';
 
 const WC_TG_CTA_LABEL = '加入 TG 查看臨場更新';
 
@@ -26,6 +26,9 @@ export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026Her
   const league = formatWcDisplayText(hotMatch.league);
   const headline = hotMatch.headline ? formatWcDisplayText(hotMatch.headline) : '';
   const direction = hotMatch.direction ? formatWcDisplayText(hotMatch.direction) : '';
+  const featureLabel = isWorldCupFixtureLeague(hotMatch.league)
+    ? '今日關注賽事'
+    : '今日國際賽數據參考';
 
   return (
     <section className="wc26-hero" aria-labelledby="wc26-hero-title">
@@ -71,7 +74,7 @@ export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026Her
             <Link href={hotMatch.href} className="wc26-hero__feature">
               <span className="wc26-hero__feature-glow" aria-hidden />
               <div className="wc26-hero__feature-top">
-                <span className="wc26-hero__feature-label">今日關注賽事</span>
+                <span className="wc26-hero__feature-label">{featureLabel}</span>
                 <span className="wc26-hero__feature-league">{league}</span>
               </div>
               <time className="wc26-hero__feature-time">{hotMatch.kickoffTime}</time>
@@ -135,17 +138,5 @@ export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026Her
         </div>
       </div>
     </section>
-  );
-}
-
-export function FormDots({ form }: { form: string }) {
-  return (
-    <span className="wc26-form" aria-label={`最近戰績 ${form}`}>
-      {form.split('').map((r, i) => (
-        <span key={`${r}-${i}`} className={`wc26-form__dot wc26-form__dot--${r.toLowerCase()}`}>
-          {r}
-        </span>
-      ))}
-    </span>
   );
 }

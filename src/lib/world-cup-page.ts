@@ -1,7 +1,6 @@
 import { getAnalysisUrl } from '@/config/site';
 import {
   ANALYSIS_MATCHES,
-  getAnalysisMatchesForDate,
   getTodayAnalysisMatches,
   SEO_DAILY_DATE,
 } from '@/lib/analysis-matches';
@@ -13,11 +12,10 @@ export interface WorldCupHotTeam {
   slug: string;
   nameZh: string;
   abbr: string;
-  analysisSlug: string | null;
   analysisUrl: string | null;
-  fifaRank: number;
-  wcOdds: string;
-  recentForm: string;
+  rankNote: string;
+  historyNote: string;
+  formNote: string;
 }
 
 export interface WorldCupArticleItem {
@@ -71,6 +69,67 @@ export interface WorldCupPrecursorMatch {
   kickoffTime: string;
 }
 
+export interface WorldCupInfoCard {
+  id: string;
+  anchor: string;
+  title: string;
+  summary: string;
+  tag: string;
+}
+
+/** 占位「世界盃」对阵 slug — 不可在 WC 专题页展示 */
+export const FICTIONAL_WC_MATCH_SLUGS = new Set([
+  'brazil-vs-argentina-2026-06-24',
+  'france-vs-germany-2026-06-25',
+  'england-vs-spain-2026-06-26',
+  'portugal-vs-england-2026-07-24',
+  'netherlands-vs-france-2026-07-25',
+  'argentina-vs-france-2026-07-26',
+  'brazil-vs-germany-2026-05-25',
+]);
+
+export function isFictionalWcMatchSlug(slug: string): boolean {
+  return FICTIONAL_WC_MATCH_SLUGS.has(slug);
+}
+
+/** 是否世界盃正赛联赛标签（非前哨国际赛） */
+export function isWorldCupFixtureLeague(league: string): boolean {
+  const normalized = league.replace(/世界杯/g, '世界盃').replace(/国际赛/g, '國際賽');
+  return /世界[盃杯]/.test(normalized) && !/前哨|國際賽/.test(normalized);
+}
+
+/** 专题页稳定资讯卡（无真实长文时展示） */
+export const WORLD_CUP_INFO_CARDS: WorldCupInfoCard[] = [
+  {
+    id: 'format',
+    anchor: '#wc26-info-format',
+    title: '2026 世界盃賽制與48隊',
+    summary: '美加墨合辦、48 隊參賽、小組＋淘汰制；開幕日 2026-06-11（以 FIFA 公布為準）。',
+    tag: '基本資訊',
+  },
+  {
+    id: 'cities',
+    anchor: '#wc26-info-cities',
+    title: '美加墨主辦城市',
+    summary: '賽事分佈於美國、加拿大、墨西哥多座主辦城市；具體球場與賽程以官方公布為準。',
+    tag: '主办资讯',
+  },
+  {
+    id: 'teams',
+    anchor: '#wc26-info-teams',
+    title: 'FIFA 排名與熱門球隊觀察',
+    summary: '整理传统强队与卫冕球队背景；排名数字需以 FIFA 官网最新公布为准，本站不作赔率式表述。',
+    tag: '球隊觀察',
+  },
+  {
+    id: 'asia',
+    anchor: '#wc26-info-asia',
+    title: '亞洲球隊晉級形勢',
+    summary: '整理亞洲區出線球隊與分組；待官方抽籤後更新，專題文章整理中。',
+    tag: '亚洲区',
+  },
+];
+
 /** 2026 世界杯开幕日（揭幕战） */
 export const WORLD_CUP_2026_KICKOFF_DATE = '2026-06-11';
 
@@ -78,20 +137,48 @@ const HERO_HOT_MATCH_SLUG = 'psg-vs-arsenal-2026-05-30';
 
 const TEAM_META: Record<
   string,
-  { fifaRank: number; wcOdds: string; recentForm: string }
+  { rankNote: string; historyNote: string; formNote: string }
 > = {
-  argentina: { fifaRank: 1, wcOdds: '5.50', recentForm: 'WWDLW' },
-  france: { fifaRank: 2, wcOdds: '6.00', recentForm: 'WDWWL' },
-  brazil: { fifaRank: 3, wcOdds: '6.50', recentForm: 'WWLWW' },
-  england: { fifaRank: 4, wcOdds: '7.00', recentForm: 'WWDWL' },
-  portugal: { fifaRank: 5, wcOdds: '9.00', recentForm: 'WWWDW' },
-  spain: { fifaRank: 8, wcOdds: '8.50', recentForm: 'WDWWW' },
-  germany: { fifaRank: 11, wcOdds: '10.00', recentForm: 'LWWWD' },
+  argentina: {
+    rankNote: 'FIFA 排名參考 · 衛冕球隊',
+    historyNote: '歷史表現 · 世界盃冠軍傳統強隊',
+    formNote: '近況觀察 · 待官方數據更新',
+  },
+  france: {
+    rankNote: 'FIFA 排名參考 · 歐洲強隊',
+    historyNote: '歷史表現 · 世界盃冠軍經驗',
+    formNote: '近況觀察 · 待官方數據更新',
+  },
+  brazil: {
+    rankNote: 'FIFA 排名參考 · 南美強隊',
+    historyNote: '歷史表現 · 五次世界盃冠軍',
+    formNote: '近況觀察 · 待官方數據更新',
+  },
+  england: {
+    rankNote: 'FIFA 排名參考 · 歐洲強隊',
+    historyNote: '歷史表現 · 大賽常客',
+    formNote: '近況觀察 · 待官方數據更新',
+  },
+  portugal: {
+    rankNote: 'FIFA 排名參考 · 歐洲強隊',
+    historyNote: '歷史表現 · 大賽經驗豐富',
+    formNote: '近況觀察 · 待官方數據更新',
+  },
+  spain: {
+    rankNote: 'FIFA 排名參考 · 歐洲強隊',
+    historyNote: '歷史表現 · 世界盃冠軍經驗',
+    formNote: '近況觀察 · 待官方數據更新',
+  },
+  germany: {
+    rankNote: 'FIFA 排名參考 · 歐洲強隊',
+    historyNote: '歷史表現 · 四次世界盃冠軍',
+    formNote: '近況觀察 · 待官方數據更新',
+  },
 };
 
 export const WORLD_CUP_HOT_TEAMS: Omit<
   WorldCupHotTeam,
-  'analysisSlug' | 'analysisUrl' | 'fifaRank' | 'wcOdds' | 'recentForm'
+  'analysisUrl' | 'rankNote' | 'historyNote' | 'formNote'
 >[] = [
   { slug: 'argentina', nameZh: '阿根廷', abbr: 'ARG' },
   { slug: 'france', nameZh: '法國', abbr: 'FRA' },
@@ -152,20 +239,6 @@ function mapSeoToArticleItem(article: SeoArticle): WorldCupArticleItem {
   };
 }
 
-function mapAnalysisToArticleItem(input: DailyAnalysisInput): WorldCupArticleItem {
-  return {
-    slug: input.slug,
-    href: getAnalysisUrl(input.slug),
-    seoTitle: input.title ?? `${input.home.nameZh} vs ${input.away.nameZh} 赛前分析`,
-    matchLabel: `${input.home.nameZh} vs ${input.away.nameZh}`,
-    league: input.league.nameZh,
-    kickoffTime: input.kickoffTimeDisplay,
-    direction: input.direction,
-    winRatePercent: input.options?.modelWinRate ?? null,
-    summary: resolveSummary(input.options?.summary ?? input.content?.homeForm),
-  };
-}
-
 function mapAnalysisToPrediction(input: DailyAnalysisInput): WorldCupPredictionItem {
   return {
     slug: input.slug,
@@ -194,26 +267,34 @@ function mapSeoToPrediction(article: SeoArticle): WorldCupPredictionItem {
 }
 
 function findTeamAnalysisSlug(teamSlug: string): string | null {
+  const seoMatch = seoArticles.find(
+    (article) =>
+      !isFictionalWcMatchSlug(article.slug) &&
+      !isWorldCupLeagueSlug(article.match.league.slug) &&
+      (article.match.home.slug === teamSlug || article.match.away.slug === teamSlug)
+  );
+  if (seoMatch) return seoMatch.slug;
+
   const match = ANALYSIS_MATCHES.find(
     (m) =>
-      isWorldCupLeagueSlug(m.league.slug) &&
+      !isFictionalWcMatchSlug(m.slug) &&
+      !isWorldCupLeagueSlug(m.league.slug) &&
       (m.home.slug === teamSlug || m.away.slug === teamSlug)
   );
   return match?.slug ?? null;
 }
 
-/** 世界杯热门球队 + 关联分析页 + 排名赔率战绩 */
+/** 世界杯热门球队 + 关联分析页 */
 export function getWorldCupHotTeams(): WorldCupHotTeam[] {
   return WORLD_CUP_HOT_TEAMS.map((team) => {
     const analysisSlug = findTeamAnalysisSlug(team.slug);
     const meta = TEAM_META[team.slug];
     return {
       ...team,
-      analysisSlug,
       analysisUrl: analysisSlug ? getAnalysisUrl(analysisSlug) : null,
-      fifaRank: meta?.fifaRank ?? 0,
-      wcOdds: meta?.wcOdds ?? '—',
-      recentForm: meta?.recentForm ?? '—',
+      rankNote: meta?.rankNote ?? 'FIFA 排名參考',
+      historyNote: meta?.historyNote ?? '歷史表現 · 待整理',
+      formNote: meta?.formNote ?? '近況觀察 · 待官方數據更新',
     };
   });
 }
@@ -223,8 +304,8 @@ export function getWorldCupTickerItems(): string[] {
   const days = getWorldCupDaysUntilKickoff();
   return [
     `距 2026 世界盃開幕 ${days} 天 · 美加墨 48 隊`,
-    '歐冠決賽 巴黎聖日耳曼 vs 阿仙奴 03:00',
-    '阿根廷奪冠熱度 5.50 · 衛冕球隊受關注',
+    '歐冠決賽 巴黎聖日耳曼 vs 阿仙奴 03:00 · 前哨觀察',
+    '世界盃專題資訊整理中 · 敬請留意更新',
   ];
 }
 
@@ -270,19 +351,13 @@ export function getWorldCupSeoArticles(): WorldCupArticleItem[] {
   return seoArticles.filter(isWorldCupSeoArticle).map(mapSeoToArticleItem);
 }
 
-/** 世界杯热门分析（seo-articles 优先，补充 analysis-matches 世界杯联赛条目） */
+/** 世界杯热门分析（排除虚构 world-cup-2026 占位对阵） */
 export function getWorldCupHotArticles(limit = 6): WorldCupArticleItem[] {
   const bySlug = new Map<string, WorldCupArticleItem>();
 
   for (const item of getWorldCupSeoArticles()) {
+    if (isFictionalWcMatchSlug(item.slug)) continue;
     bySlug.set(item.slug, item);
-  }
-
-  for (const input of ANALYSIS_MATCHES) {
-    if (!isWorldCupLeagueSlug(input.league.slug)) continue;
-    if (!bySlug.has(input.slug)) {
-      bySlug.set(input.slug, mapAnalysisToArticleItem(input));
-    }
   }
 
   return [...bySlug.values()]
@@ -290,19 +365,15 @@ export function getWorldCupHotArticles(limit = 6): WorldCupArticleItem[] {
     .slice(0, limit);
 }
 
-/** 今日世界杯相关预测（当日世界杯场次 → 热门球队相关 → 世界杯精选） */
+/** 今日世界杯相关预测（国际赛前哨 · 热门球队相关；不含虚构 WC 对阵） */
 export function getTodayWorldCupPredictions(limit = 5): WorldCupPredictionItem[] {
   const hotSlugs = new Set(WORLD_CUP_HOT_TEAMS.map((t) => t.slug));
 
-  const todayWc = getAnalysisMatchesForDate(SEO_DAILY_DATE).filter((m) =>
-    isWorldCupLeagueSlug(m.league.slug)
-  );
-  if (todayWc.length > 0) {
-    return todayWc.slice(0, limit).map(mapAnalysisToPrediction);
-  }
-
   const todayFromSeo = seoArticles
     .filter((a) => {
+      if (isFictionalWcMatchSlug(a.slug) || isWorldCupLeagueSlug(a.match.league.slug)) {
+        return false;
+      }
       const { home, away } = a.match;
       return hotSlugs.has(home.slug) || hotSlugs.has(away.slug);
     })
@@ -312,21 +383,20 @@ export function getTodayWorldCupPredictions(limit = 5): WorldCupPredictionItem[]
     return todayFromSeo;
   }
 
-  const todayHotTeam = getTodayAnalysisMatches().filter(
-    (m) => hotSlugs.has(m.home.slug) || hotSlugs.has(m.away.slug)
-  );
-  if (todayHotTeam.length > 0) {
-    return todayHotTeam.slice(0, limit).map(mapAnalysisToPrediction);
-  }
-
-  const todayAll = getTodayAnalysisMatches().slice(0, limit).map(mapAnalysisToPrediction);
-  if (todayAll.length > 0) {
-    return todayAll;
-  }
-
-  return ANALYSIS_MATCHES.filter((m) => isWorldCupLeagueSlug(m.league.slug))
+  const todayHotTeam = getTodayAnalysisMatches()
+    .filter(
+      (m) =>
+        !isFictionalWcMatchSlug(m.slug) &&
+        !isWorldCupLeagueSlug(m.league.slug) &&
+        (hotSlugs.has(m.home.slug) || hotSlugs.has(m.away.slug))
+    )
     .slice(0, limit)
     .map(mapAnalysisToPrediction);
+  if (todayHotTeam.length > 0) {
+    return todayHotTeam;
+  }
+
+  return [];
 }
 
 export { SEO_DAILY_DATE as WORLD_CUP_TODAY_DATE };
