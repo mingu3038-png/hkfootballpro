@@ -34,9 +34,9 @@ export const mobileMenuNav = [
 
 export const footerNav = [
   { label: '足球分析', href: '/football-analysis' },
-  { label: '关于我们', href: '/about' },
-  { label: '竞猜规则', href: '/predict/rules' },
-  { label: '联络我们', href: '/contact' },
+  { label: '關於我們', href: '/about' },
+  { label: '競猜規則', href: '/predict/rules' },
+  { label: '聯絡我們', href: '/contact' },
 ] as const;
 
 export const hkFootballNav = [

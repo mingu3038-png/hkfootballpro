@@ -10,12 +10,12 @@ export function SiteFooter() {
           <div>
             <h3 className="mb-3 text-lg font-bold">{siteConfig.nameZh}</h3>
             <p className="text-sm text-[var(--text-muted)]">
-              专注香港足球及国际赛事赛前分析，提供即时比分、比分竞猜及预测排行榜。内容仅供娱乐及分析参考，不构成投注建议。
+              專注香港足球及國際賽事賽前分析，提供即時比分、數據參考與賽前觀察。內容僅供分析參考，不構成投注建議。
             </p>
           </div>
 
           <div>
-            <h4 className="mb-3 text-sm font-semibold">快速链接</h4>
+            <h4 className="mb-3 text-sm font-semibold">快速連結</h4>
             <ul className="space-y-2">
               {footerNav.map((item) => (
                 <li key={item.href}>
@@ -31,12 +31,12 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <h4 className="mb-3 text-sm font-semibold">免责声明</h4>
+            <h4 className="mb-3 text-sm font-semibold">免責聲明</h4>
             <p className="text-sm text-[var(--text-muted)]">
-              本站为免费预测社区，不涉及非法投注。所有分析内容仅供参考，请理性参与。
+              本站為香港足球賽前分析平台，不涉及非法投注。所有內容僅供分析參考，請理性參與。
             </p>
             <Link href="/disclaimer" className="mt-2 inline-block text-sm text-[var(--accent)] hover:underline">
-              查看完整声明 →
+              查看完整聲明 →
             </Link>
           </div>
         </div>
