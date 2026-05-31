@@ -1,5 +1,13 @@
 import type { CategoryPageData, MatchAnalysisDetail, MatchListItem } from '@/types/match';
+import { getDailyBatchMatchListItems } from '@/lib/daily-batch-mappers';
 import { mockAnalyses, mockMatches, leagueMeta } from '@/lib/mock-data';
+
+function findMatchListItemByIdOrSlug(idOrSlug: string): MatchListItem | undefined {
+  return (
+    mockMatches.find((m) => m.id === idOrSlug || m.slug === idOrSlug) ??
+    getDailyBatchMatchListItems().find((m) => m.id === idOrSlug || m.slug === idOrSlug)
+  );
+}
 
 export async function getMatchesByLeague(
   leagueSlug: string,
@@ -51,5 +59,5 @@ export async function getMatchAnalysisBySlug(
 }
 
 export async function getMatchById(matchId: string): Promise<MatchListItem | null> {
-  return mockMatches.find((m) => m.id === matchId) ?? null;
+  return findMatchListItemByIdOrSlug(matchId) ?? null;
 }
