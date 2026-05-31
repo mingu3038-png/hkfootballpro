@@ -23,10 +23,12 @@ export function SiteHeader() {
             />
             <span className="site-header__brand-text min-w-0">
               <span className="site-header__brand-row">
-                <span className="site-header__brand-name truncate">{siteConfig.nameZh}</span>
+                <span className="site-header__brand-name site-header__brand-name--desktop">
+                  {siteConfig.nameZh}
+                </span>
                 <span className="site-header__brand-badge shrink-0">{siteConfig.brandBadge}</span>
               </span>
-              <span className="site-header__brand-sub site-header__brand-sub--desktop truncate">
+              <span className="site-header__brand-sub site-header__brand-sub--desktop">
                 {siteConfig.brandTagline}
               </span>
             </span>
