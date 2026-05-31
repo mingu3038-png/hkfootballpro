@@ -164,8 +164,33 @@ body:has(.home-page) .home-hero {
   }
 
   .home-focus-matches__slot--hero .home-focus-matches__card--hero {
-    --focus-card-h: 23rem;
+    --focus-card-h: 20.5rem;
     height: 100%;
+  }
+
+  .home-focus-matches__slot--hero .home-focus-matches__card--hero .home-focus-matches__poster {
+    justify-content: flex-start;
+    gap: 0.72rem;
+    padding: 0.95rem 1.05rem 0.92rem;
+  }
+
+  .home-focus-matches__slot--hero .home-focus-matches__card--hero .home-focus-matches__crest-row {
+    margin-top: 0.55rem;
+    padding-top: 0;
+    flex-shrink: 0;
+  }
+
+  .home-focus-matches__slot--hero .home-focus-matches__card--hero .home-focus-matches__content {
+    flex: 0 1 auto;
+    justify-content: flex-start;
+    gap: 0.38rem;
+    padding-top: 0;
+    margin-top: 0.15rem;
+  }
+
+  .home-focus-matches__slot--hero .home-focus-matches__card--hero .home-focus-matches__matchup {
+    flex: 0 1 auto;
+    min-height: 0;
   }
 
   .home-focus-matches__slot--hero .home-focus-matches__card {
@@ -189,9 +214,9 @@ body:has(.home-page) .home-hero {
     flex-direction: column;
     width: 100%;
     min-width: 0;
-    min-height: 11.1rem;
+    min-height: 0;
     height: 100%;
-    --focus-card-h: max(calc((23rem - 0.72rem) / 2), 11.1rem);
+    --focus-card-h: max(calc((20.5rem - 0.72rem) / 2), 9.75rem);
   }
 
   .home-focus-matches__slot--side .home-focus-matches__card--sub .home-focus-matches__poster {
@@ -199,6 +224,9 @@ body:has(.home-page) .home-hero {
     height: 100%;
     min-height: var(--focus-card-h);
     max-height: none;
+    justify-content: space-between;
+    gap: 0.1rem;
+    padding: 2.38rem 0.92rem 0.72rem;
   }
 
   .home-focus-matches__slot--bottom {
@@ -218,8 +246,8 @@ body:has(.home-page) .home-hero {
   }
 
   .home-focus-matches__card--sub .home-focus-matches__poster {
-    padding: 2.75rem 0.95rem 0.92rem;
-    gap: 0.16rem;
+    padding: 2.35rem 0.92rem 0.78rem;
+    gap: 0.12rem;
     justify-content: flex-start;
     min-height: var(--focus-card-h);
   }
@@ -240,8 +268,8 @@ body:has(.home-page) .home-hero {
   }
 
   .home-focus-matches__slot--side .home-focus-matches__card--sub .home-focus-matches__badge {
-    top: 0.68rem;
-    left: 0.68rem;
+    top: 0.64rem;
+    left: 0.64rem;
   }
 
   .home-focus-matches__card--sub .home-focus-matches__crest-row,
@@ -252,10 +280,19 @@ body:has(.home-page) .home-hero {
   }
 
   .home-focus-matches__slot--side .home-focus-matches__card--sub .home-focus-matches__crest-row {
-    margin-top: 0.05rem;
+    margin-top: 0;
     padding-top: 0;
-    transform: scale(0.88);
-    transform-origin: top center;
+    flex-shrink: 0;
+  }
+
+  .home-focus-matches__slot--side .home-focus-matches__card--sub .home-focus-matches__crest {
+    width: 2.35rem;
+    height: 2.35rem;
+  }
+
+  .home-focus-matches__slot--side .home-focus-matches__card--sub .home-focus-matches__crest-img {
+    width: 1.48rem;
+    height: 1.48rem;
   }
 
   .home-focus-matches__card--sub .home-focus-matches__crest {
@@ -287,8 +324,31 @@ body:has(.home-page) .home-hero {
   }
 
   .home-focus-matches__slot--side .home-focus-matches__card--sub .home-focus-matches__content {
-    padding-top: 0.22rem;
-    gap: 0.22rem;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+    padding-top: 0.1rem;
+    gap: 0.18rem;
+  }
+
+  .home-focus-matches__slot--side .home-focus-matches__card--sub .home-focus-matches__matchup {
+    margin: 0;
+    line-height: 1.28;
+    flex: 0 1 auto;
+    min-height: 0;
+  }
+
+  .home-focus-matches__slot--side .home-focus-matches__card--sub .home-focus-matches__cta {
+    margin-top: 0.04rem;
+  }
+
+  @media (min-width: 1280px) {
+    .home-focus-matches__slot--hero .home-focus-matches__card--hero {
+      --focus-card-h: 20.75rem;
+    }
+
+    .home-focus-matches__slot--side .home-focus-matches__card--sub {
+      --focus-card-h: max(calc((20.75rem - 0.72rem) / 2), 9.85rem);
+    }
   }
 
   .home-focus-matches__card--std .home-focus-matches__content {
@@ -303,30 +363,6 @@ body:has(.home-page) .home-hero {
     -webkit-line-clamp: 2;
     line-clamp: 2;
     min-height: 0;
-  }
-
-  .home-focus-matches__slot--side .home-focus-matches__card--sub .home-focus-matches__matchup {
-    margin: 0;
-    line-height: 1.28;
-  }
-
-  .home-focus-matches__slot--side .home-focus-matches__card--sub .home-focus-matches__cta {
-    margin-top: 0.08rem;
-  }
-
-  @media (min-width: 1280px) {
-    .home-focus-matches__slot--hero .home-focus-matches__card--hero {
-      --focus-card-h: 23.5rem;
-    }
-
-    .home-focus-matches__slot--side .home-focus-matches__card--sub {
-      min-height: 11.35rem;
-      --focus-card-h: max(calc((23.5rem - 0.72rem) / 2), 11.35rem);
-    }
-
-    .home-focus-matches__slot--side .home-focus-matches__card--sub .home-focus-matches__poster {
-      padding: 2.9rem 0.95rem 0.96rem;
-    }
   }
 
   .home-focus-matches__card--sub .home-focus-matches__meta,
