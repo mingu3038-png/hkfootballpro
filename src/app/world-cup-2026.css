@@ -1308,6 +1308,315 @@
   }
 }
 
+/* —— 视觉减负 · 小范围覆盖 —— */
+@keyframes wc26-glow-pulse {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.45; }
+}
+
+@keyframes wc26-countdown-glow {
+  0%, 100% { filter: none; }
+  50% { filter: none; }
+}
+
+.wc26-ticker__badge {
+  color: rgba(250, 250, 250, 0.55);
+}
+
+.wc26-ticker__dot {
+  background: rgba(250, 250, 250, 0.45);
+  box-shadow: none;
+}
+
+.wc26-hero__gradient {
+  background:
+    linear-gradient(120deg, rgba(127, 29, 29, 0.1) 0%, transparent 55%),
+    linear-gradient(280deg, rgba(184, 148, 70, 0.06) 0%, transparent 50%),
+    linear-gradient(180deg, rgba(8, 4, 6, 0.05) 0%, rgba(4, 3, 4, 0.9) 100%);
+}
+
+.wc26-hero__red-glow {
+  background: radial-gradient(ellipse, rgba(185, 28, 28, 0.08) 0%, transparent 68%);
+  filter: blur(28px);
+}
+
+.wc26-hero__gold-glow {
+  background: radial-gradient(ellipse, rgba(212, 168, 74, 0.06) 0%, transparent 68%);
+  filter: blur(24px);
+}
+
+.wc26-hero__left-glow {
+  background: radial-gradient(ellipse, rgba(239, 68, 68, 0.04) 0%, transparent 70%);
+}
+
+.wc26-hero__particle {
+  opacity: 0.35;
+  background: rgba(252, 211, 77, 0.35);
+}
+
+.wc26-hero__shell {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(
+    165deg,
+    rgba(14, 8, 10, 0.55) 0%,
+    rgba(8, 4, 6, 0.42) 55%,
+    rgba(8, 4, 6, 0.38) 100%
+  );
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.wc26-hero__stat--primary {
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.wc26-hero__stat--primary .wc26-hero__stat-value {
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  color: #fafafa;
+  animation: none;
+}
+
+.wc26-hero__eyebrow {
+  color: rgba(250, 250, 250, 0.45);
+}
+
+.wc26-hero__title {
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  color: #fafafa;
+  filter: none;
+}
+
+.wc26-hero__feature {
+  background: linear-gradient(
+    145deg,
+    rgba(127, 29, 29, 0.1) 0%,
+    rgba(12, 6, 8, 0.5) 45%,
+    rgba(8, 4, 6, 0.42) 100%
+  );
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.wc26-hero__feature:hover {
+  transform: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.wc26-hero__feature-glow {
+  opacity: 0.35;
+}
+
+.wc26-hero__feature-label {
+  color: rgba(250, 250, 250, 0.55);
+}
+
+.wc26-hero__feature-league {
+  color: rgba(250, 250, 250, 0.62);
+}
+
+.wc26-hero__feature-time {
+  text-shadow: none;
+}
+
+.wc26-hero__feature-tag {
+  color: rgba(250, 250, 250, 0.72);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.wc26-hero__feature-rate {
+  color: rgba(250, 250, 250, 0.62);
+}
+
+.wc26-hero__tg {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  background: rgba(6, 4, 6, 0.38);
+}
+
+.wc26-hero__tg-shine {
+  opacity: 0.5;
+}
+
+.wc26-hero__tg-points li {
+  color: rgba(250, 250, 250, 0.62);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.wc26-hero__tg-btn {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  color: #fafafa;
+}
+
+.wc26-hero__tg-btn:hover {
+  filter: none;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.wc26-section {
+  padding: 1.65rem 0 0.5rem;
+}
+
+.wc26-section--teams {
+  padding-top: 1.75rem;
+}
+
+.wc26-section--articles {
+  padding-top: 1.85rem;
+}
+
+.wc26-section--muted {
+  opacity: 0.88;
+}
+
+.wc26-section--muted .wc26-section__title {
+  font-size: calc(0.98rem * var(--wc26-fs));
+  font-weight: 700;
+  color: rgba(250, 250, 250, 0.82);
+}
+
+.wc26-section--muted .wc26-section__head {
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+.wc26-team {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.025);
+  box-shadow: none;
+}
+
+.wc26-team:hover {
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: none;
+}
+
+.wc26-team__abbr {
+  color: rgba(250, 250, 250, 0.88);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.wc26-info-cards {
+  gap: 0.85rem;
+}
+
+@media (min-width: 768px) {
+  .wc26-info-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.wc26-info-card--linked {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.wc26-info-card--linked:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.wc26-info-card--linked .wc26-info-card__title {
+  font-size: calc(0.95rem * var(--wc26-fs));
+  line-height: 1.35;
+}
+
+.wc26-info-card--linked .wc26-info-card__summary {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.wc26-info-card--linked .wc26-info-card__detail {
+  display: none;
+}
+
+.wc26-info-card--linked .wc26-info-card__tag {
+  color: rgba(250, 250, 250, 0.62);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.wc26-info-card--linked .wc26-info-card__cta {
+  margin-top: 0.45rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: calc(0.72rem * var(--wc26-fs));
+  font-weight: 700;
+  color: rgba(250, 250, 250, 0.78);
+}
+
+.wc26-predict {
+  min-height: auto;
+  padding: 0.75rem 0.85rem;
+  border-color: rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: none;
+}
+
+.wc26-predict:hover {
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: none;
+}
+
+.wc26-predict__match {
+  font-size: calc(0.88rem * var(--wc26-fs));
+  font-weight: 700;
+}
+
+.wc26-predict__time {
+  font-size: calc(0.78rem * var(--wc26-fs));
+  font-weight: 600;
+}
+
+.wc26-predict__badge--ref,
+.wc26-predict__badge--rate {
+  color: rgba(250, 250, 250, 0.55);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+}
+
+.wc26-tg__inner {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.wc26-tg__btn {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  color: #fafafa;
+}
+
+.wc26-tg__btn:hover {
+  filter: none;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+@media (max-width: 390px) {
+  .wc26-page {
+    --wc26-fs: 1;
+  }
+
+  .wc26-hero__feature-top,
+  .wc26-predict__head,
+  .wc26-article__head {
+    flex-wrap: wrap;
+  }
+
+  .wc26-info-card__title,
+  .wc26-info-card__summary,
+  .wc26-team__meta,
+  .wc26-predict__match {
+    overflow-wrap: anywhere;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .wc26-ticker__track,
   .wc26-hero__particle,

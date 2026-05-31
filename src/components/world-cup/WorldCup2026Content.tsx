@@ -111,7 +111,7 @@ export function WorldCup2026Content({
         </ul>
       </section>
 
-      <section className="wc26-section wc26-section--predict" aria-labelledby="wc26-today-title">
+      <section className="wc26-section wc26-section--predict wc26-section--muted" aria-labelledby="wc26-today-title">
         <header className="wc26-section__head">
           <h2 id="wc26-today-title" className="wc26-section__title">
             今日國際賽 · 數據參考
@@ -171,7 +171,7 @@ export function WorldCup2026Content({
                 <h3 className="wc26-info-card__title">{card.title}</h3>
                 <p className="wc26-info-card__summary">{card.summary}</p>
                 {card.detail && <p className="wc26-info-card__detail">{card.detail}</p>}
-                {card.href && <span className="wc26-info-card__cta">閱讀全文 →</span>}
+                {card.href && <span className="wc26-info-card__cta">閱讀全文</span>}
               </>
             );
 
