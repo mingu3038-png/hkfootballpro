@@ -12,8 +12,8 @@ const leagueSlugMap: Record<string, LeagueSlug> = {
 };
 
 export const metadata: Metadata = buildCategoryMetadata(
-  '比分竞猜',
-  '免费参与足球比分竞猜，预测赛果，冲击排行榜。',
+  '比分競猜',
+  '參與足球比分競猜，估測賽果並衝擊排行榜。僅供社區娛樂，不涉及真實貨幣、獎品或投注建議。',
   '/predict'
 );
 
@@ -22,25 +22,25 @@ export default function PredictPage() {
 
   return (
     <div className="container py-8">
-      <Breadcrumb items={[{ label: '比分竞猜' }]} />
+      <Breadcrumb items={[{ label: '比分競猜' }]} />
 
       <header className="mb-8">
-        <h1 className="text-3xl font-bold mb-3">比分竞猜</h1>
-        <p className="text-[var(--text-muted)] mb-4">选择赛事，提交你的比分预测</p>
+        <h1 className="text-3xl font-bold mb-3">比分競猜</h1>
+        <p className="text-[var(--text-muted)] mb-4">選擇賽事，提交你的比分估測</p>
         <div className="flex flex-wrap gap-2">
           <span
             role="button"
             aria-disabled="true"
-            title="周末挑战活动即将推出"
+            title="週末挑戰活動即將推出"
             className="btn btn-outline text-sm opacity-50 cursor-not-allowed pointer-events-none"
           >
-            周末挑战
+            週末挑戰
           </span>
           <Link href="/predict/rules" className="btn btn-outline text-sm">
-            竞猜规则
+            競猜規則
           </Link>
           <p className="w-full text-xs text-[var(--text-muted)]">
-            周末挑战活动开发中，可先查看竞猜规则或选择下方赛事参与预测。
+            週末挑戰活動開發中，可先查看競猜規則或選擇下方賽事參與競猜。僅供社區娛樂，不涉及真實貨幣或獎品。
           </p>
         </div>
       </header>
@@ -51,8 +51,8 @@ export default function PredictPage() {
             key={match.id}
             match={match}
             leagueSlug={leagueSlugMap[match.league.slug]}
-            showAnalysisLink={false}
             tagStrategy="daily-strategy"
+            ctaPreset="predict"
           />
         ))}
       </div>

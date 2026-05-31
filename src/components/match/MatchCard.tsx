@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { MatchListItem } from '@/types/match';
+import { getAnalysisUrl } from '@/config/site';
 import { getMatchAnalysisUrl, getLiveScoreUrl, getPredictUrl } from '@/config/leagues';
 import type { LeagueSlug } from '@/config/leagues';
 import {
@@ -13,6 +14,8 @@ interface MatchCardProps {
   showAnalysisLink?: boolean;
   /** /live-scores、/predict 使用每日策略标签；其他页面保持默认 isHot/isFocus */
   tagStrategy?: 'default' | 'daily-strategy';
+  /** 列表页 CTA 文案预设（仅改按钮文字与显示组合，不改样式） */
+  ctaPreset?: 'live-scores' | 'predict';
 }
 
 const LEAGUE_BADGE_CLASS: Record<string, string> = {
@@ -37,9 +40,9 @@ function statusBadge(status: MatchListItem['status']) {
     case 'live':
       return <span className="badge badge-live match-card__live-pill">LIVE</span>;
     case 'finished':
-      return <span className="badge badge-finished">完场</span>;
+      return <span className="badge badge-finished">完場</span>;
     default:
-      return <span className="badge badge-upcoming">未开</span>;
+      return <span className="badge badge-upcoming">未開</span>;
   }
 }
 
@@ -48,11 +51,26 @@ export function MatchCard({
   leagueSlug,
   showAnalysisLink = true,
   tagStrategy = 'default',
+  ctaPreset,
 }: MatchCardProps) {
-  const analysisUrl =
-    leagueSlug && match.analysisPublished
+  const analysisUrl = match.analysisPublished
+    ? leagueSlug
       ? getMatchAnalysisUrl(leagueSlug, match.slug)
-      : null;
+      : getAnalysisUrl(match.slug)
+    : null;
+
+  const showAnalysis =
+    ctaPreset === 'live-scores'
+      ? false
+      : ctaPreset === 'predict'
+        ? Boolean(analysisUrl)
+        : Boolean(analysisUrl && showAnalysisLink);
+
+  const showLiveScore = ctaPreset !== 'predict';
+
+  const analysisLabel = ctaPreset ? '查看賽前分析' : '赛前分析';
+  const liveScoreLabel = ctaPreset === 'live-scores' ? '查看即時比分' : '即时比分';
+  const predictLabel = ctaPreset ? '參與比分競猜' : '估比分';
 
   const leagueBadgeClass =
     LEAGUE_BADGE_CLASS[match.league.slug] ?? 'match-card__league-badge--default';
@@ -131,17 +149,19 @@ export function MatchCard({
       </div>
 
       <div className="flex flex-wrap gap-2 border-t border-[var(--border)] pt-3">
-        {analysisUrl && showAnalysisLink && (
+        {analysisUrl && showAnalysis && (
           <Link href={analysisUrl} className="btn btn-outline flex-1 text-xs sm:flex-none">
-            赛前分析
+            {analysisLabel}
           </Link>
         )}
-        <Link href={getLiveScoreUrl(match.id)} className="btn btn-outline flex-1 text-xs sm:flex-none">
-          即时比分
-        </Link>
+        {showLiveScore && (
+          <Link href={getLiveScoreUrl(match.id)} className="btn btn-outline flex-1 text-xs sm:flex-none">
+            {liveScoreLabel}
+          </Link>
+        )}
         {match.predictEnabled && (
           <Link href={getPredictUrl(match.id)} className="btn btn-primary flex-1 text-xs sm:flex-none">
-            估比分
+            {predictLabel}
           </Link>
         )}
       </div>

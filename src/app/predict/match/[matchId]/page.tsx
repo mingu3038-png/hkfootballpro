@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!match) return {};
 
   return {
-    title: `提交预测｜${match.homeTeam.nameZh} 對 ${match.awayTeam.nameZh}`,
+    title: `提交競猜｜${match.homeTeam.nameZh} 對 ${match.awayTeam.nameZh}`,
     robots: { index: false, follow: false },
   };
 }
@@ -26,7 +26,7 @@ export default async function PredictMatchPage({ params }: Props) {
     return (
       <div className="container py-8 max-w-lg mx-auto">
         <div className="card text-center">
-          <p className="text-[var(--text-muted)]">此赛事已截止竞猜</p>
+          <p className="text-[var(--text-muted)]">此賽事已截止競猜</p>
         </div>
       </div>
     );
@@ -36,7 +36,7 @@ export default async function PredictMatchPage({ params }: Props) {
     <div className="container py-8 max-w-lg mx-auto">
       <Breadcrumb
         items={[
-          { label: '比分竞猜', href: '/predict' },
+          { label: '比分競猜', href: '/predict' },
           { label: `${match.homeTeam.nameZh} 對 ${match.awayTeam.nameZh}` },
         ]}
       />

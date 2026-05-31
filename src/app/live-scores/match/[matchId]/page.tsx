@@ -13,8 +13,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!match) return {};
 
   return {
-    title: `${match.homeTeam.nameZh} 对 ${match.awayTeam.nameZh} 即时比分`,
-    description: `${match.league.nameZh} ${match.homeTeam.nameZh} 对 ${match.awayTeam.nameZh} 即时比分及技术统计。`,
+    title: `${match.homeTeam.nameZh} 對 ${match.awayTeam.nameZh} 即時比分`,
+    description: `${match.league.nameZh} ${match.homeTeam.nameZh} 對 ${match.awayTeam.nameZh} 即時比分及賽事狀態。`,
     robots: { index: true, follow: true },
   };
 }
@@ -28,7 +28,7 @@ export default async function LiveScoreDetailPage({ params }: Props) {
     <div className="container py-8">
       <Breadcrumb
         items={[
-          { label: '即时比分', href: '/live-scores' },
+          { label: '即時比分', href: '/live-scores' },
           { label: `${match.homeTeam.nameZh} 對 ${match.awayTeam.nameZh}` },
         ]}
       />
@@ -45,12 +45,12 @@ export default async function LiveScoreDetailPage({ params }: Props) {
         </div>
 
         <p className="text-sm text-[var(--text-muted)] mb-6">
-          状态：{match.status === 'live' ? '进行中' : match.status === 'finished' ? '完场' : '未开赛'}
+          狀態：{match.status === 'live' ? '進行中' : match.status === 'finished' ? '完場' : '未開賽'}
         </p>
 
         {match.predictEnabled && (
           <Link href={getPredictUrl(match.id)} className="btn btn-primary">
-            参与比分竞猜
+            參與比分競猜
           </Link>
         )}
       </div>

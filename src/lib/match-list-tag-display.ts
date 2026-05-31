@@ -17,12 +17,12 @@ export function resolveDailyStrategyMatchTags(match: MatchListItem): MatchListTa
   }
 
   if (isDailySpotlight(match.coverageTier)) {
-    tags.push({ className: 'match-card__tag match-card__tag--focus', label: '今日重点' });
+    tags.push({ className: 'match-card__tag match-card__tag--focus', label: '今日重點觀察' });
     return tags;
   }
 
   if (match.coverageTier === 'data_reference') {
-    tags.push({ className: 'match-card__tag', label: '数据参考' });
+    tags.push({ className: 'match-card__tag', label: '數據參考' });
     return tags;
   }
 

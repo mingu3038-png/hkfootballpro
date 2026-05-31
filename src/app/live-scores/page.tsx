@@ -11,23 +11,26 @@ const leagueSlugMap: Record<string, LeagueSlug> = {
 };
 
 export const metadata: Metadata = buildCategoryMetadata(
-  '即时比分',
-  '港超、英超、欧冠即时比分及今日赛果，实时更新。',
+  '即時比分',
+  '香港足球及港超、英超、歐冠等即時比分與賽事狀態，同步標示今日重點觀察與數據參考賽事，每日更新。',
   '/live-scores'
 );
 
 export default function LiveScoresPage() {
   return (
     <div className="container py-8">
-      <Breadcrumb items={[{ label: '即时比分' }]} />
+      <Breadcrumb items={[{ label: '即時比分' }]} />
 
       <header className="mb-8">
-        <h1 className="text-3xl font-bold mb-3">即时比分</h1>
+        <h1 className="text-3xl font-bold mb-3">即時比分</h1>
+        <p className="text-[var(--text-muted)] mb-4">
+          同步顯示今日賽事即時比分與賽事狀態，並標示今日重點觀察與數據參考場次。
+        </p>
         <div className="flex flex-wrap gap-2">
           {[
-            { label: '港超', hint: '港超即时比分筛选即将推出' },
-            { label: '英超', hint: '英超即时比分筛选即将推出' },
-            { label: '今日赛果', hint: '今日赛果专题即将推出' },
+            { label: '港超', hint: '港超即時比分篩選即將推出' },
+            { label: '英超', hint: '英超即時比分篩選即將推出' },
+            { label: '今日賽果', hint: '今日賽果專題即將推出' },
           ].map((item) => (
             <span
               key={item.label}
@@ -40,7 +43,7 @@ export default function LiveScoresPage() {
             </span>
           ))}
           <p className="w-full text-xs text-[var(--text-muted)]">
-            联赛筛选与赛果专题开发中，请先在下方查看赛事列表。
+            聯賽篩選與賽果專題開發中，請先在下方查看賽事列表。
           </p>
         </div>
       </header>
@@ -52,6 +55,7 @@ export default function LiveScoresPage() {
             match={match}
             leagueSlug={leagueSlugMap[match.league.slug]}
             tagStrategy="daily-strategy"
+            ctaPreset="live-scores"
           />
         ))}
       </div>
