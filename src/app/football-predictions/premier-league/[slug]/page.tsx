@@ -14,7 +14,7 @@ export default async function Page({ params }: Props) {
     <MatchAnalysisPage
       slug={slug}
       leagueSlug="epl"
-      breadcrumbChannel={{ label: '赛前预测', href: '/football-predictions' }}
+      breadcrumbChannel={{ label: '賽前分析', href: '/football-predictions' }}
       breadcrumbLeague={{ label: '英超', href: '/football-predictions/premier-league' }}
     />
   );

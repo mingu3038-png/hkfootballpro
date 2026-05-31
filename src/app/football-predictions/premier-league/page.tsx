@@ -10,7 +10,7 @@ export default function Page() {
     <MatchListPage
       leagueSlug="epl"
       listPath="/football-predictions/premier-league"
-      breadcrumbChannel={{ label: '赛前预测', href: '/football-predictions' }}
+      breadcrumbChannel={{ label: '賽前分析', href: '/football-predictions' }}
     />
   );
 }

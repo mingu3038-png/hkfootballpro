@@ -26,8 +26,8 @@ export default function TodayPredictionsPage() {
     <div className="container py-8">
       <Breadcrumb
         items={[
-          { label: '赛前预测', href: '/football-predictions' },
-          { label: '今日预测' },
+          { label: '賽前分析', href: '/football-predictions' },
+          { label: '今日分析' },
         ]}
       />
 

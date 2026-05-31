@@ -21,7 +21,7 @@ export function MatchListView({ data, leagueSlug, breadcrumbChannel, listPath }:
       />
 
       <header className="mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-2">{data.league.nameZh}赛前预测与分析</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2">{data.league.nameZh}賽前分析</h1>
         <p className="text-[var(--text-muted)]">{data.league.nameEn}</p>
       </header>
 
