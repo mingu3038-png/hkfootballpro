@@ -6,7 +6,7 @@ import {
 import { isDailySpotlight } from '@/types/coverage-tier';
 import type { SeoArticle } from '@/types/seo-article';
 
-export type ArchivedAnalysisTag = '历史记录' | '已归档' | '非今日推荐';
+export type ArchivedAnalysisTag = '歷史記錄' | '已歸檔' | '非今日推薦';
 
 export interface ArchivedAnalysisItem {
   slug: string;
@@ -36,9 +36,9 @@ function subtractDays(isoDate: string, days: number): string {
 
 function resolveArchiveTag(article: SeoArticle): ArchivedAnalysisTag {
   const tier = article.options?.coverageTier;
-  if (isDailySpotlight(tier)) return '历史记录';
-  if (tier === 'data_reference') return '已归档';
-  return '非今日推荐';
+  if (isDailySpotlight(tier)) return '歷史記錄';
+  if (tier === 'data_reference') return '已歸檔';
+  return '非今日推薦';
 }
 
 function toArchiveItem(article: SeoArticle, date: string): ArchivedAnalysisItem {

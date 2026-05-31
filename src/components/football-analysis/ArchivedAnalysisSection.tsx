@@ -14,10 +14,10 @@ export function ArchivedAnalysisSection({ groups }: ArchivedAnalysisSectionProps
       aria-labelledby="football-analysis-archive-title"
     >
       <h3 id="football-analysis-archive-title" className="text-lg font-bold mb-2">
-        历史赛前分析
+        歷史賽前分析歸檔
       </h3>
       <p className="text-sm text-[var(--text-muted)] mb-5 leading-relaxed">
-        已归档的赛前分析文章，仅供复盘参考，非今日推荐。
+        已歸檔的賽前分析文章只供復盤參考，不代表今日推薦方向，亦不構成投注建議。賽果與過往觀點不代表未來結果。
       </p>
 
       {groups.map((group) => (

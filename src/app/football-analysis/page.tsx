@@ -11,10 +11,15 @@ import {
 import { buildStaticMetadata } from '@/lib/seo/build-metadata';
 import type { Metadata } from 'next';
 
+const PAGE_TITLE = '足球賽前分析中心｜香港足球分析';
+const PAGE_DESCRIPTION =
+  '香港足球賽前分析中心：今日重點觀察、數據參考賽事與歷史賽前分析歸檔。內容僅供賽前分析參考，不構成投注建議。';
+
 export const metadata: Metadata = buildStaticMetadata(
-  '足球赛前分析中心',
-  '今日重点观察、数据参考与历史赛前分析归档，集中查阅本站赛前分析内容。',
-  '/football-analysis'
+  '足球賽前分析中心',
+  PAGE_DESCRIPTION,
+  '/football-analysis',
+  PAGE_TITLE
 );
 
 export default function FootballAnalysisPage() {
@@ -23,12 +28,12 @@ export default function FootballAnalysisPage() {
 
   return (
     <div className="container py-8 max-w-3xl">
-      <Breadcrumb items={[{ label: '足球赛前分析' }]} />
+      <Breadcrumb items={[{ label: '足球賽前分析' }]} />
 
       <header className="mb-8">
-        <h1 className="text-3xl font-bold mb-3">足球赛前分析中心</h1>
+        <h1 className="text-3xl font-bold mb-3">足球賽前分析中心</h1>
         <p className="text-[var(--text-muted)] leading-relaxed">
-          集中查阅本站赛前分析：今日重点观察、数据参考场次，以及已归档历史文章。内容仅供娱乐及分析参考。
+          集中查閱本站賽前分析：今日重點觀察、數據參考賽事，以及歷史賽前分析歸檔。內容僅供賽前分析參考，不構成投注建議。
         </p>
       </header>
 
@@ -36,13 +41,13 @@ export default function FootballAnalysisPage() {
 
       <AnalysisHubLinkGrid
         id="football-analysis-today"
-        title="今日内容"
+        title="數據參考賽事"
         links={ANALYSIS_HUB_TODAY_LINKS}
       />
 
       <AnalysisHubLinkGrid
         id="football-analysis-features"
-        title="功能入口"
+        title="相關入口"
         links={ANALYSIS_HUB_FEATURE_LINKS}
         columns={3}
       />
@@ -50,7 +55,7 @@ export default function FootballAnalysisPage() {
       {archivedGroups.length > 0 ? (
         <section className="mb-4" aria-labelledby="football-analysis-review-title">
           <h2 id="football-analysis-review-title" className="section-title">
-            历史复盘
+            歷史賽前分析歸檔
           </h2>
           <ArchivedAnalysisSection groups={archivedGroups} />
         </section>
