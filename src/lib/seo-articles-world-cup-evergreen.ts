@@ -3,10 +3,13 @@ import type { SeoArticle } from '@/types/seo-article';
 
 export const WORLD_CUP_FORMAT_GUIDE_SLUG = 'world-cup-2026-format-48-teams-hong-kong-guide';
 export const WORLD_CUP_HOST_CITIES_GUIDE_SLUG = 'world-cup-2026-host-cities-hong-kong-guide';
+export const WORLD_CUP_ASIA_QUALIFICATION_GUIDE_SLUG =
+  'world-cup-2026-asia-qualification-hong-kong-guide';
 
 export const WORLD_CUP_EVERGREEN_GUIDE_SLUGS = new Set([
   WORLD_CUP_FORMAT_GUIDE_SLUG,
   WORLD_CUP_HOST_CITIES_GUIDE_SLUG,
+  WORLD_CUP_ASIA_QUALIFICATION_GUIDE_SLUG,
 ]);
 
 export const worldCupEvergreenArticles: SeoArticle[] = [
@@ -108,6 +111,66 @@ export const worldCupEvergreenArticles: SeoArticle[] = [
           label: '2026 世界盃賽制與 48 隊整理',
         },
         { href: '/football-analysis', label: '足球分析' },
+        { href: '/disclaimer', label: '免責聲明' },
+      ],
+    },
+  },
+  {
+    slug: WORLD_CUP_ASIA_QUALIFICATION_GUIDE_SLUG,
+    title: '2026 世界盃亞洲球隊晉級形勢整理',
+    match: {
+      home: { slug: 'asia-qualifiers', nameZh: '亞洲區', abbr: 'AFC' },
+      away: { slug: 'qualification-guide', nameZh: '出線整理', abbr: 'Q' },
+      league: { slug: 'world-cup-2026', nameZh: '世界盃專題' },
+      kickoffAt: '2026-05-31T02:00:00.000Z',
+      kickoffTime: '專題',
+    },
+    direction: '資訊整理',
+    analysis: {
+      homeForm:
+        '2026 年國際足協世界盃（FIFA World Cup）將由美國、加拿大及墨西哥合辦，參賽規模較以往擴大。對香港球迷而言，亞洲區哪些代表能夠晉級決賽周，往往比歐洲豪門更貼近日常觀賽習慣。本文定位為亞洲區出線背景與觀賽方法整理，不列出任何未經 FIFA / AFC 確認的對陣、分組、積分表或出線名單。\n\n快速重點：\n· 亞洲區出線名額及規則，以 FIFA / AFC 官方公布為準。\n· 亞足聯世預賽是了解亞洲代表晉級路徑的主要資訊來源。\n· 日本、南韓、澳洲、沙特、伊朗等為香港球迷常見關注球隊。\n· 球隊狀態會隨賽程推進而改變，本文只作資訊整理，不構成投注建議。\n· 最終積分、排名、出線結果及決賽周賽程，以 FIFA / AFC 官方公布為準。',
+      awayForm:
+        '香港球迷追蹤足球賽事，通常對亞洲區代表有較高熟悉度：時區相對接近、媒體報導較易接觸，部分球員亦活躍於海外聯賽。2026 年世界盃擴軍後，亞洲區可獲分配的世界盃名額及最終入圍隊伍，須以 FIFA 官方文件為準——本站不在此鎖定具體數字。\n\n與歐洲區相比，亞洲區世預賽周期較長、階段較多。提前理解出線機制的概念，有助在官方公布最終名單後，更快整理觀賽重點；本文只談框架，不寫未完成的積分預測或假想分組。',
+      attack:
+        '2026 年世界盃參賽隊數較 32 隊年代增加，各洲足協獲分配的名額亦隨之調整。亞洲區實際獲得的世界盃決賽周名額，請查閱 FIFA 官方最新各洲分配表，本站不作臆測性列舉。\n\n亞足聯（AFC）世界盃預選賽通常採用分階段、分組或淘汰相結合的形式，具體輪次名稱、小組數目、主客場安排及附加賽規則，以 AFC 官方賽事規程為準。在抽籤結果及全部階段完成前，本站不列出臆測性小組編排、假想對陣或積分排名。',
+      defense:
+        '以下為香港球迷常見關注的亞洲代表背景整理，方便賽前閱讀；不代表任何出線保證或賽果判斷，各隊最終能否入圍 2026 世界盃，須以世預賽結果及 FIFA 確認名單為準。球隊狀態會隨賽程推進而改變。\n\n日本、南韓、澳洲：亞洲區傳統競爭球隊，世界盃決賽周經驗相對豐富，香港球迷對其戰術風格較為熟悉。\n\n沙特阿拉伯、伊朗：亞洲足壇重要力量，世預賽中長為區內焦點球隊之一。\n\n除上述球隊外，亞洲區尚有其他具競爭力的代表；最終哪些球隊獲得決賽周資格，只能以世預賽結束後的官方名單為準，本文不作「必出線」式逐隊列舉。',
+      motivation:
+        '香港球迷追蹤亞洲區世預賽時，可參考以下觀察維度（純資訊角度）：\n· 官方賽程與開賽時間 — 按 HKT 整理必看場次。\n· 陣容與傷停 — 國際賽窗口的人員變動；不等於賽果判斷。\n· 賽制階段 — 當前處於哪一輪、是否涉及附加賽，須對照 AFC 規程。\n· FIFA 排名 — 僅作背景參考，最新次序請查閱 FIFA 官網。\n\n以上均為賽前觀察整理，不構成任何形式的賽事推介或投注建議。避免依賴非官方轉載的積分表截圖或未經核實的出線計算。',
+      pace:
+        '建議查閱：FIFA 官方網站（各洲名額、出線名單、決賽周賽程）；亞足聯 AFC 官方網站（亞洲區世預賽賽程及公告）；各隊所屬足協官網（補充國家隊資訊）。本站 2026 世界盃專題頁會持續整理公開資訊。\n\n亞洲區出線球隊確定後，方可進入決賽周觀賽規劃；此前請勿依據網絡流言作任何投注相關決定。本文只作資訊整理，不構成投注建議；最終賽程、積分、排名、出線結果及分組抽籤，均以 FIFA / AFC 官方公布為準。',
+    },
+    publishedAt: '2026-05-31T02:00:00.000Z',
+    seoTitle: '2026 世界盃亞洲球隊晉級形勢整理｜香港球迷觀賽指南',
+    seoDescription:
+      '整理 2026 世界盃亞洲區出線背景、世預賽觀察重點與香港球迷追蹤方法；最終名額、積分及出線結果以 FIFA / AFC 官方公布為準，不構成投注建議。',
+    options: {
+      contentType: 'evergreen',
+      coverageTier: 'data_reference',
+      showOnHomepage: false,
+      featuredInLatest: false,
+      predictEnabled: false,
+      analysisPublished: true,
+      round: '專題整理',
+      publishedAt: '2026-05-31T02:00:00.000Z',
+      evergreenBriefSections: [
+        { key: 'homeForm', label: '引言與快速重點' },
+        { key: 'awayForm', label: '為何香港球迷需要關注亞洲區出線？' },
+        { key: 'attack', label: '亞洲區名額與出線框架' },
+        { key: 'defense', label: '香港球迷常見關注的亞洲代表' },
+        { key: 'motivation', label: '如何閱讀世預賽資訊' },
+        { key: 'pace', label: '如何追蹤官方資訊' },
+      ],
+      evergreenLinks: [
+        { href: '/world-cup-2026', label: '2026 世界盃專題' },
+        {
+          href: '/analysis/world-cup-2026-format-48-teams-hong-kong-guide',
+          label: '2026 世界盃賽制與 48 隊整理',
+        },
+        {
+          href: '/analysis/world-cup-2026-host-cities-hong-kong-guide',
+          label: '2026 世界盃主辦城市與觀賽安排',
+        },
         { href: '/disclaimer', label: '免責聲明' },
       ],
     },

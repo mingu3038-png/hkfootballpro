@@ -5,7 +5,12 @@ import {
   SEO_DAILY_DATE,
 } from '@/lib/analysis-matches';
 import { seoArticles } from '@/lib/seo-articles';
-import { worldCupEvergreenArticles, WORLD_CUP_FORMAT_GUIDE_SLUG, WORLD_CUP_HOST_CITIES_GUIDE_SLUG } from '@/lib/seo-articles-world-cup-evergreen';
+import {
+  worldCupEvergreenArticles,
+  WORLD_CUP_ASIA_QUALIFICATION_GUIDE_SLUG,
+  WORLD_CUP_FORMAT_GUIDE_SLUG,
+  WORLD_CUP_HOST_CITIES_GUIDE_SLUG,
+} from '@/lib/seo-articles-world-cup-evergreen';
 import type { DailyAnalysisInput } from '@/types/daily-analysis';
 import type { SeoArticle } from '@/types/seo-article';
 
@@ -145,6 +150,7 @@ export const WORLD_CUP_INFO_CARDS: WorldCupInfoCard[] = [
     detail:
       '抽籤分組公布前，本站只作背景整理，不列出臆測對陣、積分或未核實數字。',
     tag: '亞洲區',
+    href: getAnalysisUrl(WORLD_CUP_ASIA_QUALIFICATION_GUIDE_SLUG),
   },
 ];
 
