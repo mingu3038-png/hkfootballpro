@@ -344,6 +344,39 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
+.wc26-hero__feature--precursor {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(
+    165deg,
+    rgba(10, 8, 10, 0.42) 0%,
+    rgba(8, 4, 6, 0.32) 100%
+  );
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.16);
+}
+
+.wc26-hero__feature--precursor:hover {
+  transform: none;
+  box-shadow: 0 0 22px rgba(0, 0, 0, 0.2);
+}
+
+.wc26-hero__feature--precursor .wc26-hero__feature-glow {
+  opacity: 0.35;
+}
+
+.wc26-hero__feature--precursor .wc26-hero__feature-time {
+  font-size: calc(1.05rem * var(--wc26-fs));
+  font-weight: 800;
+  text-shadow: none;
+}
+
+.wc26-hero__feature-note {
+  position: relative;
+  margin: 0 0 0.35rem;
+  font-size: calc(0.68rem * var(--wc26-fs));
+  line-height: 1.4;
+  color: rgba(250, 250, 250, 0.52);
+}
+
 .wc26-hero__feature-glow {
   position: absolute;
   top: -30%;
@@ -870,6 +903,14 @@
   margin: 0;
   flex: 1;
   font-size: calc(0.72rem * var(--wc26-fs));
+  line-height: 1.45;
+  color: rgba(250, 250, 250, 0.72);
+  overflow-wrap: anywhere;
+}
+
+.wc26-info-card__detail {
+  margin: 0;
+  font-size: calc(0.68rem * var(--wc26-fs));
   line-height: 1.45;
   color: var(--text-muted);
   overflow-wrap: anywhere;

@@ -111,9 +111,9 @@ export function WorldCup2026Content({
       <section className="wc26-section wc26-section--predict" aria-labelledby="wc26-today-title">
         <header className="wc26-section__head">
           <h2 id="wc26-today-title" className="wc26-section__title">
-            今日相關賽事
+            今日前哨 · 相關賽事
           </h2>
-          <p className="wc26-section__sub">{todayDate} · 數據參考 · 不構成推介</p>
+          <p className="wc26-section__sub">{todayDate} · 國際賽數據參考 · 非世界盃正賽程</p>
         </header>
         {todayPredictions.length > 0 ? (
           <ul className="wc26-predict-list">
@@ -153,10 +153,12 @@ export function WorldCup2026Content({
       <section className="wc26-section wc26-section--articles" aria-labelledby="wc26-articles-title">
         <header className="wc26-section__head">
           <h2 id="wc26-articles-title" className="wc26-section__title">
-            最新文章
+            {showInfoCards ? '世界盃專題資訊' : '最新文章'}
           </h2>
           <p className="wc26-section__sub">
-            {showInfoCards ? '世界盃專題待更新 · 以下為基本資訊整理' : '世界盃熱門分析文章 · 港式解讀'}
+            {showInfoCards
+              ? '專題文章整理中 · 以下為基本背景資訊（以 FIFA / 官方公布為準）'
+              : '世界盃熱門分析文章 · 港式解讀'}
           </p>
         </header>
 
@@ -168,6 +170,7 @@ export function WorldCup2026Content({
                   <span className="wc26-info-card__tag">{card.tag}</span>
                   <h3 className="wc26-info-card__title">{card.title}</h3>
                   <p className="wc26-info-card__summary">{card.summary}</p>
+                  {card.detail && <p className="wc26-info-card__detail">{card.detail}</p>}
                 </a>
               </li>
             ))}

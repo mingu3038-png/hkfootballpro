@@ -74,6 +74,7 @@ export interface WorldCupInfoCard {
   anchor: string;
   title: string;
   summary: string;
+  detail?: string;
   tag: string;
 }
 
@@ -104,29 +105,41 @@ export const WORLD_CUP_INFO_CARDS: WorldCupInfoCard[] = [
     id: 'format',
     anchor: '#wc26-info-format',
     title: '2026 世界盃賽制與48隊',
-    summary: '美加墨合辦、48 隊參賽、小組＋淘汰制；開幕日 2026-06-11（以 FIFA 公布為準）。',
+    summary:
+      '2026 年由美國、加拿大、墨西哥合辦，參賽隊伍擴至 48 隊；小組賽後進入淘汰階段。',
+    detail:
+      '開幕日目前以 2026-06-11 為參考節點。詳細賽程、對陣與分組安排，均以 FIFA 官方公布為準。',
     tag: '基本資訊',
   },
   {
     id: 'cities',
     anchor: '#wc26-info-cities',
     title: '美加墨主辦城市',
-    summary: '賽事分佈於美國、加拿大、墨西哥多座主辦城市；具體球場與賽程以官方公布為準。',
-    tag: '主办资讯',
+    summary:
+      '賽事將分散於北美多座主辦城市舉行，覆蓋美國、加拿大、墨西哥主要足球市場。',
+    detail:
+      '具體球場名單、開幕及決賽場地安排，請以 FIFA 與當地組委官方公布為準；本站不作臆測性列表。',
+    tag: '主辦資訊',
   },
   {
     id: 'teams',
     anchor: '#wc26-info-teams',
     title: 'FIFA 排名與熱門球隊觀察',
-    summary: '整理传统强队与卫冕球队背景；排名数字需以 FIFA 官网最新公布为准，本站不作赔率式表述。',
+    summary:
+      '本專題整理衛冕球隊及傳統強隊的世界盃背景，方便賽前閱讀；排名次序會隨國際賽週期更新。',
+    detail:
+      '本站不引用未核實的市場數字表述。最新 FIFA 排名與球隊資料，請以 FIFA 官方網站公布為準。',
     tag: '球隊觀察',
   },
   {
     id: 'asia',
     anchor: '#wc26-info-asia',
     title: '亞洲球隊晉級形勢',
-    summary: '整理亞洲區出線球隊與分組；待官方抽籤後更新，專題文章整理中。',
-    tag: '亚洲区',
+    summary:
+      '亞洲區出線名額與最終入圍隊伍，需以世預賽結果及 FIFA 公告為準。',
+    detail:
+      '抽籤分組公布前，本站只作背景整理，不列出臆測對陣、積分或未核實數字。',
+    tag: '亞洲區',
   },
 ];
 
@@ -408,7 +421,21 @@ export function formatWcDisplayText(text: string): string {
   return text
     .replace(/世界杯/g, '世界盃')
     .replace(/国际赛/g, '國際賽')
-    .replace(/临场/g, '臨場');
+    .replace(/临场/g, '臨場')
+    .replace(/欧冠决赛/g, '歐冠決賽')
+    .replace(/欧冠/g, '歐冠')
+    .replace(/巴黎圣日耳曼/g, '巴黎聖日耳曼')
+    .replace(/阿森纳/g, '阿仙奴')
+    .replace(/德国/g, '德國')
+    .replace(/芬兰/g, '芬蘭')
+    .replace(/主办资讯/g, '主辦資訊')
+    .replace(/传统强队/g, '傳統強隊')
+    .replace(/卫冕/g, '衛冕')
+    .replace(/官网/g, '官方網站')
+    .replace(/赔率式表述/g, '市場數字表述')
+    .replace(/赔率/g, '市場參考')
+    .replace(/亚洲区/g, '亞洲區')
+    .replace(/对阵/g, '對陣');
 }
 
 /** 最新文章 · 專題分類標籤 */
@@ -440,37 +467,58 @@ export function getWorldCupDaysUntilKickoff(fromDate = SEO_DAILY_DATE): number {
   return Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
 }
 
+/** Hero · 前哨國際賽（優先於歐冠等非世界盃賽事） */
+function findPrecursorHeroArticle(): SeoArticle | undefined {
+  const hotSlugs = new Set(WORLD_CUP_HOT_TEAMS.map((team) => team.slug));
+  return seoArticles.find(
+    (article) =>
+      !isFictionalWcMatchSlug(article.slug) &&
+      !isWorldCupLeagueSlug(article.match.league.slug) &&
+      article.match.league.slug === 'international' &&
+      (hotSlugs.has(article.match.home.slug) || hotSlugs.has(article.match.away.slug))
+  );
+}
+
+function mapSeoArticleToHero(article: SeoArticle): WorldCupHeroHotMatch {
+  const { match } = article;
+  return {
+    slug: article.slug,
+    href: getAnalysisUrl(article.slug),
+    league: match.league.nameZh,
+    kickoffTime: match.kickoffTime,
+    homeSlug: match.home.slug,
+    awaySlug: match.away.slug,
+    homeNameZh: match.home.nameZh,
+    awayNameZh: match.away.nameZh,
+    direction: article.direction,
+    winRatePercent: article.options?.modelWinRate ?? null,
+    headline: resolveSummary(article.seoDescription ?? article.analysis.pace, 72),
+  };
+}
+
 /** Hero · 今日主推 */
 export function getWorldCupHeroHotMatch(): WorldCupHeroHotMatch {
+  const precursor = findPrecursorHeroArticle();
+  if (precursor) {
+    return mapSeoArticleToHero(precursor);
+  }
+
   const article = seoArticles.find((a) => a.slug === HERO_HOT_MATCH_SLUG);
   if (article) {
-    const { match } = article;
-    return {
-      slug: article.slug,
-      href: getAnalysisUrl(article.slug),
-      league: match.league.nameZh,
-      kickoffTime: match.kickoffTime,
-      homeSlug: match.home.slug,
-      awaySlug: match.away.slug,
-      homeNameZh: match.home.nameZh,
-      awayNameZh: '阿仙奴',
-      direction: article.direction,
-      winRatePercent: article.options?.modelWinRate ?? null,
-      headline: resolveSummary(article.seoDescription ?? article.analysis.pace, 56),
-    };
+    return mapSeoArticleToHero(article);
   }
 
   return {
     slug: HERO_HOT_MATCH_SLUG,
     href: getAnalysisUrl(HERO_HOT_MATCH_SLUG),
-    league: '欧冠决赛',
+    league: '歐冠決賽',
     kickoffTime: '03:00',
     homeSlug: 'psg',
     awaySlug: 'arsenal',
-    homeNameZh: '巴黎圣日耳曼',
+    homeNameZh: '巴黎聖日耳曼',
     awayNameZh: '阿仙奴',
-    direction: '巴黎圣日耳曼 -0.25',
-    winRatePercent: 71,
-    headline: '欧冠决赛 PSG 让步低水，决赛经验与进攻爆点占优。',
+    direction: '巴黎聖日耳曼 -0.25',
+    winRatePercent: null,
+    headline: '歐冠決賽前哨 · 站內數據整理，非世界盃正賽程。',
   };
 }

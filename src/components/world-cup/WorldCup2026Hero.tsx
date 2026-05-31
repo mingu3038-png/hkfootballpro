@@ -23,12 +23,16 @@ interface WorldCup2026HeroProps {
 
 export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026HeroProps) {
   const tgUrl = resolveTelegramUrl();
+  const isWcFixture = isWorldCupFixtureLeague(hotMatch.league);
   const league = formatWcDisplayText(hotMatch.league);
   const headline = hotMatch.headline ? formatWcDisplayText(hotMatch.headline) : '';
   const direction = hotMatch.direction ? formatWcDisplayText(hotMatch.direction) : '';
-  const featureLabel = isWorldCupFixtureLeague(hotMatch.league)
-    ? '今日關注賽事'
-    : '今日國際賽數據參考';
+  const homeName = formatWcDisplayText(hotMatch.homeNameZh);
+  const awayName = formatWcDisplayText(hotMatch.awayNameZh);
+  const featureLabel = isWcFixture ? '今日關注賽事' : '今日國際賽數據參考';
+  const featureClassName = isWcFixture
+    ? 'wc26-hero__feature'
+    : 'wc26-hero__feature wc26-hero__feature--precursor';
 
   return (
     <section className="wc26-hero" aria-labelledby="wc26-hero-title">
@@ -71,30 +75,33 @@ export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026Her
 
         <div className="wc26-hero__grid">
           <div className="wc26-hero__left">
-            <Link href={hotMatch.href} className="wc26-hero__feature">
+            <Link href={hotMatch.href} className={featureClassName}>
               <span className="wc26-hero__feature-glow" aria-hidden />
               <div className="wc26-hero__feature-top">
                 <span className="wc26-hero__feature-label">{featureLabel}</span>
                 <span className="wc26-hero__feature-league">{league}</span>
               </div>
+              {!isWcFixture && (
+                <p className="wc26-hero__feature-note">非世界盃正賽程 · 前哨賽事數據整理</p>
+              )}
               <time className="wc26-hero__feature-time">{hotMatch.kickoffTime}</time>
               <div className="wc26-hero__feature-matchup">
                 <div className="wc26-hero__feature-team">
                   <TeamLogo
                     slug={hotMatch.homeSlug}
                     className="wc26-hero__feature-logo"
-                    alt={hotMatch.homeNameZh}
+                    alt={homeName}
                   />
-                  <span className="wc26-hero__feature-team-name">{hotMatch.homeNameZh}</span>
+                  <span className="wc26-hero__feature-team-name">{homeName}</span>
                 </div>
                 <span className="wc26-hero__feature-vs">VS</span>
                 <div className="wc26-hero__feature-team">
                   <TeamLogo
                     slug={hotMatch.awaySlug}
                     className="wc26-hero__feature-logo"
-                    alt={hotMatch.awayNameZh}
+                    alt={awayName}
                   />
-                  <span className="wc26-hero__feature-team-name">{hotMatch.awayNameZh}</span>
+                  <span className="wc26-hero__feature-team-name">{awayName}</span>
                 </div>
               </div>
               {headline && <p className="wc26-hero__feature-line">{headline}</p>}
