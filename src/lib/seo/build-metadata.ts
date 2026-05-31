@@ -62,14 +62,26 @@ export function buildCategoryMetadata(title: string, description: string, path: 
   });
 }
 
-/** 静态信息页 metadata */
-export function buildStaticMetadata(title: string, description: string, path: string): Metadata {
-  return buildMetadata({
+/** 静态信息页 metadata；absoluteTitle 为完整 document title，不再追加 layout 品牌后缀 */
+export function buildStaticMetadata(
+  title: string,
+  description: string,
+  path: string,
+  absoluteTitle?: string
+): Metadata {
+  const base = buildMetadata({
     pageType: 'static',
-    title,
+    title: absoluteTitle ? undefined : title,
     description,
     path,
   });
+  if (!absoluteTitle) return base;
+  return {
+    ...base,
+    title: { absolute: absoluteTitle },
+    openGraph: { ...base.openGraph, title: absoluteTitle },
+    twitter: { ...base.twitter, title: absoluteTitle },
+  };
 }
 
 /** 单场分析页 title 模板 */
