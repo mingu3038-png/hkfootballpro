@@ -5,6 +5,7 @@ import {
   SEO_DAILY_DATE,
 } from '@/lib/analysis-matches';
 import { seoArticles } from '@/lib/seo-articles';
+import { worldCupEvergreenArticles, WORLD_CUP_FORMAT_GUIDE_SLUG } from '@/lib/seo-articles-world-cup-evergreen';
 import type { DailyAnalysisInput } from '@/types/daily-analysis';
 import type { SeoArticle } from '@/types/seo-article';
 
@@ -76,6 +77,8 @@ export interface WorldCupInfoCard {
   summary: string;
   detail?: string;
   tag: string;
+  /** 若已發布專題長文，鏈至 /analysis/{slug} */
+  href?: string;
 }
 
 /** 占位「世界盃」对阵 slug — 不可在 WC 专题页展示 */
@@ -110,6 +113,7 @@ export const WORLD_CUP_INFO_CARDS: WorldCupInfoCard[] = [
     detail:
       '開幕日目前以 2026-06-11 為參考節點。詳細賽程、對陣與分組安排，均以 FIFA 官方公布為準。',
     tag: '基本資訊',
+    href: getAnalysisUrl(WORLD_CUP_FORMAT_GUIDE_SLUG),
   },
   {
     id: 'cities',
@@ -239,15 +243,16 @@ function resolveSeoPredictionSummary(article: SeoArticle): string {
 
 function mapSeoToArticleItem(article: SeoArticle): WorldCupArticleItem {
   const { match } = article;
+  const isGuide = article.options?.contentType === 'evergreen';
   return {
     slug: article.slug,
     href: getAnalysisUrl(article.slug),
     seoTitle: article.seoTitle?.trim() || article.title,
-    matchLabel: `${match.home.nameZh} vs ${match.away.nameZh}`,
+    matchLabel: isGuide ? article.title : `${match.home.nameZh} vs ${match.away.nameZh}`,
     league: match.league.nameZh,
-    kickoffTime: match.kickoffTime,
-    direction: article.direction,
-    winRatePercent: article.options?.modelWinRate ?? null,
+    kickoffTime: isGuide ? '專題' : match.kickoffTime,
+    direction: isGuide ? '' : article.direction,
+    winRatePercent: isGuide ? null : (article.options?.modelWinRate ?? null),
     summary: resolveSummary(article.seoDescription ?? article.analysis.homeForm),
   };
 }
@@ -359,9 +364,23 @@ export function getWorldCupPrecursorMatches(): WorldCupPrecursorMatch[] {
   ];
 }
 
-/** seo-articles.ts 中带 world-cup / 世界杯 的文章 */
+/** seo-articles + 世界盃專題 evergreen 長文 */
 export function getWorldCupSeoArticles(): WorldCupArticleItem[] {
-  return seoArticles.filter(isWorldCupSeoArticle).map(mapSeoToArticleItem);
+  const bySlug = new Map<string, WorldCupArticleItem>();
+
+  for (const article of worldCupEvergreenArticles) {
+    if (isWorldCupSeoArticle(article)) {
+      bySlug.set(article.slug, mapSeoToArticleItem(article));
+    }
+  }
+
+  for (const article of seoArticles) {
+    if (isWorldCupSeoArticle(article)) {
+      bySlug.set(article.slug, mapSeoToArticleItem(article));
+    }
+  }
+
+  return [...bySlug.values()];
 }
 
 /** 世界杯热门分析（排除虚构 world-cup-2026 占位对阵） */

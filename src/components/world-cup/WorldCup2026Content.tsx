@@ -11,6 +11,7 @@ import {
   type WorldCupHotTeam,
   type WorldCupPredictionItem,
 } from '@/lib/world-cup-page';
+import { WORLD_CUP_FORMAT_GUIDE_SLUG } from '@/lib/seo-articles-world-cup-evergreen';
 
 const WC_TG_CTA_LABEL = '加入 TG 查看臨場更新';
 
@@ -62,7 +63,9 @@ export function WorldCup2026Content({
   daysUntilKickoff,
   heroHotMatch,
 }: WorldCup2026ContentProps) {
-  const showInfoCards = hotArticles.length === 0;
+  const matchHotArticles = hotArticles.filter(
+    (item) => item.slug !== WORLD_CUP_FORMAT_GUIDE_SLUG
+  );
 
   return (
     <>
@@ -153,67 +156,90 @@ export function WorldCup2026Content({
       <section className="wc26-section wc26-section--articles" aria-labelledby="wc26-articles-title">
         <header className="wc26-section__head">
           <h2 id="wc26-articles-title" className="wc26-section__title">
-            {showInfoCards ? '世界盃專題資訊' : '最新文章'}
+            世界盃專題資訊
           </h2>
           <p className="wc26-section__sub">
-            {showInfoCards
-              ? '專題文章整理中 · 以下為基本背景資訊（以 FIFA / 官方公布為準）'
-              : '世界盃熱門分析文章 · 港式解讀'}
+            專題背景整理 · 以 FIFA / 官方公布為準
           </p>
         </header>
 
-        {showInfoCards ? (
-          <ul className="wc26-info-cards">
-            {WORLD_CUP_INFO_CARDS.map((card) => (
+        <ul className="wc26-info-cards">
+          {WORLD_CUP_INFO_CARDS.map((card) => {
+            const cardInner = (
+              <>
+                <span className="wc26-info-card__tag">{card.tag}</span>
+                <h3 className="wc26-info-card__title">{card.title}</h3>
+                <p className="wc26-info-card__summary">{card.summary}</p>
+                {card.detail && <p className="wc26-info-card__detail">{card.detail}</p>}
+                {card.href && <span className="wc26-info-card__cta">閱讀全文 →</span>}
+              </>
+            );
+
+            return (
               <li key={card.id}>
-                <a href={card.anchor} className="wc26-info-card" id={`wc26-info-${card.id}`}>
-                  <span className="wc26-info-card__tag">{card.tag}</span>
-                  <h3 className="wc26-info-card__title">{card.title}</h3>
-                  <p className="wc26-info-card__summary">{card.summary}</p>
-                  {card.detail && <p className="wc26-info-card__detail">{card.detail}</p>}
-                </a>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <ul className="wc26-articles">
-            {hotArticles.map((item) => {
-              const category = resolveWorldCupArticleCategory(item);
-              return (
-                <li key={item.slug}>
-                  <Link href={item.href} className="wc26-article">
-                    <div className="wc26-article__tags">
-                      <span className={`wc26-article__tag ${articleCategoryClass(category)}`}>
-                        {category}
-                      </span>
-                      <span className="wc26-article__tag wc26-article__tag--data">數據參考</span>
-                    </div>
-                    <div className="wc26-article__head">
-                      <span className="wc26-article__league">{formatWcDisplayText(item.league)}</span>
-                      <time className="wc26-article__time">{item.kickoffTime}</time>
-                    </div>
-                    <h3 className="wc26-article__match">{formatWcDisplayText(item.matchLabel)}</h3>
-                    {item.summary && (
-                      <p className="wc26-article__summary">{formatWcDisplayText(item.summary)}</p>
-                    )}
-                    <div className="wc26-article__foot">
-                      {item.direction && (
-                        <span className="wc26-article__dir">
-                          參考方向 · {formatWcDisplayText(item.direction)}
-                        </span>
-                      )}
-                      {item.winRatePercent != null && (
-                        <span className="wc26-article__rate">
-                          模型參考率 {item.winRatePercent}%
-                        </span>
-                      )}
-                      <span className="wc26-article__cta">閱讀 →</span>
-                    </div>
+                {card.href ? (
+                  <Link
+                    href={card.href}
+                    className="wc26-info-card wc26-info-card--linked"
+                    id={`wc26-info-${card.id}`}
+                  >
+                    {cardInner}
                   </Link>
-                </li>
-              );
-            })}
-          </ul>
+                ) : (
+                  <a href={card.anchor} className="wc26-info-card" id={`wc26-info-${card.id}`}>
+                    {cardInner}
+                  </a>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+
+        {matchHotArticles.length > 0 && (
+          <>
+            <header className="wc26-section__head wc26-section__head--sub">
+              <h3 className="wc26-section__title wc26-section__title--sub">最新文章</h3>
+              <p className="wc26-section__sub">世界盃熱門分析 · 港式解讀</p>
+            </header>
+            <ul className="wc26-articles">
+              {matchHotArticles.map((item) => {
+                const category = resolveWorldCupArticleCategory(item);
+                return (
+                  <li key={item.slug}>
+                    <Link href={item.href} className="wc26-article">
+                      <div className="wc26-article__tags">
+                        <span className={`wc26-article__tag ${articleCategoryClass(category)}`}>
+                          {category}
+                        </span>
+                        <span className="wc26-article__tag wc26-article__tag--data">數據參考</span>
+                      </div>
+                      <div className="wc26-article__head">
+                        <span className="wc26-article__league">{formatWcDisplayText(item.league)}</span>
+                        <time className="wc26-article__time">{item.kickoffTime}</time>
+                      </div>
+                      <h3 className="wc26-article__match">{formatWcDisplayText(item.matchLabel)}</h3>
+                      {item.summary && (
+                        <p className="wc26-article__summary">{formatWcDisplayText(item.summary)}</p>
+                      )}
+                      <div className="wc26-article__foot">
+                        {item.direction && (
+                          <span className="wc26-article__dir">
+                            參考方向 · {formatWcDisplayText(item.direction)}
+                          </span>
+                        )}
+                        {item.winRatePercent != null && (
+                          <span className="wc26-article__rate">
+                            模型參考率 {item.winRatePercent}%
+                          </span>
+                        )}
+                        <span className="wc26-article__cta">閱讀 →</span>
+                      </div>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </>
         )}
       </section>
 

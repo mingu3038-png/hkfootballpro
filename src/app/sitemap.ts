@@ -3,6 +3,7 @@ import { getAnalysisUrl } from '@/config/site';
 import { getMatchAnalysisUrl } from '@/config/leagues';
 import { mockAnalyses } from '@/lib/mock-data';
 import { getAllDailyBatchSeoArticles } from '@/lib/daily-analysis-registry';
+import { worldCupEvergreenArticles } from '@/lib/seo-articles-world-cup-evergreen';
 import { SITEMAP_ORIGIN, SITEMAP_STATIC_PATHS } from '@/lib/seo/sitemap-config';
 import type { LeagueSlug } from '@/config/leagues';
 
@@ -31,10 +32,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  const preMatchAnalysisPages = getAllDailyBatchSeoArticles().map((article) => ({
+  const preMatchAnalysisPages = [
+    ...getAllDailyBatchSeoArticles(),
+    ...worldCupEvergreenArticles,
+  ].map((article) => ({
     url: `${base}${getAnalysisUrl(article.slug)}`,
     lastModified: new Date(article.publishedAt),
-    changeFrequency: 'daily' as const,
+    changeFrequency: 'weekly' as const,
     priority: 0.85,
   }));
 

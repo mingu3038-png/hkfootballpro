@@ -304,6 +304,8 @@ export function buildAnalysisPage(input: DailyAnalysisInput): PreMatchAnalysisDe
     isHot: o.isHot ?? base.isHot,
     isFocus: o.isFocus ?? base.isFocus,
     coverageTier: o.coverageTier,
+    contentType: o.contentType ?? 'match',
+    evergreenLinks: o.evergreenLinks,
     modelWinRate: o.modelWinRate ?? base.modelWinRate,
     publishedAt: o.publishedAt ?? base.publishedAt,
     recommendation: {
@@ -314,6 +316,18 @@ export function buildAnalysisPage(input: DailyAnalysisInput): PreMatchAnalysisDe
       summary: o.summary ?? base.recommendation.summary,
     },
   };
+
+  if (o.contentType === 'evergreen') {
+    detail.accessLabel = '免費公開';
+    detail.relatedArticles = [];
+    detail.riskWarning = {
+      level: 'low',
+      items: [
+        '本文純屬資訊整理，不構成任何形式的賽事推介、投注建議或結果保證。',
+        '文中如有與 FIFA 官方最新公告不符之處，以官方為準。',
+      ],
+    };
+  }
 
   const { displayMode, publicDisplay } = buildAnalysisPublicDisplay(detail, o.coverageTier);
 

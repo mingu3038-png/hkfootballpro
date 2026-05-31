@@ -45,6 +45,10 @@ export interface DailyAnalysisOptions {
    * data_reference = 数据参考（后续 UI 隐藏明确方向，第 1 步仅标记）
    */
   coverageTier?: CoverageTier;
+  /** match = 赛前分析；evergreen = 專題長文（隱藏對陣/盤口區塊） */
+  contentType?: 'match' | 'evergreen';
+  /** 專題長文底部延伸閱讀 */
+  evergreenLinks?: Array<{ href: string; label: string }>;
 }
 
 /**

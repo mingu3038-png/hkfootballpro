@@ -47,6 +47,22 @@ function buildSpotlightPublicDisplay(data: PreMatchAnalysisDetail): AnalysisPubl
 }
 
 function buildDataReferencePublicDisplay(data: PreMatchAnalysisDetail): AnalysisPublicDisplay {
+  if (data.contentType === 'evergreen') {
+    const seoDescription =
+      data.seoDescription?.trim() ||
+      '世界盃專題資訊整理，內容以 FIFA 官方公布為準，不構成投注建議。';
+    return {
+      exposeDirection: false,
+      editorialDirection: null,
+      recommendationSummary: seoDescription,
+      overUnderSummary: '',
+      oddsSummary: '',
+      aiInsightEv: '',
+      paceObservation: data.preMatchBrief?.pace?.trim() || '',
+      seoDescription,
+    };
+  }
+
   const {
     homeTeam,
     awayTeam,

@@ -2,6 +2,8 @@ import { buildAnalysisPage } from '@/lib/analysis-page-builder';
 import { getAllDailyBatchAnalysisInputs } from '@/lib/daily-analysis-registry';
 import { getBatchDailyInputs } from '@/lib/mock-analyses-batch';
 import { ANALYSIS_MATCHES } from '@/lib/analysis-matches';
+import { mapSeoArticleToDailyInput } from '@/lib/seo-articles';
+import { worldCupEvergreenArticles } from '@/lib/seo-articles-world-cup-evergreen';
 import type { PreMatchAnalysisDetail } from '@/types/analysis';
 import type { DailyAnalysisInput } from '@/types/daily-analysis';
 import type { MatchListItem } from '@/types/match';
@@ -13,6 +15,7 @@ import type { MatchListItem } from '@/types/match';
  * 1. mock-analyses-batch.ts 批量模板
  * 2. analysis-matches.ts → ANALYSIS_MATCHES
  * 3. daily-analysis-registry → DailyBatch 全历史批次（最高，替代 seo-articles 合并层）
+ * 4. seo-articles-world-cup-evergreen → 世界盃專題長文（不進首頁 / DailyBatch）
  *
  * 新增一条比赛后自动生成：
  * · /analysis/[slug] 静态页 + SEO title / meta description
@@ -21,7 +24,12 @@ import type { MatchListItem } from '@/types/match';
  * · 首页「最新赛前分析」（featuredInLatest / isHot / isFocus）
  */
 
-/** 合并：批量模板 + legacy 条目 + DailyBatch（同 slug 时后者覆盖） */
+/** 世界盃專題 evergreen 長文 → DailyAnalysisInput[] */
+export function getWorldCupEvergreenAnalysisInputs(): DailyAnalysisInput[] {
+  return worldCupEvergreenArticles.map(mapSeoArticleToDailyInput);
+}
+
+/** 合并：批量模板 + legacy 条目 + DailyBatch + 世界盃專題長文（同 slug 时后者覆盖） */
 export function getAllAnalysisMatchInputs(): DailyAnalysisInput[] {
   const bySlug = new Map<string, DailyAnalysisInput>();
   for (const input of getBatchDailyInputs()) {
@@ -31,6 +39,9 @@ export function getAllAnalysisMatchInputs(): DailyAnalysisInput[] {
     bySlug.set(input.slug, input);
   }
   for (const input of getAllDailyBatchAnalysisInputs()) {
+    bySlug.set(input.slug, input);
+  }
+  for (const input of getWorldCupEvergreenAnalysisInputs()) {
     bySlug.set(input.slug, input);
   }
   return [...bySlug.values()];

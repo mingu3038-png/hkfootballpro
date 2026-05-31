@@ -15,6 +15,7 @@ import { buildPreMatchAnalysisH1 } from '@/lib/seo/pre-match-analysis-seo';
 import type {
   FormResult,
   PreMatchAnalysisDetail,
+  PreMatchBrief,
   TeamRecentStatus,
 } from '@/types/analysis';
 import type { TgPromoContent } from '@/types/site-daily';
@@ -57,6 +58,38 @@ function formClass(result: FormResult) {
 function last5WinRate(last5: TeamRecentStatus['last5']) {
   const total = last5.w + last5.d + last5.l;
   return total > 0 ? Math.round((last5.w / total) * 100) : 0;
+}
+
+const EVERGREEN_BRIEF_SECTIONS: Array<{
+  key: keyof PreMatchBrief;
+  label: string;
+}> = [
+  { key: 'homeForm', label: '引言與快速重點' },
+  { key: 'awayForm', label: '為何 2026 屆值得提前了解？' },
+  { key: 'attack', label: '基本資料：合辦國、參賽規模與賽期' },
+  { key: 'defense', label: '48 隊賽制框架' },
+  { key: 'motivation', label: '對香港球迷的實際影響' },
+  { key: 'pace', label: '如何持續追蹤官方資訊' },
+];
+
+function BriefParagraphs({ text }: { text: string }) {
+  const lines = text.split('\n').filter((line) => line.trim().length > 0);
+  return (
+    <>
+      {lines.map((line) => {
+        const trimmed = line.trim();
+        const isBullet = trimmed.startsWith('·') || trimmed.startsWith('•');
+        return (
+          <p
+            key={trimmed}
+            className={isBullet ? 'adx-brief-item__text adx-brief-item__text--bullet' : 'adx-brief-item__text'}
+          >
+            {trimmed}
+          </p>
+        );
+      })}
+    </>
+  );
 }
 
 function FormPills({ sequence }: { sequence: FormResult[] }) {
@@ -180,6 +213,7 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
   const ou = data.overUnderAnalysis;
   const modelWinRate = data.modelWinRate ?? ou.over25Probability;
   const accessLabel = data.accessLabel ?? '免费公开';
+  const isEvergreen = data.contentType === 'evergreen';
   const isDataReference = isDataReferenceDisplay(data);
   const publicDisplay = data.publicDisplay;
   const ouSummary = isDataReference
@@ -195,106 +229,135 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
   return (
     <article
       className="analysis-detail analysis-detail--sticky-tg"
-      itemScope
-      itemType="https://schema.org/SportsEvent"
+      {...(!isEvergreen
+        ? { itemScope: true, itemType: 'https://schema.org/SportsEvent' }
+        : { itemScope: true, itemType: 'https://schema.org/Article' })}
     >
-      <AnalysisSportsEventJsonLd data={data} slug={data.slug} />
+      {!isEvergreen && <AnalysisSportsEventJsonLd data={data} slug={data.slug} />}
 
       <div className="container analysis-detail__inner">
         <Breadcrumb
-          items={[
-            { label: '首頁', href: '/' },
-            { label: '足球分析', href: '/football-analysis' },
-            { label: `${data.homeTeam.nameZh} vs ${data.awayTeam.nameZh}` },
-          ]}
+          items={
+            isEvergreen
+              ? [
+                  { label: '首頁', href: '/' },
+                  { label: '2026 世界盃', href: '/world-cup-2026' },
+                  { label: pageTitle },
+                ]
+              : [
+                  { label: '首頁', href: '/' },
+                  { label: '足球分析', href: '/football-analysis' },
+                  { label: `${data.homeTeam.nameZh} vs ${data.awayTeam.nameZh}` },
+                ]
+          }
         />
 
-        <header className="adx-hero adx-hero--broadcast">
+        <header className={`adx-hero adx-hero--broadcast${isEvergreen ? ' adx-hero--evergreen' : ''}`}>
           <div className="adx-hero__scan" aria-hidden />
           <div className="adx-hero__glow" aria-hidden />
 
           <div className="adx-hero__top">
             <span className="adx-hero__league">{data.league.nameZh}</span>
-            <time className="adx-hero__kickoff-tag" dateTime={data.kickoffAt}>
-              开赛 {data.kickoffTimeDisplay}
-            </time>
+            {!isEvergreen && (
+              <time className="adx-hero__kickoff-tag" dateTime={data.kickoffAt}>
+                开赛 {data.kickoffTimeDisplay}
+              </time>
+            )}
+            {isEvergreen && (
+              <span className="adx-hero__tag adx-hero__tag--focus">專題整理</span>
+            )}
             {data.isHot && <span className="adx-hero__tag adx-hero__tag--hot">热门</span>}
-            {!isDataReference && data.isFocus && (
+            {!isEvergreen && !isDataReference && data.isFocus && (
               <span className="adx-hero__tag adx-hero__tag--focus">今日重点</span>
             )}
-            {isDataReference && (
+            {!isEvergreen && isDataReference && (
               <span className="adx-hero__tag adx-hero__tag--focus">数据参考</span>
             )}
             {data.round && <span className="adx-hero__round">{data.round}</span>}
             <span className="adx-hero__access">{accessLabel}</span>
-            <span className={`adx-hero__status adx-hero__status--${data.status}`}>
-              {data.statusLabel}
-            </span>
-          </div>
-
-          <h1 className="adx-hero__page-title" itemProp="name">
-            {pageTitle}
-          </h1>
-
-          <time className="adx-hero__datetime" dateTime={data.kickoffAt} itemProp="startDate">
-            <span className="adx-hero__datetime-main">{data.kickoffTimeDisplay}</span>
-            <span className="adx-hero__datetime-sub">{formatKickoffFull(data.kickoffAt)}</span>
-          </time>
-
-          <div className="adx-hero__matchup">
-            <HeroTeamBlock team={data.homeTeam} status={data.homeStatus} side="home" />
-            <div className="adx-hero__center">
-              <span className="adx-hero__vs">VS</span>
-            </div>
-            <HeroTeamBlock team={data.awayTeam} status={data.awayStatus} side="away" />
-          </div>
-
-          <div className="adx-hero__pick-strip">
-            {isDataReference ? (
-              <>
-                <div className="adx-hero__pick">
-                  <span className="adx-hero__pick-label">赛前数据观察</span>
-                  <span className="adx-hero__pick-value">双方近况 · 盘口走势</span>
-                </div>
-                <div className="adx-hero__pick-divider" aria-hidden />
-                <div className="adx-hero__pick">
-                  <span className="adx-hero__pick-label">模型参考率</span>
-                  <span className="adx-hero__pick-value adx-hero__pick-value--rate">
-                    {modelWinRate}%
-                  </span>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="adx-hero__pick">
-                  <span className="adx-hero__pick-label">编辑观点</span>
-                  <span className="adx-hero__pick-value">{data.recommendation.direction}</span>
-                </div>
-                <div className="adx-hero__pick-divider" aria-hidden />
-                <div className="adx-hero__pick">
-                  <span className="adx-hero__pick-label">模型参考率</span>
-                  <span className="adx-hero__pick-value adx-hero__pick-value--rate">
-                    {modelWinRate}%
-                  </span>
-                </div>
-                <div className="adx-hero__pick-divider" aria-hidden />
-                <div className="adx-hero__pick">
-                  <span className="adx-hero__pick-label">把握程度</span>
-                  <span className="adx-hero__pick-value">
-                    {confidenceLabel(data.recommendation.confidence)}
-                  </span>
-                </div>
-              </>
+            {!isEvergreen && (
+              <span className={`adx-hero__status adx-hero__status--${data.status}`}>
+                {data.statusLabel}
+              </span>
             )}
           </div>
 
+          <h1 className="adx-hero__page-title" itemProp={isEvergreen ? 'headline' : 'name'}>
+            {pageTitle}
+          </h1>
+
+          {isEvergreen ? (
+            <time className="adx-hero__datetime" dateTime={data.publishedAt} itemProp="datePublished">
+              <span className="adx-hero__datetime-main">專題文章</span>
+              <span className="adx-hero__datetime-sub">{formatKickoffFull(data.publishedAt)}</span>
+            </time>
+          ) : (
+            <time className="adx-hero__datetime" dateTime={data.kickoffAt} itemProp="startDate">
+              <span className="adx-hero__datetime-main">{data.kickoffTimeDisplay}</span>
+              <span className="adx-hero__datetime-sub">{formatKickoffFull(data.kickoffAt)}</span>
+            </time>
+          )}
+
+          {!isEvergreen && (
+            <div className="adx-hero__matchup">
+              <HeroTeamBlock team={data.homeTeam} status={data.homeStatus} side="home" />
+              <div className="adx-hero__center">
+                <span className="adx-hero__vs">VS</span>
+              </div>
+              <HeroTeamBlock team={data.awayTeam} status={data.awayStatus} side="away" />
+            </div>
+          )}
+
+          {!isEvergreen && (
+            <div className="adx-hero__pick-strip">
+              {isDataReference ? (
+                <>
+                  <div className="adx-hero__pick">
+                    <span className="adx-hero__pick-label">赛前数据观察</span>
+                    <span className="adx-hero__pick-value">双方近况 · 盘口走势</span>
+                  </div>
+                  <div className="adx-hero__pick-divider" aria-hidden />
+                  <div className="adx-hero__pick">
+                    <span className="adx-hero__pick-label">模型参考率</span>
+                    <span className="adx-hero__pick-value adx-hero__pick-value--rate">
+                      {modelWinRate}%
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="adx-hero__pick">
+                    <span className="adx-hero__pick-label">编辑观点</span>
+                    <span className="adx-hero__pick-value">{data.recommendation.direction}</span>
+                  </div>
+                  <div className="adx-hero__pick-divider" aria-hidden />
+                  <div className="adx-hero__pick">
+                    <span className="adx-hero__pick-label">模型参考率</span>
+                    <span className="adx-hero__pick-value adx-hero__pick-value--rate">
+                      {modelWinRate}%
+                    </span>
+                  </div>
+                  <div className="adx-hero__pick-divider" aria-hidden />
+                  <div className="adx-hero__pick">
+                    <span className="adx-hero__pick-label">把握程度</span>
+                    <span className="adx-hero__pick-value">
+                      {confidenceLabel(data.recommendation.confidence)}
+                    </span>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+
           <p className="adx-hero__venue">
-            {isDataReference
-              ? '站内数据参考 · 不含明确推荐方向 · 非结果保证'
-              : '站内模型参考 · 仅供分析参考 · 非结果保证'}
+            {isEvergreen
+              ? '資訊整理 · 不構成投注建議 · 以 FIFA 官方公布為準'
+              : isDataReference
+                ? '站内数据参考 · 不含明确推荐方向 · 非结果保证'
+                : '站内模型参考 · 仅供分析参考 · 非结果保证'}
           </p>
 
-          {data.venueZh && (
+          {!isEvergreen && data.venueZh && (
             <p className="adx-hero__venue" itemProp="location">
               {data.venueZh}
             </p>
@@ -305,37 +368,52 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
           <section className="adx-panel adx-panel--brief" aria-labelledby="adx-brief-title">
             <h2 id="adx-brief-title" className="adx-panel__title">
               <span className="adx-panel__icon" aria-hidden />
-              赛前分析
+              {isEvergreen ? '專題整理' : '赛前分析'}
             </h2>
-            <ul className="adx-brief-list">
-              <li className="adx-brief-item">
-                <h3 className="adx-brief-item__label">双方近况</h3>
-                <p className="adx-brief-item__text">{brief.homeForm}</p>
-                <p className="adx-brief-item__text">{brief.awayForm}</p>
-              </li>
-              <li className="adx-brief-item">
-                <h3 className="adx-brief-item__label">进攻表现</h3>
-                <p className="adx-brief-item__text">{brief.attack}</p>
-              </li>
-              <li className="adx-brief-item">
-                <h3 className="adx-brief-item__label">防守问题</h3>
-                <p className="adx-brief-item__text">{brief.defense}</p>
-              </li>
-              <li className="adx-brief-item">
-                <h3 className="adx-brief-item__label">战意</h3>
-                <p className="adx-brief-item__text">{brief.motivation}</p>
-              </li>
-              <li className="adx-brief-item">
-                <h3 className="adx-brief-item__label">{isDataReference ? '节奏观察' : '节奏判断'}</h3>
-                <p className="adx-brief-item__text">{paceObservation}</p>
-              </li>
-            </ul>
-            <div className="adx-status-grid adx-status-grid--nested">
-              <TeamStatusCard team={data.homeTeam} status={data.homeStatus} />
-              <TeamStatusCard team={data.awayTeam} status={data.awayStatus} />
-            </div>
+            {isEvergreen ? (
+              <ul className="adx-brief-list">
+                {EVERGREEN_BRIEF_SECTIONS.map((section) => (
+                  <li key={section.key} className="adx-brief-item">
+                    <h3 className="adx-brief-item__label">{section.label}</h3>
+                    <BriefParagraphs text={brief[section.key]} />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <>
+                <ul className="adx-brief-list">
+                  <li className="adx-brief-item">
+                    <h3 className="adx-brief-item__label">双方近况</h3>
+                    <p className="adx-brief-item__text">{brief.homeForm}</p>
+                    <p className="adx-brief-item__text">{brief.awayForm}</p>
+                  </li>
+                  <li className="adx-brief-item">
+                    <h3 className="adx-brief-item__label">进攻表现</h3>
+                    <p className="adx-brief-item__text">{brief.attack}</p>
+                  </li>
+                  <li className="adx-brief-item">
+                    <h3 className="adx-brief-item__label">防守问题</h3>
+                    <p className="adx-brief-item__text">{brief.defense}</p>
+                  </li>
+                  <li className="adx-brief-item">
+                    <h3 className="adx-brief-item__label">战意</h3>
+                    <p className="adx-brief-item__text">{brief.motivation}</p>
+                  </li>
+                  <li className="adx-brief-item">
+                    <h3 className="adx-brief-item__label">{isDataReference ? '节奏观察' : '节奏判断'}</h3>
+                    <p className="adx-brief-item__text">{paceObservation}</p>
+                  </li>
+                </ul>
+                <div className="adx-status-grid adx-status-grid--nested">
+                  <TeamStatusCard team={data.homeTeam} status={data.homeStatus} />
+                  <TeamStatusCard team={data.awayTeam} status={data.awayStatus} />
+                </div>
+              </>
+            )}
           </section>
 
+          {!isEvergreen && (
+          <>
           <section className="adx-panel adx-panel--ou-standalone" aria-labelledby="adx-ou-title">
             <h2 id="adx-ou-title" className="adx-panel__title">
               <span className="adx-panel__icon" aria-hidden />
@@ -543,6 +621,8 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
             <p className="adx-ai-summary">{data.aiInsight.ev}</p>
           </section>
           )}
+          </>
+          )}
 
           {data.riskWarning.items.length > 0 && (
             <section
@@ -551,7 +631,7 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
             >
               <h2 id="adx-risk-title" className="adx-panel__title">
                 <span className="adx-panel__icon" aria-hidden />
-                风险提示
+                {isEvergreen ? '本站說明' : '风险提示'}
               </h2>
               <ul className="adx-risk-list">
                 {data.riskWarning.items.map((item) => (
@@ -561,9 +641,28 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
             </section>
           )}
 
+          {isEvergreen && data.evergreenLinks && data.evergreenLinks.length > 0 && (
+            <section className="adx-panel" aria-labelledby="adx-evergreen-links-title">
+              <h2 id="adx-evergreen-links-title" className="adx-panel__title">
+                延伸閱讀
+              </h2>
+              <ul className="adx-related">
+                {data.evergreenLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="adx-related__link">
+                      <span className="adx-related__title">{link.label}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {!isEvergreen && (
           <div className="adx-convert-below" role="note">
             <p className="adx-convert-below__line">{tgCopy.tgUpdateNote}</p>
           </div>
+          )}
 
           {data.relatedArticles.length > 0 && (
             <section className="adx-panel" aria-labelledby="adx-related-title">
@@ -585,15 +684,20 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
             </section>
           )}
 
+          {!isEvergreen && (
           <AnalysisTgCard
             copy={tgCopy}
             homeTeam={data.homeTeam.nameZh}
             awayTeam={data.awayTeam.nameZh}
             pick={isDataReference ? undefined : data.recommendation.direction}
           />
+          )}
 
-          <Link href="/football-analysis" className="btn btn-outline analysis-detail__more">
-            更多赛前分析 →
+          <Link
+            href={isEvergreen ? '/world-cup-2026' : '/football-analysis'}
+            className="btn btn-outline analysis-detail__more"
+          >
+            {isEvergreen ? '返回世界盃專題 →' : '更多赛前分析 →'}
           </Link>
         </div>
       </div>

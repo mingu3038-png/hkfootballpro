@@ -916,6 +916,21 @@
   overflow-wrap: anywhere;
 }
 
+.wc26-info-card--linked .wc26-info-card__cta {
+  margin-top: 0.35rem;
+  font-size: calc(0.68rem * var(--wc26-fs));
+  font-weight: 700;
+  color: rgba(253, 230, 138, 0.88);
+}
+
+.wc26-section__head--sub {
+  margin-top: 1.25rem;
+}
+
+.wc26-section__title--sub {
+  font-size: calc(1rem * var(--wc26-fs));
+}
+
 /* —— 今日预测 · 2 列大卡 —— */
 .wc26-predict-list {
   list-style: none;

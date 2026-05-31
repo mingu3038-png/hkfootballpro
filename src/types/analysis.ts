@@ -191,4 +191,8 @@ export interface PreMatchAnalysisDetail {
     kickoff: string;
   }>;
   publishedAt: string;
+  /** match = 赛前分析；evergreen = 專題長文 */
+  contentType?: 'match' | 'evergreen';
+  /** 專題長文底部延伸閱讀 */
+  evergreenLinks?: Array<{ href: string; label: string }>;
 }
