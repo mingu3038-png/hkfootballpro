@@ -13,7 +13,7 @@ const leagueSlugMap: Record<string, LeagueSlug> = {
 
 export const metadata: Metadata = buildCategoryMetadata(
   '比分競猜',
-  '參與足球比分競猜，估測賽果並衝擊排行榜。僅供社區娛樂，不涉及真實貨幣、獎品或投注建議。',
+  '參與足球比分競猜，估測賽果並挑戰排行榜。僅供社區娛樂，不涉及真實貨幣、獎品或投注建議。',
   '/predict'
 );
 
@@ -26,7 +26,10 @@ export default function PredictPage() {
 
       <header className="mb-8">
         <h1 className="text-3xl font-bold mb-3">比分競猜</h1>
-        <p className="text-[var(--text-muted)] mb-4">選擇賽事，提交你的比分估測</p>
+        <p className="text-[var(--text-muted)] mb-2">選擇賽事，提交你的比分估測</p>
+        <p className="text-[var(--text-muted)] mb-4 text-sm">
+          比分競猜屬社區娛樂互動，僅供球迷交流，不構成投注建議。
+        </p>
         <div className="flex flex-wrap gap-2">
           <span
             role="button"

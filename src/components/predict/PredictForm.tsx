@@ -22,7 +22,7 @@ export function PredictForm({ homeTeam, awayTeam }: PredictFormProps) {
         <p className="text-3xl font-black text-[var(--accent)] mb-2">
           {home} - {away}
         </p>
-        <p className="text-sm text-[var(--text-muted)] mb-4">预测已记录（框架演示，接入 DB 后持久化）</p>
+        <p className="text-sm text-[var(--text-muted)] mb-4">競猜已記錄（框架演示，接入 DB 后持久化）</p>
         <Link href="/leaderboard" className="btn btn-outline">
           查看排行榜
         </Link>
