@@ -84,7 +84,7 @@ export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026Her
               {!isWcFixture && (
                 <p className="wc26-hero__feature-note">非世界盃正賽程 · 前哨賽事數據整理</p>
               )}
-              <time className="wc26-hero__feature-time">{hotMatch.kickoffTime}</time>
+              <time className="wc26-hero__feature-time">開賽時間 {hotMatch.kickoffTime}</time>
               <div className="wc26-hero__feature-matchup">
                 <div className="wc26-hero__feature-team">
                   <TeamLogo
@@ -108,7 +108,7 @@ export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026Her
               <div className="wc26-hero__feature-actions">
                 <span className="wc26-hero__feature-tag">數據參考</span>
                 {direction && (
-                  <span className="wc26-hero__feature-dir">參考方向 · {direction}</span>
+                  <span className="wc26-hero__feature-dir">盤口參考 · {direction}</span>
                 )}
                 {hotMatch.winRatePercent != null && (
                   <span className="wc26-hero__feature-rate">

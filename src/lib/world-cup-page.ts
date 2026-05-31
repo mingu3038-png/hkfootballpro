@@ -455,7 +455,14 @@ export function formatWcDisplayText(text: string): string {
     .replace(/赔率式表述/g, '市場數字表述')
     .replace(/赔率/g, '市場參考')
     .replace(/亚洲区/g, '亞洲區')
-    .replace(/对阵/g, '對陣');
+    .replace(/对阵/g, '對陣')
+    .replace(/深盘走势/g, '盤口變化參考')
+    .replace(/深盘数据参考/g, '盤口變化參考')
+    .replace(/深盘/g, '盤口變化參考')
+    .replace(/走势整理/g, '變化參考')
+    .replace(/开球时间/g, '開賽時間')
+    .replace(/开球/g, '開賽')
+    .replace(/模型参考/g, '模型參考');
 }
 
 /** 最新文章 · 專題分類標籤 */

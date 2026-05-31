@@ -114,9 +114,9 @@ export function WorldCup2026Content({
       <section className="wc26-section wc26-section--predict" aria-labelledby="wc26-today-title">
         <header className="wc26-section__head">
           <h2 id="wc26-today-title" className="wc26-section__title">
-            今日前哨 · 相關賽事
+            今日國際賽 · 數據參考
           </h2>
-          <p className="wc26-section__sub">{todayDate} · 國際賽數據參考 · 非世界盃正賽程</p>
+          <p className="wc26-section__sub">{todayDate} · 市場數據整理 · 非世界盃正賽程</p>
         </header>
         {todayPredictions.length > 0 ? (
           <ul className="wc26-predict-list">
@@ -125,7 +125,7 @@ export function WorldCup2026Content({
                 <Link href={item.href} className="wc26-predict">
                   <div className="wc26-predict__head">
                     <span className="wc26-predict__league">{formatWcDisplayText(item.league)}</span>
-                    <time className="wc26-predict__time">{item.kickoffTime}</time>
+                    <time className="wc26-predict__time">開賽時間 {item.kickoffTime}</time>
                   </div>
                   <p className="wc26-predict__match">{formatWcDisplayText(item.matchup)}</p>
                   {item.summary && (
@@ -135,7 +135,7 @@ export function WorldCup2026Content({
                     <span className="wc26-predict__badge wc26-predict__badge--ref">數據參考</span>
                     {item.direction && (
                       <span className="wc26-predict__badge wc26-predict__badge--dir">
-                        參考方向 · {formatWcDisplayText(item.direction)}
+                        盤口參考 · {formatWcDisplayText(item.direction)}
                       </span>
                     )}
                     {item.winRatePercent != null && (
@@ -224,7 +224,7 @@ export function WorldCup2026Content({
                       <div className="wc26-article__foot">
                         {item.direction && (
                           <span className="wc26-article__dir">
-                            參考方向 · {formatWcDisplayText(item.direction)}
+                            盤口參考 · {formatWcDisplayText(item.direction)}
                           </span>
                         )}
                         {item.winRatePercent != null && (
