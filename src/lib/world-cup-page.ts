@@ -5,7 +5,7 @@ import {
   SEO_DAILY_DATE,
 } from '@/lib/analysis-matches';
 import { seoArticles } from '@/lib/seo-articles';
-import { worldCupEvergreenArticles, WORLD_CUP_FORMAT_GUIDE_SLUG } from '@/lib/seo-articles-world-cup-evergreen';
+import { worldCupEvergreenArticles, WORLD_CUP_FORMAT_GUIDE_SLUG, WORLD_CUP_HOST_CITIES_GUIDE_SLUG } from '@/lib/seo-articles-world-cup-evergreen';
 import type { DailyAnalysisInput } from '@/types/daily-analysis';
 import type { SeoArticle } from '@/types/seo-article';
 
@@ -124,6 +124,7 @@ export const WORLD_CUP_INFO_CARDS: WorldCupInfoCard[] = [
     detail:
       '具體球場名單、開幕及決賽場地安排，請以 FIFA 與當地組委官方公布為準；本站不作臆測性列表。',
     tag: '主辦資訊',
+    href: getAnalysisUrl(WORLD_CUP_HOST_CITIES_GUIDE_SLUG),
   },
   {
     id: 'teams',

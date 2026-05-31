@@ -11,7 +11,7 @@ import {
   type WorldCupHotTeam,
   type WorldCupPredictionItem,
 } from '@/lib/world-cup-page';
-import { WORLD_CUP_FORMAT_GUIDE_SLUG } from '@/lib/seo-articles-world-cup-evergreen';
+import { WORLD_CUP_EVERGREEN_GUIDE_SLUGS } from '@/lib/seo-articles-world-cup-evergreen';
 
 const WC_TG_CTA_LABEL = '加入 TG 查看臨場更新';
 
@@ -64,7 +64,7 @@ export function WorldCup2026Content({
   heroHotMatch,
 }: WorldCup2026ContentProps) {
   const matchHotArticles = hotArticles.filter(
-    (item) => item.slug !== WORLD_CUP_FORMAT_GUIDE_SLUG
+    (item) => !WORLD_CUP_EVERGREEN_GUIDE_SLUGS.has(item.slug)
   );
 
   return (

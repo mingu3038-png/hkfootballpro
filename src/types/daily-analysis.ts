@@ -1,4 +1,4 @@
-import type { PreMatchBrief } from '@/types/analysis';
+import type { EvergreenBriefSection, PreMatchBrief } from '@/types/analysis';
 import type { CoverageTier } from '@/types/coverage-tier';
 
 /** 分析页球队（主队 / 客队） */
@@ -49,6 +49,8 @@ export interface DailyAnalysisOptions {
   contentType?: 'match' | 'evergreen';
   /** 專題長文底部延伸閱讀 */
   evergreenLinks?: Array<{ href: string; label: string }>;
+  /** 專題長文各段標題 */
+  evergreenBriefSections?: EvergreenBriefSection[];
 }
 
 /**

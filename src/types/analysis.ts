@@ -195,4 +195,12 @@ export interface PreMatchAnalysisDetail {
   contentType?: 'match' | 'evergreen';
   /** 專題長文底部延伸閱讀 */
   evergreenLinks?: Array<{ href: string; label: string }>;
+  /** 專題長文各段標題（缺省用分析頁預設） */
+  evergreenBriefSections?: EvergreenBriefSection[];
+}
+
+/** 專題長文 · 段落標題 */
+export interface EvergreenBriefSection {
+  key: keyof PreMatchBrief;
+  label: string;
 }

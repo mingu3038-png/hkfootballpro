@@ -372,7 +372,7 @@ export function PreMatchAnalysisView({ data, tgCopy }: PreMatchAnalysisViewProps
             </h2>
             {isEvergreen ? (
               <ul className="adx-brief-list">
-                {EVERGREEN_BRIEF_SECTIONS.map((section) => (
+                {(data.evergreenBriefSections ?? EVERGREEN_BRIEF_SECTIONS).map((section) => (
                   <li key={section.key} className="adx-brief-item">
                     <h3 className="adx-brief-item__label">{section.label}</h3>
                     <BriefParagraphs text={brief[section.key]} />

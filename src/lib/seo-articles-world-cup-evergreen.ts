@@ -2,6 +2,12 @@
 import type { SeoArticle } from '@/types/seo-article';
 
 export const WORLD_CUP_FORMAT_GUIDE_SLUG = 'world-cup-2026-format-48-teams-hong-kong-guide';
+export const WORLD_CUP_HOST_CITIES_GUIDE_SLUG = 'world-cup-2026-host-cities-hong-kong-guide';
+
+export const WORLD_CUP_EVERGREEN_GUIDE_SLUGS = new Set([
+  WORLD_CUP_FORMAT_GUIDE_SLUG,
+  WORLD_CUP_HOST_CITIES_GUIDE_SLUG,
+]);
 
 export const worldCupEvergreenArticles: SeoArticle[] = [
   {
@@ -44,6 +50,63 @@ export const worldCupEvergreenArticles: SeoArticle[] = [
       publishedAt: '2026-05-29T02:00:00.000Z',
       evergreenLinks: [
         { href: '/world-cup-2026', label: '2026 世界盃專題' },
+        { href: '/football-analysis', label: '足球分析' },
+        { href: '/disclaimer', label: '免責聲明' },
+      ],
+    },
+  },
+  {
+    slug: WORLD_CUP_HOST_CITIES_GUIDE_SLUG,
+    title: '2026 世界盃主辦城市與觀賽安排整理',
+    match: {
+      home: { slug: 'host-cities', nameZh: '主辦城市', abbr: 'CITY' },
+      away: { slug: 'viewing-guide', nameZh: '觀賽安排', abbr: 'VIEW' },
+      league: { slug: 'world-cup-2026', nameZh: '世界盃專題' },
+      kickoffAt: '2026-05-30T02:00:00.000Z',
+      kickoffTime: '專題',
+    },
+    direction: '資訊整理',
+    analysis: {
+      homeForm:
+        '2026 年國際足協世界盃（FIFA World Cup）將由美國、加拿大及墨西哥合辦，是首屆橫跨三國、多座城市舉行的決賽周。對香港球迷而言，主辦城市分布、比賽場地與當地時間，直接影響追賽節奏、作息安排，以及日後是否規劃現場觀賽。本文整理合辦背景、主辦布局概念與港時觀賽要點，不列出任何未經 FIFA 確認的對陣、分組或開波時間表。\n\n快速重點：\n· 2026 世界盃由美國、加拿大、墨西哥合辦，賽事分散於北美多個主辦城市。\n· 主辦城市、比賽場地、揭幕及決賽安排，均以 FIFA 官方最新公布為準。\n· 香港與北美存在明顯時差，部分場次或落在凌晨、清晨或工作日上午（HKT）。\n· 三國合辦意味城市跨度大，追蹤完整賽程需預留較長時間。\n· 本文只作資訊整理，不構成投注建議。',
+      awayForm:
+        '與 2022 年卡塔爾世界盃「集中一地舉行」不同，2026 屆比賽將分散在美加墨多個城市。香港球迷若只關注自己支持的球隊，仍需要知道：比賽可能在不同主辦城市舉行，開波時間換算成 HKT 後會相差數小時。提前了解主辦布局，有助在 FIFA 公布正式賽程後，快速整理「必看場次」清單，並評估是否需要調整睡眠、工作安排，或規劃北美現場觀賽行程。',
+      attack:
+        '2026 世界盃由美國、加拿大及墨西哥共同主辦。三國合辦並非「每場比賽都在同一座城市」，而是按 FIFA 及主辦方協商，將不同階段比賽分配至各自主辦城市及場地。美國通常承載較多場次，加拿大及墨西哥亦各自設有主辦城市。\n\n分散舉辦的原因包括：利用現有大型體育場館、分散賽事運營壓力、覆蓋更廣的球迷市場等。對香港球迷的實際影響是：同一輪比賽的不同場次，可能落在不同時區、不同氣候條件的城市，觀賽體驗與 HKT 開波時間都會隨之變化。',
+      defense:
+        'FIFA 已公布 2026 世界盃將於美國、加拿大、墨西哥三地舉行，並曾發布主辦城市名單框架。具體包括哪些城市、各城市對應哪些球場、揭幕戰及決賽是否已確定場地等，請以 FIFA 官方網站及主辦方最新公告為準——本站不在此鎖定完整列表，以免與官方後續修訂不符。\n\n香港球迷查閱時，建議優先確認：主辦城市完整名單（是否增減）、各場地正式名稱與所在城市、特定場次（如揭幕、決賽）的舉辦地是否已公布。建議直接瀏覽 FIFA 2026 世界盃官方專題，查閱 Host Cities / Stadiums 相關頁面；亦可參考美國、加拿大、墨西哥足協及當地組委會的補充說明。若官方尚未公布某一場次的具體場地，請勿依賴非官方轉載或臆測性列表。',
+      motivation:
+        '北美橫跨多個時區，常見包括東部（ET）、中部（CT）、山地（MT）、太平洋（PT）等。香港時間（HKT）為 UTC+8，與美國東部冬季大約相差 13 小時、與太平洋冬季大約相差 16 小時（具體差值隨季節與是否實施夏令時間而變）。北美當地傍晚或晚上的比賽，在香港可能是翌日凌晨或清晨；北美下午的場次，在香港可能是上午或中午。\n\n美國及加拿大部分地区在每年約 3 月至 11 月實施夏令時間，實際開波時間換算成 HKT 時，可能與冬令時期相差 1 小時。建議在 FIFA 正式賽程公布後，按每場比賽所在城市的當地時間逐場換算。\n\n三國合辦下，主辦城市可能相距甚遠。若計劃現場觀賽，同一次北美行程未必能覆蓋所有想看的比賽。香港球迷遠程追賽主要受時差影響；若計劃親赴現場，還需考慮城市間航班、簽證（如有需要）、住宿高峰等——具體政策請查閱目的地官方資訊。\n\n實用安排：待官方賽程公布後，按 HKT 建立個人觀賽日曆；關注亞洲球隊場次時，留意比賽所在城市的當地時間；工作日場次的回放與轉播安排，以港澳持牌廣播機構公布為準；在官方賽程發布前，不宜預訂不可退款的機酒安排。',
+      pace:
+        '香港球迷若希望取得最準確的主辦城市與賽程資訊，建議查閱 FIFA 官方網站（主辦城市、場地、賽程、分組）、美國 / 加拿大 / 墨西哥足協，以及 FIFA 新聞稿（揭幕戰、決賽場地或賽程修訂）。本站會在 2026 世界盃專題頁持續整理公開資訊，動態數據以 FIFA 為準。\n\n本文只作資訊整理，幫助香港讀者理解 2026 世界盃美加墨合辦下的主辦布局與觀賽要點，不構成任何形式的賽事推介、投注建議或結果保證。主辦城市名單、比賽場地、賽程、開波時間及轉播安排，最終均以 FIFA 及官方主辦方公布為準。',
+    },
+    publishedAt: '2026-05-30T02:00:00.000Z',
+    seoTitle: '2026 世界盃主辦城市與觀賽安排整理｜香港球迷指南',
+    seoDescription:
+      '整理 2026 美加墨世界盃合辦背景、主辦城市與場地概念、北美時區與香港時間（HKT）觀賽要點；完整名單與賽程以 FIFA 官方公布為準，不構成投注建議。',
+    options: {
+      contentType: 'evergreen',
+      coverageTier: 'data_reference',
+      showOnHomepage: false,
+      featuredInLatest: false,
+      predictEnabled: false,
+      analysisPublished: true,
+      round: '專題整理',
+      publishedAt: '2026-05-30T02:00:00.000Z',
+      evergreenBriefSections: [
+        { key: 'homeForm', label: '引言與快速重點' },
+        { key: 'awayForm', label: '為何香港球迷需要提前了解主辦布局？' },
+        { key: 'attack', label: '美加墨三國合辦：背景與賽事分布' },
+        { key: 'defense', label: '主辦城市與比賽場地' },
+        { key: 'motivation', label: '香港球迷觀賽：時差、交通與安排' },
+        { key: 'pace', label: '如何持續追蹤官方更新' },
+      ],
+      evergreenLinks: [
+        { href: '/world-cup-2026', label: '2026 世界盃專題' },
+        {
+          href: '/analysis/world-cup-2026-format-48-teams-hong-kong-guide',
+          label: '2026 世界盃賽制與 48 隊整理',
+        },
         { href: '/football-analysis', label: '足球分析' },
         { href: '/disclaimer', label: '免責聲明' },
       ],

@@ -306,6 +306,7 @@ export function buildAnalysisPage(input: DailyAnalysisInput): PreMatchAnalysisDe
     coverageTier: o.coverageTier,
     contentType: o.contentType ?? 'match',
     evergreenLinks: o.evergreenLinks,
+    evergreenBriefSections: o.evergreenBriefSections,
     modelWinRate: o.modelWinRate ?? base.modelWinRate,
     publishedAt: o.publishedAt ?? base.publishedAt,
     recommendation: {
@@ -323,7 +324,8 @@ export function buildAnalysisPage(input: DailyAnalysisInput): PreMatchAnalysisDe
     detail.riskWarning = {
       level: 'low',
       items: [
-        '本文純屬資訊整理，不構成任何形式的賽事推介、投注建議或結果保證。',
+        '本文只作資訊整理，不構成任何形式的賽事推介、投注建議或結果保證。',
+        '最終賽程、場地與開波時間以 FIFA 及主辦方公布為準。',
         '文中如有與 FIFA 官方最新公告不符之處，以官方為準。',
       ],
     };
