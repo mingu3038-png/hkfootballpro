@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { SiteHeaderMobile } from '@/components/layout/SiteHeaderMobile';
 import { mainNav } from '@/config/navigation';
 import { siteConfig } from '@/config/site';
-import { resolveTelegramUrl, TELEGRAM_CTA_LABEL } from '@/lib/telegram';
+import { resolveTelegramUrl } from '@/lib/telegram';
 
 export function SiteHeader() {
   const tgUrl = resolveTelegramUrl();
@@ -49,14 +49,14 @@ export function SiteHeader() {
               rel="noopener noreferrer"
               className="site-header__tg site-header__tg--desktop"
             >
-              {TELEGRAM_CTA_LABEL}
+              加入 TG 查看臨場更新
             </a>
             <div className="site-header__desktop-actions">
               <Link
                 href="/predict"
                 className="site-header__btn site-header__btn--primary site-header__btn--compact btn btn-primary"
               >
-                立即竞猜
+                立即競猜
               </Link>
               <Link
                 href="/login"

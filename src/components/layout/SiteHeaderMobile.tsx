@@ -30,7 +30,7 @@ export function SiteHeaderMobile() {
   return (
     <div className="site-header-mob lg:hidden">
       <div className="site-header-mob__bar">
-        <Link href="/" className="site-header-mob__logo" aria-label="返回首页">
+        <Link href="/" className="site-header-mob__logo" aria-label="返回首頁">
           <Image
             src={siteConfig.brandLogo}
             alt=""
@@ -55,6 +55,7 @@ export function SiteHeaderMobile() {
             target="_blank"
             rel="noopener noreferrer"
             className="site-header-mob__tg"
+            aria-label="加入 TG 查看臨場更新"
           >
             TG
           </a>
@@ -63,7 +64,7 @@ export function SiteHeaderMobile() {
             className="site-header-mob__menu-btn"
             aria-expanded={open}
             aria-controls="site-header-mob-panel"
-            aria-label={open ? '关闭导航菜单' : '打开导航菜单'}
+            aria-label={open ? '關閉導航選單' : '打開導航選單'}
             onClick={() => setOpen((value) => !value)}
           >
             <span className="site-header-mob__menu-icon" aria-hidden>
@@ -109,7 +110,7 @@ export function SiteHeaderMobile() {
           <button
             type="button"
             className="site-header-mob__backdrop"
-            aria-label="关闭导航菜单"
+            aria-label="關閉導航選單"
             onClick={close}
           />
           <nav
