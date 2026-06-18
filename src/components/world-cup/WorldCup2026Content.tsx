@@ -6,9 +6,11 @@ import {
   formatWcDisplayText,
   resolveWorldCupArticleCategory,
   WORLD_CUP_INFO_CARDS,
+  WC_PAGE_PLACEHOLDER_COPY,
   type WorldCupArticleItem,
   type WorldCupHeroHotMatch,
   type WorldCupHotTeam,
+  type WorldCupKickoffStatus,
   type WorldCupPredictionItem,
 } from '@/lib/world-cup-page';
 import { WORLD_CUP_EVERGREEN_GUIDE_SLUGS } from '@/lib/seo-articles-world-cup-evergreen';
@@ -21,8 +23,9 @@ interface WorldCup2026ContentProps {
   hotArticles: WorldCupArticleItem[];
   todayPredictions: WorldCupPredictionItem[];
   todayDate: string;
+  kickoffStatus: WorldCupKickoffStatus;
   daysUntilKickoff: number;
-  heroHotMatch: WorldCupHeroHotMatch;
+  heroHotMatch: WorldCupHeroHotMatch | null;
 }
 
 function articleCategoryClass(category: ReturnType<typeof resolveWorldCupArticleCategory>): string {
@@ -60,6 +63,7 @@ export function WorldCup2026Content({
   hotArticles,
   todayPredictions,
   todayDate,
+  kickoffStatus,
   daysUntilKickoff,
   heroHotMatch,
 }: WorldCup2026ContentProps) {
@@ -71,7 +75,11 @@ export function WorldCup2026Content({
     <>
       <WorldCupTicker items={tickerItems} />
 
-      <WorldCup2026Hero daysUntilKickoff={daysUntilKickoff} hotMatch={heroHotMatch} />
+      <WorldCup2026Hero
+        kickoffStatus={kickoffStatus}
+        daysUntilKickoff={daysUntilKickoff}
+        hotMatch={heroHotMatch}
+      />
 
       <section className="wc26-section wc26-section--teams" aria-labelledby="wc26-teams-title">
         <header className="wc26-section__head">
@@ -149,7 +157,7 @@ export function WorldCup2026Content({
             ))}
           </ul>
         ) : (
-          <p className="wc26-section__empty">暫無相關國際賽事 · 專題資訊見下方</p>
+          <p className="wc26-section__empty">{WC_PAGE_PLACEHOLDER_COPY}</p>
         )}
       </section>
 

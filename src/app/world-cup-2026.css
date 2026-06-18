@@ -1378,6 +1378,32 @@
   animation: none;
 }
 
+.wc26-hero__stat-value--status {
+  font-size: clamp(calc(0.72rem * var(--wc26-fs)), 2.4vw, calc(0.95rem * var(--wc26-fs)));
+  font-weight: 800;
+  line-height: 1.25;
+  white-space: normal;
+  text-overflow: unset;
+  overflow: visible;
+}
+
+.wc26-hero__feature--placeholder {
+  cursor: default;
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.025);
+  box-shadow: none;
+}
+
+.wc26-hero__feature--placeholder .wc26-hero__feature-line {
+  margin: 0.35rem 0 0.45rem;
+  font-size: calc(0.88rem * var(--wc26-fs));
+  font-weight: 700;
+  color: rgba(250, 250, 250, 0.82);
+  -webkit-line-clamp: unset;
+  display: block;
+  overflow: visible;
+}
+
 .wc26-hero__eyebrow {
   color: rgba(250, 250, 250, 0.45);
 }

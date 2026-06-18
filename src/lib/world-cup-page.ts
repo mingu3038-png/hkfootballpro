@@ -157,6 +157,59 @@ export const WORLD_CUP_INFO_CARDS: WorldCupInfoCard[] = [
 /** 2026 世界杯开幕日（揭幕战） */
 export const WORLD_CUP_2026_KICKOFF_DATE = '2026-06-11';
 
+/** 世界盃專題頁不再展示的過期場次 */
+export const WC_PAGE_EXPIRED_MATCH_SLUGS = new Set(['germany-vs-finland-2026-05-31']);
+
+export const WC_PAGE_PLACEHOLDER_COPY = '最新世界盃賽事內容整理中';
+
+const SLUG_TRAILING_DATE_RE = /(\d{4}-\d{2}-\d{2})$/;
+
+function extractSlugTrailingDate(slug: string): string | null {
+  const match = slug.match(SLUG_TRAILING_DATE_RE);
+  return match?.[1] ?? null;
+}
+
+/** 專題頁日期基準：取站內 SEO 當日與系統日期較新者 */
+export function getWorldCupPageReferenceDate(): string {
+  const today = new Date().toISOString().slice(0, 10);
+  return today > SEO_DAILY_DATE ? today : SEO_DAILY_DATE;
+}
+
+/** 2026 世界盃是否已開幕（以專題頁日期基準） */
+export function isWorldCup2026InProgress(
+  refDate = getWorldCupPageReferenceDate()
+): boolean {
+  return refDate >= WORLD_CUP_2026_KICKOFF_DATE;
+}
+
+export type WorldCupKickoffStatus = 'countdown' | 'in_progress';
+
+export function getWorldCupKickoffStatus(
+  refDate = getWorldCupPageReferenceDate()
+): WorldCupKickoffStatus {
+  return isWorldCup2026InProgress(refDate) ? 'in_progress' : 'countdown';
+}
+
+function isExpiredWcPageMatchSlug(slug: string, refDate: string): boolean {
+  if (WC_PAGE_EXPIRED_MATCH_SLUGS.has(slug)) return true;
+  const slugDate = extractSlugTrailingDate(slug);
+  return slugDate !== null && slugDate < refDate;
+}
+
+function isValidWcPageLiveArticle(article: SeoArticle, refDate: string): boolean {
+  if (isFictionalWcMatchSlug(article.slug)) return false;
+  if (isExpiredWcPageMatchSlug(article.slug, refDate)) return false;
+  if (isWorldCupLeagueSlug(article.match.league.slug)) return false;
+  return true;
+}
+
+function isValidWcPageLiveAnalysis(input: DailyAnalysisInput, refDate: string): boolean {
+  if (isFictionalWcMatchSlug(input.slug)) return false;
+  if (isExpiredWcPageMatchSlug(input.slug, refDate)) return false;
+  if (isWorldCupLeagueSlug(input.league.slug)) return false;
+  return true;
+}
+
 const HERO_HOT_MATCH_SLUG = 'psg-vs-arsenal-2026-05-30';
 
 const TEAM_META: Record<
@@ -326,10 +379,18 @@ export function getWorldCupHotTeams(): WorldCupHotTeam[] {
 
 /** 顶部动态条文案（精简） */
 export function getWorldCupTickerItems(): string[] {
+  if (isWorldCup2026InProgress()) {
+    return [
+      '2026 世界盃進行中 · 美加墨 48 隊',
+      `${WC_PAGE_PLACEHOLDER_COPY} · 以 FIFA 官方公布為準`,
+    ];
+  }
+
   const days = getWorldCupDaysUntilKickoff();
   return [
-    `距 2026 世界盃開幕 ${days} 天 · 美加墨 48 隊`,
-    '歐冠決賽 巴黎聖日耳曼 vs 阿仙奴 03:00 · 前哨觀察',
+    days > 0
+      ? `距 2026 世界盃開幕 ${days} 天 · 美加墨 48 隊`
+      : '2026 世界盃進行中 · 美加墨 48 隊',
     '世界盃專題資訊整理中 · 敬請留意更新',
   ];
 }
@@ -406,13 +467,12 @@ export function getWorldCupHotArticles(limit = 6): WorldCupArticleItem[] {
 
 /** 今日世界杯相关预测（国际赛前哨 · 热门球队相关；不含虚构 WC 对阵） */
 export function getTodayWorldCupPredictions(limit = 5): WorldCupPredictionItem[] {
+  const refDate = getWorldCupPageReferenceDate();
   const hotSlugs = new Set(WORLD_CUP_HOT_TEAMS.map((t) => t.slug));
 
   const todayFromSeo = seoArticles
     .filter((a) => {
-      if (isFictionalWcMatchSlug(a.slug) || isWorldCupLeagueSlug(a.match.league.slug)) {
-        return false;
-      }
+      if (!isValidWcPageLiveArticle(a, refDate)) return false;
       const { home, away } = a.match;
       return hotSlugs.has(home.slug) || hotSlugs.has(away.slug);
     })
@@ -425,8 +485,7 @@ export function getTodayWorldCupPredictions(limit = 5): WorldCupPredictionItem[]
   const todayHotTeam = getTodayAnalysisMatches()
     .filter(
       (m) =>
-        !isFictionalWcMatchSlug(m.slug) &&
-        !isWorldCupLeagueSlug(m.league.slug) &&
+        isValidWcPageLiveAnalysis(m, refDate) &&
         (hotSlugs.has(m.home.slug) || hotSlugs.has(m.away.slug))
     )
     .slice(0, limit)
@@ -497,21 +556,25 @@ export function resolveWorldCupArticleCategory(
   return '數據參考';
 }
 
-/** 距世界杯开幕剩余天数（以 SEO 当日为基准） */
-export function getWorldCupDaysUntilKickoff(fromDate = SEO_DAILY_DATE): number {
+/** 距世界杯开幕剩余天数（以專題頁日期基準；已開幕則為 0） */
+export function getWorldCupDaysUntilKickoff(
+  fromDate = getWorldCupPageReferenceDate()
+): number {
+  if (isWorldCup2026InProgress(fromDate)) return 0;
   const from = new Date(`${fromDate}T12:00:00`);
   const kickoff = new Date(`${WORLD_CUP_2026_KICKOFF_DATE}T12:00:00`);
   const diffMs = kickoff.getTime() - from.getTime();
   return Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
 }
 
-/** Hero · 前哨國際賽（優先於歐冠等非世界盃賽事） */
-function findPrecursorHeroArticle(): SeoArticle | undefined {
+/** Hero · 前哨國際賽（僅開幕前、且為當日有效場次） */
+function findPrecursorHeroArticle(refDate: string): SeoArticle | undefined {
+  if (isWorldCup2026InProgress(refDate)) return undefined;
+
   const hotSlugs = new Set(WORLD_CUP_HOT_TEAMS.map((team) => team.slug));
   return seoArticles.find(
     (article) =>
-      !isFictionalWcMatchSlug(article.slug) &&
-      !isWorldCupLeagueSlug(article.match.league.slug) &&
+      isValidWcPageLiveArticle(article, refDate) &&
       article.match.league.slug === 'international' &&
       (hotSlugs.has(article.match.home.slug) || hotSlugs.has(article.match.away.slug))
   );
@@ -534,29 +597,23 @@ function mapSeoArticleToHero(article: SeoArticle): WorldCupHeroHotMatch {
   };
 }
 
-/** Hero · 今日主推 */
-export function getWorldCupHeroHotMatch(): WorldCupHeroHotMatch {
-  const precursor = findPrecursorHeroArticle();
+/** Hero · 今日主推（無當日已確認賽事時返回 null） */
+export function getWorldCupHeroHotMatch(): WorldCupHeroHotMatch | null {
+  const refDate = getWorldCupPageReferenceDate();
+
+  if (isWorldCup2026InProgress(refDate)) {
+    return null;
+  }
+
+  const precursor = findPrecursorHeroArticle(refDate);
   if (precursor) {
     return mapSeoArticleToHero(precursor);
   }
 
   const article = seoArticles.find((a) => a.slug === HERO_HOT_MATCH_SLUG);
-  if (article) {
+  if (article && isValidWcPageLiveArticle(article, refDate)) {
     return mapSeoArticleToHero(article);
   }
 
-  return {
-    slug: HERO_HOT_MATCH_SLUG,
-    href: getAnalysisUrl(HERO_HOT_MATCH_SLUG),
-    league: '歐冠決賽',
-    kickoffTime: '03:00',
-    homeSlug: 'psg',
-    awaySlug: 'arsenal',
-    homeNameZh: '巴黎聖日耳曼',
-    awayNameZh: '阿仙奴',
-    direction: '巴黎聖日耳曼 -0.25',
-    winRatePercent: null,
-    headline: '歐冠決賽前哨 · 站內數據整理，非世界盃正賽程。',
-  };
+  return null;
 }

@@ -2,7 +2,13 @@ import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import { TeamLogo } from '@/components/ui/TeamLogo';
 import { resolveTelegramUrl } from '@/lib/telegram';
-import { formatWcDisplayText, isWorldCupFixtureLeague, type WorldCupHeroHotMatch } from '@/lib/world-cup-page';
+import {
+  formatWcDisplayText,
+  isWorldCupFixtureLeague,
+  WC_PAGE_PLACEHOLDER_COPY,
+  type WorldCupHeroHotMatch,
+  type WorldCupKickoffStatus,
+} from '@/lib/world-cup-page';
 
 const WC_TG_CTA_LABEL = '加入 TG 查看臨場更新';
 
@@ -17,18 +23,24 @@ function TelegramIcon({ className }: { className?: string }) {
 }
 
 interface WorldCup2026HeroProps {
+  kickoffStatus: WorldCupKickoffStatus;
   daysUntilKickoff: number;
-  hotMatch: WorldCupHeroHotMatch;
+  hotMatch: WorldCupHeroHotMatch | null;
 }
 
-export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026HeroProps) {
+export function WorldCup2026Hero({
+  kickoffStatus,
+  daysUntilKickoff,
+  hotMatch,
+}: WorldCup2026HeroProps) {
   const tgUrl = resolveTelegramUrl();
-  const isWcFixture = isWorldCupFixtureLeague(hotMatch.league);
-  const league = formatWcDisplayText(hotMatch.league);
-  const headline = hotMatch.headline ? formatWcDisplayText(hotMatch.headline) : '';
-  const direction = hotMatch.direction ? formatWcDisplayText(hotMatch.direction) : '';
-  const homeName = formatWcDisplayText(hotMatch.homeNameZh);
-  const awayName = formatWcDisplayText(hotMatch.awayNameZh);
+  const isInProgress = kickoffStatus === 'in_progress';
+  const isWcFixture = hotMatch ? isWorldCupFixtureLeague(hotMatch.league) : false;
+  const league = hotMatch ? formatWcDisplayText(hotMatch.league) : '';
+  const headline = hotMatch?.headline ? formatWcDisplayText(hotMatch.headline) : '';
+  const direction = hotMatch?.direction ? formatWcDisplayText(hotMatch.direction) : '';
+  const homeName = hotMatch ? formatWcDisplayText(hotMatch.homeNameZh) : '';
+  const awayName = hotMatch ? formatWcDisplayText(hotMatch.awayNameZh) : '';
   const featureLabel = isWcFixture ? '今日關注賽事' : '今日國際賽數據參考';
   const featureClassName = isWcFixture
     ? 'wc26-hero__feature'
@@ -60,8 +72,19 @@ export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026Her
 
         <div className="wc26-hero__stats" aria-label="世界盃專題概覽">
           <div className="wc26-hero__stat wc26-hero__stat--primary">
-            <span className="wc26-hero__stat-value">{daysUntilKickoff}</span>
-            <span className="wc26-hero__stat-label">天後開幕</span>
+            {isInProgress ? (
+              <>
+                <span className="wc26-hero__stat-value wc26-hero__stat-value--status">
+                  2026 世界盃進行中
+                </span>
+                <span className="wc26-hero__stat-label">賽事狀態</span>
+              </>
+            ) : (
+              <>
+                <span className="wc26-hero__stat-value">{daysUntilKickoff}</span>
+                <span className="wc26-hero__stat-label">天後開幕</span>
+              </>
+            )}
           </div>
           <div className="wc26-hero__stat">
             <span className="wc26-hero__stat-value">48</span>
@@ -75,48 +98,56 @@ export function WorldCup2026Hero({ daysUntilKickoff, hotMatch }: WorldCup2026Her
 
         <div className="wc26-hero__grid">
           <div className="wc26-hero__left">
-            <Link href={hotMatch.href} className={featureClassName}>
-              <span className="wc26-hero__feature-glow" aria-hidden />
-              <div className="wc26-hero__feature-top">
-                <span className="wc26-hero__feature-label">{featureLabel}</span>
-                <span className="wc26-hero__feature-league">{league}</span>
-              </div>
-              {!isWcFixture && (
-                <p className="wc26-hero__feature-note">非世界盃正賽程 · 前哨賽事數據整理</p>
-              )}
-              <time className="wc26-hero__feature-time">開賽時間 {hotMatch.kickoffTime}</time>
-              <div className="wc26-hero__feature-matchup">
-                <div className="wc26-hero__feature-team">
-                  <TeamLogo
-                    slug={hotMatch.homeSlug}
-                    className="wc26-hero__feature-logo"
-                    alt={homeName}
-                  />
-                  <span className="wc26-hero__feature-team-name">{homeName}</span>
+            {hotMatch ? (
+              <Link href={hotMatch.href} className={featureClassName}>
+                <span className="wc26-hero__feature-glow" aria-hidden />
+                <div className="wc26-hero__feature-top">
+                  <span className="wc26-hero__feature-label">{featureLabel}</span>
+                  <span className="wc26-hero__feature-league">{league}</span>
                 </div>
-                <span className="wc26-hero__feature-vs">VS</span>
-                <div className="wc26-hero__feature-team">
-                  <TeamLogo
-                    slug={hotMatch.awaySlug}
-                    className="wc26-hero__feature-logo"
-                    alt={awayName}
-                  />
-                  <span className="wc26-hero__feature-team-name">{awayName}</span>
+                {!isWcFixture && (
+                  <p className="wc26-hero__feature-note">非世界盃正賽程 · 前哨賽事數據整理</p>
+                )}
+                <time className="wc26-hero__feature-time">開賽時間 {hotMatch.kickoffTime}</time>
+                <div className="wc26-hero__feature-matchup">
+                  <div className="wc26-hero__feature-team">
+                    <TeamLogo
+                      slug={hotMatch.homeSlug}
+                      className="wc26-hero__feature-logo"
+                      alt={homeName}
+                    />
+                    <span className="wc26-hero__feature-team-name">{homeName}</span>
+                  </div>
+                  <span className="wc26-hero__feature-vs">VS</span>
+                  <div className="wc26-hero__feature-team">
+                    <TeamLogo
+                      slug={hotMatch.awaySlug}
+                      className="wc26-hero__feature-logo"
+                      alt={awayName}
+                    />
+                    <span className="wc26-hero__feature-team-name">{awayName}</span>
+                  </div>
                 </div>
+                {headline && <p className="wc26-hero__feature-line">{headline}</p>}
+                <div className="wc26-hero__feature-actions">
+                  <span className="wc26-hero__feature-tag">數據參考</span>
+                  {direction && (
+                    <span className="wc26-hero__feature-dir">盤口參考 · {direction}</span>
+                  )}
+                  {hotMatch.winRatePercent != null && (
+                    <span className="wc26-hero__feature-rate">
+                      模型參考率 {hotMatch.winRatePercent}%
+                    </span>
+                  )}
+                </div>
+              </Link>
+            ) : (
+              <div className="wc26-hero__feature wc26-hero__feature--placeholder">
+                <span className="wc26-hero__feature-label">世界盃賽事</span>
+                <p className="wc26-hero__feature-line">{WC_PAGE_PLACEHOLDER_COPY}</p>
+                <p className="wc26-hero__feature-note">以 FIFA 官方公布為準 · 本站不列出未經確認的對陣</p>
               </div>
-              {headline && <p className="wc26-hero__feature-line">{headline}</p>}
-              <div className="wc26-hero__feature-actions">
-                <span className="wc26-hero__feature-tag">數據參考</span>
-                {direction && (
-                  <span className="wc26-hero__feature-dir">盤口參考 · {direction}</span>
-                )}
-                {hotMatch.winRatePercent != null && (
-                  <span className="wc26-hero__feature-rate">
-                    模型參考率 {hotMatch.winRatePercent}%
-                  </span>
-                )}
-              </div>
-            </Link>
+            )}
           </div>
 
           <aside className="wc26-hero__right">

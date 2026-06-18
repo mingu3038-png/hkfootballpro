@@ -6,6 +6,7 @@ import {
   getWorldCupHeroHotMatch,
   getWorldCupHotArticles,
   getWorldCupHotTeams,
+  getWorldCupKickoffStatus,
   getWorldCupTickerItems,
   WORLD_CUP_TODAY_DATE,
 } from '@/lib/world-cup-page';
@@ -23,6 +24,7 @@ export default function WorldCupPage() {
   const hotArticles = getWorldCupHotArticles();
   const todayPredictions = getTodayWorldCupPredictions();
   const daysUntilKickoff = getWorldCupDaysUntilKickoff();
+  const kickoffStatus = getWorldCupKickoffStatus();
   const heroHotMatch = getWorldCupHeroHotMatch();
   const tickerItems = getWorldCupTickerItems();
 
@@ -36,6 +38,7 @@ export default function WorldCupPage() {
           hotArticles={hotArticles}
           todayPredictions={todayPredictions}
           todayDate={WORLD_CUP_TODAY_DATE}
+          kickoffStatus={kickoffStatus}
           daysUntilKickoff={daysUntilKickoff}
           heroHotMatch={heroHotMatch}
         />
