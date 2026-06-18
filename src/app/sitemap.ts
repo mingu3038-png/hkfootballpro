@@ -5,6 +5,11 @@ import { mockAnalyses } from '@/lib/mock-data';
 import { getAllDailyBatchSeoArticles } from '@/lib/daily-analysis-registry';
 import { worldCupEvergreenArticles } from '@/lib/seo-articles-world-cup-evergreen';
 import { SITEMAP_ORIGIN, SITEMAP_STATIC_PATHS } from '@/lib/seo/sitemap-config';
+import {
+  dedupeSitemapEntries,
+  shouldIncludeLeagueAnalysisInSitemap,
+  shouldIncludePreMatchAnalysisInSitemap,
+} from '@/lib/seo/sitemap-filters';
 import type { LeagueSlug } from '@/config/leagues';
 
 const leagueSlugMap: Record<string, LeagueSlug> = {
@@ -22,25 +27,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: path === '' ? 1 : path === '/live-scores' || path === '/world-cup-2026' ? 0.9 : 0.7,
   }));
 
-  const leagueAnalysisPages = Object.entries(mockAnalyses).map(([slug, detail]) => {
-    const leagueSlug = leagueSlugMap[detail.league.slug] ?? 'epl';
-    return {
-      url: `${base}${getMatchAnalysisUrl(leagueSlug, slug)}`,
-      lastModified: new Date(detail.analysis.publishedAt),
-      changeFrequency: 'daily' as const,
-      priority: 0.8,
-    };
-  });
+  const leagueAnalysisPages = Object.entries(mockAnalyses)
+    .map(([slug, detail]) => {
+      const leagueSlug = leagueSlugMap[detail.league.slug] ?? 'epl';
+      return {
+        url: `${base}${getMatchAnalysisUrl(leagueSlug, slug)}`,
+        lastModified: new Date(detail.analysis.publishedAt),
+        changeFrequency: 'daily' as const,
+        priority: 0.8,
+      };
+    })
+    .filter((entry) => {
+      const slug = entry.url.split('/').pop() ?? '';
+      return shouldIncludeLeagueAnalysisInSitemap(slug, entry.url);
+    });
 
   const preMatchAnalysisPages = [
     ...getAllDailyBatchSeoArticles(),
     ...worldCupEvergreenArticles,
-  ].map((article) => ({
-    url: `${base}${getAnalysisUrl(article.slug)}`,
-    lastModified: new Date(article.publishedAt),
-    changeFrequency: 'weekly' as const,
-    priority: 0.85,
-  }));
+  ]
+    .filter((article) => shouldIncludePreMatchAnalysisInSitemap(article.slug))
+    .map((article) => ({
+      url: `${base}${getAnalysisUrl(article.slug)}`,
+      lastModified: new Date(article.publishedAt),
+      changeFrequency: 'weekly' as const,
+      priority: 0.85,
+    }));
 
-  return [...staticEntries, ...leagueAnalysisPages, ...preMatchAnalysisPages];
+  return dedupeSitemapEntries([
+    ...staticEntries,
+    ...leagueAnalysisPages,
+    ...preMatchAnalysisPages,
+  ]);
 }
